@@ -270,6 +270,22 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
         </div>
         <div class="img-caption-bar"><p class="img-caption-text">The heuristic audit spreadsheet: every violation across 8+ domains, categorized by Nielsen's 10 heuristics, severity-rated, and paired with specific recommendations. Weeks of systematic work made visible.</p></div>
       </div>
+ 
+      <!-- INTERACTIVE JOURNEY MAP -->
+      <div style="margin:24px 0;">
+        <div class="cs-section-label" aria-hidden="true">Interactive prototype</div>
+        <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
+          <iframe
+            src="splunk_journey_map.html"
+            style="width:100%;height:620px;border:none;display:block;"
+            title="Splunk Customer Experience Journey Map — interactive prototype"
+            loading="lazy">
+          </iframe>
+        </div>
+        <p style="font-size:11px;color:var(--dim);font-style:italic;margin-top:10px;line-height:1.6;">
+          Built in Claude Code for stakeholder accessibility — click any stage or domain card to explore cross-domain pain points and recommendations.
+        </p>
+      </div>
 
       <div class="two-col" aria-label="Audit deliverables and impact">
         <div class="col-card">
@@ -341,27 +357,30 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
       </div>
 
       <div class="img-block" aria-label="Live Demo Center on splunk.com">
-        <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">LIVE: Screenshot of the Demo Center on splunk.com</span>
-          <span class="img-caption">This shipped during my internship. Show the live URL if possible.</span>
-        </div>
-        <div class="img-caption-bar"><p class="img-caption-text">The Demo Center live on splunk.com. Navigation reduced from 3+ clicks (Resources > Filter > Product Tours) to a single prominent entry point from the homepage.</p></div>
-      </div>
+  <div class="img-accent-line"></div>
+  <video
+    src="democenter.mp4"
+    loop muted playsinline
+    style="width:100%;display:block;max-height:480px;object-fit:cover;">
+  </video>
+  <div class="img-caption-bar"><p class="img-caption-text">The Demo Center live on splunk.com. Navigation reduced from 3+ clicks (Resources > Filter > Product Tours) to a single prominent entry point from the homepage.</p></div>
+</div>
     </section>
 
     <section id="ai" class="cs-section" aria-labelledby="ai-h">
       <div class="cs-section-label" aria-hidden="true">AI code snippet</div>
-      <h2 class="cs-h2" id="ai-h">A drop-off moment no one had addressed. An agentic AI solution. A hackathon to prove it.</h2>
-      <p class="cs-p">Through research, I identified that code snippets on Splunk's technical blogs were a high-intent drop-off point. The pattern was consistent: user reads a post, encounters a code snippet, copies it, leaves the site. Copying code signals that a user is engaged and ready to act. But Splunk was doing nothing with that moment.</p>
-      <p class="cs-p">During Cisco's org-wide hackathon, I entered as the only UX intern participating. Before designing anything, I spent time understanding Cisco's existing AI infrastructure and agentic AI architecture. I needed to know whether what I was designing was actually buildable, not just conceptually appealing. That research shaped every design decision that followed.</p>
+      <h2 class="cs-h2" id="ai-h">A drop-off moment no one had addressed with an Agentic AI solution.</h2>
+      <p class="cs-p">Through research, I identified that code snippets on Splunk's technical blogs were a high-intent drop-off point. The pattern was consistent: user reads a post, encounters a code snippet, copies it, leaves the site. Copying code signals that a user is engaged and ready to act but Splunk was doing nothing with that moment.</p>
+      <p class="cs-p">During a hackathon, I entered as the only UX intern participating and uncovered this issue with the team. Before designing anything, I spent time understanding Cisco's existing AI architecture, and that research shaped every design decision that followed.</p>
       <p class="cs-p">The concept: when a user copies a code snippet, trigger contextual AI-powered resource recommendations through Cisco's LLM pipeline. The timing is right, the intent is high, and the recommendations are specific to what the user just copied.</p>
 
       <div class="img-block" aria-label="AI code snippet feature design and interaction spec">
         <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">AI FEATURE: hi-fi prototype recording or the responsive design spec delivered to engineering</span>
-        </div>
+       <div class="img-accent-line"></div>
+  <img
+    src="UI Specs.png"
+    alt="Screenshot of UI Design specs for code snippet in Figma"
+    style="width:100%;display:block;max-height:480px;object-fit:cover;">
         <div class="img-caption-bar"><p class="img-caption-text">The AI code snippet feature: when a user copies code, contextual resource recommendations surface through Cisco's LLM pipeline. Responsive specs delivered for desktop, tablet, and mobile.</p></div>
       </div>
 
