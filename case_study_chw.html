@@ -70,7 +70,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.2;font-family:Georgia,serif;line-height:1;}
 .pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
 .pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
-/* CONFLICT CARD - distinct from tradeoff, signals real tension */
 .conflict{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
 .conflict-label{font-size:10px;color:var(--conflict);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
 .conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
@@ -111,8 +110,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .footer-link:hover{color:var(--text);}
 .footer-cta{font-size:12px;color:#7AB4D8;text-decoration:none;border:.5px solid #1E3048;border-radius:4px;padding:7px 16px;transition:background .2s;}
 .footer-cta:hover{background:#0D1620;}
-
-/* DECISION CARDS */
 .decision-grid{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
 .decision-card{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:.5px solid var(--border);border-radius:8px;overflow:hidden;}
 .decision-card.conflict-card{border-left:2px solid var(--conflict);}
@@ -136,6 +133,26 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
 .img-caption-text strong{color:var(--muted);font-weight:400;}
 
+/* ── CHART STYLES ── */
+.chart-block{margin:22px 0;background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;position:relative;z-index:1;}
+.chart-block .img-accent-line{position:absolute;top:0;left:0;height:1.5px;width:40px;background:var(--accent);z-index:2;}
+.chart-header{padding:22px 24px 0;}
+.chart-eyebrow{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px;}
+.chart-title{font-size:15px;font-weight:400;color:var(--text);letter-spacing:-.01em;margin-bottom:5px;}
+.chart-sub{font-size:12px;color:var(--dim);line-height:1.6;}
+.chart-body{padding:20px 24px 24px;}
+.chart-footer{padding:12px 24px;border-top:.5px solid var(--border);display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--border);}
+.stat-cell{background:var(--surface);padding:18px 20px;}
+.stat-cell+.stat-cell{border-left:.5px solid var(--border);}
+.stat-year{font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px;}
+.stat-n{font-size:24px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;}
+.stat-badge{display:inline-block;margin-top:6px;font-size:10px;color:var(--accent);background:var(--accent-bg);border:.5px solid var(--accent-border);padding:2px 8px;border-radius:20px;}
+.stat-badge.baseline{color:var(--dim);background:transparent;border-color:var(--border);}
+
 @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:900px){
   .g-nav{padding:0 32px;}
@@ -156,6 +173,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .hero-media-inner{padding:60px 32px;}
   .g-footer{padding:28px 32px;}
   .cs-title{font-size:30px;}
+  .stat-row{grid-template-columns:1fr;}
+  .stat-cell+.stat-cell{border-left:none;border-top:.5px solid var(--border);}
 }
 @media(max-width:600px){
   .g-nav{padding:0 20px;}
@@ -305,20 +324,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
       <div class="img-block" aria-label="Figma component library and design system">
         <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">↑ FIGMA: component library overview or design system documentation. This proves you built infrastructure, not just aesthetics.</span>
-        </div>
+        <div class="img-block" aria-label="Figma component library and design system">
+  <img src="chw-library.png" alt="Figma component library overview" style="width:100%;display:block;">
+</div>
       </div>
     </section>
 
     <section id="conflict" class="cs-section" aria-labelledby="conf-h">
       <div class="cs-section-label" aria-hidden="true">The conflict</div>
       <h2 class="cs-h2" id="conf-h">Staff wanted more text. Data said that was exactly why students left.</h2>
-      <p class="cs-p">The most persistent tension throughout this project was not technical. It was organizational. Staff members consistently pushed for pages dense with written content. From their perspective, more information meant more clarity. From the data, it meant more abandonment.</p>
+      <p class="cs-p">Staff members consistently pushed for pages dense with written content because they thought more information meant more clarity. From the data, it meant more abandonment.</p>
 
       <div class="conflict-header" aria-label="The recurring stakeholder conflict">
         <div class="conflict-header-label">The recurring conflict</div>
-        <div class="conflict-header-text">Every major redesign triggered the same pattern: I'd present clean, hierarchy-driven layouts. Staff would ask for more text added back. Their concern was legitimate — health info is complex and legally sensitive. But data consistently showed long text blocks were the primary drop-off driver.</div>
+        <div class="conflict-header-text"> Staff's concern was legitimate in that health info is complex and legally sensitive. But data consistently showed long text blocks were the primary drop-off driver.</div>
       </div>
       <div class="decision-grid" aria-label="How I navigated the conflict">
         <div class="decision-card conflict-card">
@@ -344,7 +363,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <div class="decision-card tradeoff-card">
           <div class="dc-tension">
             <div class="dc-tag tension-tag">The solution wasn't less info</div>
-            <div class="dc-text">Cutting content entirely wasn't the answer — some of it was genuinely important.</div>
+            <div class="dc-text">Cutting content entirely wasn't the answer as a lot of it was genuinely important.</div>
           </div>
           <div class="dc-resolution">
             <div class="dc-tag resolution-tag">Better architecture</div>
@@ -357,7 +376,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <section id="research" class="cs-section" aria-labelledby="res-h">
       <div class="cs-section-label" aria-hidden="true">Research</div>
       <h2 class="cs-h2" id="res-h">No formal research budget. Five channels I built myself.</h2>
-      <p class="cs-p">Cal Poly had institutional focus groups, but they recycled the same participants, ran on slow timelines, and rarely surfaced actionable findings. I built a parallel research practice from scratch, running five channels simultaneously to stay close to real student behavior without waiting months for formal results.</p>
+      <p class="cs-p">Cal Poly had institutional focus groups, but they recycled the same participants and ran on slow timelines. I built a parallel research practice from scratch, running five channels simultaneously to stay close to real student behavior without waiting months for formal results.</p>
 
       <div class="two-col" aria-label="Research channels and findings">
         <div class="col-card">
@@ -378,30 +397,53 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         </div>
       </div>
 
-      <div class="img-block" aria-label="Research artifacts: affinity mapping or analytics data">
+      <!-- DROP-OFF CHART: replaces the research analytics placeholder -->
+      <div class="chart-block" aria-label="Views vs engaged sessions before redesign">
         <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">↑ RESEARCH: FigJam affinity map, survey results summary, or Google Analytics drop-off screenshot</span>
+        <div class="chart-header">
+          <div class="chart-eyebrow">Analytics · Before redesign · 2022–23</div>
+          <div class="chart-title">Views vs engaged sessions by page</div>
+          <div class="chart-sub">High traffic, low retention. The gap between arrivals and engagement revealed a trust problem, not a discoverability one.</div>
+        </div>
+        <div class="chart-body">
+          <div style="position:relative;width:100%;height:260px;">
+            <canvas id="dropoffChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-footer">
+          <div class="legend-item"><span class="legend-dot" style="background:#2a2c2b;border:.5px solid #3d3d3a;"></span>Total views</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#6BBFB0;"></span>Engaged sessions</div>
+          <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--dim);font-style:italic;">Data: Sept 2022 – Sept 2023</div>
         </div>
       </div>
     </section>
 
     <section id="design" class="cs-section" aria-labelledby="des-h">
       <div class="cs-section-label" aria-hidden="true">Design</div>
-      <h2 class="cs-h2" id="des-h">System first. Pages second. No exceptions.</h2>
-      <p class="cs-p">The first two months were not about designing anything visible. They were about understanding exactly what Drupal could and could not do, auditing existing brand assets (there were almost none), and building the Figma component library that every subsequent page would be built from.</p>
+      <h2 class="cs-h2" id="des-h">System first. Pages second.</h2>
+      <p class="cs-p">The first two months were not about designing anything visible. They were about understanding exactly what Drupal could and could not do, auditing existing brand assets, and building the Figma component library that every subsequent page would be built from.</p>
       <p class="cs-p">The component library included: header styles at three hierarchy levels, button and CTA treatments, color palette aligned to CHW brand guidelines, accessibility checklists, and detailed documentation on what was and was not possible to implement in Drupal. This was the design system that the department had never had and now would keep long after I left.</p>
 
       <div class="img-row" aria-label="Before and after page comparison">
-        <div class="img-block" aria-label="Before redesign: original page">
-          <div class="img-accent-line"></div>
-          <div class="img-inner short"><span class="img-label">↑ BEFORE: one specific high-traffic page in its original state</span></div>
-        </div>
-        <div class="img-block" aria-label="After redesign: same page redesigned">
-          <div class="img-accent-line"></div>
-          <div class="img-inner short"><span class="img-label">↑ AFTER: same page after redesign. The visual contrast should do the work.</span></div>
-        </div>
-      </div>
+  <div class="img-block" aria-label="Before redesign: original page">
+    <div class="img-accent-line"></div>
+    <div style="padding:24px;display:flex;justify-content:center;background:var(--surface);">
+      <img src="chw-beforeimage.png" alt="Original high-traffic page before redesign" style="width:60%;border-radius:16px;display:block;">
+    </div>
+    <div class="img-caption-bar">
+      <div class="img-caption-text">Before — original page</div>
+    </div>
+  </div>
+  <div class="img-block" aria-label="After redesign: same page redesigned">
+    <div class="img-accent-line"></div>
+    <div style="padding:24px;display:flex;justify-content:center;background:var(--surface);">
+      <img src="chw-afterimage.png" alt="Same page after redesign" style="width:60%;border-radius:16px;display:block;">
+    </div>
+    <div class="img-caption-bar">
+      <div class="img-caption-text">After — redesigned page</div>
+    </div>
+  </div>
+</div>
 
       <div class="tradeoff-header" aria-label="STI awareness campaign">
         <div class="tradeoff-header-label">Special project: STI awareness campaign</div>
@@ -421,11 +463,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       </div>
 
       <div class="img-block" aria-label="STI campaign final design and survey booth">
-        <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">↑ STI CAMPAIGN: final design assets or the survey booth photo outside the health center</span>
-        </div>
-      </div>
+  <div class="img-accent-line"></div>
+  <img src="survey.jpeg" alt="STI awareness campaign survey booth outside the health center" style="width:100%;display:block;">
+</div>
     </section>
 
     <section id="outcome" class="cs-section" aria-labelledby="out-h">
@@ -434,11 +474,38 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       <p class="cs-p">In the first full year after the redesign, engaged sessions grew from 13,003 to 102,652. That is a 690% increase. Drop-off rates fell 60% across redesigned pages. For the first time, students were mentioning the portal as something genuinely useful, not something to avoid.</p>
       <p class="cs-p">Beyond the metrics: I established the UX function at Cal Poly Campus Health entirely from scratch. I built the design system the department will use long after I leave. And I shipped 100% of everything I designed over two years. Every single page went live.</p>
 
-      <div class="img-block" aria-label="Google Analytics results showing engagement growth">
+      <!-- GROWTH CHART: replaces the analytics screenshot placeholder -->
+      <div class="chart-block" aria-label="Engaged sessions growth over three years">
         <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">↑ ANALYTICS: Google Analytics screenshot showing the engagement growth curve from 13K to 102K sessions</span>
-          <span class="img-caption">A real screenshot of actual numbers lands harder than any designed stat card.</span>
+        <div class="stat-row">
+          <div class="stat-cell">
+            <div class="stat-year">Year 1 · 2022–23</div>
+            <div class="stat-n">13K</div>
+            <div class="stat-lbl">engaged sessions</div>
+            <div class="stat-badge baseline">baseline</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-year">Year 2 · 2023–24</div>
+            <div class="stat-n">102K</div>
+            <div class="stat-lbl">engaged sessions</div>
+            <div class="stat-badge">↑ 690%</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-year">Year 3 · 2024–25</div>
+            <div class="stat-n">200K+</div>
+            <div class="stat-lbl">engaged sessions</div>
+            <div class="stat-badge">↑ continued growth</div>
+          </div>
+        </div>
+        <div class="chart-header" style="padding-top:20px;">
+          <div class="chart-eyebrow">Outcome · Engagement growth</div>
+          <div class="chart-title">Engaged sessions over three years</div>
+          <div class="chart-sub">From 13,003 at baseline to 200,000+ confirmed — a 15× increase across the redesign period.</div>
+        </div>
+        <div class="chart-body">
+          <div style="position:relative;width:100%;height:200px;">
+            <canvas id="growthChart"></canvas>
+          </div>
         </div>
       </div>
     </section>
@@ -485,6 +552,106 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
   </nav>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+const gridColor = 'rgba(255,255,255,0.04)';
+const tickColor = '#686460';
+const labelColor = '#A8A29A';
+
+// Growth chart
+new Chart(document.getElementById('growthChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2022–23', '2023–24', '2024–25'],
+    datasets: [{
+      data: [13003, 102652, 200000],
+      backgroundColor: ['#1D3D39', '#3d8f84', '#6BBFB0'],
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#161818',
+        borderColor: '#1E2020',
+        borderWidth: 0.5,
+        titleColor: '#DDD8D0',
+        bodyColor: '#A8A29A',
+        padding: 12,
+        callbacks: {
+          label: ctx => ctx.raw === 200000
+            ? '  200,000+ (confirmed floor)'
+            : '  ' + ctx.raw.toLocaleString() + ' engaged sessions'
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { color: labelColor, font: { size: 12 } } },
+      y: {
+        grid: { color: gridColor },
+        border: { display: false },
+        ticks: { color: tickColor, font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'K' : v }
+      }
+    }
+  }
+});
+
+// Drop-off chart
+new Chart(document.getElementById('dropoffChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Home', 'Counseling', 'Immunizations', 'About Us', 'Pharmacy', 'Immuniz. (Aug)', 'Basic Needs'],
+    datasets: [
+      {
+        label: 'Total views',
+        data: [9336, 4568, 3742, 2067, 1820, 1224, 1108],
+        backgroundColor: '#2a2c2b',
+        borderRadius: 4,
+        borderSkipped: false,
+      },
+      {
+        label: 'Engaged sessions',
+        data: [4127, 1890, 1583, 864, 807, 535, 500],
+        backgroundColor: '#6BBFB0',
+        borderRadius: 4,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#161818',
+        borderColor: '#1E2020',
+        borderWidth: 0.5,
+        titleColor: '#DDD8D0',
+        bodyColor: '#A8A29A',
+        padding: 12,
+        callbacks: {
+          label: ctx => '  ' + ctx.dataset.label + ': ' + ctx.raw.toLocaleString()
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { color: labelColor, font: { size: 11 }, maxRotation: 30 } },
+      y: {
+        grid: { color: gridColor },
+        border: { display: false },
+        ticks: { color: tickColor, font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(1) + 'K' : v }
+      }
+    }
+  }
+});
+</script>
 
 <script>
 (function(){
