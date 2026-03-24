@@ -534,6 +534,25 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
     });
   });
 
+   /* ── HOVER TO PLAY VIDEOS ── */
+  document.querySelectorAll('.cs-row').forEach(row => {
+    const video = row.querySelector('video');
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
+    row.addEventListener('mouseenter', () => {
+      video.play().catch(() => {});
+    });
+    row.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+    // mobile tap
+    row.addEventListener('click', () => {
+      if (video.paused) video.play().catch(() => {});
+    });
+  });
+
 })();
 </script>
 </body>
