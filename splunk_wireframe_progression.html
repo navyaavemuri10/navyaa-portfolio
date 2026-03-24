@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splunk Demo Center — Wireframe Progression</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#ffffff;
+  --surface:#F5F4F1;
+  --border:rgba(0,0,0,.12);
+  --border-mid:rgba(0,0,0,.2);
+  --text:#1A1810;
+  --text-sec:#5F5E5A;
+  --text-ter:#888780;
+}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);padding:0;color:var(--text);}
+.prog-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--border-mid);border-radius:12px;overflow:hidden;}
+.prog-col{display:flex;flex-direction:column;border-right:0.5px solid var(--border-mid);}
+.prog-col:last-child{border-right:none;}
+.col-header{padding:14px 16px 12px;border-bottom:0.5px solid var(--border-mid);display:flex;flex-direction:column;gap:4px;background:var(--surface);}
+.col-phase{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;}
+.col-title{font-size:14px;font-weight:500;color:var(--text);}
+.col-versions{font-size:11px;color:var(--text-ter);}
+.col-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px;flex:1;background:var(--bg);}
+.lf{background:var(--bg);border:0.5px solid var(--border-mid);border-radius:6px;padding:8px;display:flex;flex-direction:column;gap:4px;}
+.lf-nav{height:7px;background:#D3D1C7;border-radius:2px;}
+.b{height:5px;border-radius:2px;background:#D3D1C7;}
+.b.short{width:60%;}.b.shorter{width:40%;}
+.box{background:var(--surface);border-radius:3px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.card{background:var(--surface);border-radius:3px;padding:4px;display:flex;flex-direction:column;gap:2px;}
+.card-img{height:20px;background:#D3D1C7;border-radius:2px;}
+.row-layout{display:flex;gap:4px;}
+.sidebar{width:26%;background:var(--surface);border-radius:3px;padding:4px;display:flex;flex-direction:column;gap:2px;}
+.main-col{flex:1;display:flex;flex-direction:column;gap:3px;}
+.badge{display:inline-flex;font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;align-self:flex-start;}
+.resp-bar{display:flex;gap:4px;align-items:center;margin-top:2px;}
+.resp-icon{width:14px;height:10px;border:1px solid #B4B2A9;border-radius:1px;flex-shrink:0;}
+.resp-icon.tablet{width:10px;height:13px;}
+.resp-icon.mobile{width:7px;height:12px;}
+.resp-icon.active{border-color:#185FA5;background:#E6F1FB;}
+.resp-label{font-size:11px;color:var(--text-ter);}
+.changes{display:flex;flex-direction:column;gap:6px;}
+.change-item{font-size:11px;color:var(--text-sec);padding-left:16px;position:relative;line-height:1.55;}
+.change-item::before{content:'';position:absolute;left:2px;top:6px;width:7px;height:7px;border-radius:50%;}
+.change-item.added::before{background:#185FA5;}
+.change-item.added{color:#0C447C;}
+.change-item.changed::before{background:#BA7517;}
+.change-item.changed{color:#633806;}
+.change-item.carried::before{background:#B4B2A9;}
+.change-item.carried{color:var(--text-sec);}
+.change-item.shipped::before{background:#0F6E56;}
+.change-item.shipped{color:#085041;}
+.change-item.research::before{background:#993556;}
+.change-item.research{color:#72243E;}
+.divider{height:0.5px;background:var(--border);margin:2px 0;}
+.ut-banner{background:#FBEAF0;border:0.5px solid #ED93B1;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:5px;}
+.ut-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#72243E;}
+.ut-text{font-size:11px;color:#72243E;line-height:1.6;}
+.legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;align-items:center;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-sec);}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.legend-divider{width:0.5px;height:16px;background:var(--border-mid);margin:0 4px;}
+.resp-legend{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text-sec);}
+.resp-legend-icon{border-radius:1px;border:1px solid #185FA5;background:#E6F1FB;}
+</style>
+</head>
+<body>
+
+<div class="prog-wrap">
+
+  <!-- LOW FI -->
+  <div class="prog-col">
+    <div class="col-header">
+      <span class="col-phase" style="color:#5F5E5A;">low fidelity</span>
+      <span class="col-title">Structure & hierarchy</span>
+      <span class="col-versions">V1 — V3</span>
+    </div>
+    <div class="col-body">
+      <div class="lf">
+        <div class="lf-nav"></div>
+        <div style="display:flex;gap:4px;margin:2px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b"></div><div class="b short"></div></div>
+          <div style="width:35%;height:28px;" class="box"></div>
+        </div>
+        <div class="b shorter" style="margin-top:2px;"></div>
+        <div class="grid-3">
+          <div class="card"><div class="card-img"></div><div class="b short"></div></div>
+          <div class="card"><div class="card-img"></div><div class="b short"></div></div>
+          <div class="card"><div class="card-img"></div><div class="b short"></div></div>
+        </div>
+        <div class="grid-3" style="margin-top:2px;">
+          <div class="card"><div class="card-img"></div><div class="b short"></div></div>
+          <div class="card"><div class="card-img"></div><div class="b short"></div></div>
+          <div class="card"><div class="card-img"></div><div class="b short"></div></div>
+        </div>
+        <div style="margin-top:3px;background:var(--surface);border-radius:3px;padding:5px;display:flex;flex-direction:column;gap:2px;">
+          <div class="b shorter"></div><div class="b short"></div>
+        </div>
+        <div style="margin-top:3px;background:var(--surface);border-radius:3px;padding:4px;display:flex;gap:3px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+        </div>
+      </div>
+
+      <span class="badge" style="background:#F1EFE8;color:#444441;">V1 → V3 shifts</span>
+
+      <div class="changes">
+        <div class="change-item changed">CTA moved above fold for discoverability</div>
+        <div class="change-item changed">grid density reduced — more breathing room</div>
+        <div class="change-item added">filter bar introduced as concept</div>
+        <div class="change-item added">customer quotes added to build user trust</div>
+        <div class="change-item added">splunk product descriptions added below demos</div>
+        <div class="change-item carried">hero with featured demo remains</div>
+      </div>
+
+      <div class="divider"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <span style="font-size:11px;font-weight:500;color:var(--text-sec);">responsive thinking</span>
+        <div class="resp-bar">
+          <div class="resp-icon active"></div>
+          <div class="resp-icon tablet"></div>
+          <div class="resp-icon mobile"></div>
+          <span class="resp-label">desktop-first · breakpoints noted for later</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MID FI -->
+  <div class="prog-col">
+    <div class="col-header">
+      <span class="col-phase" style="color:#185FA5;">mid fidelity</span>
+      <span class="col-title">Content & components</span>
+      <span class="col-versions">V4 — V7</span>
+    </div>
+    <div class="col-body">
+      <div class="lf">
+        <div class="lf-nav"></div>
+        <div style="display:flex;gap:4px;align-items:center;background:var(--surface);border-radius:3px;padding:5px;margin:2px 0;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b short"></div><div class="b shorter"></div></div>
+          <div style="height:16px;border-radius:3px;width:30%;background:#185FA5;opacity:.5;"></div>
+        </div>
+        <div class="row-layout">
+          <div class="sidebar">
+            <div class="b shorter"></div>
+            <div class="b shorter" style="width:90%;"></div>
+            <div class="b shorter" style="width:75%;"></div>
+            <div class="b shorter" style="width:80%;"></div>
+          </div>
+          <div class="main-col">
+            <div class="b shorter"></div>
+            <div class="grid-3">
+              <div class="card"><div class="card-img"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card"><div class="card-img"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card"><div class="card-img"></div><div class="b short"></div><div class="b shorter"></div></div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><div class="card-img"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card"><div class="card-img"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card"><div class="card-img"></div><div class="b short"></div><div class="b shorter"></div></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:4px;background:#E6F1FB;border-radius:3px;padding:5px;display:flex;gap:4px;align-items:center;">
+          <div style="width:26px;height:26px;border-radius:50%;background:#D3D1C7;flex-shrink:0;"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b short"></div><div class="b shorter"></div></div>
+          <div style="display:flex;gap:3px;align-items:center;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#185FA5;"></div>
+            <div style="width:6px;height:6px;border-radius:50%;background:#D3D1C7;"></div>
+            <div style="width:6px;height:6px;border-radius:50%;background:#D3D1C7;"></div>
+          </div>
+        </div>
+        <div style="margin-top:3px;background:var(--surface);border-radius:3px;padding:4px;display:flex;gap:3px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+        </div>
+      </div>
+
+      <span class="badge" style="background:#E6F1FB;color:#0C447C;">V4 → V7 shifts</span>
+
+      <div class="changes">
+        <div class="change-item added">real product names and content replace all placeholders</div>
+        <div class="change-item added">card component finalized — duration label, CTA per card</div>
+        <div class="change-item added">filter sidebar finalized — category, format, product, industry</div>
+        <div class="change-item changed">customer quotes evolved into carousel — based on high-performing component pattern</div>
+        <div class="change-item carried">splunk product descriptions maintained — supported by user data</div>
+        <div class="change-item changed">spacing system defined — 8pt grid applied throughout</div>
+      </div>
+
+      <div class="divider"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <span style="font-size:11px;font-weight:500;color:var(--text-sec);">responsive thinking</span>
+        <div class="resp-bar">
+          <div class="resp-icon active"></div>
+          <div class="resp-icon tablet active"></div>
+          <div class="resp-icon mobile"></div>
+          <span class="resp-label">tablet breakpoint specced · sidebar collapses to drawer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HI FI -->
+  <div class="prog-col">
+    <div class="col-header">
+      <span class="col-phase" style="color:#0F6E56;">high fidelity · shipped</span>
+      <span class="col-title">Polish & launch</span>
+      <span class="col-versions">V8 — live on splunk.com</span>
+    </div>
+    <div class="col-body">
+      <div class="ut-banner">
+        <span class="ut-label">user testing · between V7 and V8</span>
+        <span class="ut-text">moderated sessions with real users validated card layout, filter behavior, and navigation depth — findings directly informed V8 final decisions</span>
+      </div>
+
+      <div class="lf" style="border-color:#0F6E56;">
+        <div class="lf-nav" style="background:#185FA5;opacity:.5;"></div>
+        <div style="display:flex;flex-direction:column;gap:2px;padding:3px 0;">
+          <div class="b" style="width:55%;background:#185FA5;opacity:.4;"></div>
+          <div class="b shorter"></div>
+        </div>
+        <div class="row-layout">
+          <div class="sidebar" style="border:0.5px solid var(--border);">
+            <div class="b shorter" style="background:#185FA5;opacity:.4;"></div>
+            <div class="b shorter" style="width:90%;"></div>
+            <div class="b shorter" style="width:75%;"></div>
+            <div class="b shorter" style="width:80%;"></div>
+            <div class="b shorter" style="width:65%;"></div>
+          </div>
+          <div class="main-col">
+            <div style="display:flex;gap:3px;">
+              <div style="height:12px;width:30%;background:#185FA5;opacity:.5;border-radius:10px;"></div>
+              <div style="height:12px;width:22%;background:#D3D1C7;border-radius:10px;"></div>
+              <div style="height:12px;width:18%;background:#D3D1C7;border-radius:10px;"></div>
+            </div>
+            <div class="grid-3">
+              <div class="card" style="border:0.5px solid var(--border);"><div class="card-img" style="background:#185FA5;opacity:.25;"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card" style="border:0.5px solid var(--border);"><div class="card-img" style="background:#185FA5;opacity:.25;"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card" style="border:0.5px solid var(--border);"><div class="card-img" style="background:#185FA5;opacity:.25;"></div><div class="b short"></div><div class="b shorter"></div></div>
+            </div>
+            <div class="grid-3">
+              <div class="card" style="border:0.5px solid var(--border);"><div class="card-img" style="background:#185FA5;opacity:.25;"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card" style="border:0.5px solid var(--border);"><div class="card-img" style="background:#185FA5;opacity:.25;"></div><div class="b short"></div><div class="b shorter"></div></div>
+              <div class="card" style="border:0.5px solid var(--border);"><div class="card-img" style="background:#185FA5;opacity:.25;"></div><div class="b short"></div><div class="b shorter"></div></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:4px;background:#E1F5EE;border-radius:3px;padding:4px;display:flex;gap:3px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="b shorter"></div><div class="b short"></div></div>
+        </div>
+      </div>
+
+      <span class="badge" style="background:#E1F5EE;color:#085041;">V8 — stakeholder approved</span>
+
+      <div class="changes">
+        <div class="change-item research">user testing findings incorporated — filter UX refined, nav depth confirmed</div>
+        <div class="change-item shipped">all placeholder visuals replaced with actual product screenshots</div>
+        <div class="change-item shipped">Splunk brand fully applied — typography, color, iconography</div>
+        <div class="change-item shipped">category tabs replace section headers — 1-click navigation</div>
+        <div class="change-item shipped">engineering handoff specs delivered</div>
+        <div class="change-item shipped">live on splunk.com — 3+ clicks reduced to 1</div>
+      </div>
+
+      <div class="divider"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <span style="font-size:11px;font-weight:500;color:var(--text-sec);">responsive thinking</span>
+        <div class="resp-bar">
+          <div class="resp-icon active"></div>
+          <div class="resp-icon tablet active"></div>
+          <div class="resp-icon mobile active"></div>
+          <span class="resp-label">all three breakpoints specced and delivered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#185FA5;"></div>added</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#BA7517;"></div>changed</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#B4B2A9;"></div>carried over</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#993556;"></div>from user testing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0F6E56;"></div>shipped</div>
+  <div class="legend-divider"></div>
+  <div class="resp-legend"><div class="resp-legend-icon" style="width:14px;height:10px;"></div>&nbsp;desktop</div>
+  <div class="resp-legend"><div class="resp-legend-icon" style="width:10px;height:13px;"></div>&nbsp;tablet</div>
+  <div class="resp-legend"><div class="resp-legend-icon" style="width:7px;height:12px;"></div>&nbsp;mobile</div>
+</div>
+
+</body>
+</html>
