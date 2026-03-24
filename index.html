@@ -290,7 +290,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
       <div class="ml-text" role="heading" aria-level="1">
         <span class="ml-name" id="ml-name-heading"><span class="ml-hi">hi, i'm</span> Navyaa Vemuri.</span>
         <span class="ml-line">
-          A(n) <button class="ml-pill" id="pill-adj" aria-live="polite" aria-label="cycling descriptor, click to advance">detail-obsessed</button> designer,
+          <span id="pill-article">A</span> <button class="ml-pill" id="pill-adj" aria-live="polite" aria-label="cycling descriptor, click to advance">detail-obsessed</button> designer,
         </span>
         <span class="ml-line">
           <button class="ml-pill ml-pill-green" id="pill-role" aria-live="polite" aria-label="cycling role, click to advance">storyteller</button> &amp;
@@ -442,13 +442,14 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 
     <!-- NAVI -->
     <a class="cs-row" href="case_study_navi.html" role="listitem" aria-label="Navi Pedestrian Safety App case study">
-      <div class="cs-img" style="background:#0A1610;">
-        <div class="cs-img-bg" style="background-image:radial-gradient(circle,rgba(143,168,118,.08) 1px,transparent 1px);"></div>
-        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#8FA876;z-index:2;"></div>
-        <span class="cs-img-label">↑ drop your GIF or video here</span>
-        <div class="cs-blink" style="background:#8FA876;" aria-hidden="true"></div>
-        <div class="cs-play" aria-hidden="true"><div class="cs-play-ring"><svg viewBox="0 0 16 16"><polygon points="5,3 13,8 5,13"/></svg></div></div>
-      </div>
+      <div class="cs-img" style="background:#0E0808;">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#CC0000;z-index:2;"></div>
+    <video
+      src="navi.mp4"
+      autoplay loop muted playsinline
+      style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;">
+    </video>
+  </div>
       <div class="cs-content">
         <div class="cs-eyebrow">UX Fest SLO · 24-hour Designathon</div>
         <h2 class="cs-title">Navi — Pedestrian Safety App</h2>
@@ -507,15 +508,21 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
     setTimeout(() => {
       indices[id] = (indices[id] + 1) % pills[id].length;
       el.textContent = pills[id][indices[id]];
+if (id === 'pill-adj') {
+  const word = pills[id][indices[id]];
+  document.getElementById('pill-article').textContent = /^[aeiou]/i.test(word) ? 'An' : 'A';
+}
       el.classList.remove('flipping');
     }, 175); // swap text at midpoint of flip
   }
 
   // set initial text
   Object.keys(pills).forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = pills[id][0];
-  });
+  const el = document.getElementById(id);
+  if (el) el.textContent = pills[id][0];
+});
+const firstAdj = pills['pill-adj'][0];
+document.getElementById('pill-article').textContent = /^[aeiou]/i.test(firstAdj) ? 'An' : 'A';
 
   // auto-cycle with staggered starts
   Object.keys(pills).forEach(id => {
