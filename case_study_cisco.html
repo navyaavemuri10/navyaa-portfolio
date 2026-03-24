@@ -263,13 +263,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
       <p class="cs-p">I combed through every page, component, and user flow across Splunk's web ecosystem. Every violation was documented by heuristic, rated by severity (critical, major, or minor), and accompanied by screenshots and specific recommendations. The goal was not just to find problems but to give sprint teams something they could immediately act on.</p>
       <p class="cs-p">The audit also revealed something important: product teams working on individual domains had no visibility into the patterns across the whole ecosystem. Navigation inconsistencies, terminology fragmentation, and broken information flows only became visible when you looked at all eight domains together. That perspective was the unique value I could add.</p>
 
-      <div class="img-block" aria-label="Heuristic audit spreadsheet and interactive prototype">
-        <div class="img-accent-line"></div>
-        <div class="img-inner short">
-          <span class="img-label">AUDIT: Screenshot of the audit spreadsheet or the interactive recommendations prototype built in Claude Code</span>
-        </div>
-        <div class="img-caption-bar"><p class="img-caption-text">The heuristic audit spreadsheet: every violation across 8+ domains, categorized by Nielsen's 10 heuristics, severity-rated, and paired with specific recommendations. Weeks of systematic work made visible.</p></div>
-      </div>
+
  
       <!-- INTERACTIVE JOURNEY MAP -->
       <div style="margin:24px 0;">
@@ -277,7 +271,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
         <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
           <iframe
             src="splunk_journey_map.html"
-            style="width:100%;height:620px;border:none;display:block;"
+            style="width:100%;height:420px;border:none;display:block;"
             title="Splunk Customer Experience Journey Map — interactive prototype"
             loading="lazy">
           </iframe>
@@ -316,18 +310,17 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
         <cite>Mouseflow session analysis, June 2025</cite>
       </div>
 
-      <div class="img-row" aria-label="Demo Center wireframes and final design">
-        <div class="img-block" aria-label="Wireframes from low to mid fidelity">
-          <div class="img-accent-line"></div>
-          <div class="img-inner short"><span class="img-label">WIREFRAMES: low to mid-fi iterations with testing annotations</span></div>
-        </div>
-        <div class="img-block" aria-label="Final Demo Center high fidelity design">
-          <div class="img-accent-line"></div>
-          <div class="img-inner short"><span class="img-label">FINAL: high-fidelity Demo Center design that shipped</span></div>
-        </div>
-        <div class="img-caption-bar"><p class="img-caption-text">Wireframe progression from lo-fi sketches through mid-fi iterations. Each round incorporated findings from moderated UserTesting.com sessions.</p></div>
-        <div class="img-caption-bar"><p class="img-caption-text">The final Demo Center design: products front and center, category tabs for navigation, demo duration visible before starting. Now live on splunk.com.</p></div>
-      </div>
+      <div style="margin:24px 0;">
+  <div class="cs-section-label" aria-hidden="true">Wireframe progression</div>
+  <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
+    <iframe
+      src="splunk_wireframe_progression.html"
+      style="width:100%;height:720px;border:none;display:block;"
+      title="Splunk Demo Center wireframe progression — low fi to high fi"
+      loading="lazy">
+    </iframe>
+  </div>
+</div>
 
       <div class="conflict-header" aria-label="Stakeholder conflicts on Demo Center">
         <div class="conflict-header-label">The conflicts I navigated</div>
@@ -384,14 +377,16 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
         <div class="img-caption-bar"><p class="img-caption-text">The AI code snippet feature: when a user copies code, contextual resource recommendations surface through Cisco's LLM pipeline. Responsive specs delivered for desktop, tablet, and mobile.</p></div>
       </div>
 
-      <div class="conflict" aria-label="Stakeholder pushback on complexity">
-        <div class="conflict-label">Navigating pushback on complexity</div>
-        <div class="conflict-body">
-          <p>A senior stakeholder raised concerns that the feature was too complex and would create friction for technical users who simply want to copy code and move on. This was a reasonable concern that deserved a serious response.</p>
-          <p>I had recruited 6 technical users through UserTesting.com, specifically developers and engineers who matched the target audience. I ran moderated sessions testing both a lightweight version and the full AI-powered version. The results were clear: <strong>100% user satisfaction rate, and not a single user described the experience as complex or intrusive.</strong></p>
-          <p>I presented the session recordings alongside the satisfaction data and reframed the conversation: the concern was not wrong, but the evidence showed we had designed past it. I also made the business case explicitly: every user who copies a code snippet and leaves represents a missed opportunity. The AI feature captured that moment and turned it into continued engagement. Leadership recognized it as the most innovative submission in the hackathon. Engineering capacity and prioritization, not approval, was what stood between the design and shipping.</p>
-        </div>
-      </div>
+      <div style="margin:24px 0;">
+  <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
+    <iframe
+      src="cisco_pushback.html"
+      style="width:100%;height:420px;border:none;display:block;"
+      title="Navigating stakeholder pushback — user testing evidence"
+      loading="lazy">
+    </iframe>
+  </div>
+</div>
     </section>
 
     <section id="learnings" class="cs-section" aria-labelledby="learn-h">
