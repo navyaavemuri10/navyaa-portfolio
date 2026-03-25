@@ -29,7 +29,6 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .hero-media-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:80px 64px;position:relative;z-index:1;}
 .hero-media-tag{font-size:11px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;border:.5px solid var(--accent-border);background:var(--accent-bg);padding:4px 12px;border-radius:20px;}
 .hero-media-hint{font-size:13px;color:var(--dim);letter-spacing:.04em;}
-.hero-media::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--border) .5px,transparent .5px),linear-gradient(90deg,var(--border) .5px,transparent .5px);background-size:40px 40px;opacity:.5;pointer-events:none;}
 .page-wrap{max-width:1160px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:200px 1fr;gap:0;align-items:start;}
 .toc-col{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));padding:40px 32px 40px 0;overflow-y:auto;border-right:.5px solid var(--border);scrollbar-width:none;}
 .toc-col::-webkit-scrollbar{display:none;}
@@ -86,7 +85,6 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .img-inner.short{padding:44px 28px;}
 .img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
 .img-caption{font-size:11px;color:var(--dim);font-style:italic;margin-top:4px;}
-.img-block::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--border) .5px,transparent .5px),linear-gradient(90deg,var(--border) .5px,transparent .5px);background-size:40px 40px;opacity:.3;}
 .img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
 .img-row .img-block{margin:0;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
@@ -185,7 +183,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 </nav>
 
 <div class="hero-media" role="img" aria-label="Cisco Splunk Demo Center and AI feature preview">
-  <video src="democenter.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+  <video src="democenter.mp4" autoplay loop muted playsinline style="width:100%;height:300px%;object-fit:cover;display:block;"></video>
 </div>
 
 <div class="page-wrap">
@@ -506,9 +504,24 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
       </div>
 
       <div class="img-block" aria-label="User Testing Snapshot for Code Snippet">
-        <img src="testing.png"="width:100%;display:block;"></img>
-        <div class="img-caption-bar"><p class="img-caption-text">Analysis of user testing results from UserTesting.com on Figma.</p></div>
-      </div>
+  <img src="testing.png" style="width:100%;display:block;" alt="User testing analysis from UserTesting.com on Figma">
+  <div class="img-caption-bar"><p class="img-caption-text">Analysis of user testing results from UserTesting.com done in Figma.</p></div>
+</div>
+
+      <p class="cs-p">Once the concept was validated, I delivered full engineering-ready specs — not just pretty mockups. That meant spacing and sizing annotations, component states, responsive breakpoints for desktop, tablet, and mobile, interaction triggers, and color and typography tokens. The goal was that an engineer could pick this up without needing to ask me a single question.</p>
+
+<div class="img-row" aria-label="Design specs for AI code snippet feature">
+  <div class="img-block" aria-label="Visual design spec">
+    <div class="img-accent-line"></div>
+    <img src="spec-visual.png" style="width:100%;display:block;" alt="Visual design spec showing spacing annotations and component layout">
+    <div class="img-caption-bar"><p class="img-caption-text">Visual spec — spacing, sizing, responsive breakpoints, and color tokens.</p></div>
+  </div>
+  <div class="img-block" aria-label="Interaction design spec">
+    <div class="img-accent-line"></div>
+    <img src="spec-interaction.png" style="width:100%;display:block;" alt="Interaction spec showing component states and trigger flows">
+    <div class="img-caption-bar"><p class="img-caption-text">Interaction spec — component states (default, hover, active), trigger flows, and timing.</p></div>
+  </div>
+</div>
       
 
       <!-- AI UX CONSIDERATIONS -->
