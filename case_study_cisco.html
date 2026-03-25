@@ -81,8 +81,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .proj-num{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
 .proj-title{font-size:15px;color:var(--text);font-weight:400;margin-bottom:6px;}
 .proj-desc{font-size:13px;color:var(--muted);line-height:1.65;}
-.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
-.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
+.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:#0D0F0F;border:.5px solid var(--border);position:relative;}.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
 .img-inner{padding:64px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;position:relative;z-index:1;}
 .img-inner.short{padding:44px 28px;}
 .img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
@@ -186,8 +185,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 </nav>
 
 <div class="hero-media" role="img" aria-label="Cisco Splunk Demo Center and AI feature preview">
-        <img video="democenter.mp4"="width:100%;display:block;"></video>
-</div>
+  <video src="democenter.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
 </div>
 
 <div class="page-wrap">
