@@ -37,9 +37,9 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .toc-back:hover{color:var(--accent);}
 .toc-back:hover .back-arr{transform:translateX(-3px);}
 .back-arr{display:inline-block;transition:transform .2s;}
-.toc-label{font-size:9px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
+.toc-label{font-size:9px;color:var(--accent);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
 .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
-.toc-link{font-size:12px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
+.toc-link{font-size:14px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
 .toc-link:hover{color:var(--muted);border-left-color:var(--muted);padding-left:15px;}
 .toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
 .toc-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
@@ -51,7 +51,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;opacity:0;animation:up .5s .35s forwards;}
 .meta-cell{background:var(--surface);padding:16px 20px;}
 .meta-cell+.meta-cell{border-left:.5px solid var(--border);}
-.meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.meta-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
 .meta-val{font-size:13px;color:var(--text);line-height:1.4;}
 .impact-bar{padding:24px 28px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;margin-bottom:40px;opacity:0;animation:up .6s .45s forwards;}
 .impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
@@ -59,11 +59,11 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
 .stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
 .cs-section{margin-bottom:64px;}
-.cs-section-label{font-size:10px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.cs-section-label{font-size:10px;color:var(--accent);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
 .cs-section-label::after{content:"";flex:1;height:.5px;background:var(--border);}
 .cs-h2{font-size:21px;font-weight:300;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:14px;}
 .cs-h2 em{font-style:italic;color:var(--accent);}
-.cs-p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
+.cs-p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
 .cs-p:last-child{margin-bottom:0;}
 .cs-p strong{color:var(--text);font-weight:400;}
 .pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
@@ -137,7 +137,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .tradeoff-header-text{font-size:13px;color:var(--muted);line-height:1.65;}
 .tradeoff-header-text strong{color:var(--text);font-weight:400;}
 .img-caption-bar{padding:10px 18px;border-top:.5px solid var(--border);}
-.img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
+.img-caption-text{font-size:12px;color:var(--dim);line-height:1.6;}
 .img-caption-text strong{color:var(--muted);font-weight:400;}
 
 @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
@@ -263,15 +263,21 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
       <p class="cs-p">I combed through every page, component, and user flow across Splunk's web ecosystem. Every violation was documented by heuristic, rated by severity (critical, major, or minor), and accompanied by screenshots and specific recommendations. The goal was not just to find problems but to give sprint teams something they could immediately act on.</p>
       <p class="cs-p">The audit also revealed something important: product teams working on individual domains had no visibility into the patterns across the whole ecosystem. Navigation inconsistencies, terminology fragmentation, and broken information flows only became visible when you looked at all eight domains together. That perspective was the unique value I could add.</p>
 
+      <div class="img-block" aria-label="Heuristic audit spreadsheet and interactive prototype">
+        <div class="img-accent-line"></div>
+        <div class="img-inner short">
+          <span class="img-label">AUDIT: Screenshot of the audit spreadsheet or the interactive recommendations prototype built in Claude Code</span>
+        </div>
+        <div class="img-caption-bar"><p class="img-caption-text">The heuristic audit spreadsheet: every violation across 8+ domains, categorized by Nielsen's 10 heuristics, severity-rated, and paired with specific recommendations. Weeks of systematic work made visible.</p></div>
+      </div>
 
- 
       <!-- INTERACTIVE JOURNEY MAP -->
       <div style="margin:24px 0;">
         <div class="cs-section-label" aria-hidden="true">Interactive prototype</div>
         <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
           <iframe
             src="splunk_journey_map.html"
-            style="width:100%;height:420px;border:none;display:block;"
+            style="width:100%;height:620px;border:none;display:block;"
             title="Splunk Customer Experience Journey Map — interactive prototype"
             loading="lazy">
           </iframe>
@@ -310,17 +316,138 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
         <cite>Mouseflow session analysis, June 2025</cite>
       </div>
 
-      <div style="margin:24px 0;">
-  <div class="cs-section-label" aria-hidden="true">Wireframe progression</div>
-  <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
-    <iframe
-      src="splunk_wireframe_progression.html"
-      style="width:100%;height:720px;border:none;display:block;"
-      title="Splunk Demo Center wireframe progression — low fi to high fi"
-      loading="lazy">
-    </iframe>
-  </div>
-</div>
+      <!-- WIREFRAME PROGRESSION -->
+      <div style="margin:28px 0;" aria-label="Wireframe progression V1 to V8">
+        <div class="cs-section-label" aria-hidden="true">Wireframe progression</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+
+          <!-- LOW FI V1-V3 -->
+          <div style="background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:#1A1816;padding:7px 12px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">V1 – V3 &nbsp;·&nbsp; low fi</span>
+              <span style="font-size:9px;color:var(--dim);">structure</span>
+            </div>
+            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;">
+              <div style="height:6px;background:#2A2826;border-radius:2px;"></div>
+              <div style="display:flex;gap:5px;margin-top:2px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="height:4px;background:#2A2826;border-radius:2px;"></div><div style="height:3px;width:55%;background:#2A2826;border-radius:2px;"></div><div style="height:3px;width:35%;background:#2A2826;border-radius:2px;margin-top:2px;"></div></div>
+                <div style="width:36%;height:36px;background:#2A2826;border-radius:3px;"></div>
+              </div>
+              <div style="height:3px;width:40%;background:#2A2826;border-radius:2px;margin-top:2px;"></div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:2px;">
+                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+              </div>
+              <div style="background:#222;border-radius:3px;padding:5px;margin-top:2px;display:flex;gap:3px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:60%;background:#2A2826;border-radius:1px;"></div></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:60%;background:#2A2826;border-radius:1px;"></div></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:60%;background:#2A2826;border-radius:1px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MID FI V4-V7 -->
+          <div style="background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:#1A1816;padding:7px 12px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:10px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;">V4 – V7 &nbsp;·&nbsp; mid fi</span>
+              <span style="font-size:9px;color:var(--dim);">content</span>
+            </div>
+            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;">
+              <div style="height:6px;background:#2A2826;border-radius:2px;"></div>
+              <div style="display:flex;gap:4px;align-items:center;background:#1A2830;border-radius:3px;padding:5px;margin-top:2px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A3840;border-radius:1px;"></div><div style="height:2px;width:55%;background:#2A3840;border-radius:1px;"></div></div>
+                <div style="height:12px;width:26%;background:var(--accent);border-radius:3px;opacity:.35;"></div>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <div style="width:24%;background:#222;border-radius:3px;padding:4px;display:flex;flex-direction:column;gap:2px;">
+                  <div style="height:3px;background:#2A2826;border-radius:1px;"></div>
+                  <div style="height:2px;width:85%;background:#2A2826;border-radius:1px;"></div>
+                  <div style="height:2px;width:70%;background:#2A2826;border-radius:1px;"></div>
+                  <div style="height:2px;width:80%;background:#2A2826;border-radius:1px;"></div>
+                  <div style="height:2px;width:65%;background:#2A2826;border-radius:1px;"></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
+                  </div>
+                </div>
+              </div>
+              <div style="background:#1A2830;border-radius:3px;padding:5px;margin-top:2px;display:flex;gap:4px;align-items:center;">
+                <div style="width:20px;height:20px;border-radius:50%;background:#2A3840;flex-shrink:0;"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A3840;border-radius:1px;"></div><div style="height:2px;width:55%;background:#2A3840;border-radius:1px;"></div></div>
+                <div style="display:flex;gap:2px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.5;"></div><div style="width:5px;height:5px;border-radius:50%;background:#2A3840;"></div><div style="width:5px;height:5px;border-radius:50%;background:#2A3840;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HI FI V8 — mimics splunk.com/interactive-tours -->
+          <div style="background:var(--surface);border:.5px solid rgba(107,191,176,.35);border-radius:10px;overflow:hidden;">
+            <div style="background:#0C1A18;padding:7px 12px;border-bottom:.5px solid rgba(107,191,176,.2);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:10px;color:#6BBFB0;letter-spacing:.08em;text-transform:uppercase;">V8 &nbsp;·&nbsp; shipped</span>
+              <span style="font-size:9px;background:#0F6E56;color:#E1F5EE;padding:1px 7px;border-radius:10px;font-weight:500;">live</span>
+            </div>
+            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;">
+              <div style="height:6px;background:#1A2826;border-radius:2px;opacity:.7;"></div>
+              <!-- hero: featured demo left + list right -->
+              <div style="display:flex;gap:5px;margin-top:2px;">
+                <div style="flex:1.2;background:#1A2826;border-radius:4px;padding:6px;display:flex;flex-direction:column;gap:3px;">
+                  <div style="height:3px;width:35%;background:#6BBFB0;border-radius:1px;opacity:.4;"></div>
+                  <div style="height:3px;width:70%;background:#6BBFB0;border-radius:1px;opacity:.25;"></div>
+                  <div style="height:3px;width:55%;background:#1E3A34;border-radius:1px;margin-top:1px;"></div>
+                  <div style="height:22px;background:#0C2220;border-radius:3px;margin-top:3px;"></div>
+                  <div style="display:flex;gap:3px;margin-top:2px;">
+                    <div style="height:10px;width:38%;background:#6BBFB0;border-radius:2px;opacity:.35;"></div>
+                    <div style="height:10px;width:30%;background:#1E3A34;border-radius:2px;"></div>
+                  </div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;justify-content:center;">
+                  <div style="height:3px;width:80%;background:#1E3A34;border-radius:1px;"></div>
+                  <div style="height:3px;width:65%;background:#1E3A34;border-radius:1px;"></div>
+                  <div style="height:3px;width:72%;background:#1E3A34;border-radius:1px;"></div>
+                  <div style="height:3px;width:60%;background:#1E3A34;border-radius:1px;"></div>
+                  <div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div>
+                </div>
+              </div>
+              <!-- category tabs -->
+              <div style="display:flex;gap:4px;margin-top:3px;">
+                <div style="height:10px;width:30%;background:#6BBFB0;border-radius:10px;opacity:.4;"></div>
+                <div style="height:10px;width:30%;background:#1E3A34;border-radius:10px;"></div>
+                <div style="height:10px;width:30%;background:#1E3A34;border-radius:10px;"></div>
+              </div>
+              <!-- card grid -->
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:2px;">
+                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
+                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div style="display:flex;gap:14px;margin-top:8px;flex-wrap:wrap;align-items:center;">
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--dim);"><div style="width:6px;height:6px;border-radius:50%;background:var(--dim);"></div>structure carried</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--accent);"><div style="width:6px;height:6px;border-radius:50%;background:var(--accent);"></div>added / evolved</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#6BBFB0;"><div style="width:6px;height:6px;border-radius:50%;background:#6BBFB0;"></div>shipped on splunk.com</div>
+        </div>
+      </div>
 
       <div class="conflict-header" aria-label="Stakeholder conflicts on Demo Center">
         <div class="conflict-header-label">The conflicts I navigated</div>
@@ -349,55 +476,107 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
         </div>
       </div>
 
-      <div class="img-block" aria-label="Live Demo Center on splunk.com">
-  <div class="img-accent-line"></div>
-  <video
-    src="democenter.mp4"
-    loop muted playsinline
-    style="width:100%;display:block;max-height:480px;object-fit:cover;">
-  </video>
-  <div class="img-caption-bar"><p class="img-caption-text">The Demo Center live on splunk.com. Navigation reduced from 3+ clicks (Resources > Filter > Product Tours) to a single prominent entry point from the homepage.</p></div>
-</div>
+
+     <div class="img-block" aria-label="Live Demo Center on splunk.com">
+        <div class="img-accent-line"></div>
+        <video src="democenter.mp4" loop muted playsinline style="width:100%;display:block;"></video>
+        <div class="img-caption-bar"><p class="img-caption-text">The Demo Center live on splunk.com. Navigation reduced from 3+ clicks (Resources > Filter > Product Tours) to a single prominent entry point from the homepage.</p></div>
+      </div>
     </section>
 
     <section id="ai" class="cs-section" aria-labelledby="ai-h">
       <div class="cs-section-label" aria-hidden="true">AI code snippet</div>
-      <h2 class="cs-h2" id="ai-h">A drop-off moment no one had addressed with an Agentic AI solution.</h2>
-      <p class="cs-p">Through research, I identified that code snippets on Splunk's technical blogs were a high-intent drop-off point. The pattern was consistent: user reads a post, encounters a code snippet, copies it, leaves the site. Copying code signals that a user is engaged and ready to act but Splunk was doing nothing with that moment.</p>
-      <p class="cs-p">During a hackathon, I entered as the only UX intern participating and uncovered this issue with the team. Before designing anything, I spent time understanding Cisco's existing AI architecture, and that research shaped every design decision that followed.</p>
-      <p class="cs-p">The concept: when a user copies a code snippet, trigger contextual AI-powered resource recommendations through Cisco's LLM pipeline. The timing is right, the intent is high, and the recommendations are specific to what the user just copied.</p>
+      <h2 class="cs-h2" id="ai-h">A drop-off moment that needed to be addressed</h2>
+      <p class="cs-p">Through research, I identified that code snippets on Splunk's technical blogs were a high-intent drop-off point. I uncovered that a user reads a post, copies a snippet, leaves. While that moment of interaction signals interest, nothing was being done with it.</p>
+      <p class="cs-p">I entered our team's hackathon as the only UX intern in the room and started my process by doing competitor analysis, seeing where our experience was lacking, and understanding how AI can be integrated to match Cisco's mission of creating more personalized experiences.</p>
+      <p class="cs-p">The concept: a user copies a code snippet -> trigger contextual AI-powered resource recommendations through Cisco's LLM pipeline based on their interests and web activity.</p>
 
       <div class="img-block" aria-label="AI code snippet feature design and interaction spec">
         <div class="img-accent-line"></div>
-       <div class="img-accent-line"></div>
-  <img
-    src="UI Specs.png"
-    alt="Screenshot of UI Design specs for code snippet in Figma"
-    style="width:100%;display:block;max-height:480px;object-fit:cover;">
+        <div class="img-inner short">
+          <span class="img-label">AI FEATURE: hi-fi prototype recording or the responsive design spec delivered to engineering</span>
+        </div>
         <div class="img-caption-bar"><p class="img-caption-text">The AI code snippet feature: when a user copies code, contextual resource recommendations surface through Cisco's LLM pipeline. Responsive specs delivered for desktop, tablet, and mobile.</p></div>
       </div>
 
-      <div style="margin:24px 0;">
-  <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
-    <iframe
-      src="cisco_pushback.html"
-      style="width:100%;height:420px;border:none;display:block;"
-      title="Navigating stakeholder pushback — user testing evidence"
-      loading="lazy">
-    </iframe>
-  </div>
-</div>
+      <!-- PUSHBACK VISUAL — simplified -->
+      <div style="margin:20px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px;" aria-label="Stakeholder pushback and resolution">
+
+        <div style="background:rgba(196,116,90,.08);border:.5px solid rgba(196,116,90,.25);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--conflict);">the concern</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6;font-style:italic;">"Too complex — technical users just want to copy code and move on."</div>
+          <div style="font-size:11px;color:var(--dim);">— senior stakeholder</div>
+        </div>
+
+        <div style="background:rgba(107,191,176,.06);border:.5px solid rgba(107,191,176,.2);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#6BBFB0;">the evidence</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="font-size:28px;font-weight:600;color:#6BBFB0;letter-spacing:-.02em;line-height:1;">100%</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">satisfaction across 6 developers & engineers on UserTesting.com</div>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:100%;background:#6BBFB0;border-radius:3px;"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="conflict" aria-label="Stakeholder pushback on complexity">
+        <div class="conflict-label">Navigating pushback on complexity</div>
+        <div class="conflict-body">
+          <p>A senior stakeholder raised concerns that the feature was too complex. That technical users just want to copy code and move on. Honestly, fair point. I took it seriously.</p>
+          <p>I recruited 6 developers and engineers through UserTesting.com — the actual target audience — and ran moderated sessions testing both a lightweight and full AI-powered version. The result: <strong>100% satisfaction, and not one person called it complex or intrusive.</strong></p>
+          <p>I brought the session recordings into the room alongside the data and reframed it: the concern was valid, but the design had already solved for it. And beyond UX, every user who copies a snippet and leaves is a missed opportunity. The AI feature turns that moment into continued engagement. Leadership called it the most innovative hackathon submission. The only thing between it and shipping was engineering capacity.</p>
+        </div>
+      </div>
+
+      <!-- AI UX CONSIDERATIONS -->
+      <div class="cs-section-label" style="margin-top:40px;" aria-hidden="true">Designing with AI — what I learned</div>
+      <h2 class="cs-h2" style="margin-bottom:12px;">I was figuring it out as I went. Here's what I got right, and what I'd do differently.</h2>
+      <p class="cs-p">This was genuinely one of my first times designing an AI feature. I didn't come in with a formal AI design framework — I was learning on the fly. But I did make some intentional decisions around trust and transparency, and I've thought a lot since about what I'd add now.</p>
+
+      <div class="two-col" style="margin-top:20px;" aria-label="AI design decisions">
+        <div class="col-card">
+          <div class="col-label">what I designed for</div>
+          <div class="col-item"><strong style="color:var(--text);font-weight:500;">Trust &amp; transparency.</strong> The AI surfaced related docs based on the user's copied code and browsing history. Obvious problem: why would a developer trust an AI-suggested link? My answer was a small question mark beside the recommendations — a tooltip explaining exactly how the AI made the connection. Not a whole explanation, just enough to say "here's why I'm showing you this."</div>
+          <div class="col-item" style="font-size:12px;color:var(--dim);font-style:italic;">No official framework, just instinct and Cisco's internal AI docs. I should've gone deeper on established AI design principles. That's a gap I've been actively filling since.</div>
+        </div>
+        <div class="col-card">
+          <div class="col-label">if I could do this again</div>
+          <div class="col-item"><strong style="color:var(--text);font-weight:500;">Uncertainty states.</strong> The feature showed suggestions without signaling how confident the AI was in each one. I'd now add a match score under each resource. A simple bar showing how closely it matched what the user copied. Turns a black-box output into something users can actually evaluate.</div>
+          <div class="col-item"><strong style="color:var(--text);font-weight:500;">A proper framework.</strong> Google PAIR, Microsoft HAX. I'd use established AI design principles to stress-test decisions rather than going purely by feel. There's a lot I didn't know I didn't know.</div>
+          <div style="margin-top:14px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:8px;padding:12px 14px;">
+            <div style="font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">match score — what I'd add</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:11px;color:var(--muted);flex:1;">SPL Functions Reference</div>
+                <div style="width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--accent);border-radius:3px;"></div></div>
+                <div style="font-size:10px;color:var(--accent);min-width:28px;text-align:right;">92%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:11px;color:var(--muted);flex:1;">Search Tutorial</div>
+                <div style="width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;"><div style="width:64%;height:100%;background:var(--accent);border-radius:3px;opacity:.7;"></div></div>
+                <div style="font-size:10px;color:var(--accent);min-width:28px;text-align:right;">64%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:11px;color:var(--muted);flex:1;">Lookup Commands</div>
+                <div style="width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;"><div style="width:38%;height:100%;background:var(--accent);border-radius:3px;opacity:.45;"></div></div>
+                <div style="font-size:10px;color:var(--accent);min-width:28px;text-align:right;">38%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="learnings" class="cs-section" aria-labelledby="learn-h">
       <div class="cs-section-label" aria-hidden="true">Learnings</div>
-      <h2 class="cs-h2" id="learn-h">What twelve weeks in enterprise actually teaches you.</h2>
+      <h2 class="cs-h2" id="learn-h">What twelve weeks in enterprise taught me.</h2>
       <div class="learning-list" role="list">
         <div class="learning" role="listitem">
           <span class="learning-num" aria-hidden="true">01</span>
           <div class="learning-text">
             <strong>Understand the technology before designing for it.</strong>
-            I researched Cisco's AI infrastructure before opening Figma for the code snippet feature. This is not optional when designing AI products. Concepts that ignore technical realities do not ship. I wanted mine to ship.
+            I researched Cisco's AI infrastructure before opening Figma for the code snippet feature because I quickly realized I needed to understand some of the back-end before starting to design an experience for users. 
           </div>
         </div>
         <div class="learning" role="listitem">
