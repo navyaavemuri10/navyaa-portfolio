@@ -39,7 +39,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .toc-col::-webkit-scrollbar{display:none;}
 .toc-label{font-size:9px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;}
 .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
-.toc-link{font-size:12px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
+.toc-link{font-size:14px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
 .toc-link:hover{color:var(--muted);border-left-color:var(--muted);padding-left:15px;}
 .toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
 .toc-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
@@ -76,13 +76,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
 .pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
 
-.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
+.img-block{margin:22px 0;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
 .img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;}
 .img-inner{padding:64px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;}
 .img-inner.short{padding:44px 28px;}
 .img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
 .img-caption{font-size:11px;color:var(--dim);font-style:italic;margin-top:4px;}
-.img-block::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent,transparent 19px,var(--border) 19px,var(--border) 20px);opacity:.3;}
 .img-block .img-accent-line,.img-block .img-inner{position:relative;z-index:1;}
 
 .img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
@@ -188,7 +187,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <section id="overview" aria-labelledby="cs-title">
       <div class="cs-eyebrow">CNN · Content Design Intern · Summer 2024</div>
       <h1 class="cs-title" id="cs-title">designing for millions,<br>with <em>one shot</em> to get it right.</h1>
-      <p class="cs-tagline">How I built CNN's first content design guidelines from scratch and shipped election center work seen by millions — in 11 weeks, during one of the most high-stakes news moments of the year.</p>
+      <p class="cs-tagline">How I built CNN's first content design guidelines from scratch and shipped election center work seen by millions in 11 weeks, during one of the most high-stakes news moments of the year.</p>
 
       <div class="meta-row" role="list" aria-label="Project details">
         <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Content Design Intern</div></div>
@@ -209,8 +208,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <section id="problem" class="cs-section" aria-labelledby="prob-h">
       <div class="cs-section-label" aria-hidden="true">The problem</div>
-      <h2 class="cs-h2" id="prob-h">A newly integrated team. No shared standards.<br><em>And an election in three months.</em></h2>
-      <p class="cs-p">CNN's content design team had just been integrated across the organization — but without centralized guidelines or standards. Different teams used different voices, different visual approaches, and different content hierarchies. During normal news cycles, this was a tension. During election coverage, it was a risk.</p>
+      <h2 class="cs-h2" id="prob-h">A newly integrated team with no standardized guidelines.</h2>
+      <p class="cs-p">CNN's content design team had just been integrated across the organization without centralized guidelines or standards due to being a lean team. Different teams used different voices, different visual approaches, and different content hierarchies, which led to fragmented internal & external user experiences.</p>
       <p class="cs-p">My job: figure out what good content design looked like at CNN, document it, and help the team move faster together with a shared language.</p>
 
       <div class="two-col" aria-label="The challenge breakdown">
@@ -234,14 +233,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <section id="research" class="cs-section" aria-labelledby="res-h">
       <div class="cs-section-label" aria-hidden="true">Research</div>
       <h2 class="cs-h2" id="res-h">9 users. 7 departments. 2 weeks.<br>30-minute sessions each.</h2>
-      <p class="cs-p">I interviewed CNN digital employees across multiple teams and roles — the people who actually create, review, and publish content every day. Internal user research was critical: these weren't abstract users, they were the people who would use whatever I built.</p>
+      <p class="cs-p">I interviewed CNN digital employees across multiple teams. Internal user research was critical: these weren't abstract users, they were the people who would use whatever I built.</p>
 
-     <div class="img-row" aria-label="Content Design Guidelines Competitor Analysis">
-  <div class="img-block" aria-label="Comp Analysis">
-    <div class="img-accent-line"></div>
-    <img src="comp-analysis.png" style="width:100%;display:block;" alt="Competitor analysis">
-    <div class="img-caption-bar"><p class="img-caption-text">Competitor analysis of content design guidelines between direct and indirect competitors.</p></div>
-  </div>
+     <div class="img-block" aria-label="Comp Analysis">
+  <div class="img-accent-line"></div>
+  <img src="comp-analysis.png" style="width:100%;display:block;" alt="Competitor analysis">
+  <div class="img-caption-bar"><p class="img-caption-text">Competitor analysis of content design guidelines between direct and indirect competitors.</p></div>
 </div>
 
       <div class="pull-quote">
@@ -252,7 +249,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <section id="guidelines" class="cs-section" aria-labelledby="guide-h">
       <div class="cs-section-label" aria-hidden="true">Content guidelines</div>
-      <h2 class="cs-h2" id="guide-h">CNN's first content design guidelines — built from interviews, not assumptions.</h2>
+      <h2 class="cs-h2" id="guide-h">CNN's first content design guidelines built from interviews, not assumptions.</h2>
       <p class="cs-p">I synthesized research findings, analyzed existing resources and competitors, and developed data-driven recommendations for a single source of truth: guidelines that would standardize practices, improve cross-team collaboration, and reduce review friction.</p>
 
       <div style="border-radius:10px;overflow:hidden;border:.5px solid var(--border);border-left:2px solid #C4745A;margin:22px 0;">
@@ -268,14 +265,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
             <span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">01</span>
             <div>
               <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Content principles</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Core editorial values and why each one matters to CNN's brand and audience trust. Not just rules, but rationale.</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Core values and why each one matters to CNN's brand and audience trust. </div>
             </div>
           </div>
           <div style="padding:14px 20px;border-bottom:.5px solid var(--border);display:flex;gap:12px;">
             <span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">02</span>
             <div>
               <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Dos and don'ts</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Comprehensive paired examples covering voice, tone, hierarchy, and formatting. Every guideline shown in practice.</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Paired examples covering voice, tone, hierarchy, and formatting and every guideline shown in practice.</div>
             </div>
           </div>
           <div style="padding:14px 20px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);display:flex;gap:12px;">
@@ -289,21 +286,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
             <span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">04</span>
             <div>
               <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Team-specific guidelines</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Tailored standards for each team's content surface. Web, mobile, and Smart TV each have their own considerations.</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Tailored standards for each team's content surface.</div>
             </div>
           </div>
           <div style="padding:14px 20px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);display:flex;gap:12px;">
             <span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">05</span>
             <div>
               <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Consistent page structure</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Every section follows the same hierarchy: principle, rationale, examples, exceptions. Fast to navigate, easy to onboard from.</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Every section follows the same hierarchy so it's fast to navigate, easy to onboard from.</div>
             </div>
           </div>
           <div style="padding:14px 20px;border-bottom:.5px solid var(--border);display:flex;gap:12px;">
             <span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">06</span>
             <div>
               <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Roadshow to full staff</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Presented across 7 departments to establish a shared source of truth. Not just a doc, but an org-wide alignment moment.</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.55;">Present across 7 departments to establish a shared source of truth. Not just a doc, but an org-wide alignment moment.</div>
             </div>
           </div>
         </div>
@@ -315,25 +312,25 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
       <div class="tradeoff" aria-label="Key decisions in building the guidelines">
         <div class="tradeoff-label">Key decisions</div>
-        <div class="tradeoff-body">I ran card sorting to prioritize what to include first. Rather than trying to document everything, I focused on <strong>the highest-frequency decisions teams were making inconsistently</strong>. Voice and tone first, because that affected every piece of content. Information hierarchy second, because that affected every layout decision across all three platforms.</div>
+        <div class="tradeoff-body">I led a prioritization workshop to understand impact vs. effort. Rather than trying to document everything, I focused on <strong>the highest-frequency decisions that teams were making inconsistently</strong>. Voice and tone first, because that affected every piece of content.</div>
       </div>
     </section>
 
    <section id="election" class="cs-section" aria-labelledby="elec-h">
       <div class="cs-section-label" aria-hidden="true">Election Center</div>
       <h2 class="cs-h2" id="elec-h">A living product. Iterated weekly<br>through the <em>entire election cycle.</em></h2>
-      <p class="cs-p">The Election Center wasn't a single design. It was a product that changed shape as the election timeline evolved. I iterated on layouts and information hierarchy weekly, presenting to engineers and product leaders to build buy-in for user-centered changes while balancing business objectives.</p>
-      <p class="cs-p">The core design challenge: what users needed to know shifted as the election got closer. Early coverage needed context and education. Closer to election night, it needed speed and results. I designed the architecture to be flexible enough to serve both without rebuilding from scratch each time.</p>
+      <p class="cs-p">The Election Center wasn't a single design but a product that changed shape as the election timeline evolved. I iterated on layouts and information hierarchy weekly, presenting to engineers and product leaders to build buy-in for user-centered changes while balancing business objectives.</p>
+      <p class="cs-p">The core design challenge: what users needed to know shifted as the election got closer. Early coverage needed context and education. Closer to election night, it needed speed and results.</p>
  
       <div class="img-row" aria-label="Election Center desktop wireframes">
         <div class="img-block" aria-label="Early election cycle layout">
           <div class="img-accent-line"></div>
-          <video src="EC-1.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>
+          <video src="EC-1.mp4" data-autoplay loop muted playsinline style="width:100%;display:block;"></video>
           <div class="img-caption-bar"><p class="img-caption-text">Early cycle. Education-first, contextual, built for users still learning the candidates and issues.</p></div>
         </div>
         <div class="img-block" aria-label="Election night layout">
           <div class="img-accent-line"></div>
-          <video src="EC-2.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>
+          <video src="EC-2.mp4" data-autoplay loop muted playsinline style="width:100%;display:block;"></video>
           <div class="img-caption-bar"><p class="img-caption-text">Election night. Results-first, fast, built for users who need a single definitive answer.</p></div>
         </div>
       </div>
@@ -385,27 +382,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       <div class="cs-section-label" style="margin-top:32px;" aria-hidden="true">Designing mobile first</div>
       <p class="cs-p">Majority of CNN users were on mobile, so my mentor pushed me to start small and scale up rather than the other way around. The goal wasn't to create a separate mobile experience. It was to make sure the hierarchy held up at every size. Same content priority, same information architecture, just stacked. A fragmented experience across breakpoints would have broken the trust users had in CNN as a source of truth during a high-stakes news moment.</p>
       <div style="margin:22px 0;display:flex;justify-content:center;">
-        <video src="election-mobile.mp4" autoplay loop muted playsinline style="height:500px;width:auto;display:block;border-radius:10px;border:.5px solid var(--border);"></video>
+        <video src="election-mobile.mp4" data-autoplay loop muted playsinline style="height:500px;width:auto;display:block;border-radius:10px;border:.5px solid var(--border);"></video>
       </div>
  
       <div class="conflict" aria-label="What shipped vs what I designed">
         <div class="conflict-label">What actually shipped</div>
         <div class="conflict-body">
-          <p>My designs didn't ship directly but I learned that's normal. A lot of hands touched the work, and the final product was a synthesis of many perspectives over time.</p>
-          <p>What I took away was less about the pixels and more about the process. I learned how editorial priorities, user needs, business timelines, engineering constraints all impact design simultaneously. I learned to present work and defend my design rationale. And honestly, I learned to not take it personally when something I made didn't make the cut.</p>
+          <p>My designs didn't ship directly but I learned that's normal. A lot of hands touched the work and the final product was a synthesis of many perspectives over time.</p>
+          <p>What I took away was less about the pixels and more about the process. I learned how editorial priorities, user needs, business timelines, and engineering constraints all impact design simultaneously. I learned to present work and defend my design rationale. And honestly, I learned to not take it personally when something I made didn't make the cut.</p>
         </div>
       </div>
     </section>
 
     <section id="tv" class="cs-section" aria-labelledby="tv-h">
       <div class="cs-section-label" aria-hidden="true">Smart TV banner</div>
-      <h2 class="cs-h2" id="tv-h">One banner. <em>Millions of living rooms.</em></h2>
+      <h2 class="cs-h2" id="tv-h">One banner in <em>millions</em>of living rooms.</h2>
       <p class="cs-p">I designed audience-focused messaging for CNN's Smart TV election banner by analyzing what would genuinely motivate action, not just inform, but create urgency that felt relevant to the viewer at home. The copy strategy was deliberately simple: one clear header, one line of engaging body text, a QR code and a URL for accessibility.</p>
 
-      <div class="pull-quote">
-        <p>"My idea was implemented and on the TV screens of millions of viewers."</p>
-        <cite>— CNN Smart TV, Election Night 2024</cite>
-      </div>
 
       <div class="img-block" aria-label="Smart TV Banner">
   <img src="banner.png" style="width:100%;display:block;" alt="Smart TV to mobile interaction banner">
@@ -466,6 +459,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   },{rootMargin:'-10% 0px -75% 0px',threshold:0});
   sections.forEach(s=>obs.observe(s));
 })();
+</script>
+  <script>
+const videos = document.querySelectorAll('video[data-autoplay]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.play();
+    } else {
+      entry.target.pause();
+      entry.target.currentTime = 0;
+    }
+  });
+}, { threshold: 0.3 });
+videos.forEach(v => observer.observe(v));
 </script>
 </body>
 </html>
