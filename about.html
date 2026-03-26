@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#180F00;--surface:#1E1500;--border:#2A2010;
+  --bg:#0E0C0A;--surface:#161412;--border:#242220;
   --text:#DDD8D0;--muted:#A8A29A;--dim:#686460;
   --blue:#7AB4D8;--nav-h:60px;
 }
@@ -19,7 +19,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .g-nav{position:fixed;top:0;z-index:300;height:var(--nav-h);width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(14,12,10,.6);backdrop-filter:blur(12px);}
 .nav-logo{font-size:14px;color:#fff;text-decoration:none;letter-spacing:-.01em;}
 .nav-links{display:flex;gap:28px;align-items:center;}
-.nav-link{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;}
+.nav-link{font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;}
 .nav-link:hover{color:#fff;}
 .nav-cta{color:var(--blue)!important;}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
@@ -36,7 +36,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 /* HERO */
 .hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;background:#180F00;}
 .hero-bg{position:absolute;inset:0;background-image:url('about-bg.jpg');background-size:cover;background-position:center;}
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,12,10,.2) 0%,rgba(14,12,10,.5) 60%,rgba(14,12,10,1) 100%);}
 
 /* NAME MARQUEE */
 .name-marquee-wrap{position:absolute;left:0;top:50%;transform:translateY(-50%);width:calc(100% - 60px);overflow:hidden;z-index:1;}
@@ -45,7 +44,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 /* PHOTO */
-.photo-frame{position:absolute;left:48px;top:50%;transform:translateY(-50%);width:170px;height:170px;border-radius:50%;background:#2A1A00;border:.5px solid rgba(255,255,255,.12);z-index:2;overflow:hidden;flex-shrink:0;}
+.photo-frame{position:absolute;left:48px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;border:.5px solid rgba(255,255,255,.12);z-index:2;overflow:hidden;flex-shrink:0;}
 .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
 
 /* PAGE BODY */
@@ -122,7 +121,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </div>
 
 <div class="hero">
-  <div class="hero-bg"></div>
   <div class="name-marquee-wrap">
     <div class="name-marquee-track">
       <span class="name-marquee-item">NAVYAA VEMURI</span>
@@ -140,13 +138,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
 <div class="page-body">
 
+  <div class="leadership-wrap" style="margin-bottom:64px;">
+    <div class="l-header">About me</div>
+    <div class="l-body">
+      Raised in the Bay Area and Sacramento, I've been surrounded by design and creating new things my whole life. <br> Then at Cal Poly, as a GrC major, CS minor, more creating. <br> With a new hobby every couple of weeks (pottery, baking, crocheting, you name it), more creating. <br> I love creating. 
+    </div>
+  </div>
+
   <div class="leadership-wrap">
     <div class="l-header">Leadership</div>
     <div class="l-title">I've led teams from <em>4 people</em> to <em>140+ member orgs.</em></div>
     <div class="l-body">
-      My approach stays the same at every scale: build a culture where every person feels seen and every voice has a seat at the table. I lead by listening first, then acting with intention. Also I just genuinely love people.
+      My approach stays the same at every scale: build a culture where every person feels seen and every voice has a seat at the table. I lead by listening first, then acting with intention. Also I just genuinely love to yap & listen to others yap.
       <br><br>
-      Most notably as <strong>President of Cal Poly Iter8</strong>, a product design consultancy — ran workshops, mentored members, organized corporate crawls with industry professionals, and managed the full team. I ran a successful club..or so I was told
+      Most notably as <strong>President of Cal Poly Iter8</strong>, a product design consultancy — ran workshops, mentored members, organized corporate crawls with industry professionals, and managed the full team. Most fun & fulfilling experience of college.
     </div>
     <div class="l-photos">
       <div class="l-photo"><img src="leadership-1.jpg" alt="Leadership" onerror="this.style.background='#1E1500'"></div>
@@ -158,16 +163,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <div class="rf-wrap">
     <div class="rf-header">Rapid fire</div>
     <div class="rf-list">
-      <div class="rf-row"><div class="rf-q">currently listening to</div><div class="rf-a">Uh Oh — Coco Jones & Leon Thomas, on repeat</div></div>
+      <div class="rf-row"><div class="rf-q">currently listening to</div><div class="rf-a">Uh Oh by Coco Jones & Leon Thomas, on repeat</div></div>
       <div class="rf-row"><div class="rf-q">current hobby</div><div class="rf-a">making a ceramic chip & dip bowl for my parents</div></div>
       <div class="rf-row"><div class="rf-q">what gets me up every day</div><div class="rf-a">eating new things #ilovefood</div></div>
-      <div class="rf-row"><div class="rf-q">design tool you can't live without</div><div class="rf-a">Figma, obviously. but Claude is catching up...</div></div>
+      <div class="rf-row"><div class="rf-q">design tool you can't live without</div><div class="rf-a">Figma, obviously. but Claude is catching up.</div></div>
       <div class="rf-row"><div class="rf-q">one thing you don't know about me</div><div class="rf-a">I've been singing since I was 4, search me up on YouTube!</div></div>
       <div class="rf-row"><div class="rf-q">if I wasn't a designer</div><div class="rf-a">a musician. or a chef. probably both somehow.</div></div>
     </div>
   </div>
 
-
+  <div class="values-wrap">
+    <div class="values-header">What I believe as a designer</div>
+    <div class="values-body">
+      <strong>Clarity over cleverness.</strong> The best design is invisible — nobody should have to think about it. 
+    </div>
+  </div>
 
 </div>
 
