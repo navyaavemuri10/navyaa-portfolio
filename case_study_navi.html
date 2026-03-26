@@ -335,16 +335,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       <div class="cs-section-label" style="margin-top:32px;" aria-hidden="true">User flows</div>
       <div class="img-block" aria-label="User flow diagram">
         <div class="img-accent-line"></div>
-        <img src="user-flows.png" style="width:100%;display:block;" alt="User flow diagram showing all app paths">
+        <img src="userflows.png" style="width:100%;display:block;" alt="User flow diagram showing all app paths">
         <div class="img-caption-bar"><p class="img-caption-text">Full user flow diagram — onboarding, route selection, location sharing, tracking friends, safety alerts, and incident reporting. Built before any wireframes.</p></div>
       </div>
 
       <div class="tradeoff" aria-label="Key design decisions from testing">
         <div class="tradeoff-label">Key calls we made in testing</div>
         <div class="tradeoff-body">
-          Removed the nav bar between low-fi and mid-fi. It was giving users information overload.<br><br>
-          Removed friends' route visibility. Too similar to existing apps, not differentiated enough.<br><br>
-          <strong>Removed safety ratings by neighborhood.</strong> This was the hardest cut. Ratings could mis-generalize areas and reinforce bias. We replaced with incident-based data that showed facts, not judgments.
+          <strong>Removed the nav bar between low-fi and mid-fi -> </strong>It was giving users information overload.<br><br>
+          <strong>Removed friends' route visibility -> </strong>Too similar to existing apps, not differentiated enough.<br><br>
+          <strong>Removed safety ratings by neighborhood -> </strong>Ratings could mis-generalize areas and reinforce bias. We replaced with incident-based data that showed facts, not judgments.
         </div>
       </div>
     </section>
@@ -362,7 +362,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
           <button onclick="naviSlide(2)" id="navi-tab-2" style="font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;border:.5px solid var(--border);color:var(--muted);cursor:pointer;background:transparent;">AI companion call</button>
         </div>
         <div id="navi-slide-0" style="display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;">
-          <div style="background:var(--surface);border-radius:10px;padding:20px;display:flex;justify-content:center;">
+          <div style="background:var(--surface);border-radius:10px;display:flex;justify-content:center;">
             <div style="width:180px;height:360px;background:#111;border-radius:28px;overflow:hidden;border:6px solid #222;">
               <video id="navi-vid-0" src="find-route.mp4" loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
             </div>
@@ -396,7 +396,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
           </div>
         </div>
         <div id="navi-slide-1" style="display:none;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;">
-          <div style="background:var(--surface);border-radius:10px;padding:20px;display:flex;justify-content:center;">
+          <div style="background:var(--surface);border-radius:10px;display:flex;justify-content:center;">
             <div style="width:180px;height:360px;background:#111;border-radius:28px;overflow:hidden;border:6px solid #222;">
               <video id="navi-vid-1" src="share-route.mp4" loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
             </div>
@@ -426,7 +426,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
           </div>
         </div>
         <div id="navi-slide-2" style="display:none;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;">
-          <div style="background:var(--surface);border-radius:10px;padding:20px;display:flex;justify-content:center;">
+          <div style="background:var(--surface);border-radius:10px;display:flex;justify-content:center;">
             <div style="width:180px;height:360px;background:#111;border-radius:28px;overflow:hidden;border:6px solid #222;">
               <video id="navi-vid-2" src="ai-call.mp4" loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
             </div>
@@ -480,6 +480,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <section id="outcome" class="cs-section" aria-labelledby="out-h">
       <div class="cs-section-label" aria-hidden="true">Outcome</div>
+       <div class="img-block" aria-label="Team winning">
+        <div class="img-accent-line"></div>
+        <img src="win.jpeg" style="width:100%;display:block;" alt="First place winning image">
+        <div class="img-caption-bar"><p class="img-caption-text">The Navi Team & Judges!</p></div>
+      </div>
 
       <div class="win-card" aria-label="First place win">
         <span class="win-emoji" aria-hidden="true">🏆</span>
