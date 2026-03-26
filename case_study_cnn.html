@@ -34,6 +34,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
 .toc-col{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));padding:52px 32px 52px 0;overflow-y:auto;border-right:.5px solid var(--border);scrollbar-width:none;}
 .toc-col::-webkit-scrollbar{display:none;}
+.toc-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);text-decoration:none;margin-bottom:24px;padding-bottom:20px;border-bottom:.5px solid var(--border);transition:color .2s;}
+.toc-back:hover{color:var(--accent);}
+.toc-back:hover .back-arr{transform:translateX(-3px);}
 .toc-label{font-size:12px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;}
 .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
 .toc-link{font-size:14px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
@@ -141,6 +144,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .conflict{background:rgba(196,116,90,.06);border:.5px solid rgba(196,116,90,.2);border-left:2px solid #C4745A;border-radius:0 8px 8px 0;padding:20px 24px;margin:24px 0;}
 .conflict-label{font-size:10px;color:#C4745A;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-weight:500;}
 .conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
+.toc-back{margin-bottom:16px;padding-bottom:16px;}
 .conflict-body p{margin-bottom:10px;}
 .conflict-body p:last-child{margin-bottom:0;}
 .conflict-body strong{color:var(--text);font-weight:400;}
@@ -164,6 +168,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
 <div class="page-wrap">
   <aside class="toc-col" aria-label="Table of contents">
+    <a class="toc-back" href="index.html#work" aria-label="Back to all work">
+      <span class="back-arr" aria-hidden="true">←</span> all work
+    </a>
     <div class="toc-label">On this page</div>
     <ul class="toc-list" role="list">
       <li><a class="toc-link active" href="#overview">Overview</a></li>
