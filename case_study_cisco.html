@@ -624,5 +624,19 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
   sections.forEach(s=>obs.observe(s));
 })();
 </script>
+  <script>
+const videos = document.querySelectorAll('video[data-autoplay]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.play();
+    } else {
+      entry.target.pause();
+      entry.target.currentTime = 0;
+    }
+  });
+}, { threshold: 0.3 });
+videos.forEach(v => observer.observe(v));
+</script>
 </body>
 </html>
