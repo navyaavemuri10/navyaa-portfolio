@@ -184,6 +184,17 @@ function toggleNav(){
       </div>
     </div>
 
+    <!-- AI UX AUDIT -->
+<div class="m-card" data-cat="ai" onclick="openModal('audit')">
+  <img src="audit-thumb.png" alt="AI UX Audit Tool" style="width:100%;display:block;max-height:420px;object-fit:cover;object-position:top;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+  <div class="m-img-ph" style="display:none;aspect-ratio:16/9;"></div>
+  <div class="m-body">
+    <span class="m-tag m-tag-ai">ai build</span>
+    <div class="m-title">Smart Audit — UX heuristic tool</div>
+    <div class="m-desc">AI-powered evaluation against Nielsen's 10 heuristics, tailored to your site type</div>
+  </div>
+</div>
+
     <!-- GRAPHIC 2 -->
     <div class="m-card" data-cat="design" style="cursor:default;">
       <img src="graphic-2.png" alt="Graphic design 2" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
@@ -264,6 +275,20 @@ const modals = {
       { title: 'the verdict', body: 'Does it smell like Lavender Rose? No. Does the UI look cozy? Yes.' }
     ]
   },
+  audit: {
+  img: 'audit-thumb.png',
+  tag: 'ai build · lovable',
+  tagClass: 'm-tag-ai',
+  title: 'smart audit — UX heuristic analysis tool',
+  tagline: 'I audit products for a living. So I built a tool that does it too. AI-powered UX evaluation against Nielsen\'s 10 Usability Heuristics — tailored to the type of site you\'re analyzing.',
+  link: 'https://ai-ux-audit.lovable.app',
+  linkLabel: 'try live app →',
+  sections: [
+    { title: 'the idea', body: 'Heuristic audits are one of my favorite parts of the design process — but they\'re time-consuming and hard to do consistently. I wanted to see if I could build a tool that gives any designer a solid starting point in seconds.' },
+    { title: 'how it works', body: 'You enter a URL and select your site type (e-commerce, SaaS, portfolio, marketing). The AI analyzes the interface against all 10 of Nielsen\'s heuristics and returns a tailored evaluation with specific observations and severity ratings.' },
+    { title: 'what i learned', body: 'Prompting AI to think like a UX auditor is harder than it sounds. The framing, context, and specificity of the system prompt completely changes the quality of the output. This was as much a prompt engineering project as a design one.' }
+  ]
+},
   graphic1: {
     img: 'graphic-1.png',
     tag: 'graphic design',
