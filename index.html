@@ -4,505 +4,235 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Navyaa Vemuri — Product Designer</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#0E0C0A;--surface:#161310;--border:#222018;
-  --text:#DDD8D0;--muted:#A8A29A;--dim:#8A8480;
-  --blue:#7AB4D8;--blue-bg:#0D1620;--blue-border:#1E3048;
-  --nav-h:60px;
-}
+:root{--bg:#111212;--surface:#181A1A;--border:#222424;--text:#DDD8D0;--muted:#A8A29A;--dim:#686460;--blue:#7AB4D8;--nav-h:60px;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;}
-
-/* ── NAV ── */
-.g-nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 64px;background:rgba(14,12,10,.96);border-bottom:.5px solid var(--border);backdrop-filter:blur(12px);}
-.nav-logo{font-size:14px;color:#DDD8D0;text-decoration:none;letter-spacing:-.01em;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+.g-nav{position:fixed;top:0;z-index:200;height:var(--nav-h);width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:transparent;border-bottom:none;transition:background .3s,border-color .3s;}
+.nav-logo{font-size:14px;color:var(--text);text-decoration:none;letter-spacing:-.01em;}
 .nav-links{display:flex;gap:28px;align-items:center;}
-.nav-link{font-size:14px;color:#A8A29A;text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px;}
-.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:.5px;background:var(--blue);transition:width .25s;}
-.nav-link:hover,.nav-link:focus-visible{color:#DDD8D0;}
-.nav-link:hover::after,.nav-link:focus-visible::after{width:100%;}
-.nav-link:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:2px;}
+.nav-link{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-link:hover{color:var(--text);}
 .nav-cta{color:var(--blue)!important;}
-
-/* ── HERO ── */
-.hero-section{
-  position:relative;width:100%;
-  min-height:520px;
-  display:flex;align-items:center;
-  background:#0E0C0A;
-}
-.hero-glow{
-  display:none;
-}
-.hero-inner{
-  position:relative;z-index:1;
-  width:100%;max-width:1100px;margin:0 auto;
-  padding:80px 64px 80px;
-}
-
-/* MADLIB BLOCK — 70% width */
-.madlib-wrap{
-  width:100%;
-  opacity:0;animation:fadeup .7s .05s forwards;
-}
-
-/* greeting */
-/* main madlib text */
-.ml-text{
-  font-size:48px;font-weight:300;
-  line-height:1.22;letter-spacing:-.025em;
-  color:#F0EAE0;
-  margin-bottom:0;
-}
-.ml-text .ml-hi{
-  font-size:inherit;font-weight:inherit;font-style:normal;
-  color:#F2EDE6;
-  letter-spacing:inherit;
-  margin-right:0;
-}
-.ml-name{
-  font-size:43px;font-weight:600;
-  color:#F2EDE6;
-  display:block;
-  margin-bottom:14px;
-  letter-spacing:-.03em;
-  line-height:1.1;
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+.nav-hamburger span{display:block;width:20px;height:1.5px;background:var(--muted);transition:all .25s;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.nav-mobile{display:none;position:fixed;inset:0;top:var(--nav-h);background:rgba(17,18,18,.98);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:32px;backdrop-filter:blur(8px);}
+.nav-mobile.open{display:flex;}
+.nav-mobile-link{font-size:24px;font-weight:300;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-mobile-link:hover{color:var(--text);}
+.nav-mobile-link.cta{color:var(--blue);}
+.hero-placeholder{width:100%;min-height:560px;background:#161818;display:flex;align-items:center;justify-content:center;border-bottom:.5px solid var(--border);}
+.work-section{max-width:1100px;margin:0 auto;padding:48px 48px 96px;}
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.cs-card{background:transparent;border-radius:0;text-decoration:none;display:flex;flex-direction:column;overflow:hidden;transition:opacity .2s;opacity:0;animation:fadeup .5s forwards;}
+.cs-card:hover{}
+.cs-card:nth-child(1){animation-delay:.05s;}
+.cs-card:nth-child(2){animation-delay:.12s;}
+.cs-card:nth-child(3){animation-delay:.19s;}
+.cs-card:nth-child(4){animation-delay:.26s;}
+.cs-card:nth-child(5){animation-delay:.33s;}
+.cs-card:nth-child(6){animation-delay:.40s;}
+.cs-thumb{width:100%;height:418px;overflow:hidden;position:relative;background:#1E2020;border-radius:12px;}
+.cs-thumb img,.cs-thumb video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.cs-card:hover .cs-thumb img,.cs-card:hover .cs-thumb video{transform:scale(1.03);}
+.cs-body{padding:16px 0 32px;}
+.cs-eyebrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.cs-title{font-size:18px;font-weight:400;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:8px;transition:color .2s;}
+.cs-card:hover .cs-title{color:var(--blue);}
+.cs-desc{font-size:13px;color:var(--muted);line-height:1.7;}
+.g-footer{border-top:.5px solid var(--border);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;}
+.footer-txt{font-size:12px;color:var(--dim);}
+.footer-links{display:flex;gap:20px;}
+.footer-link{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s;}
+.footer-link:hover{color:var(--muted);}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){
+  .g-nav{padding:0 24px;}
+  .nav-hamburger{display:flex;}
+  .nav-links{display:none;}
+  .work-section{padding:32px 16px 64px;}
+  .work-grid{grid-template-columns:1fr;gap:16px;}
+  .g-footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
 }
 
-/* pill — the interactive word */
-.ml-pill{
-  display:inline-flex;align-items:center;
-  background:var(--blue-bg);
-  border:.5px solid var(--blue-border);
-  color:var(--blue);
-  border-radius:100px;
-  padding:4px 16px 5px;
-  font-size:inherit;font-weight:400;font-family:inherit;
-  letter-spacing:inherit;line-height:inherit;
-  cursor:pointer;
-  position:relative;
-  vertical-align:baseline;
-  white-space:nowrap;
-  transition:background .18s,border-color .18s,transform .18s;
-  /* flip animation */
-  perspective:600px;
-  transform-style:preserve-3d;
-  -webkit-tap-highlight-color:transparent;
-  outline:none;
-}
-.ml-pill:hover{background:#132030;border-color:#2A4060;transform:scale(1.02);}
-/* green pill — role */
-.ml-pill-green{
-  background:#0C1A10;
-  border-color:#1A3828;
-  color:#6BBFB0;
-}
-.ml-pill-green:hover{background:#0E2014;border-color:#224A38;}
-/* purple pill — vibe */
-.ml-pill-purple{
-  background:#130D1E;
-  border-color:#2A1848;
-  color:#A87FD4;
-}
-.ml-pill-purple:hover{background:#180F26;border-color:#361E5A;}
-
-.ml-pill:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
-.ml-pill.flipping{animation:pillflip .35s ease forwards;}
-@keyframes pillflip{
-  0%{transform:rotateX(0deg);}
-  45%{transform:rotateX(-90deg);opacity:0;}
-  55%{transform:rotateX(90deg);opacity:0;}
-  100%{transform:rotateX(0deg);opacity:1;}
-}
-
-/* line 2 pills */
-.ml-line{display:block;margin-top:4px;}
-
-/* sub-line */
-.ml-sub{
-  font-size:17px;font-weight:300;
-  color:#A8A29A;line-height:1.65;
-  margin-top:28px;max-width:480px;
-}
-.ml-sub em{font-style:italic;color:var(--blue);}
-
-/* logo + CTA row */
-.ml-bottom{
-  margin-top:36px;
-  display:flex;flex-direction:column;gap:20px;
-  opacity:0;animation:fadeup .5s .4s forwards;
-}
-.logo-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.logo-item{font-size:11px;font-weight:500;color:#8A8480;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;white-space:nowrap;}
-.logo-item:hover{color:#A8A29A;}
-.logo-dot{width:3px;height:3px;border-radius:50%;background:#2e3030;flex-shrink:0;}
-.cta-row{display:flex;gap:12px;align-items:center;}
-
-
-/* ── WORK SECTION ── */
-.page{max-width:1100px;margin:0 auto;padding:0 64px 96px;background:var(--bg);}
-.section-header{display:flex;align-items:center;padding:52px 0 28px;}
-.section-label{font-size:11px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;}
-
-/* ── CASE STUDY ROWS ── */
-.case-rows{display:flex;flex-direction:column;}
-.cs-row{display:grid;grid-template-columns:65% 1fr;min-height:340px;border-top:.5px solid var(--border);text-decoration:none;overflow:hidden;opacity:0;animation:fadeup .55s forwards;transition:background .22s;position:relative;}
-.cs-row:nth-child(1){animation-delay:.45s;border-top:none;}
-.cs-row:nth-child(2){animation-delay:.58s;}
-.cs-row:nth-child(3){animation-delay:.71s;}
-.cs-row:nth-child(4){animation-delay:.84s;}
-.cs-row:nth-child(5){animation-delay:.97s;}
-.cs-row:last-child{border-bottom:.5px solid var(--border);}
-.cs-row:hover{background:var(--surface);}
-.cs-row:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;}
-.cs-img{position:relative;overflow:hidden;border-right:.5px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:340px;}
-.cs-img-bg{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;}
-.cs-img-label{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.1em;position:relative;z-index:1;text-align:center;padding:0 24px;line-height:1.7;}
-.cs-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;z-index:3;}
-.cs-row:hover .cs-play{opacity:1;}
-.cs-play-ring{width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:transform .22s,background .22s;}
-.cs-row:hover .cs-play-ring{transform:scale(1.06);background:rgba(255,255,255,.12);}
-.cs-play-ring svg{width:14px;height:14px;fill:rgba(255,255,255,.85);margin-left:3px;}
-.cs-blink{width:6px;height:6px;border-radius:50%;position:absolute;top:14px;right:14px;z-index:4;animation:blink 1.2s ease-in-out infinite;opacity:0;transition:opacity .2s;}
-.cs-row:hover .cs-blink{opacity:1;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
-.cs-locked{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;z-index:3;}
-.cs-lock-svg{width:22px;height:22px;stroke:rgba(255,255,255,.2);fill:none;stroke-width:1.5;}
-.cs-locked-text{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.08em;}
-.cs-content{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;}
-.cs-eyebrow{font-size:11px;color:var(--blue);letter-spacing:.06em;margin-bottom:10px;}
-.cs-title{font-size:24px;font-weight:300;color:#DDD8D0;line-height:1.25;letter-spacing:-.02em;margin-bottom:12px;transition:color .2s;}
-.cs-row:hover .cs-title{color:var(--blue);}
-.cs-desc{font-size:14px;color:#A8A29A;line-height:1.7;max-width:320px;margin-bottom:20px;}
-.cs-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.cs-stat{font-size:11px;color:var(--blue);background:var(--blue-bg);border:.5px solid var(--blue-border);border-radius:4px;padding:3px 9px;}
-.cs-arrow{font-size:13px;color:#8A8480;transition:color .22s,transform .22s;}
-.cs-row:hover .cs-arrow{color:var(--blue);transform:translateX(5px);}
-.cs-row.nda{opacity:.55;}
-.cs-row.nda:hover{opacity:.75;background:var(--surface);}
-
-/* TICKER */
-.ticker-wrap{overflow:hidden;padding:18px 0;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);margin:0;}
-.ticker-track{display:flex;gap:24px;animation:tick 26s linear infinite;white-space:nowrap;}
-.ticker-wrap:hover .ticker-track{animation-play-state:paused;}
-@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.t-item{font-size:14px;color:#8A8480;letter-spacing:.07em;flex-shrink:0;}
-.t-dot{color:#4A4C4C;flex-shrink:0;}
-
-
-/* FOOTER */
-.g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;max-width:1100px;margin:0 auto;}
-.footer-tagline{font-size:12px;color:#8A8480;font-style:italic;margin-bottom:6px;}
-.footer-note{font-size:11px;color:#6A6C6C;letter-spacing:.04em;}
-.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
-.footer-link{font-size:12px;color:#A8A29A;text-decoration:none;transition:color .2s;}
-.footer-link:hover,.footer-link:focus-visible{color:#DDD8D0;}
-.footer-link:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px;}
-.footer-cta{font-size:12px;background:var(--blue);color:#090c0e;text-decoration:none;border-radius:6px;padding:8px 18px;font-weight:500;transition:background .2s,transform .15s;}
-.footer-cta:hover{background:#93c2de;transform:translateY(-1px);}
-.footer-cta:focus-visible{outline:2px solid #DDD8D0;outline-offset:3px;}
-
-@keyframes fadeup{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  .g-nav,.g-footer{padding-left:32px;padding-right:32px;}
-  .page{padding:0 32px 72px;}
-  .hero-inner{padding:64px 32px 64px;}
-  .madlib-wrap{width:100%;}
-  .ml-text{font-size:40px;}
-  .cs-row{grid-template-columns:1fr;min-height:auto;}
-  .cs-img{min-height:240px;border-right:none;border-bottom:.5px solid var(--border);}
-  .cs-content{padding:28px 28px 32px;}
-}
-@media(max-width:640px){
-  .g-nav{padding:0 20px;}
-  .g-footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
-  .page{padding:0 20px 64px;}
-  .nav-links .nav-link:not(.nav-cta){display:none;}
-  .hero-inner{padding:48px 20px 56px;}
-  .madlib-wrap{width:100%;}
-  .ml-text{font-size:30px;}
-  .ml-sub{font-size:15px;}
-  .cs-img{min-height:200px;}
-  .cs-title{font-size:20px;}
-  .cs-content{padding:24px 20px 28px;}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;}
-  .madlib-wrap,.ml-bottom,.cs-row{opacity:1;transform:none;}
-  .ml-pill.flipping{animation:none;}
-}
+/* HOVER TO PLAY */
+.htp{position:relative;overflow:hidden;}
+.htp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s;z-index:1;}
+.htp-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s;z-index:2;}
+.htp:hover .htp-vid{opacity:1;}
+.htp:hover .htp-img{opacity:0;}
 </style>
 </head>
 <body>
 
-<nav class="g-nav" aria-label="Site navigation">
-  <a class="nav-logo" href="#">navyaa vemuri</a>
+<nav class="g-nav" id="g-nav">
+  <a href="index.html" class="nav-logo">navyaa vemuri</a>
   <div class="nav-links">
-    <a class="nav-link" href="#work">work</a>
-    <a class="nav-link" href="play.html">play</a>
-    <a class="nav-link" href="about.html">about</a>
-    <a class="nav-link nav-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+    <a href="#work" class="nav-link">work</a>
+    <a href="play.html" class="nav-link">play</a>
+    <a href="about.html" class="nav-link">about</a>
+    <a href="mailto:navyaa.vemuri@gmail.com" class="nav-link nav-cta">say hi ↗</a>
   </div>
+  <button class="nav-hamburger" id="nav-ham" aria-label="Open menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<section class="hero-section" aria-labelledby="ml-name-heading">
-  <div class="hero-dot-bg" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <div class="madlib-wrap">
-
-      <div class="ml-text" role="heading" aria-level="1">
-        <span class="ml-name" id="ml-name-heading"><span class="ml-hi">hi, i'm</span> Navyaa Vemuri.</span>
-        <span class="ml-line">
-          <span id="pill-article">A</span> <button class="ml-pill" id="pill-adj" aria-live="polite" aria-label="cycling descriptor, click to advance">detail-obsessed</button> designer,
-        </span>
-        <span class="ml-line">
-          <button class="ml-pill ml-pill-green" id="pill-role" aria-live="polite" aria-label="cycling role, click to advance">storyteller</button> &amp;
-          <button class="ml-pill ml-pill-purple" id="pill-vibe" aria-live="polite" aria-label="cycling personality, click to advance">karaoke enthusiast</button>
-        </span>
-      </div>
-
-      <p class="ml-sub">
-        Experience designing for Enterprise, B2B, B2C, Mobile & Web & Smart TV :)
-      </p>
-
-      <div class="ml-bottom">
-        <div class="logo-row" aria-label="Previously worked at">
-          <span class="logo-item">Tesla</span>
-          <span class="logo-dot" aria-hidden="true"></span>
-          <span class="logo-item">Cisco Splunk</span>
-          <span class="logo-dot" aria-hidden="true"></span>
-          <span class="logo-item">CNN</span>
-          <span class="logo-dot" aria-hidden="true"></span>
-          <span class="logo-item">Cal Poly</span>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- WORK -->
-<div class="page">
-  <div class="section-header" id="work">
-    <span class="section-label">selected work</span>
-  </div>
-
-  <div class="case-rows" role="list" aria-label="Case studies">
-
-  <!-- CAL POLY -->
-    <a class="cs-row" href=mailto:navyaa.vemuri@gmail.com role="listitem" aria-label="Tesla case study">
-      <div class="cs-img" style="background:#0E0808;">
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#FF00000;z-index:2;"></div>
-    <video
-      src="tesla.mp4"
-      autoplay loop muted playsinline
-      style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;">
-    </video>
-  </div>
-      <div class="cs-content">
-        <div class="cs-eyebrow">Tesla · UX Designer · 2025–2026</div>
-        <h2 class="cs-title">UX Consulting Contract</h2>
-        <p class="cs-desc">Currently wrapping up, details protected under an NDA. Happy to walk through the work in a conversation.</p>
-        <div class="cs-meta">
-          <span class="cs-stat">Under an NDA</span>
-          <span class="cs-arrow" aria-hidden="true"> ask me about it→</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- CAL POLY -->
-    <a class="cs-row" href="case_study_chw.html" role="listitem" aria-label="Cal Poly Campus Health case study">
-      <div class="cs-img" style="background:#0E0808;">
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#124937;z-index:2;"></div>
-    <video
-      src="chw.mp4"
-      autoplay loop muted playsinline
-      style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;">
-    </video>
-  </div>
-      <div class="cs-content">
-        <div class="cs-eyebrow">Cal Poly · UX Lead · 2023–2025</div>
-        <h2 class="cs-title">Campus Health & Wellbeing Portal</h2>
-        <p class="cs-desc">Solo 2-year redesign of a student health portal serving 23,000 students — built from scratch inside a CMS from 2011.</p>
-        <div class="cs-meta">
-          <span class="cs-stat">690% ↑ engagement</span>
-          <span class="cs-arrow" aria-hidden="true">read more →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- CISCO -->
-    <a class="cs-row" href="case_study_cisco.html" role="listitem" aria-label="Cisco Splunk case study">
-      <div class="cs-img" style="background:#0E0808;">
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#039FD9;z-index:2;"></div>
-    <video
-      src="cisco.mp4"
-      autoplay loop muted playsinline
-      style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;">
-    </video>
-  </div>
-      <div class="cs-content">
-        <div class="cs-eyebrow">Cisco Splunk · Intern · Summer 2025</div>
-        <h2 class="cs-title">Enterprise AI & Product Strategy</h2>
-        <p class="cs-desc">Audited 8+ domains, shipped a Demo Center from research to launch, and won a company hackathon with an agentic AI feature — in 12 weeks.</p>
-        <div class="cs-meta">
-          <span class="cs-stat">3 shipped projects</span>
-          <span class="cs-arrow" aria-hidden="true">read more →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- CNN -->
-    <a class="cs-row" href="case_study_cnn.html" role="listitem" aria-label="CNN Election Center case study">
-      <div class="cs-img" style="background:#0E0808;">
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#EC1C2E;z-index:2;"></div>
-    <video
-      src="cnn.mp4"
-      autoplay loop muted playsinline
-      style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;">
-    </video>
-  </div>
-      <div class="cs-content">
-        <div class="cs-eyebrow">CNN · Content Design · Summer 2024</div>
-        <h2 class="cs-title">Election Center & Content Guidelines</h2>
-        <p class="cs-desc">CNN's first content design guidelines, shipped across web, mobile, and Smart TV — seen by millions of viewers on election night.</p>
-        <div class="cs-meta">
-          <span class="cs-stat">millions of viewers</span>
-          <span class="cs-arrow" aria-hidden="true">read more →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- NAVI -->
-    <a class="cs-row" href="case_study_navi.html" role="listitem" aria-label="Navi Pedestrian Safety App case study">
-      <div class="cs-img" style="background:#0E0808;">
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#183174;z-index:2;"></div>
-    <video
-      src="navi.mp4"
-      autoplay loop muted playsinline
-      style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;">
-    </video>
-  </div>
-      <div class="cs-content">
-        <div class="cs-eyebrow">UX Fest SLO · 24-hour Designathon</div>
-        <h2 class="cs-title">Navi — Pedestrian Safety App</h2>
-        <p class="cs-desc">Won first place among 20+ teams — an AI-powered safety companion that felt like a friend walking beside you, built in 24 hours.</p>
-        <div class="cs-meta">
-          <span class="cs-stat">🥇 1st place</span>
-          <span class="cs-arrow" aria-hidden="true">read more →</span>
-        </div>
-      </div>
-    </a>
-
-  </div>
-
-
-
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#work" class="nav-mobile-link" onclick="toggleNav()">work</a>
+  <a href="play.html" class="nav-mobile-link" onclick="toggleNav()">play</a>
+  <a href="about.html" class="nav-mobile-link" onclick="toggleNav()">about</a>
+  <a href="mailto:navyaa.vemuri@gmail.com" class="nav-mobile-link cta" onclick="toggleNav()">say hi ↗</a>
 </div>
 
+<!-- HERO — replace this div with your image -->
+<div class="hero-placeholder">
+  <div style="text-align:center;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#686460" stroke-width="1.5" style="display:block;margin:0 auto 12px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <div style="font-size:12px;color:#686460;letter-spacing:.04em;">replace this with your hero image</div>
+  </div>
 </div>
 
-<footer class="g-footer" aria-label="Site footer">
-  <div>
-    <div class="footer-tagline">you've reached the end of the page.</div>
-    <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
+<div class="work-section" id="work">
+  <div class="work-grid">
+
+    <a class="cs-card" href="#" aria-label="Tesla UX Consulting">
+      <div class="cs-thumb htp" style="background:#0E0808;position:relative;">
+        <img src="tesla-thumb.jpg" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
+        <video src="tesla.mp4" class="htp-vid" loop muted playsinline></video>
+      </div>
+      <div class="cs-body">
+        <div class="cs-eyebrow">MOBILE APP · 2025</div>
+        <div class="cs-title">Tesla Transportation UX Consultant</div>
+        <div class="cs-desc">Under an NDA, reach out for info!</div>
+      </div>
+    </a>
+
+    <a class="cs-card" href="case_study_cisco.html">
+      <div class="cs-thumb htp" style="background:#0D1420;">
+        <img src="cisco.png" class="htp-img" alt="Cisco Splunk" onerror="this.style.opacity=0">
+        <video src="cisco.mp4" class="htp-vid" loop muted playsinline></video>
+      </div>
+      <div class="cs-body">
+        <div class="cs-eyebrow">INTERNSHIP · SUMMER 2025</div>
+        <div class="cs-title">Heuristics & AI & Growth Design at Cisco-Splunk</div>
+        <div class="cs-desc">Audited 8+ product domains, innovated an AI code snippet feature, and shipped a growth-focused demo center.</div>
+      </div>
+    </a>
+
+    <a class="cs-card" href="case_study_chw.html">
+      <div class="cs-thumb htp" style="background:#0A140E;">
+        <img src="chw.png" class="htp-img" alt="Cal Poly CHW" onerror="this.style.opacity=0">
+        <video src="chw.mp4" class="htp-vid" loop muted playsinline></video>
+      </div>
+      <div class="cs-body">
+        <div class="cs-eyebrow">WEB & MOBILE REDESIGN · 2023 TO 2025</div>
+        <div class="cs-title">Cal Poly Health & Wellbeing Portal Redesign</div>
+        <div class="cs-desc">Solo end-to-end redesign — WCAG 2.1 compliant, shipped inside a legacy CMS, 690% increase in engagement.</div>
+      </div>
+    </a>
+
+    <a class="cs-card" href="case_study_cnn.html">
+      <div class="cs-thumb htp" style="background:#140808;">
+        <img src="cnn.png" class="htp-img" alt="CNN" onerror="this.style.opacity=0">
+        <video src="cnn.mp4" class="htp-vid" loop muted playsinline></video>
+      </div>
+      <div class="cs-body">
+        <div class="cs-eyebrow">INTERNSHIP · SUMMER 2024</div>
+        <div class="cs-title">CNN Content Design & Information Architecture</div>
+        <div class="cs-desc">Information architecture and content design for web, mobile, and smart TV, built for internal users & consumers.</div>
+      </div>
+    </a>
+
+    <a class="cs-card" href="case_study_navi.html">
+      <div class="cs-thumb htp" style="background:#0C0E14;">
+        <img src="navi.png" class="htp-img" alt="Navi" onerror="this.style.opacity=0">
+        <video src="navi.mp4" class="htp-vid" loop muted playsinline></video>
+      </div>
+      <div class="cs-body">
+        <div class="cs-eyebrow">UX HACKATHON · 1ST PLACE</div>
+        <div class="cs-title">Navi – Safe Pedestrian Mobile App</div>
+        <div class="cs-desc">0→1 mobile app — AI companion, safe route navigation, and location sharing. Research to prototype in 24 hours.</div>
+      </div>
+    </a>
+
+    <a class="cs-card" href="play.html">
+      <div class="cs-thumb htp" style="background:#181420;">
+        <img src="play-thumb.png" class="htp-img" alt="Playground" onerror="this.style.opacity=0">
+        <video src="play.mp4" class="htp-vid" loop muted playsinline></video>
+      </div>
+      <div class="cs-body">
+        <div class="cs-eyebrow">PLAYGROUND</div>
+        <div class="cs-title">AI Builds, Graphics, and Experiments</div>
+        <div class="cs-desc">Go explore my playground!!</div>
+      </div>
+    </a>
+
   </div>
-  <nav class="footer-links" aria-label="Footer navigation">
-    <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank" rel="noopener" aria-label="View resume">Resume ↗</a>
-    <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">let's work together ↗</a>
-  </nav>
-</footer>
+</div>
+
+<div class="g-footer">
+  <span class="footer-txt">last updated april 2026 · made by navyaa vemuri</span>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/navyaavemuri" class="footer-link">LinkedIn ↗</a>
+    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="footer-link">Resume ↗</a>
+    <a href="mailto:navyaa.vemuri@gmail.com" class="footer-link">say hi ↗</a>
+  </div>
+</div>
 
 <script>
-(function(){
-
-  /* ── MADLIB AUTO-CYCLING PILLS ── */
-  const pills = {
-    'pill-adj': [
-      'human-centered','AI-augmented','outcome oriented'
-    ],
-    'pill-role': [
-      'storyteller','dot connector','systems builder','collaborator'
-    ],
-    'pill-vibe': [
-      'singer','spicy food seeker','experimenter','chai lover'
-    ]
-  };
-
-  const indices = { 'pill-adj': 0, 'pill-role': 0, 'pill-vibe': 0 };
-  // stagger the starts so they don't all flip at the same time
-  const offsets = { 'pill-adj': 0, 'pill-role': 1833, 'pill-vibe': 3666 };
-
-  function flipPill(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.add('flipping');
-    setTimeout(() => {
-      indices[id] = (indices[id] + 1) % pills[id].length;
-      el.textContent = pills[id][indices[id]];
-if (id === 'pill-adj') {
-  const word = pills[id][indices[id]];
-  document.getElementById('pill-article').textContent = /^[aeiou]/i.test(word) ? 'An' : 'A';
+function toggleNav(){
+  const ham=document.getElementById('nav-ham');
+  const mob=document.getElementById('nav-mobile');
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+  document.body.style.overflow=mob.classList.contains('open')?'hidden':'';
 }
-      el.classList.remove('flipping');
-    }, 175); // swap text at midpoint of flip
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('g-nav');
+  if(window.scrollY>80){
+    nav.style.background='rgba(17,18,18,.95)';
+    nav.style.borderBottom='.5px solid #222424';
+    nav.style.backdropFilter='blur(12px)';
+  } else {
+    nav.style.background='transparent';
+    nav.style.borderBottom='none';
+    nav.style.backdropFilter='none';
   }
-
-  // set initial text
-  Object.keys(pills).forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.textContent = pills[id][0];
 });
-const firstAdj = pills['pill-adj'][0];
-document.getElementById('pill-article').textContent = /^[aeiou]/i.test(firstAdj) ? 'An' : 'A';
 
-  // auto-cycle with staggered starts
-  Object.keys(pills).forEach(id => {
-    setTimeout(() => {
-      setInterval(() => flipPill(id), 5500);
-    }, offsets[id]);
+// Mobile: play video when in view
+const htpObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const vid = e.target.querySelector('.htp-vid');
+    const img = e.target.querySelector('.htp-img');
+    if(!vid) return;
+    if(e.isIntersecting && window.innerWidth <= 768){
+      vid.play();
+      vid.style.opacity='1';
+      if(img) img.style.opacity='0';
+    } else if(!e.isIntersecting){
+      vid.pause();
+      vid.currentTime=0;
+      vid.style.opacity='0';
+      if(img) img.style.opacity='1';
+    }
   });
+},{threshold:0.5});
+document.querySelectorAll('.htp').forEach(el => htpObserver.observe(el));
 
-  // also allow manual click to advance
-  Object.keys(pills).forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('click', () => flipPill(id));
-    el.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipPill(id); }
-    });
-  });
-
-   /* ── HOVER TO PLAY VIDEOS ── */
-  document.querySelectorAll('.cs-row').forEach(row => {
-    const video = row.querySelector('video');
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-    row.addEventListener('mouseenter', () => {
-      video.play().catch(() => {});
-    });
-    row.addEventListener('mouseleave', () => {
-      video.pause();
-      video.currentTime = 0;
-    });
-    // mobile tap
-    row.addEventListener('click', () => {
-      if (video.paused) video.play().catch(() => {});
-    });
-  });
-
-})();
+// Desktop: play on hover
+document.querySelectorAll('.htp').forEach(el => {
+  const vid = el.querySelector('.htp-vid');
+  if(!vid) return;
+  el.addEventListener('mouseenter', () => { if(window.innerWidth > 768) vid.play(); });
+  el.addEventListener('mouseleave', () => { if(window.innerWidth > 768){ vid.pause(); vid.currentTime=0; } });
+});
 </script>
 </body>
 </html>
