@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navyaa Vemuri — AI Product Designer</title>
+<title>Navyaa Vemuri — Product Designer</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -26,7 +26,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .nav-mobile-link{font-size:24px;font-weight:300;color:var(--muted);text-decoration:none;transition:color .2s;}
 .nav-mobile-link:hover{color:var(--text);}
 .nav-mobile-link.cta{color:var(--blue);}
-.hero-placeholder{width:100%;min-height:560px;background:#161818;display:flex;align-items:center;justify-content:center;border-bottom:.5px solid var(--border);}
+
 .work-section{max-width:100%;margin:0;padding:48px 32px 96px;}
 .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .cs-card{background:transparent;border-radius:0;text-decoration:none;display:flex;flex-direction:column;overflow:hidden;transition:opacity .2s;opacity:0;animation:fadeup .5s forwards;}
@@ -66,6 +66,45 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .htp-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s;z-index:2;}
 .htp:hover .htp-vid{opacity:1;}
 .htp:hover .htp-img{opacity:0;}
+
+/* HERO */
+.hero-section{width:100%;height:600px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+
+
+.hero-cards{position:relative;width:100%;max-width:860px;height:100%;margin:0 auto;}
+.hero-card{position:absolute;background:#fff;border-radius:4px;box-shadow:0 4px 32px rgba(0,0,0,.12);font-family:'DM Sans',sans-serif;}
+.hero-card-text{font-size:22px;font-weight:400;line-height:1.55;color:#1A1A1A;letter-spacing:-.01em;}
+.hero-card-text em{font-style:italic;color:#C4855A;}
+.hero-card-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#AAAAAA;margin-top:28px;}
+
+/* About card — larger, top right, tilted +3deg */
+.card-about{
+  width:380px;
+  padding:36px 40px 32px;
+  top:80px;
+  right:60px;
+  transform:rotate(3deg);
+  z-index:2;
+}
+/* Next card — smaller, bottom left, tilted -4deg, overlaps about card */
+.card-next{
+  width:290px;
+  padding:28px 32px 26px;
+  top:200px;
+  left:80px;
+  transform:rotate(-4deg);
+  z-index:3;
+}
+.card-next .hero-card-text{font-size:19px;}
+
+@media(max-width:768px){
+  .hero-section{height:480px;}
+  .card-about{width:260px;padding:24px 26px 22px;top:50px;right:16px;}
+  .card-about .hero-card-text{font-size:16px;}
+  .card-next{width:210px;padding:20px 22px 18px;top:160px;left:12px;}
+  .card-next .hero-card-text{font-size:14px;}
+  .hero-card-label{font-size:8px;margin-top:16px;}
+}
 </style>
 </head>
 <body>
@@ -90,11 +129,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <a href="mailto:navyaa.vemuri@gmail.com" class="nav-mobile-link cta" onclick="toggleNav()">say hi ↗</a>
 </div>
 
-<!-- HERO — replace this div with your image -->
-<div class="hero-placeholder">
-  <div style="text-align:center;">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#686460" stroke-width="1.5" style="display:block;margin:0 auto 12px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-    <div style="font-size:12px;color:#686460;letter-spacing:.04em;"><img src="hero.png"alt="Tesla" onerror="this.style.opacity=0"></div>
+<!-- HERO -->
+<div class="hero-section">
+  <img src="hero.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+  <div class="hero-cards">
+    <div class="hero-card card-about">
+      <div class="hero-card-text">Hi, I'm Navyaa Vemuri — a product designer with a passion for storytelling, crafting positive AI experiences, and creative problem solving.</div>
+      <div class="hero-card-label">ABOUT ME</div>
+    </div>
+    <div class="hero-card card-next">
+      <div class="hero-card-text">Cal Poly GrC grad. Chasing the sweet spot where AI makes design feel <em>more</em> human.</div>
+      <div class="hero-card-label">NEXT STEPS</div>
+    </div>
   </div>
 </div>
 
@@ -103,7 +149,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <a class="cs-card" href="#" aria-label="Tesla UX Consulting">
       <div class="cs-thumb htp" style="background:#0E0808;position:relative;">
-        <img src="tesla-thumb.png" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
+        <img src="tesla-thumb.jpg" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
         <video src="tesla.mp4" class="htp-vid" loop muted playsinline></video>
       </div>
       <div class="cs-body">
@@ -151,7 +197,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <a class="cs-card" href="case_study_navi.html">
       <div class="cs-thumb htp" style="background:#0C0E14;">
-        <img src="navi-thumb.png" class="htp-img" alt="Navi" onerror="this.style.opacity=0">
+        <img src="navi.png" class="htp-img" alt="Navi" onerror="this.style.opacity=0">
         <video src="navi.mp4" class="htp-vid" loop muted playsinline></video>
       </div>
       <div class="cs-body">
@@ -163,7 +209,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <a class="cs-card" href="play.html">
       <div class="cs-thumb htp" style="background:#181420;">
-        <img src="playground-thumb.png" class="htp-img" alt="Playground" onerror="this.style.opacity=0">
+        <img src="play-thumb.png" class="htp-img" alt="Playground" onerror="this.style.opacity=0">
+        <video src="play.mp4" class="htp-vid" loop muted playsinline></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">PLAYGROUND</div>
