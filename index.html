@@ -121,7 +121,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .card-next .hero-card-text{font-size:16px;}
   .hero-card-label{font-size:8px;margin-top:16px;}
 }
-}
 </style>
 </head>
 <body>
@@ -256,6 +255,7 @@ function toggleNav(){
   mob.classList.toggle('open');
   document.body.style.overflow=mob.classList.contains('open')?'hidden':'';
 }
+
 window.addEventListener('scroll',()=>{
   const nav=document.getElementById('g-nav');
   if(window.scrollY>80){
@@ -269,14 +269,35 @@ window.addEventListener('scroll',()=>{
   }
 });
 
-// Mobile: play video when in view
+document.querySelectorAll('.htp').forEach(el => {
+  const vid = el.querySelector('.htp-vid');
+  const img = el.querySelector('.htp-img');
+  if(!vid) return;
+  vid.preload = 'auto';
+  vid.load();
+  el.addEventListener('mouseenter', () => {
+    if(window.innerWidth <= 768) return;
+    vid.currentTime = 0;
+    vid.play().catch(()=>{});
+    vid.style.opacity = '1';
+    if(img) img.style.opacity = '0';
+  });
+  el.addEventListener('mouseleave', () => {
+    if(window.innerWidth <= 768) return;
+    vid.pause();
+    vid.currentTime = 0;
+    vid.style.opacity = '0';
+    if(img) img.style.opacity = '1';
+  });
+});
+
 const htpObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     const vid = e.target.querySelector('.htp-vid');
     const img = e.target.querySelector('.htp-img');
     if(!vid) return;
     if(e.isIntersecting && window.innerWidth <= 768){
-      vid.play();
+      vid.play().catch(()=>{});
       vid.style.opacity='1';
       if(img) img.style.opacity='0';
     } else if(!e.isIntersecting){
@@ -288,33 +309,6 @@ const htpObserver = new IntersectionObserver((entries) => {
   });
 },{threshold:0.5});
 document.querySelectorAll('.htp').forEach(el => htpObserver.observe(el));
-
-// Desktop: play on hover
-document.querySelectorAll('.htp').forEach(el => {
-  const vid = el.querySelector('.htp-vid');
-  const img = el.querySelector('.htp-img');
-  if(!vid) return;
-  // preload video data immediately on page load
-  vid.preload = 'auto';
-  vid.load();
-  el.addEventListener('mouseenter', () => {
-    if(window.innerWidth > 768){
-      vid.play().catch(()=>{});
-      vid.style.opacity='1';
-      if(img) img.style.opacity='0';
-    }
-  });
-  el.addEventListener('mouseenter', () => {
-  if(window.innerWidth > 768){
-    vid.currentTime = 0;
-    vid.play().catch(()=>{});
-    vid.style.opacity='1';
-    if(img) img.style.opacity='0';
-  }
-});
-    }
-  });
-});
 </script>
 </body>
 </html>
