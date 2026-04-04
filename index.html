@@ -76,8 +76,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .card-about{
   width:420px;
   padding:40px 44px 34px;
-  top:100px;
-  right:calc(50% - 380px);
+  top:90px;
+  left:50%;
+  margin-left:20px;
   transform:rotate(3deg);
   z-index:2;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
@@ -87,8 +88,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .card-next{
   width:320px;
   padding:32px 36px 28px;
-  top:220px;
-  left:calc(50% - 380px);
+  top:210px;
+  left:50%;
+  margin-left:-340px;
   transform:rotate(-4deg);
   z-index:3;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
@@ -303,15 +305,16 @@ document.querySelectorAll('.htp').forEach(el => {
       if(img) img.style.opacity='0';
     }
   });
-  el.addEventListener('mouseleave', () => {
-    if(window.innerWidth > 768){
-      vid.pause();
-      vid.currentTime=0;
-      vid.style.opacity='0';
-      if(img) img.style.opacity='1';
+  el.addEventListener('mouseenter', () => {
+  if(window.innerWidth > 768){
+    vid.currentTime = 0;
+    vid.play().catch(()=>{});
+    vid.style.opacity='1';
+    if(img) img.style.opacity='0';
+  }
+});
     }
   });
-});
 });
 </script>
 </body>
