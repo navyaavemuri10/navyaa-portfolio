@@ -76,10 +76,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .hero-card-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#AAAAAA;margin-top:28px;}
 
 .card-about{
-  width:460px;
-  padding:44px 48px 38px;
-  top:80px;
-  right:60px;
+  width:420px;
+  padding:40px 44px 34px;
+  top:100px;
+  right:calc(50% - 380px);
   transform:rotate(3deg);
   z-index:2;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
@@ -87,25 +87,41 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .card-about:hover{transform:rotate(1.5deg) translateY(-6px) scale(1.02);}
 
 .card-next{
-  width:360px;
-  padding:36px 40px 32px;
-  top:200px;
-  left:80px;
+  width:320px;
+  padding:32px 36px 28px;
+  top:220px;
+  left:calc(50% - 380px);
   transform:rotate(-4deg);
   z-index:3;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
 }
 .card-next:hover{transform:rotate(-2deg) translateY(-6px) scale(1.02);}
 
-.card-next .hero-card-text{font-size:21px;}
-
 @media(max-width:768px){
-  .hero-section{height:480px;}
-  .card-about{width:260px;padding:24px 26px 22px;top:50px;right:16px;}
-  .card-about .hero-card-text{font-size:16px;}
-  .card-next{width:210px;padding:20px 22px 18px;top:160px;left:12px;}
-  .card-next .hero-card-text{font-size:14px;}
+  .hero-section{height:auto;min-height:100svh;padding:80px 24px 60px;}
+  .hero-cards{position:relative;width:100%;height:auto;display:flex;flex-direction:column;align-items:center;gap:20px;}
+  .card-about{
+    position:relative;
+    width:100%;
+    max-width:360px;
+    top:auto;right:auto;left:auto;bottom:auto;
+    transform:rotate(2deg);
+    padding:28px 30px 24px;
+  }
+  .card-next{
+    position:relative;
+    width:100%;
+    max-width:320px;
+    top:auto;right:auto;left:auto;bottom:auto;
+    transform:rotate(-2deg);
+    padding:24px 28px 20px;
+    align-self:flex-start;
+    margin-left:16px;
+  }
+  .card-about .hero-card-text{font-size:18px;}
+  .card-next .hero-card-text{font-size:16px;}
   .hero-card-label{font-size:8px;margin-top:16px;}
+}
 }
 </style>
 </head>
@@ -152,7 +168,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="cs-card" href="#" aria-label="Tesla UX Consulting">
       <div class="cs-thumb htp" style="background:#0E0808;position:relative;">
         <img src="tesla-thumb.png" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
-        <video src="tesla.mp4" class="htp-vid" loop muted playsinline></video>
+        <video src="tesla.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">MOBILE APP · 2025</div>
@@ -164,7 +180,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="cs-card" href="case_study_cisco.html">
       <div class="cs-thumb htp" style="background:#0D1420;">
         <img src="cisco-thumb.png" class="htp-img" alt="Cisco Splunk" onerror="this.style.opacity=0">
-        <video src="cisco.mp4" class="htp-vid" loop muted playsinline></video>
+        <video src="cisco.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">INTERNSHIP · SUMMER 2025</div>
@@ -176,7 +192,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="cs-card" href="case_study_chw.html">
       <div class="cs-thumb htp" style="background:#0A140E;">
         <img src="chw-thumb.png" class="htp-img" alt="Cal Poly CHW" onerror="this.style.opacity=0">
-        <video src="chw.mp4" class="htp-vid" loop muted playsinline></video>
+        <video src="chw.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">WEB & MOBILE REDESIGN · 2023 TO 2025</div>
@@ -188,7 +204,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="cs-card" href="case_study_cnn.html">
       <div class="cs-thumb htp" style="background:#140808;">
         <img src="cnn-thumb.png" class="htp-img" alt="CNN" onerror="this.style.opacity=0">
-        <video src="cnn.mp4" class="htp-vid" loop muted playsinline></video>
+        <video src="cnn.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">INTERNSHIP · SUMMER 2024</div>
@@ -200,7 +216,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="cs-card" href="case_study_navi.html">
       <div class="cs-thumb htp" style="background:#0C0E14;">
         <img src="navi-thumb.png" class="htp-img" alt="Navi" onerror="this.style.opacity=0">
-        <video src="navi.mp4" class="htp-vid" loop muted playsinline></video>
+        <video src="navi.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">UX HACKATHON · 1ST PLACE</div>
@@ -212,7 +228,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <a class="cs-card" href="play.html">
       <div class="cs-thumb htp" style="background:#181420;">
         <img src="play-thumb.png" class="htp-img" alt="Playground" onerror="this.style.opacity=0">
-        <video src="play.mp4" class="htp-vid" loop muted playsinline></video>
+        <video src="play.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
       </div>
       <div class="cs-body">
         <div class="cs-eyebrow">PLAYGROUND</div>
@@ -279,6 +295,9 @@ document.querySelectorAll('.htp').forEach(el => {
   const vid = el.querySelector('.htp-vid');
   const img = el.querySelector('.htp-img');
   if(!vid) return;
+  // preload video data immediately on page load
+  vid.preload = 'auto';
+  vid.load();
   el.addEventListener('mouseenter', () => {
     if(window.innerWidth > 768){
       vid.play().catch(()=>{});
