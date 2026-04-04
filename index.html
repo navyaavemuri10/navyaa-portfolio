@@ -75,25 +75,29 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .hero-card-text em{font-style:italic;color:#C4855A;}
 .hero-card-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#AAAAAA;margin-top:28px;}
 
-/* About card — larger, top right, tilted +3deg */
 .card-about{
-  width:380px;
-  padding:36px 40px 32px;
+  width:460px;
+  padding:44px 48px 38px;
   top:80px;
   right:60px;
   transform:rotate(3deg);
   z-index:2;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
 }
-/* Next card — smaller, bottom left, tilted -4deg, overlaps about card */
+.card-about:hover{transform:rotate(1.5deg) translateY(-6px) scale(1.02);}
+
 .card-next{
-  width:290px;
-  padding:28px 32px 26px;
+  width:360px;
+  padding:36px 40px 32px;
   top:200px;
   left:80px;
   transform:rotate(-4deg);
   z-index:3;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
 }
-.card-next .hero-card-text{font-size:19px;}
+.card-next:hover{transform:rotate(-2deg) translateY(-6px) scale(1.02);}
+
+.card-next .hero-card-text{font-size:21px;}
 
 @media(max-width:768px){
   .hero-section{height:480px;}
@@ -147,7 +151,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
     <a class="cs-card" href="#" aria-label="Tesla UX Consulting">
       <div class="cs-thumb htp" style="background:#0E0808;position:relative;">
-        <img src="tesla-thumb.jpg" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
+        <img src="tesla-thumb.png" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
         <video src="tesla.mp4" class="htp-vid" loop muted playsinline></video>
       </div>
       <div class="cs-body">
@@ -273,9 +277,24 @@ document.querySelectorAll('.htp').forEach(el => htpObserver.observe(el));
 // Desktop: play on hover
 document.querySelectorAll('.htp').forEach(el => {
   const vid = el.querySelector('.htp-vid');
+  const img = el.querySelector('.htp-img');
   if(!vid) return;
-  el.addEventListener('mouseenter', () => { if(window.innerWidth > 768) vid.play(); });
-  el.addEventListener('mouseleave', () => { if(window.innerWidth > 768){ vid.pause(); vid.currentTime=0; } });
+  el.addEventListener('mouseenter', () => {
+    if(window.innerWidth > 768){
+      vid.play().catch(()=>{});
+      vid.style.opacity='1';
+      if(img) img.style.opacity='0';
+    }
+  });
+  el.addEventListener('mouseleave', () => {
+    if(window.innerWidth > 768){
+      vid.pause();
+      vid.currentTime=0;
+      vid.style.opacity='0';
+      if(img) img.style.opacity='1';
+    }
+  });
+});
 });
 </script>
 </body>
