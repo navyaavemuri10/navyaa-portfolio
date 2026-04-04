@@ -276,19 +276,21 @@ const modals = {
     ]
   },
   audit: {
-  img: 'audit-thumb.png',
-  tag: 'ai build · lovable',
-  tagClass: 'm-tag-ai',
-  title: 'smart audit — UX heuristic analysis tool',
-  tagline: 'I audit products for a living. So I built a tool that does it too. AI-powered UX evaluation against Nielsen\'s 10 Usability Heuristics — tailored to the type of site you\'re analyzing.',
-  link: 'https://ai-ux-audit.lovable.app',
-  linkLabel: 'try live app →',
-  sections: [
-    { title: 'the idea', body: 'Heuristic audits are one of my favorite parts of the design process — but they\'re time-consuming and hard to do consistently. I wanted to see if I could build a tool that gives any designer a solid starting point in seconds.' },
-    { title: 'how it works', body: 'You enter a URL and select your site type (e-commerce, SaaS, portfolio, marketing). The AI analyzes the interface against all 10 of Nielsen\'s heuristics and returns a tailored evaluation with specific observations and severity ratings.' },
-    { title: 'what i learned', body: 'Prompting AI to think like a UX auditor is harder than it sounds. The framing, context, and specificity of the system prompt completely changes the quality of the output. This was as much a prompt engineering project as a design one.' }
-  ]
-},
+    img: 'audit-thumb.png',
+    tag: 'ai build · lovable',
+    tagClass: 'm-tag-ai',
+    title: 'smart audit — UX heuristic analysis tool',
+    tagline: 'Heuristic audits are one of the most foundational tasks in UX. I have done them at basically every internship. But combing through a site and documenting everything is genuinely time consuming. So I built something to handle the first pass.',
+    link: 'https://ai-ux-audit.lovable.app',
+    linkLabel: 'try live app',
+    sections: [
+      { title: 'the gap', body: 'Every audit starts the same way: open the site, work through all 10 of Nielsen\'s heuristics, document observations, assign severity ratings. It\'s thorough, but it takes forever. The existing tools I found were either too generic, too expensive, or not actually built for working designers.' },
+      { title: 'what i built', body: 'Smart Audit lets you drop in a URL, select your site type (e-commerce, SaaS, portfolio, or marketing), and get an AI-powered evaluation against all 10 heuristics. Severity ratings, impact/effort highlighting, and it shows the positives too — not just what\'s broken. It\'s meant to give you a real foundation before you go do the actual work yourself.' },
+      { title: 'my process', body: 'I made a deliberate call to focus entirely on functionality and hand Claude the creative director hat for the UI. I wanted to see what it would do with full autonomy. My job was to work out the logic: what the rating system should look like, how to surface impact vs effort, why showing positives matters as much as flagging issues, and how to make the output feel like something a real designer would actually use — not a generic checklist.' },
+      { title: 'workflow', workflow: ['Research', 'existing tools', 'Claude', 'creative direction', 'prompt architecture', 'Lovable', 'deployment'] },
+      { title: 'what i learned', body: 'Giving Claude creative control and focusing on the product thinking was genuinely the right call. The hardest part was prompt architecture — getting an LLM to think like a UX auditor requires a lot of context and specificity. The system prompt went through probably 15 iterations before the output was useful. Which, it turns out, is a very good thing for a UX designer to know how to do.' }
+    ]
+  },
   graphic1: {
     img: 'graphic-1.png',
     tag: 'graphic design',
