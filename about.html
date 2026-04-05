@@ -31,15 +31,41 @@
   .wrap{width:80%;margin:0 auto;padding:48px 0 96px;}
   
   /* Hero Section (Side-by-Side) */
-  .hero-header {
+ .hero-header {
     display: flex;
     align-items: center;
-    gap: 32px;
-    margin-bottom: 40px;
+    gap: 48px;            /* Increased gap for the larger scale */
+    margin-bottom: 60px;
+    width: 100%;          /* Let it fill its parent */
+    max-width: 60%;       /* This makes the hero unit take up 60% of the page */
+    margin-left: 0;       /* Keeps it aligned to the left like your text */
   }
-  .photo-circle{width:120px;height:120px;border-radius:50%;overflow:hidden;cursor:pointer;position:relative;flex-shrink: 0;}
-  .photo-circle img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s;}
-  .heyyy{height:70px;width:auto;display:block;}
+
+  .photo-circle {
+    width: 200px;         /* Significant size increase */
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;       /* Keeps the circle from squishing */
+    border: 1px solid var(--border); /* Optional: adds a subtle definition */
+  }
+
+  .photo-circle img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .5s;
+  }
+
+  .heyyy {
+    height: 120px;        /* Matches the height of the larger photo better */
+    width: auto;
+    display: block;
+  }
 
   /* Typography */
   p{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:28px;}
@@ -101,6 +127,27 @@
     .exp-row{flex-direction:column;gap:4px;}
     .photo-grid{grid-template-columns:1fr 1fr;}
     .photo-grid img:last-child{grid-column:span 2;}
+   /* Responsive tweak: don't let it stay 60% on small screens or it'll be too tiny */
+  @media(max-width:1024px){
+    .hero-header {
+      max-width: 100%; 
+    }
+  }
+
+  @media(max-width:640px){
+    .hero-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .photo-circle {
+      width: 150px;
+      height: 150px;
+    }
+    .heyyy {
+      height: 80px;
+    }
+  }
   }
 </style>
 </head>
@@ -148,7 +195,7 @@
   <p>I've led teams from 4 people to 140+ member orgs. Over the years, I'd like to say I've grown and learned important lessons on how to be a good leader. I aim to build a culture where everyone feels seen but equally challenged.<br><br><em>Also I just genuinely love to yap & listen to others yap.</em></p>
 
   <div class="photo-grid">
-    <img src="leadership-1.jpg" alt="Leadership" onerror="this.style.opacity=0">
+    <img src="leadership-1.png" alt="Leadership" onerror="this.style.opacity=0">
     <img src="leadership-2.jpeg" alt="Leadership" onerror="this.style.opacity=0">
     <img src="leadership-3.jpeg" alt="Leadership" onerror="this.style.opacity=0">
   </div>
