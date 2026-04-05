@@ -46,6 +46,41 @@ p em{font-style:italic;color:var(--muted);}
 .footer-links{display:flex;gap:20px;}
 .footer-link{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s;}
 .footer-link:hover{color:var(--muted);}
+  .carousel-container {
+  width: 100%;
+  overflow: hidden; /* Hides the images as they move off-screen */
+  padding: 40px 0;
+  background: transparent;
+}
+
+.carousel-track {
+  display: flex;
+  width: calc(250px * 10); /* (Width of 1 image + gap) * total images (including duplicates) */
+  animation: scroll 20s linear infinite;
+}
+
+/* Pause on hover */
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.carousel-track img {
+  width: 250px; /* Adjust size as needed */
+  aspect-ratio: 4 / 3; /* Forces the 4:3 ratio */
+  object-fit: cover; /* Ensures images don't look squished */
+  margin-right: 20px; /* Gap between images */
+  border-radius: 8px; /* Optional: gives a nice "Apple-style" rounded corner */
+}
+
+/* The Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 5 - 100px)); /* Move by the width of the original 5 images + gaps */
+  }
+}
 @media(max-width:640px){
   .g-nav{padding:0 24px;}
   .nav-hamburger{display:flex;}
@@ -85,7 +120,7 @@ p em{font-style:italic;color:var(--muted);}
     <img id="p2" src="me-3.jpg" style="opacity:0;" onerror="this.style.background='#3A3836'">
   </div>
 
-  <img src="oh-heyyy.png" class="heyyy" alt="oh heyyy">
+  <img src="oh-hey.svg" class="heyyy" alt="oh heyyy">
 
   <p>I'm Navyaa Vemuri, an interdisciplinary designer with a passion for storytelling, crafting positive AI experiences, and creative problem solving! I recently graduated from Cal Poly SLO with a major in Graphic Communication and a minor in Computer Science.</p>
 
@@ -107,13 +142,23 @@ p em{font-style:italic;color:var(--muted);}
   </div>
 
   <div class="section-label">creating!!!</div>
-  <p>I also loooove creating things and experiences. Hosting dinner parties, making vegetarian dishes, ceramics, crochet pieces, painting my nails lol, and of course, experimenting with fun AI things (in a conservative way).</p>
+  <p>I also loooove creating things and experiences. Hosting dinner parties, making vegetarian dishes, ceramics, crochet pieces, painting my nails lol, and of course, experimenting with fun AI things (in a conservative way). Oh yea, also I'm a singer!!</p>
 
-  <div class="photo-grid">
-    <img src="food-1.png" alt="One of my favorite dishes to cook" onerror="this.style.opacity=0">
-    <img src="food-2.png" alt="Painting my nails" onerror="this.style.opacity=0">
-    <img src="food-3.png" alt="Creating" onerror="this.style.opacity=0">
+ <div class="carousel-container">
+  <div class="carousel-track">
+    <img src="hobby-1.jpg" alt="Gallery 1">
+    <img src="hobby-2.jpg" alt="Gallery 2">
+    <img src="hobby-3.jpg" alt="Gallery 3">
+    <img src="hobby-4.jpg" alt="Gallery 4">
+    <img src="hobby-5.jpg" alt="Gallery 5">
+    
+    <img src="hobby-1.jpg" alt="Gallery 1">
+    <img src="hobby-2.jpg" alt="Gallery 2">
+    <img src="hobby-3.jpg" alt="Gallery 3">
+    <img src="hobby-4.jpg" alt="Gallery 4">
+    <img src="hobby-5.jpg" alt="Gallery 5">
   </div>
+</div>
 
 </div>
 
