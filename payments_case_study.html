@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments Operations Dashboard — Navyaa Vemuri</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#111212;--surface:#161818;--border:#1E2020;
+  --text:#DDD8D0;--muted:#A8A29A;--dim:#686460;
+  --accent:#6BBFB0;--accent-bg:#0C1E1C;--accent-border:#1D3D39;
+  --conflict:#C4745A;--conflict-bg:#1E100C;--conflict-border:#3A1E16;
+  --nav-h:60px;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+.g-nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 64px;background:var(--bg);border-bottom:.5px solid var(--border);}
+.nav-logo{font-size:14px;color:var(--text);text-decoration:none;letter-spacing:-.01em;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-link{font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px;}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:.5px;background:var(--accent);transition:width .25s;}
+.nav-link:hover{color:var(--text);}
+.nav-link:hover::after,.nav-link:focus-visible::after{width:100%;}
+.nav-link:focus-visible{outline:2px solid #7AB4D8;outline-offset:4px;border-radius:2px;}
+.nav-cta{color:#7AB4D8!important;}
+.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:480px;position:relative;overflow:hidden;}
+.hero-media::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:28px 28px;opacity:.6;pointer-events:none;}
+.hero-placeholder{width:100%;height:100%;min-height:580px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 64px;position:relative;z-index:1;text-align:center;gap:12px;}
+.hero-tag{font-size:11px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;border:.5px solid var(--accent-border);background:var(--accent-bg);padding:4px 12px;border-radius:20px;}
+.hero-title{font-size:16px;color:var(--text);letter-spacing:-.01em;}
+.hero-hint{font-size:12px;color:var(--dim);font-style:italic;}
+.page-wrap{max-width:1160px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:200px 1fr;gap:0;align-items:start;}
+.toc-col{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));padding:40px 32px 40px 0;overflow-y:auto;border-right:.5px solid var(--border);scrollbar-width:none;}
+.toc-col::-webkit-scrollbar{display:none;}
+.toc-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);text-decoration:none;margin-bottom:24px;padding-bottom:20px;border-bottom:.5px solid var(--border);transition:color .2s;}
+.toc-back:hover{color:var(--accent);}
+.toc-back:hover .back-arr{transform:translateX(-3px);}
+.back-arr{display:inline-block;transition:transform .2s;}
+.toc-label{font-size:12px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
+.toc-link{font-size:14px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
+.toc-link:hover{color:var(--muted);border-left-color:var(--muted);padding-left:15px;}
+.toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
+.toc-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
+.cs-main{padding:52px 0 96px 56px;min-width:0;}
+.cs-eyebrow{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;opacity:0;animation:up .5s .05s forwards;}
+.cs-title{font-size:38px;font-weight:300;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:14px;opacity:0;animation:up .6s .15s forwards;}
+.cs-title em{font-style:italic;color:var(--accent);}
+.cs-tagline{font-size:15px;color:var(--muted);line-height:1.74;max-width:620px;margin-bottom:36px;opacity:0;animation:up .6s .25s forwards;}
+.meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;opacity:0;animation:up .5s .35s forwards;}
+.meta-cell{background:var(--surface);padding:16px 20px;}
+.meta-cell+.meta-cell{border-left:.5px solid var(--border);}
+.meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.meta-val{font-size:13px;color:var(--text);line-height:1.4;}
+.impact-bar{padding:24px 28px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;margin-bottom:40px;opacity:0;animation:up .6s .45s forwards;}
+.impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
+.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
+.stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.cs-section{margin-bottom:64px;}
+.cs-section-label{font-size:10px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
+.cs-h2{font-size:21px;font-weight:300;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:14px;}
+.cs-h2 em{font-style:italic;color:var(--accent);}
+.cs-p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
+.cs-p:last-child{margin-bottom:0;}
+.cs-p strong{color:var(--text);font-weight:400;}
+.pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
+.pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.2;font-family:Georgia,serif;line-height:1;}
+.pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
+.pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
+.conflict-header,.tradeoff-header{border-radius:0 8px 8px 0;padding:14px 20px;margin:18px 0 8px;}
+.conflict-header{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);}
+.tradeoff-header{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);}
+.conflict-header-label,.tradeoff-header-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.conflict-header-label{color:var(--conflict);}
+.tradeoff-header-label{color:var(--accent);}
+.conflict-header-text,.tradeoff-header-text{font-size:13px;color:var(--muted);line-height:1.65;}
+.conflict-header-text strong,.tradeoff-header-text strong{color:var(--text);font-weight:400;}
+.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
+.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
+.img-block img{position:relative;z-index:1;border-radius:0;display:block;width:100%;}
+.img-placeholder{position:relative;z-index:1;padding:72px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;min-height:300px;}
+.img-placeholder.short{min-height:220px;padding:52px 28px;}
+.img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
+.img-caption-bar{padding:10px 18px;border-top:.5px solid var(--border);}
+.img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
+.img-caption-text strong{color:var(--muted);font-weight:400;}
+.img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
+.img-row .img-block{margin:0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
+.col-card{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:18px 20px;}
+.col-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:5px 0;border-bottom:.5px solid var(--border);}
+.col-item:last-child{border-bottom:none;}
+.decision-grid{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
+.decision-card{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.decision-card.tradeoff-card{border-left:2px solid var(--accent);}
+.dc-tension{padding:16px 18px;border-right:.5px solid var(--border);}
+.dc-resolution{padding:16px 18px;background:var(--bg);}
+.dc-tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.dc-tag.tension-tag{color:var(--conflict);}
+.dc-tag.resolution-tag{color:var(--accent);}
+.dc-text{font-size:13px;color:var(--muted);line-height:1.68;}
+.dc-text strong{color:var(--text);font-weight:400;}
+.learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
+.learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
+.learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
+.learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
+.learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
+.g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-left{font-size:12px;color:var(--dim);}
+.footer-left em{font-style:italic;color:var(--muted);}
+.footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
+.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
+.footer-link:hover{color:var(--text);}
+.footer-cta{font-size:12px;color:#7AB4D8;text-decoration:none;border:.5px solid #1E3048;border-radius:4px;padding:7px 16px;transition:background .2s;}
+.footer-cta:hover{background:#0D1620;}
+@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:900px){
+  .g-nav{padding:0 32px;}
+  .page-wrap{grid-template-columns:1fr;padding:0 32px;}
+  .toc-col{position:static;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:28px 0 20px;}
+  .toc-back{margin-bottom:16px;padding-bottom:16px;}
+  .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;}
+  .toc-link{border-left:none;border-bottom:1.5px solid var(--border);padding:5px 10px;}
+  .toc-link.active{border-bottom-color:var(--accent);}
+  .toc-link:hover{padding-left:10px;}
+  .cs-main{padding:40px 0 72px;}
+  .meta-row{grid-template-columns:repeat(2,1fr);}
+  .meta-cell+.meta-cell{border-left:none;}
+  .meta-row .meta-cell:nth-child(odd){border-right:.5px solid var(--border);}
+  .meta-row .meta-cell:nth-child(3),.meta-row .meta-cell:nth-child(4){border-top:.5px solid var(--border);}
+  .impact-stats{grid-template-columns:1fr 1fr;}
+  .img-row,.two-col{grid-template-columns:1fr;}
+  .g-footer{padding:28px 32px;}
+  .cs-title{font-size:30px;}
+}
+@media(max-width:600px){
+  .g-nav{padding:0 20px;}
+  .nav-links .nav-link:not(.nav-cta){display:none;}
+  .page-wrap{padding:0 20px;}
+  .impact-stats{grid-template-columns:1fr;}
+  .cs-title{font-size:26px;}
+  .g-footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  .cs-eyebrow,.cs-title,.cs-tagline,.meta-row,.impact-bar{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+
+<nav class="g-nav" aria-label="Site navigation">
+  <a class="nav-logo" href="index.html">navyaa vemuri</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html#work">work</a>
+    <a class="nav-link" href="play.html">play</a>
+    <a class="nav-link" href="about.html">about</a>
+    <a class="nav-link nav-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+  </div>
+</nav>
+
+<div class="hero-media" role="img" aria-label="Payments operations dashboard — final design preview">
+  <!-- Replace this placeholder with your final hero image -->
+  <div class="hero-placeholder">
+    <div class="hero-tag">replace with hero screenshot</div>
+    <div class="hero-title">Payments operations dashboard — final design preview</div>
+    <div class="hero-hint">Suggested asset: your cleanest full-screen dashboard shot</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <aside class="toc-col" aria-label="Table of contents">
+    <a class="toc-back" href="index.html#work" aria-label="Back to all work">
+      <span class="back-arr" aria-hidden="true">←</span> all work
+    </a>
+    <div class="toc-label">On this page</div>
+    <ul class="toc-list" role="list">
+      <li><a class="toc-link active" href="#overview">Overview</a></li>
+      <li><a class="toc-link" href="#problem">The problem</a></li>
+      <li><a class="toc-link" href="#research">Research</a></li>
+      <li><a class="toc-link" href="#principles">Design principles</a></li>
+      <li><a class="toc-link" href="#design">Design</a></li>
+      <li><a class="toc-link" href="#prototype">Prototype</a></li>
+      <li><a class="toc-link" href="#outcome">Outcome</a></li>
+      <li><a class="toc-link" href="#learnings">Learnings</a></li>
+    </ul>
+  </aside>
+
+  <main class="cs-main">
+
+    <section id="overview" aria-labelledby="cs-title">
+      <div class="cs-eyebrow">Independent Project · Product Design · 2026</div>
+      <h1 class="cs-title" id="cs-title">designing a payments system that<br>doesn’t just show failure — it helps <em>fix it</em></h1>
+      <p class="cs-tagline">
+        How I designed a payments operations dashboard that helps analysts prioritize, investigate, and resolve failed transactions instead of just staring at another table.
+      </p>
+
+      <div class="meta-row" role="list" aria-label="Project details">
+        <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Product Designer, end-to-end</div></div>
+        <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">Fast concept sprint</div></div>
+        <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · AI-assisted prototyping · planned Tailwind build</div></div>
+        <div class="meta-cell" role="listitem"><div class="meta-label">Scope</div><div class="meta-val">UX strategy, interaction design, systems thinking</div></div>
+      </div>
+
+      <div class="impact-bar" aria-label="Project outcomes">
+        <div class="impact-label">tldr; what this project solves</div>
+        <div class="impact-stats">
+          <div><div class="stat-num">1</div><div class="stat-desc">clear prioritization layer so analysts can quickly see what actually needs attention</div></div>
+          <div><div class="stat-num">1</div><div class="stat-desc">resolution workflow connecting triage, investigation, and action in the same interface</div></div>
+          <div><div class="stat-num">1</div><div class="stat-desc">operations-focused system that closes the gap between insight and execution</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="cs-section" aria-labelledby="prob-h">
+      <div class="cs-section-label" aria-hidden="true">The problem</div>
+      <h2 class="cs-h2" id="prob-h">Most payment tools can tell you <em>something failed.</em> They rarely help you resolve it.</h2>
+      <p class="cs-p">
+        When I started exploring payments workflows, I noticed a pattern: most products were pretty good at showing status, but weak at guiding recovery. You could see that a payment was pending, failed, or returned — but once something went wrong, the product usually stopped being helpful.
+      </p>
+      <p class="cs-p">
+        That felt like a missed opportunity, especially in operational workflows. A payments ops analyst is not just looking at transactions for awareness. They’re trying to answer much more urgent questions: <strong>what failed, why did it fail, and what should happen next?</strong>
+      </p>
+
+      <div class="pull-quote">
+        <p>Good at showing status. Bad at guiding recovery.</p>
+        <cite>Main pattern I found across competitor analysis</cite>
+      </div>
+
+      <div class="two-col" aria-label="Problem breakdown">
+        <div class="col-card">
+          <div class="col-label">What existing tools do well</div>
+          <div class="col-item">Surface high-level transaction status</div>
+          <div class="col-item">Provide searchable transaction history</div>
+          <div class="col-item">Offer basic detail views and receipts</div>
+          <div class="col-item">Support monitoring at a glance</div>
+        </div>
+        <div class="col-card">
+          <div class="col-label">Where they fall short</div>
+          <div class="col-item">Failure reasons are vague or fragmented</div>
+          <div class="col-item">Recovery actions are unclear or missing</div>
+          <div class="col-item">High-priority issues are buried in flat lists</div>
+          <div class="col-item">Support and resolution are disconnected from the transaction itself</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="cs-section" aria-labelledby="res-h">
+      <div class="cs-section-label" aria-hidden="true">Research</div>
+      <h2 class="cs-h2" id="res-h">I started from the consumer layer, then translated those gaps into an operations use case.</h2>
+      <p class="cs-p">
+        Because real internal banking ops dashboards aren’t publicly visible, I looked at the systems people actually interact with: Chase, Wells Fargo, and Revolut. I wasn’t trying to copy their UI. I was trying to understand how current products communicate transaction status, failure, and recovery — and where those systems break down.
+      </p>
+
+      <div class="tradeoff-header" aria-label="Research framing">
+        <div class="tradeoff-header-label">Research approach</div>
+        <div class="tradeoff-header-text">
+          I studied consumer-facing payment flows to identify patterns in status language, failure handling, receipt visibility, and recovery paths, then reframed those findings for a payments operations analyst managing issues at scale.
+        </div>
+      </div>
+
+      <div class="two-col" aria-label="Research insights">
+        <div class="col-card">
+          <div class="col-label">What I consistently saw</div>
+          <div class="col-item">Pending, completed, and failed states were visible</div>
+          <div class="col-item">Some systems exposed basic detail views or receipts</div>
+          <div class="col-item">Users could sometimes retry, but rarely with guidance</div>
+          <div class="col-item">High-level history was usually easy to scan</div>
+        </div>
+        <div class="col-card">
+          <div class="col-label">What was missing</div>
+          <div class="col-item">Few products explained why failures happened in context</div>
+          <div class="col-item">Recovery was often pushed into support or email</div>
+          <div class="col-item">No clear “needs attention” layer existed</div>
+          <div class="col-item">There was little help deciding what action to take next</div>
+        </div>
+      </div>
+
+      <div class="img-block" aria-label="Competitor notes and early synthesis">
+        <div class="img-accent-line"></div>
+        <!-- Replace this block with your own research screenshot -->
+        <div class="img-placeholder">
+          <div class="hero-tag">replace with research board</div>
+          <div class="img-label">Competitor notes, sticky notes, or synthesis board</div>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>Suggested asset:</strong> your Chase / Wells Fargo / Revolut notes, affinity mapping, or a board showing how you synthesized the gaps.</div>
+        </div>
+      </div>
+
+      <div class="conflict-header" aria-label="User framing">
+        <div class="conflict-header-label">The user</div>
+        <div class="conflict-header-text">
+          I defined the primary user as a <strong>Payments Operations Analyst</strong> — someone responsible for reviewing failed or at-risk transactions, understanding what went wrong, and moving them toward resolution.
+        </div>
+      </div>
+    </section>
+
+    <section id="principles" class="cs-section" aria-labelledby="pri-h">
+      <div class="cs-section-label" aria-hidden="true">Design principles</div>
+      <h2 class="cs-h2" id="pri-h">This needed to feel like an operations tool, not an analytics dashboard.</h2>
+      <p class="cs-p">
+        One of the biggest clarifying moments in the project was realizing I was not designing a payment analytics dashboard. I was designing a <strong>resolution system</strong>. That changed the way I approached the entire experience.
+      </p>
+
+      <div class="decision-grid" aria-label="Design principles">
+        <div class="decision-card tradeoff-card">
+          <div class="dc-tension">
+            <div class="dc-tag tension-tag">Observation-only tools</div>
+            <div class="dc-text">Show trends, charts, and performance metrics, but stop short of helping someone resolve an individual issue.</div>
+          </div>
+          <div class="dc-resolution">
+            <div class="dc-tag resolution-tag">My direction</div>
+            <div class="dc-text"><strong>Design for action.</strong> Every part of the interface should help analysts identify, understand, and resolve problematic transactions.</div>
+          </div>
+        </div>
+        <div class="decision-card tradeoff-card">
+          <div class="dc-tension">
+            <div class="dc-tag tension-tag">Flat transaction lists</div>
+            <div class="dc-text">Force users to manually scan everything and decide what matters.</div>
+          </div>
+          <div class="dc-resolution">
+            <div class="dc-tag resolution-tag">My direction</div>
+            <div class="dc-text"><strong>Prioritize before presenting.</strong> Add a clear “Needs Attention” layer so urgency is visible before the table even starts.</div>
+          </div>
+        </div>
+        <div class="decision-card tradeoff-card">
+          <div class="dc-tension">
+            <div class="dc-tag tension-tag">Generic failure states</div>
+            <div class="dc-text">Tell users something broke without helping them decide what to do next.</div>
+          </div>
+          <div class="dc-resolution">
+            <div class="dc-tag resolution-tag">My direction</div>
+            <div class="dc-text"><strong>Separate issue, recommendation, and timeline.</strong> Each piece answers a different question and reduces decision fatigue.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="design" class="cs-section" aria-labelledby="des-h">
+      <div class="cs-section-label" aria-hidden="true">Design</div>
+      <h2 class="cs-h2" id="des-h">I designed the system in three layers: <em>prioritize, investigate, resolve.</em></h2>
+
+      <div class="img-block" aria-label="Final dashboard overview">
+        <div class="img-accent-line"></div>
+        <!-- Replace this block with your full dashboard screenshot -->
+        <div class="img-placeholder">
+          <div class="hero-tag">replace with dashboard overview</div>
+          <div class="img-label">Full payments dashboard with needs attention cards and transaction table</div>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>Suggested asset:</strong> your clean full-screen dashboard overview.</div>
+        </div>
+      </div>
+
+      <h2 class="cs-h2">1. Needs Attention: adding a layer of urgency above the table</h2>
+      <p class="cs-p">
+        The first major design move was introducing a prioritization layer. Instead of making analysts scan a full table to figure out what mattered, I surfaced the highest-priority categories first: <strong>Failed, Delayed, Multiple failures, and High-value.</strong>
+      </p>
+      <p class="cs-p">
+        This mattered because not every problem in a payment system looks the same. A delayed transaction is not the same as a failed one. A high-value transaction may still be pending, but it deserves attention for a different reason. I separated these into derived categories so the interface could highlight urgency without overloading the core status model.
+      </p>
+
+      <div class="tradeoff-header" aria-label="Needs attention rationale">
+        <div class="tradeoff-header-label">Key design decision</div>
+        <div class="tradeoff-header-text">
+          I treated <strong>Needs Attention</strong> as a prioritization layer, not a status layer. The table still shows raw system states like pending or failed, while the cards help analysts interpret what needs attention first.
+        </div>
+      </div>
+
+      <div class="img-block" aria-label="Needs attention interaction">
+        <div class="img-accent-line"></div>
+        <!-- Replace this block with filtered state screenshot -->
+        <div class="img-placeholder short">
+          <div class="hero-tag">replace with filtered state</div>
+          <div class="img-label">Clicked card + filtered table + contextual explanation</div>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>Suggested asset:</strong> one state showing how clicking a Needs Attention card filters the table and explains why those rows were selected.</div>
+        </div>
+      </div>
+
+      <h2 class="cs-h2">2. The table: built for scanning, not reading</h2>
+      <p class="cs-p">
+        The table had to feel dense without becoming overwhelming. I prioritized columns that directly support triage: <strong>Status, Recipient, Payment Method, Amount, Issue, and Activity.</strong> I intentionally avoided turning it into a database dump.
+      </p>
+      <p class="cs-p">
+        Two decisions mattered most here. First, I added an <strong>Issue</strong> column with short, human-readable labels instead of burying failure causes deeper in the flow. Second, I combined dates into a single <strong>Activity</strong> column so analysts could quickly see both freshness and context without sacrificing space.
+      </p>
+
+      <div class="img-row" aria-label="Table design details">
+        <div class="img-block" aria-label="Row design detail">
+          <!-- Replace this block with close-up row screenshot -->
+          <div class="img-placeholder short">
+            <div class="hero-tag">replace with row detail</div>
+            <div class="img-label">Close-up of one transaction row</div>
+          </div>
+          <div class="img-caption-bar"><div class="img-caption-text"><strong>Suggested asset:</strong> cropped row showing issue, activity, and payment method.</div></div>
+        </div>
+        <div class="img-block" aria-label="Table interaction detail">
+          <!-- Replace this block with hover or active screenshot -->
+          <div class="img-placeholder short">
+            <div class="hero-tag">replace with interaction detail</div>
+            <div class="img-label">Hover state, active row, or tooltip state</div>
+          </div>
+          <div class="img-caption-bar"><div class="img-caption-text"><strong>Suggested asset:</strong> hover state, selected row, or tooltip if you want to show interaction polish.</div></div>
+        </div>
+      </div>
+
+      <h2 class="cs-h2">3. The side panel: turning failure into a decision-making workflow</h2>
+      <p class="cs-p">
+        The side panel became the core of the experience. This is where I stopped thinking about “details” and started thinking about <strong>decision support</strong>. Once an analyst clicks a row, they need four things immediately: what happened, why it happened, what should happen next, and what’s already happened in the system.
+      </p>
+      <p class="cs-p">
+        To make that possible, I broke the panel into distinct layers: issue explanation, a recommended action, a compact timeline, and desktop-native actions that move the transaction forward without leaving the workflow.
+      </p>
+
+      <div class="two-col" aria-label="Panel structure">
+        <div class="col-card">
+          <div class="col-label">Explanation</div>
+          <div class="col-item">Status and transaction summary</div>
+          <div class="col-item">Issue label + supporting system context</div>
+          <div class="col-item">Clear recommendation</div>
+        </div>
+        <div class="col-card">
+          <div class="col-label">Execution</div>
+          <div class="col-item">Compact desktop actions</div>
+          <div class="col-item">Timeline for auditability</div>
+          <div class="col-item">State transition after action</div>
+        </div>
+      </div>
+
+      <div class="img-block" aria-label="Final side panel design">
+        <div class="img-accent-line"></div>
+        <!-- Replace this block with final side panel screenshot -->
+        <div class="img-placeholder">
+          <div class="hero-tag">replace with side panel</div>
+          <div class="img-label">Side panel with issue, recommendation, timeline, and actions</div>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>Suggested asset:</strong> your final side panel showing issue, recommendation, timeline, and desktop action controls.</div>
+        </div>
+      </div>
+
+      <div class="conflict-header" aria-label="Recommendation logic">
+        <div class="conflict-header-label">Recommendation logic</div>
+        <div class="conflict-header-text">
+          I framed recommendations as a mix of <strong>system rules and historical patterns</strong>, so they felt trustworthy rather than magical. Instead of vague advice, the interface suggests a concrete next step and supports it with lightweight confidence signals from similar resolved cases.
+        </div>
+      </div>
+    </section>
+
+    <section id="prototype" class="cs-section" aria-labelledby="pro-h">
+      <div class="cs-section-label" aria-hidden="true">Prototype</div>
+      <h2 class="cs-h2" id="pro-h">I prototyped the system like a workflow, not a slideshow.</h2>
+      <p class="cs-p">
+        Once the core UI was in place, I focused on the small interactions that make the system feel real. Clicking a Needs Attention card filters the table and explains why those transactions were surfaced. Clicking a row opens the side panel. Clicking <strong>Request update</strong> triggers a confirmation state and removes the row from the active queue, which makes resolution feel like a true state transition instead of a fake button click.
+      </p>
+      <p class="cs-p">
+        My next step is to build this in code using Tailwind and AI-assisted tools so I can push the interaction model further and make the prototype feel even closer to a real product.
+      </p>
+
+      <div class="img-block" aria-label="Prototype flow">
+        <div class="img-accent-line"></div>
+        <!-- Replace this block with prototype still / GIF / storyboard strip -->
+        <div class="img-placeholder">
+          <div class="hero-tag">replace with prototype flow</div>
+          <div class="img-label">Prototype sequence showing filter, panel, and row resolution</div>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>Suggested asset:</strong> a GIF, stitched prototype stills, or a storyboard strip showing the system in motion.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="outcome" class="cs-section" aria-labelledby="out-h">
+      <div class="cs-section-label" aria-hidden="true">Outcome</div>
+      <h2 class="cs-h2" id="out-h">The final concept closes the gap between <em>insight</em> and <em>action.</em></h2>
+      <p class="cs-p">
+        The biggest shift in this project was moving from a passive transaction table to a real operational workflow. Instead of asking analysts to interpret a long list of statuses on their own, the system now helps them see what matters, understand what happened, and take the next appropriate step without leaving the interface.
+      </p>
+
+      <div class="impact-bar" aria-label="Concept outcomes">
+        <div class="impact-label">what this design improves</div>
+        <div class="impact-stats">
+          <div><div class="stat-num">↓</div><div class="stat-desc">manual scanning by surfacing urgent categories first</div></div>
+          <div><div class="stat-num">↑</div><div class="stat-desc">clarity in failure handling with issue context and recommendations</div></div>
+          <div><div class="stat-num">✓</div><div class="stat-desc">confidence in resolution with feedback states and timeline transparency</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learnings" class="cs-section" aria-labelledby="learn-h">
+      <div class="cs-section-label" aria-hidden="true">Learnings</div>
+      <h2 class="cs-h2" id="learn-h">This project reminded me that systems matter more than single screens.</h2>
+      <div class="learning-list" role="list">
+        <div class="learning" role="listitem">
+          <span class="learning-num" aria-hidden="true">01</span>
+          <div class="learning-text">
+            <strong>Designing for experts doesn’t mean removing guidance.</strong>
+            Ops analysts do not need hand-holding, but they do need clean, well-structured decision support. The challenge was figuring out how to guide without over-explaining.
+          </div>
+        </div>
+        <div class="learning" role="listitem">
+          <span class="learning-num" aria-hidden="true">02</span>
+          <div class="learning-text">
+            <strong>Status is not the same thing as urgency.</strong>
+            One of the strongest ideas in this project was separating raw system states from derived priority categories. That distinction made the whole interface clearer.
+          </div>
+        </div>
+        <div class="learning" role="listitem">
+          <span class="learning-num" aria-hidden="true">03</span>
+          <div class="learning-text">
+            <strong>The most valuable design move was connecting insight to action.</strong>
+            A dashboard alone would not have been enough. The project became more compelling once it supported the full flow from triage to investigation to resolution.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="g-footer" aria-label="Site footer">
+  <div class="footer-left">
+    <em>"complexity is easy. clarity takes work."</em>
+    <div class="footer-note">last updated april 2026 · made by navyaa vemuri</div>
+  </div>
+  <nav class="footer-links" aria-label="Footer links">
+    <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" aria-label="Download resume">Resume ↗</a>
+    <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+  </nav>
+</footer>
+
+<script>
+(function(){
+  const links=document.querySelectorAll('.toc-link');
+  const sections=document.querySelectorAll('main section[id]');
+  if(!sections.length)return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=document.querySelector('.toc-link[href="#'+e.target.id+'"]');
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-10% 0px -75% 0px',threshold:0});
+  sections.forEach(s=>obs.observe(s));
+})();
+</script>
+</body>
+</html>
