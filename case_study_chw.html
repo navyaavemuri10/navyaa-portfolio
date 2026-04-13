@@ -53,9 +53,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .meta-cell+.meta-cell{border-left:.5px solid var(--border);}
 .meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
 .meta-val{font-size:13px;color:var(--text);line-height:1.4;}
-.impact-bar{padding:24px 28px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;margin-bottom:40px;opacity:0;animation:up .6s .45s forwards;}
 .impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
-.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 .stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
 .stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
 .cs-section{margin-bottom:64px;}
@@ -65,6 +63,101 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .cs-h2 em{font-style:italic;color:var(--accent);}
 .cs-p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
 .cs-p:last-child{margin-bottom:0;}
+  .scan-summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:0 0 28px;
+  opacity:0;
+  animation:up .6s .25s forwards;
+}
+.scan-problem,.scan-role{
+  background:var(--surface);
+  border:.5px solid var(--border);
+  border-radius:10px;
+  padding:18px 20px;
+}
+.scan-label{
+  font-size:10px;
+  color:var(--accent);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.scan-summary p{
+  font-size:14px;
+  color:var(--text);
+  line-height:1.65;
+}
+
+.impact-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:40px;
+  opacity:0;
+  animation:up .6s .4s forwards;
+}
+.impact-card{
+  background:var(--accent-bg);
+  border:.5px solid var(--accent-border);
+  border-radius:10px;
+  padding:20px 22px;
+}
+
+.cs-title{
+  font-size:44px;
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-.03em;
+  max-width:700px;
+}
+.cs-tagline{
+  font-size:16px;
+  color:var(--text);
+  line-height:1.65;
+  max-width:640px;
+  margin-bottom:28px;
+}
+.cs-h2{
+  font-size:26px;
+  font-weight:400;
+  color:var(--text);
+  letter-spacing:-.02em;
+  line-height:1.22;
+}
+.cs-p{
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.78;
+}
+.cs-section-label{
+  font-size:11px;
+}
+.img-block img{
+  border-radius:6px;
+}
+.img-caption-text{
+  font-size:12px;
+}
+.meta-label,.col-label,.impact-label,.chart-eyebrow,.cs-section-label{
+  font-weight:500;
+}
+.toc-link{
+  color:#8D8782;
+}
+
+@media(max-width:900px){
+  .scan-summary{grid-template-columns:1fr;}
+  .impact-grid{grid-template-columns:1fr;}
+  .cs-title{font-size:34px;}
+}
+@media(max-width:600px){
+  .cs-title{font-size:28px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .scan-summary,.impact-grid{opacity:1;transform:none;animation:none!important;}
+}
 .cs-p strong{color:var(--text);font-weight:400;}
 .pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
 .pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.2;font-family:Georgia,serif;line-height:1;}
@@ -85,7 +178,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .img-block img {
   position: relative;
   z-index: 1;
-  border-radius: 0;
+  border-radius: 6px;
 }.img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
 .img-row .img-block{margin:0;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
@@ -171,7 +264,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .meta-cell+.meta-cell{border-left:none;}
   .meta-row .meta-cell:nth-child(odd){border-right:.5px solid var(--border);}
   .meta-row .meta-cell:nth-child(3),.meta-row .meta-cell:nth-child(4){border-top:.5px solid var(--border);}
-  .impact-stats{grid-template-columns:1fr 1fr;}
   .img-row,.two-col{grid-template-columns:1fr;}
   .hero-media-inner{padding:60px 32px;}
   .g-footer{padding:28px 32px;}
@@ -184,13 +276,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .nav-links .nav-link:not(.nav-cta){display:none;}
   .page-wrap{padding:0 20px;}
   .hero-media-inner{padding:48px 20px;}
-  .impact-stats{grid-template-columns:1fr;}
   .cs-title{font-size:26px;}
   .g-footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
-  .cs-eyebrow,.cs-title,.cs-tagline,.meta-row,.impact-bar{opacity:1;transform:none;}
+  .cs-eyebrow,.cs-title,.cs-tagline,.meta-row,.scan-summary,.impact-grid{opacity:1;transform:none;}
 }
 </style>
 </head>
@@ -230,317 +321,422 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
   <main class="cs-main">
 
-    <section id="overview" aria-labelledby="cs-title">
-      <div class="cs-eyebrow">Cal Poly · UX Lead · Sept 2023 to Dec 2025</div>
-      <h1 class="cs-title" id="cs-title">a health portal students<br>actually <em>wanted to use</em></h1>
-      <p class="cs-tagline">How I revamped and redesigned Cal Poly Health and Wellbeing source of truth website as a solo designer, in a 2011 platform.</p>
 
-      <div class="meta-row" role="list" aria-label="Project details">
-        <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Solo UX Designer (first ever)</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">Sept 2023 to Dec 2025</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · Drupal 7 · HTML/CSS</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Scope</div><div class="meta-val">End-to-end, 100% shipped</div></div>
+  <section id="overview" aria-labelledby="cs-title">
+    <div class="cs-eyebrow">Cal Poly · UX Lead · Sept 2023 to Dec 2025</div>
+<h1 class="cs-title" id="cs-title">rebuilding trust in a campus health portal</h1>
+    <p class="cs-tagline">
+      I redesigned Cal Poly’s health portal to rebuild trust, improve clarity, and to transform into a campus-wide source of truth.
+    </p>
+
+    <div class="scan-summary" aria-label="Project summary">
+      <div class="scan-problem">
+        <div class="scan-label">The problem</div>
+        <p>Students didn’t trust the website — so they avoided it entirely, even for basic information like hours and appointment booking.</p>
       </div>
-
-      <div class="impact-bar" aria-label="Project outcomes">
-        <div class="impact-label">tldr; the outcomes</div>
-        <div class="impact-stats">
-          <div><div class="stat-num">690%</div><div class="stat-desc">increase in engaged sessions (13,003 to 102,652) in year one</div></div>
-          <div><div class="stat-num">60%</div><div class="stat-desc">decrease in drop-off rates across redesigned pages</div></div>
-          <div><div class="stat-num">100%</div><div class="stat-desc">of designed work shipped over 2+ years of iteration</div></div>
-        </div>
+      <div class="scan-role">
+        <div class="scan-label">What I did</div>
+        <p>Redesigned the portal end-to-end within Drupal 7 constraints, focusing on trust, clarity, accessibility, and information architecture.</p>
       </div>
-    </section>
-
-    <section id="problem" class="cs-section" aria-labelledby="prob-h">
-      <div class="cs-section-label" aria-hidden="true">The problem</div>
-      <h2 class="cs-h2" id="prob-h">Students didn't trust the website. So they stopped using it entirely.</h2>
-      <p class="cs-p">When I joined Campus Health and Wellbeing in September 2023, the numbers were damning: only 13,003 engaged sessions across a campus of 23,000 students. That's 56% reach, with high drop-off at nearly every entry point.</p>
-      <p class="cs-p">But the numbers weren't the worst part. Students were physically walking to the health center to ask staff questions they could have answered online. Appointment hours. Resource locations. Basic FAQs. They would rather make the trip than touch the website. That is not a discoverability problem. That is a trust problem.</p>
-
-      <div class="pull-quote">
-        <p>"Students were asking staff in person rather than use the website, even for basic things like hours and appointment booking."</p>
-        <cite>Staff interviews, September 2023</cite>
-      </div>
-
-      <div class="img-block" aria-label="Original portal before redesign">
-  <div class="img-accent-line"></div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px;position:relative;z-index:1;align-items:start;">
-    <img src="chw-before1.png" alt="Original portal screenshot 1" style="width:100%;display:block;border-radius:4px;">
-    <img src="chw-before2.png" alt="Original portal screenshot 2" style="width:100%;display:block;border-radius:4px;">
-    <img src="chw-before3.png" alt="Original portal screenshot 3" style="width:100%;display:block;border-radius:4px;">
-  </div>
-</div>
-
-      <div class="two-col" aria-label="Problem breakdown">
-        <div class="col-card">
-          <div class="col-label">UX failures</div>
-          <div class="col-item">No visual hierarchy, walls of dense text</div>
-          <div class="col-item">Outdated, inconsistent visual design</div>
-          <div class="col-item">Critical info buried 3 or more clicks deep</div>
-          <div class="col-item">WCAG accessibility failures throughout</div>
-          <div class="col-item">No mobile consideration whatsoever</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">Organizational constraints</div>
-          <div class="col-item">No design system, no brand guidelines</div>
-          <div class="col-item">Staff historically preferred text-heavy pages</div>
-          <div class="col-item">Running on Drupal 7, released in 2011</div>
-          <div class="col-item">First UX hire in department history</div>
-          <div class="col-item">Slow institutional approval processes</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="constraint" class="cs-section" aria-labelledby="con-h">
-      <div class="cs-section-label" aria-hidden="true">The constraint</div>
-      <h2 class="cs-h2" id="con-h">Drupal 7 gave me <em>almost nothing.</em> So I built a workaround system from scratch.</h2>
-      <p class="cs-p">Drupal 7 had no font control, no color customization, no responsive layouts, and no modern component library. Most designers would have flagged this as a blocker and asked for a different tool. I had no other tool. So I figured out what Drupal could do and designed entirely around its constraints.</p>
-
-      <div class="tradeoff-header" aria-label="The PNG workaround strategy">
-        <div class="tradeoff-header-label">The workaround I built</div>
-        <div class="tradeoff-header-text">Drupal 7 gave me no font control, no color customization, no responsive layouts. So I designed everything in Figma and exported as PNGs into Drupal — full visual control at the cost of native mobile responsiveness.</div>
-      </div>
-      <div class="decision-grid" aria-label="Tradeoff breakdown">
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">The cost</div>
-            <div class="dc-text">PNGs don't reflow responsively. Mobile users would see a desktop-optimized experience.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">Why I accepted it</div>
-            <div class="dc-text"><strong>Analytics showed 75% desktop usage.</strong> A Drupal upgrade was planned in 3–4 years. The trust problem was urgent now.</div>
-          </div>
-        </div>
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">SEO risk</div>
-            <div class="dc-text">Image-based text is invisible to search engines — a real risk for a health resource students need to find.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">The fix</div>
-            <div class="dc-text">Body content stayed as <strong>native Drupal text</strong> for SEO. Every PNG received comprehensive alt text. Non-negotiable.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="img-block" aria-label="Figma component library and design system">
-        <div class="img-accent-line"></div>
-        <div class="img-block" aria-label="Figma component library and design system">
-  <img src="chw-library.png" alt="Figma component library overview" style="width:100%;display:block;">
-</div>
-      </div>
-    </section>
-
-    <section id="conflict" class="cs-section" aria-labelledby="conf-h">
-      <div class="cs-section-label" aria-hidden="true">The conflict</div>
-      <h2 class="cs-h2" id="conf-h">Staff wanted more text. Data said that was exactly why students left.</h2>
-      <p class="cs-p">Staff members consistently pushed for pages dense with written content because they thought more information meant more clarity. From the data, it meant more abandonment.</p>
-
-      <div class="conflict-header" aria-label="The recurring stakeholder conflict">
-        <div class="conflict-header-label">The recurring conflict</div>
-        <div class="conflict-header-text"> Staff's concern was legitimate in that health info is complex and legally sensitive. But data consistently showed long text blocks were the primary drop-off driver.</div>
-      </div>
-      <div class="decision-grid" aria-label="How I navigated the conflict">
-        <div class="decision-card conflict-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">Staff position</div>
-            <div class="dc-text">More text means more clarity. Students need to understand their health options fully before acting.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">What data showed</div>
-            <div class="dc-text">Long text blocks were the <strong>primary drop-off driver</strong> on every page. Students left before reading it.</div>
-          </div>
-        </div>
-        <div class="decision-card conflict-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">My first instinct</div>
-            <div class="dc-text">Push back with the data in each review meeting when text requests came up.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">What actually worked</div>
-            <div class="dc-text"><strong>Lead with data proactively</strong> before anyone asked. Shifted the dynamic from designer-vs-staff to shared problem-solving.</div>
-          </div>
-        </div>
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">The solution wasn't less info</div>
-            <div class="dc-text">Cutting content entirely wasn't the answer as a lot of it was genuinely important.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">Better architecture</div>
-            <div class="dc-text"><strong>Progressive disclosure:</strong> short scannable headers, detail pages linked from CTAs, layered content for those who wanted depth.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="research" class="cs-section" aria-labelledby="res-h">
-      <div class="cs-section-label" aria-hidden="true">Research</div>
-      <h2 class="cs-h2" id="res-h">No formal research budget. Five channels I built myself.</h2>
-      <p class="cs-p">Cal Poly had institutional focus groups, but they recycled the same participants and ran on slow timelines. I built a parallel research practice from scratch, running five channels simultaneously to stay close to real student behavior without waiting months for formal results.</p>
-
-      <div class="two-col" aria-label="Research channels and findings">
-        <div class="col-card">
-          <div class="col-label">Channels I used</div>
-          <div class="col-item">Social listening on Reddit and Facebook groups</div>
-          <div class="col-item">Staff interviews to capture recurring complaints</div>
-          <div class="col-item">Guerrilla research via student assistants</div>
-          <div class="col-item">Google Analytics deep dives on drop-off and scroll</div>
-          <div class="col-item">Survey partnership with student health org for STI campaign</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">What I found</div>
-          <div class="col-item">Students could not find appointment booking without help</div>
-          <div class="col-item">Health content felt clinical, cold, and unwelcoming</div>
-          <div class="col-item">STI resources carried stigma-reinforcing framing</div>
-          <div class="col-item">75% desktop usage validated mobile tradeoff decision</div>
-          <div class="col-item">Most drop-off happened on text-heavy informational pages</div>
-        </div>
-      </div>
-
-      <!-- DROP-OFF CHART: replaces the research analytics placeholder -->
-      <div class="chart-block" aria-label="Views vs engaged sessions before redesign">
-        <div class="img-accent-line"></div>
-        <div class="chart-header">
-          <div class="chart-eyebrow">Analytics · Before redesign · 2022–23</div>
-          <div class="chart-title">Views vs engaged sessions by page</div>
-          <div class="chart-sub">High traffic, low retention. The gap between arrivals and engagement revealed a trust problem, not a discoverability one.</div>
-        </div>
-        <div class="chart-body">
-          <div style="position:relative;width:100%;height:260px;">
-            <canvas id="dropoffChart"></canvas>
-          </div>
-        </div>
-        <div class="chart-footer">
-          <div class="legend-item"><span class="legend-dot" style="background:#2a2c2b;border:.5px solid #3d3d3a;"></span>Total views</div>
-          <div class="legend-item"><span class="legend-dot" style="background:#6BBFB0;"></span>Engaged sessions</div>
-          <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--dim);font-style:italic;">Data: Sept 2022 – Sept 2023</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="design" class="cs-section" aria-labelledby="des-h">
-      <div class="cs-section-label" aria-hidden="true">Design</div>
-      <h2 class="cs-h2" id="des-h">System first. Pages second.</h2>
-      <p class="cs-p">The first two months were not about designing anything visible. They were about understanding exactly what Drupal could and could not do, auditing existing brand assets, and building the Figma component library that every subsequent page would be built from.</p>
-      <p class="cs-p">The component library included: header styles at three hierarchy levels, button and CTA treatments, color palette aligned to CHW brand guidelines, accessibility checklists, and detailed documentation on what was and was not possible to implement in Drupal. This was the design system that the department had never had and now would keep long after I left.</p>
-
-      <div class="img-row" aria-label="Before and after page comparison">
-  <div class="img-block" aria-label="Before redesign: original page">
-    <div style="position:relative;">
-      <img src="chw-beforeimage.png" alt="Original high-traffic page before redesign" style="width:100%;display:block;position:relative;z-index:1;">
-      <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--conflict);background:var(--conflict-bg);border:.5px solid var(--conflict-border);padding:3px 10px;border-radius:20px;">Before</span>
     </div>
-    <div class="img-caption-bar">
-      <div class="img-caption-text">Original page — pre-redesign</div>
+
+    <div class="meta-row" role="list" aria-label="Project details">
+      <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Solo UX Designer (first ever)</div></div>
+      <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">Sept 2023 to Dec 2025</div></div>
+      <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · Drupal 7 · HTML/CSS</div></div>
+      <div class="meta-cell" role="listitem"><div class="meta-label">Scope</div><div class="meta-val">End-to-end, 100% shipped</div></div>
     </div>
-  </div>
-  <div class="img-block" aria-label="After redesign: same page redesigned">
-    <div style="position:relative;">
-      <img src="chw-afterimage.png" alt="Same page after redesign" style="width:100%;display:block;position:relative;z-index:1;">
-      <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;">After</span>
+
+    <div class="impact-grid" aria-label="Project outcomes">
+      <div class="impact-card">
+        <div class="impact-label">Engagement</div>
+        <div class="stat-num">690%</div>
+        <div class="stat-desc">increase in engaged sessions (13,003 → 102,652) in year one</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-label">Retention</div>
+        <div class="stat-num">60%</div>
+        <div class="stat-desc">decrease in drop-off across redesigned pages</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-label">Delivery</div>
+        <div class="stat-num">100%</div>
+        <div class="stat-desc">of designed work shipped over 2+ years of iteration</div>
+      </div>
     </div>
-    <div class="img-caption-bar">
-      <div class="img-caption-text">Redesigned page</div>
+
+    <div class="img-row" aria-label="Quick transformation preview">
+      <div class="img-block">
+        <div style="position:relative;">
+          <img src="chw-beforeimage.png" alt="Portal before redesign" style="width:100%;display:block;">
+          <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--conflict);background:var(--conflict-bg);border:.5px solid var(--conflict-border);padding:3px 10px;border-radius:20px;">Before</span>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text">Dense text, weak hierarchy, critical actions buried</div>
+        </div>
+      </div>
+      <div class="img-block">
+        <div style="position:relative;">
+          <img src="chw-afterimage.png" alt="Portal after redesign" style="width:100%;display:block;">
+          <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;">After</span>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text">Clear hierarchy, stronger trust cues, easier decision-making</div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
-      <div class="tradeoff-header" aria-label="STI awareness campaign">
-        <div class="tradeoff-header-label">Special project: STI awareness campaign</div>
-        <div class="tradeoff-header-text">Partnered with a student sexual health org to run surveys on testing attitudes, then used those findings to shape every design decision. The research showed existing health comms were triggering anxiety and avoidance — not action.</div>
+  <section id="problem" class="cs-section" aria-labelledby="prob-h">
+    <div class="cs-section-label" aria-hidden="true">The problem</div>
+    <h2 class="cs-h2" id="prob-h">Students didn’t trust the website — so they stopped using it.</h2>
+
+    <p class="cs-p">
+      When I joined Campus Health and Wellbeing, the portal had only 13,003 engaged sessions across a campus of 23,000 students. But the real issue was behavioral: students would rather walk to the health center than rely on the site for basic information.
+    </p>
+
+    <div class="two-col" aria-label="Problem breakdown">
+      <div class="col-card">
+        <div class="col-label">What was happening</div>
+        <div class="col-item">Students walked in-person for hours, locations, and appointment info</div>
+        <div class="col-item">Critical information buried 3+ clicks deep</div>
+        <div class="col-item">Dense text created cognitive overload</div>
       </div>
-      <div class="decision-grid" aria-label="Campaign design decisions">
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">What the research showed</div>
-            <div class="dc-text">Clinical language and warning-style framing caused students to disengage before reading the content.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">The design response</div>
-            <div class="dc-text"><strong>Make it feel like information, not a warning.</strong> Warmer visuals, normalized language, student-reviewed copy at every stage.</div>
-          </div>
-        </div>
+      <div class="col-card">
+        <div class="col-label">Why it mattered</div>
+        <div class="col-item">Low trust in the site as a reliable resource</div>
+        <div class="col-item">High drop-off across key entry pages</div>
+        <div class="col-item">Staff handled questions the portal should have answered</div>
       </div>
+    </div>
 
-      <div class="img-block" aria-label="STI campaign final design and survey booth">
-  <div class="img-accent-line"></div>
-  <img src="survey.jpeg" alt="STI awareness campaign survey booth outside the health center" style="width:100%;display:block;">
-</div>
-    </section>
+    <div class="pull-quote">
+      <p>"Students were asking staff in person rather than use the website, even for basic things like hours and appointment booking."</p>
+      <cite>Staff interviews, September 2023</cite>
+    </div>
 
-    <section id="outcome" class="cs-section" aria-labelledby="out-h">
-      <div class="cs-section-label" aria-hidden="true">Outcome</div>
-      <h2 class="cs-h2" id="out-h">From 56% reach to <em>nearly the entire campus.</em></h2>
-      <p class="cs-p">In the first full year after the redesign, engaged sessions grew from 13,003 to 102,652. That is a 690% increase. Drop-off rates fell 60% across redesigned pages. For the first time, students were mentioning the portal as something genuinely useful, not something to avoid.</p>
-      <p class="cs-p">Beyond the metrics: I established the UX function at Cal Poly Campus Health entirely from scratch. I built the design system the department will use long after I leave. And I shipped 100% of everything I designed over two years. Every single page went live.</p>
+    <div class="img-block" aria-label="Original portal examples">
+      <div class="img-accent-line"></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px;position:relative;z-index:1;align-items:start;">
+        <img src="chw-before1.png" alt="Original portal screenshot 1" style="width:100%;display:block;border-radius:6px;">
+        <img src="chw-before2.png" alt="Original portal screenshot 2" style="width:100%;display:block;border-radius:6px;">
+        <img src="chw-before3.png" alt="Original portal screenshot 3" style="width:100%;display:block;border-radius:6px;">
+      </div>
+      <div class="img-caption-bar">
+        <div class="img-caption-text">Original portal — dense content, inconsistent hierarchy, and weak trust signals</div>
+      </div>
+    </div>
+  </section>
 
-      <!-- GROWTH CHART: replaces the analytics screenshot placeholder -->
-      <div class="chart-block" aria-label="Engaged sessions growth over three years">
-        <div class="img-accent-line"></div>
-        <div class="stat-row">
-          <div class="stat-cell">
-            <div class="stat-year">Year 1 · 2022–23</div>
-            <div class="stat-n">13K</div>
-            <div class="stat-lbl">engaged sessions</div>
-            <div class="stat-badge baseline">baseline</div>
-          </div>
-          <div class="stat-cell">
-            <div class="stat-year">Year 2 · 2023–24</div>
-            <div class="stat-n">102K</div>
-            <div class="stat-lbl">engaged sessions</div>
-            <div class="stat-badge">↑ 690%</div>
-          </div>
-          <div class="stat-cell">
-            <div class="stat-year">Year 3 · 2024–25</div>
-            <div class="stat-n">200K+</div>
-            <div class="stat-lbl">engaged sessions</div>
-            <div class="stat-badge">↑ continued growth</div>
-          </div>
+  <section id="constraint" class="cs-section" aria-labelledby="con-h">
+    <div class="cs-section-label" aria-hidden="true">The constraint</div>
+    <h2 class="cs-h2" id="con-h">Drupal 7 offered almost no design flexibility.</h2>
+
+    <p class="cs-p">
+      Instead of treating the platform as a blocker, I designed a workaround system that prioritized clarity, trust, and accessibility within the limits of an outdated CMS.
+    </p>
+
+    <div class="decision-grid" aria-label="Constraint and tradeoff breakdown">
+      <div class="decision-card tradeoff-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">Platform limitations</div>
+          <div class="dc-text">No font control, no color customization, no responsive layouts, and no modern component system.</div>
         </div>
-        <div class="chart-header" style="padding-top:20px;">
-          <div class="chart-eyebrow">Outcome · Engagement growth</div>
-          <div class="chart-title">Engaged sessions over three years</div>
-          <div class="chart-sub">From 13,003 at baseline to 200,000+ confirmed — a 15× increase across the redesign period.</div>
-        </div>
-        <div class="chart-body">
-          <div style="position:relative;width:100%;height:200px;">
-            <canvas id="growthChart"></canvas>
-          </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">My approach</div>
+          <div class="dc-text">Designed in <strong>Figma</strong> and exported visuals as PNGs into Drupal to preserve hierarchy and visual trust cues.</div>
         </div>
       </div>
-    </section>
 
-    <section id="learnings" class="cs-section" aria-labelledby="learn-h">
-      <div class="cs-section-label" aria-hidden="true">Learnings</div>
-      <h2 class="cs-h2" id="learn-h">Two years of shipping in difficult conditions taught me things no internship could.</h2>
-      <div class="learning-list" role="list">
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">01</span>
-          <div class="learning-text">
-            <strong>Constraints are a design material, not a blocker.</strong>
-            Drupal 7 could have been the reason nothing improved. Instead it pushed me to think more carefully about what design control actually means and where it matters most. The PNG workaround was not a compromise. It was a considered decision with a clear rationale. I learned to document those rationales so teams understand the thinking, not just the output.
-          </div>
+      <div class="decision-card tradeoff-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">The tradeoff</div>
+          <div class="dc-text">PNG-based layouts don’t reflow responsively, which meant a desktop-optimized experience.</div>
         </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">02</span>
-          <div class="learning-text">
-            <strong>Advocacy without evidence is just opinion.</strong>
-            Every time I pushed back on a staff request for more text, I needed data to back it. Over time I stopped waiting for the pushback and started leading with the data proactively. That shift changed the dynamic from designer defending choices to team solving a shared problem together.
-          </div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">03</span>
-          <div class="learning-text">
-            <strong>Trust is the actual product.</strong>
-            The portal did not need to be beautiful. It needed to make students feel like their health information was in reliable, competent hands. That is a completely different design brief than "improve the UI." Running everything through that filter changed every decision I made, and I have carried it into every project since.
-          </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">Why I accepted it</div>
+          <div class="dc-text"><strong>75% of users were on desktop</strong>, and the trust problem was more urgent than waiting years for a platform upgrade.</div>
         </div>
       </div>
-    </section>
 
-  </main>
+      <div class="decision-card tradeoff-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">SEO risk</div>
+          <div class="dc-text">Image-based text is invisible to search engines — a major issue for a health resource portal.</div>
+        </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">How I handled it</div>
+          <div class="dc-text">Body copy remained <strong>native Drupal text</strong> for SEO, and every exported image received comprehensive alt text.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="img-block" aria-label="Figma component library overview">
+      <div class="img-accent-line"></div>
+      <img src="chw-library.png" alt="Figma component library overview" style="width:100%;display:block;">
+      <div class="img-caption-bar">
+        <div class="img-caption-text">Component library used to create consistency, hierarchy, and reusable design decisions across the portal</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conflict" class="cs-section" aria-labelledby="conf-h">
+    <div class="cs-section-label" aria-hidden="true">The conflict</div>
+    <h2 class="cs-h2" id="conf-h">Staff wanted more text. Data showed that density was exactly why students left.</h2>
+
+    <p class="cs-p">
+      Health information felt too important to simplify, so staff often pushed for dense pages. Analytics showed those long text blocks were the clearest driver of abandonment.
+    </p>
+
+    <div class="decision-grid" aria-label="Stakeholder conflict and resolution">
+      <div class="decision-card conflict-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">Staff belief</div>
+          <div class="dc-text">More information meant more clarity. Students needed all the context before taking action.</div>
+        </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">What data showed</div>
+          <div class="dc-text">Long text blocks were the <strong>primary drop-off driver</strong> across informational pages.</div>
+        </div>
+      </div>
+
+      <div class="decision-card conflict-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">My first instinct</div>
+          <div class="dc-text">React to each content-heavy request case by case in review meetings.</div>
+        </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">What worked better</div>
+          <div class="dc-text"><strong>Lead with data before the discussion started</strong>, shifting the conversation from preference to shared problem-solving.</div>
+        </div>
+      </div>
+
+      <div class="decision-card tradeoff-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">The real solution</div>
+          <div class="dc-text">The answer wasn’t removing information. A lot of the content was genuinely important.</div>
+        </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">Design strategy</div>
+          <div class="dc-text"><strong>Progressive disclosure</strong>: short, scannable headers up front, with deeper detail available through linked pages and structured CTAs.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" class="cs-section" aria-labelledby="res-h">
+    <div class="cs-section-label" aria-hidden="true">Research</div>
+    <h2 class="cs-h2" id="res-h">No formal research budget. I built my own lightweight system.</h2>
+
+    <p class="cs-p">
+      Without a formal research budget, I built a scrappy research practice to stay close to real student behavior and validate design decisions quickly.
+    </p>
+
+    <div class="two-col" aria-label="Research methods and key findings">
+      <div class="col-card">
+        <div class="col-label">Methods</div>
+        <div class="col-item">Social listening on Reddit and Facebook groups</div>
+        <div class="col-item">Staff interviews to capture recurring questions</div>
+        <div class="col-item">Guerrilla feedback through student assistants</div>
+        <div class="col-item">Google Analytics deep dives on scroll and drop-off</div>
+        <div class="col-item">Survey partnership for STI campaign research</div>
+      </div>
+      <div class="col-card">
+        <div class="col-label">Key insights</div>
+        <div class="col-item">Students couldn’t find appointment booking without help</div>
+        <div class="col-item">Health content felt clinical and unwelcoming</div>
+        <div class="col-item">STI resources increased anxiety instead of action</div>
+        <div class="col-item">75% desktop usage validated platform tradeoffs</div>
+        <div class="col-item">Highest drop-off happened on dense informational pages</div>
+      </div>
+    </div>
+
+    <div class="chart-block" aria-label="Views vs engaged sessions before redesign">
+      <div class="img-accent-line"></div>
+      <div class="chart-header">
+        <div class="chart-eyebrow">Analytics · Before redesign · 2022–23</div>
+        <div class="chart-title">Views vs engaged sessions by page</div>
+        <div class="chart-sub">High traffic, low retention. The gap between arrivals and engagement revealed a trust problem, not a discoverability problem.</div>
+      </div>
+      <div class="chart-body">
+        <div style="position:relative;width:100%;height:260px;">
+          <canvas id="dropoffChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-footer">
+        <div class="legend-item"><span class="legend-dot" style="background:#2a2c2b;border:.5px solid #3d3d3a;"></span>Total views</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#6BBFB0;"></span>Engaged sessions</div>
+        <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--dim);font-style:italic;">Data: Sept 2022 – Sept 2023</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="design" class="cs-section" aria-labelledby="des-h">
+    <div class="cs-section-label" aria-hidden="true">Design</div>
+    <h2 class="cs-h2" id="des-h">System first. Pages second.</h2>
+
+    <p class="cs-p">
+      Before designing pages, I built the structural layer beneath them: a component library, hierarchy rules, CTA patterns, and accessibility standards that the department had never had before.
+    </p>
+
+    <div class="img-row" aria-label="Before and after page comparison">
+      <div class="img-block" aria-label="Before redesign: original page">
+        <div style="position:relative;">
+          <img src="chw-beforeimage.png" alt="Original high-traffic page before redesign" style="width:100%;display:block;">
+          <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--conflict);background:var(--conflict-bg);border:.5px solid var(--conflict-border);padding:3px 10px;border-radius:20px;">Before</span>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>Before:</strong> dense content, weak CTA visibility, low hierarchy</div>
+        </div>
+      </div>
+
+      <div class="img-block" aria-label="After redesign: same page redesigned">
+        <div style="position:relative;">
+          <img src="chw-afterimage.png" alt="Same page after redesign" style="width:100%;display:block;">
+          <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;">After</span>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text"><strong>After:</strong> stronger trust cues, cleaner hierarchy, clearer calls to action</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="img-block" aria-label="Old IA and new IA diagram">
+      <div class="img-accent-line"></div>
+      <div class="img-inner short">
+        <div class="img-label">Old IA → New IA diagram</div>
+        <div class="img-caption">Add a simple structure diagram here showing buried, fragmented info before vs. task-based architecture after</div>
+      </div>
+      <div class="img-caption-bar">
+        <div class="img-caption-text">This should show the structural redesign: what used to be buried, duplicated, or hard to find, and how the new architecture simplified it</div>
+      </div>
+    </div>
+
+    <div class="tradeoff-header" aria-label="STI awareness campaign">
+      <div class="tradeoff-header-label">Special project: STI awareness campaign</div>
+      <div class="tradeoff-header-text">Partnered with a student sexual health organization to study attitudes toward testing, then translated those findings into a warmer, more actionable communication system.</div>
+    </div>
+
+    <div class="decision-grid" aria-label="Campaign design decisions">
+      <div class="decision-card tradeoff-card">
+        <div class="dc-tension">
+          <div class="dc-tag tension-tag">What research showed</div>
+          <div class="dc-text">Clinical language and warning-style framing increased anxiety and caused students to disengage.</div>
+        </div>
+        <div class="dc-resolution">
+          <div class="dc-tag resolution-tag">Design response</div>
+          <div class="dc-text"><strong>Make it feel like guidance, not a warning</strong> — warmer visuals, normalized language, and student-reviewed copy at every stage.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="img-row" aria-label="STI campaign visuals">
+      <div class="img-block">
+        <img src="survey.jpeg" alt="STI awareness campaign survey booth outside the health center" style="width:100%;display:block;">
+        <div class="img-caption-bar">
+          <div class="img-caption-text">Survey booth used to gather real student input on testing attitudes and messaging tone</div>
+        </div>
+      </div>
+      <div class="img-block">
+        <div class="img-inner short">
+          <div class="img-label">Final STI campaign design artifact</div>
+          <div class="img-caption">Add one final visual here: poster, landing page, flyer, or campaign asset</div>
+        </div>
+        <div class="img-caption-bar">
+          <div class="img-caption-text">Use this slot to show warmth, tone, color, and communication craft — this is one of your best opportunities to surface visual design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="outcome" class="cs-section" aria-labelledby="out-h">
+    <div class="cs-section-label" aria-hidden="true">Outcome</div>
+    <h2 class="cs-h2" id="out-h">From 56% reach to nearly the entire campus.</h2>
+
+    <p class="cs-p">
+      In the first full year after the redesign, engaged sessions grew from 13,003 to 102,652. Drop-off fell 60% across redesigned pages. By year three, engagement had surpassed 200,000 sessions.
+    </p>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-label">Beyond the metrics</div>
+        <div class="col-item">Established the first UX function in the department</div>
+        <div class="col-item">Built a reusable design system for future teams</div>
+        <div class="col-item">Shipped 100% of designed work</div>
+      </div>
+      <div class="col-card">
+        <div class="col-label">Long-term impact</div>
+        <div class="col-item">Portal became a trusted source of truth</div>
+        <div class="col-item">Engagement continued growing after year one</div>
+        <div class="col-item">The system scaled beyond my tenure</div>
+      </div>
+    </div>
+
+    <div class="chart-block" aria-label="Engaged sessions growth over three years">
+      <div class="img-accent-line"></div>
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="stat-year">Year 1 · 2022–23</div>
+          <div class="stat-n">13K</div>
+          <div class="stat-lbl">engaged sessions</div>
+          <div class="stat-badge baseline">baseline</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-year">Year 2 · 2023–24</div>
+          <div class="stat-n">102K</div>
+          <div class="stat-lbl">engaged sessions</div>
+          <div class="stat-badge">↑ 690%</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-year">Year 3 · 2024–25</div>
+          <div class="stat-n">200K+</div>
+          <div class="stat-lbl">engaged sessions</div>
+          <div class="stat-badge">↑ continued growth</div>
+        </div>
+      </div>
+      <div class="chart-header" style="padding-top:20px;">
+        <div class="chart-eyebrow">Outcome · Engagement growth</div>
+        <div class="chart-title">Engaged sessions over three years</div>
+        <div class="chart-sub">From 13,003 at baseline to 200,000+ confirmed — a 15× increase across the redesign period.</div>
+      </div>
+      <div class="chart-body">
+        <div style="position:relative;width:100%;height:200px;">
+          <canvas id="growthChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="learnings" class="cs-section" aria-labelledby="learn-h">
+    <div class="cs-section-label" aria-hidden="true">Learnings</div>
+    <h2 class="cs-h2" id="learn-h">What this project taught me</h2>
+
+    <div class="learning-list" role="list">
+      <div class="learning" role="listitem">
+        <span class="learning-num" aria-hidden="true">01</span>
+        <div class="learning-text">
+          <strong>Constraints are a design material.</strong>
+          Drupal 7 forced sharper decisions about where control mattered most, and how to justify tradeoffs clearly.
+        </div>
+      </div>
+      <div class="learning" role="listitem">
+        <span class="learning-num" aria-hidden="true">02</span>
+        <div class="learning-text">
+          <strong>Data builds alignment.</strong>
+          Leading with evidence turned stakeholder conflict into a shared problem-solving process.
+        </div>
+      </div>
+      <div class="learning" role="listitem">
+        <span class="learning-num" aria-hidden="true">03</span>
+        <div class="learning-text">
+          <strong>Trust is the product.</strong>
+          The real challenge wasn’t making the portal look better — it was making students believe it was worth using.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 </div>
 
 <footer class="g-footer" aria-label="Site footer">
