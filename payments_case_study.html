@@ -161,291 +161,347 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     </a>
     <div class="toc-label">On this page</div>
     <ul class="toc-list" role="list">
-      <li><a class="toc-link active" href="#overview">Overview</a></li>
-      <li><a class="toc-link" href="#problem">The problem</a></li>
-      <li><a class="toc-link" href="#research">Research</a></li>
-      <li><a class="toc-link" href="#principles">Design principles</a></li>
-      <li><a class="toc-link" href="#design">Design</a></li>
-      <li><a class="toc-link" href="#prototype">Prototype</a></li>
-      <li><a class="toc-link" href="#outcome">Outcome</a></li>
-      <li><a class="toc-link" href="#learnings">Learnings</a></li>
-    </ul>
+  <li><a class="toc-link active" href="#overview">Overview</a></li>
+  <li><a class="toc-link" href="#role">Understanding the role</a></li>
+  <li><a class="toc-link" href="#workflow">Workflow + emotions</a></li>
+  <li><a class="toc-link" href="#competitive">Competitive scan</a></li>
+  <li><a class="toc-link" href="#insight">Insight</a></li>
+  <li><a class="toc-link" href="#design">Design</a></li>
+  <li><a class="toc-link" href="#edgecase">Edge case</a></li>
+  <li><a class="toc-link" href="#prototype">Prototype</a></li>
+  <li><a class="toc-link" href="#reflection">Reflection</a></li>
+</ul>
   </aside>
 
   <main class="cs-main">
     <section id="overview" aria-labelledby="cs-title">
-      <div class="cs-eyebrow">Independent Project · Product Design · 2026</div>
-      <h1 class="cs-title" id="cs-title">designing a payments system that<br>doesn’t just show failure — it helps <em>fix it</em></h1>
-      <p class="cs-tagline">
-        Fintech is a space I have been wanting to explore more deeply, so I challenged myself to design for a user I was not already familiar with — a payments operations analyst — and build a system that supports how they actually work.
-      </p>
-      <div class="meta-row" role="list" aria-label="Project details">
-        <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Product Designer, end-to-end</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">Fast concept sprint</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · AI-assisted prototyping · planned Tailwind build</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Scope</div><div class="meta-val">UX strategy, interaction design, systems thinking</div></div>
-      </div>
-      <div class="impact-bar" aria-label="Project at a glance">
-        <div class="impact-label">at a glance</div>
-        <div class="impact-stats">
-          <div><div class="stat-num">Prioritizes first</div><div class="stat-desc">Surfaces failed, delayed, repeated, and high-value transactions before analysts even enter the table.</div></div>
-          <div><div class="stat-num">Connects the workflow</div><div class="stat-desc">Brings triage, investigation, and action into one connected interface instead of scattering them across tools.</div></div>
-          <div><div class="stat-num">Designs for action</div><div class="stat-desc">Turns passive monitoring into a clear operational workflow with recommendations, feedback, and resolution states.</div></div>
-        </div>
-      </div>
-    </section>
+  <div class="cs-eyebrow">Independent Project · Product Design · 2026</div>
+  <h1 class="cs-title" id="cs-title">designing for when payments don’t go as planned</h1>
+  <p class="cs-tagline">
+    Most payment experiences are designed for the person sending money. I wanted to design for the person dealing with what happens after.
+  </p>
 
-    <section id="problem" class="cs-section" aria-labelledby="prob-h">
-      <div class="cs-section-label" aria-hidden="true">The problem</div>
-      <h2 class="cs-h2" id="prob-h">Most payment tools can tell you <em>something failed.</em> They rarely help you resolve it.</h2>
-      <p class="cs-p">
-        When I started exploring payments workflows, I noticed a pattern pretty quickly: most products were good at surfacing transaction status, but weak at guiding recovery. You could see that a payment was pending, failed, or returned — but once something went wrong, the product usually stopped being helpful.
-      </p>
-      <p class="cs-p">
-        That felt especially limiting in operations workflows. A payments ops analyst is not just looking at transactions for awareness. They are trying to answer more urgent questions: <strong>what failed, why did it fail, and what should happen next?</strong>
-      </p>
-      <div class="pull-quote">
-        <p>Good at showing status. Bad at guiding recovery.</p>
-        <cite>Main pattern I found across competitor analysis</cite>
-      </div>
-      <div class="two-col" aria-label="Problem breakdown">
-        <div class="col-card">
-          <div class="col-label">What existing tools do well</div>
-          <div class="col-item">Surface high-level transaction status</div>
-          <div class="col-item">Provide searchable transaction history</div>
-          <div class="col-item">Offer basic detail views and receipts</div>
-          <div class="col-item">Support monitoring at a glance</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">Where they fall short</div>
-          <div class="col-item">Failure reasons are vague or fragmented</div>
-          <div class="col-item">Recovery actions are unclear or missing</div>
-          <div class="col-item">High-priority issues are buried in flat lists</div>
-          <div class="col-item">Support and resolution are disconnected from the transaction itself</div>
-        </div>
-      </div>
-    </section>
+  <div class="meta-row" role="list" aria-label="Project details">
+    <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Product Designer, end-to-end</div></div>
+    <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">Fast concept sprint</div></div>
+    <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · AI-assisted prototyping</div></div>
+    <div class="meta-cell" role="listitem"><div class="meta-label">Scope</div><div class="meta-val">UX strategy, interaction design, systems thinking</div></div>
+  </div>
 
-    <section id="research" class="cs-section" aria-labelledby="res-h">
-      <div class="cs-section-label" aria-hidden="true">Research</div>
-      <h2 class="cs-h2" id="res-h">I started by understanding the job itself before I designed any screens.</h2>
-      <p class="cs-p">
-        Because I was designing for a user I had not worked with directly before, I first needed to understand what a payments operations analyst actually does. I researched the role, studied adjacent payments products, and mapped out a simple operational flow: <strong>monitor, investigate, decide, act.</strong>
-      </p>
-      <p class="cs-p">
-        I also used a quick storyboard and user flow to pressure-test the scenario itself before moving into interface design. That helped me avoid generic “failed payment” UI and instead focus on the analyst’s actual function: triaging unclear issues, understanding what happened, and choosing the right next step.
-      </p>
-      <div class="tradeoff-header" aria-label="Research framing">
-        <div class="tradeoff-header-label">Research approach</div>
-        <div class="tradeoff-header-text">
-          I studied consumer-facing payment flows like Chase, Wells Fargo, and Revolut to understand how current systems communicate status, failure, and recovery, then translated those gaps into an operations use case.
-        </div>
+  <div class="impact-bar" aria-label="Project at a glance">
+    <div class="impact-label">at a glance</div>
+    <div class="impact-stats">
+      <div>
+        <div class="stat-num">Designed for ops</div>
+        <div class="stat-desc">Focused on a payments operations analyst rather than a consumer sending money.</div>
       </div>
-      <div class="img-row" aria-label="Storyboard and user flow">
-        <div class="img-block" aria-label="Storyboard for payments operations analyst">
-          <div class="img-accent-line"></div>
-          <img src="payments-storyboard.png" alt="Storyboard showing the payments operations analyst workflow" style="width:100%;display:block;">
-          <div class="img-caption-bar"><div class="img-caption-text"><strong>Put your screenshot here:</strong> your Google Whisk storyboard showing the analyst noticing, investigating, hesitating, and escalating.</div></div>
-        </div>
-        <div class="img-block" aria-label="Simple user flow for payments operations analyst">
-          <div class="img-accent-line"></div>
-          <img src="payments-user-flow.png" alt="Simple user flow for a payments operations analyst" style="width:100%;display:block;">
-          <div class="img-caption-bar"><div class="img-caption-text"><strong>Put your screenshot here:</strong> simple flow diagram for monitor → identify → investigate → decide → act → resolve or escalate.</div></div>
-        </div>
+      <div>
+        <div class="stat-num">Built for action</div>
+        <div class="stat-desc">Structured the experience around what happened, why it happened, and what to do next.</div>
       </div>
-      <div class="two-col" aria-label="Research insights">
-        <div class="col-card">
-          <div class="col-label">What I consistently saw</div>
-          <div class="col-item">Pending, completed, and failed states were visible</div>
-          <div class="col-item">Some systems exposed basic detail views or receipts</div>
-          <div class="col-item">Users could sometimes retry, but rarely with guidance</div>
-          <div class="col-item">High-level history was usually easy to scan</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">What was missing</div>
-          <div class="col-item">Few products explained why failures happened in context</div>
-          <div class="col-item">Recovery was often pushed into support or email</div>
-          <div class="col-item">No clear “needs attention” layer existed</div>
-          <div class="col-item">There was little help deciding what action to take next</div>
-        </div>
+      <div>
+        <div class="stat-num">Designed for ambiguity</div>
+        <div class="stat-desc">Included edge cases like delayed transactions where the right action is not immediately obvious.</div>
       </div>
-      <div class="conflict-header" aria-label="User framing">
-        <div class="conflict-header-label">Primary user</div>
-        <div class="conflict-header-text">
-          I defined the primary user as a <strong>Payments Operations Analyst</strong> — someone responsible for reviewing failed or at-risk transactions, understanding what went wrong, and moving them toward resolution.
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
 
-    <section id="principles" class="cs-section" aria-labelledby="pri-h">
-      <div class="cs-section-label" aria-hidden="true">Design principles</div>
-      <h2 class="cs-h2" id="pri-h">This needed to feel like an operations tool, not an analytics dashboard.</h2>
-      <p class="cs-p">
-        One of the biggest clarifying moments in the project was realizing I was not designing a payment analytics dashboard. I was designing a <strong>resolution system</strong>. That shifted the whole project from passive visibility to decision support.
-      </p>
-      <div class="decision-grid" aria-label="Design principles">
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">Observation-only tools</div>
-            <div class="dc-text">Show trends, charts, and performance metrics, but stop short of helping someone resolve an individual issue.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">My direction</div>
-            <div class="dc-text"><strong>Design for action.</strong> Every part of the interface should help analysts identify, understand, and resolve problematic transactions.</div>
-          </div>
-        </div>
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">Flat transaction lists</div>
-            <div class="dc-text">Force users to manually scan everything and decide what matters.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">My direction</div>
-            <div class="dc-text"><strong>Prioritize before presenting.</strong> Add a clear Needs Attention layer so urgency is visible before the table even starts.</div>
-          </div>
-        </div>
-        <div class="decision-card tradeoff-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">Generic failure states</div>
-            <div class="dc-text">Tell users something broke without helping them decide what to do next.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">My direction</div>
-            <div class="dc-text"><strong>Separate issue, recommendation, and timeline.</strong> Each piece answers a different question and reduces decision fatigue.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div class="img-block" aria-label="Payments operations dashboard hero image">
+    <div class="img-accent-line"></div>
+    <img src="payments-dashboard-overview.png" alt="Payments operations dashboard final preview" style="width:100%;display:block;">
+    <div class="img-caption-bar">
+      <div class="img-caption-text"><strong>Final concept:</strong> a payments operations dashboard designed to prioritize, investigate, and resolve unclear transactions.</div>
+    </div>
+  </div>
+</section>
 
-    <section id="design" class="cs-section" aria-labelledby="des-h">
-      <div class="cs-section-label" aria-hidden="true">Design</div>
-      <h2 class="cs-h2" id="des-h">I designed the system in three layers: <em>prioritize, investigate, resolve.</em></h2>
-      <div class="img-block" aria-label="Final dashboard overview">
-        <div class="img-accent-line"></div>
-        <img src="payments-dashboard-overview.png" alt="Payments dashboard with needs attention cards and transaction table" style="width:100%;display:block;">
-        <div class="img-caption-bar"><div class="img-caption-text"><strong>Full</strong> dashboard overview with Needs Attention cards, filters, search, and transaction table.</div></div>
-      </div>
-      <h2 class="cs-h2">1. Needs Attention: adding a layer of urgency above the table</h2>
-      <p class="cs-p">
-        The first major move was introducing a prioritization layer. Instead of making analysts scan a full table to figure out what mattered, I surfaced the highest-priority categories first: <strong>Failed, Delayed, Multiple failures, and High-value.</strong>
-      </p>
-      <p class="cs-p">
-        This mattered because not every problem in a payment system looks the same. A delayed transaction is not the same as a failed one. A high-value transaction may still be pending, but it deserves attention for a different reason. I separated these into derived categories so the interface could highlight urgency without overloading the core status model.
-      </p>
-      <div class="tradeoff-header" aria-label="Needs attention rationale">
-        <div class="tradeoff-header-label">Key design decision</div>
-        <div class="tradeoff-header-text">
-          I treated <strong>Needs Attention</strong> as a prioritization layer, not a status layer. The table still shows raw system states like pending or failed, while the cards help analysts interpret what needs attention first.
-        </div>
-      </div>
-      <div class="img-block" aria-label="Needs attention interaction">
-        <div class="img-accent-line"></div>
-        <img src="payments-needs-attention-filtered.png" alt="Filtered by delayed transactions state with contextual explanation" style="width:100%;display:block;">
-        <div class="img-caption-bar"><div class="img-caption-text"><strong>One</strong> filtered state showing how clicking a Needs Attention card changes the table and explains why those rows were selected.</div></div>
-      </div>
-      <h2 class="cs-h2">2. The table: built for scanning, not reading</h2>
-      <p class="cs-p">
-        The table had to feel dense without becoming overwhelming. I prioritized columns that directly support triage: <strong>Status, Recipient, Payment Method, Amount, Issue, and Activity.</strong> I intentionally avoided turning it into a database dump.
-      </p>
-      <p class="cs-p">
-        Two decisions mattered most here. First, I added an <strong>Issue</strong> column with short, human-readable labels instead of burying failure causes deeper in the flow. Second, I combined dates into a single <strong>Activity</strong> column so analysts could quickly see both freshness and context without sacrificing space.
-      </p>
-      <div class="img-row" aria-label="Table design details">
-        <div class="img-block" aria-label="Row design detail">
-          <img src="payments-row-detail.png" alt="Transaction table row showing issue, activity, and payment method" style="width:100%;display:block;">
-          <div class="img-caption-bar"><div class="img-caption-text"><strong>A cropped close-up of one table row</strong></div></div>
-        </div>
-        <div class="img-block" aria-label="Table interaction detail">
-          <img src="payments-table-interaction.png" alt="Table interaction state showing hover or active row" style="width:100%;display:block;">
-          <div class="img-caption-bar"><div class="img-caption-text"><strong>Put your screenshot here:</strong> hover state, active row, or tooltip state if you want to show interaction polish.</div></div>
-        </div>
-      </div>
-      <h2 class="cs-h2">3. The side panel: turning failure into a decision-making workflow</h2>
-      <p class="cs-p">
-        The side panel became the core of the experience. This is where the project stopped being a detail view and became a resolution workflow. Once an analyst clicks a row, they need four things immediately: what happened, why it happened, what should happen next, and what has already happened in the system.
-      </p>
-      <p class="cs-p">
-        To make that possible, I broke the panel into distinct layers: issue, recommendation, timeline, and action controls. That separation helped the UI stay compact while still supporting high-stakes decision-making.
-      </p>
-      <div class="two-col" aria-label="Panel structure">
-        <div class="col-card">
-          <div class="col-label">Explanation</div>
-          <div class="col-item">Status and transaction summary</div>
-          <div class="col-item">Issue label + supporting system context</div>
-          <div class="col-item">Clear recommendation</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">Execution</div>
-          <div class="col-item">Compact desktop actions</div>
-          <div class="col-item">Timeline for auditability</div>
-          <div class="col-item">State transition after action</div>
-        </div>
-      </div>
-      <div class="img-block" aria-label="Final side panel design">
-        <div class="img-accent-line"></div>
-        <img src="payments-side-panel.png" alt="Transaction side panel with recommendation, timeline, and actions" style="width:100%;display:block;">
-        <div class="img-caption-bar"><div class="img-caption-text"><strong>Put your screenshot here:</strong> final side panel showing issue, recommendation, timeline, and actions.</div></div>
-      </div>
-      <div class="conflict-header" aria-label="Recommendation logic">
-        <div class="conflict-header-label">Recommendation logic</div>
-        <div class="conflict-header-text">
-          I framed recommendations as a mix of <strong>system rules and historical patterns</strong>, so they felt trustworthy rather than magical. Instead of vague advice, the interface suggests a concrete next step and supports it with lightweight confidence signals from similar resolved cases.
-        </div>
-      </div>
-    </section>
+<section id="role" class="cs-section" aria-labelledby="role-h">
+  <div class="cs-section-label" aria-hidden="true">Understanding the role</div>
+  <h2 class="cs-h2" id="role-h">I picked this user on purpose.</h2>
 
-    <section id="prototype" class="cs-section" aria-labelledby="pro-h">
-      <div class="cs-section-label" aria-hidden="true">Prototype</div>
-      <h2 class="cs-h2" id="pro-h">I prototyped the experience like a workflow, not a slideshow.</h2>
-      <p class="cs-p">
-        Once the core UI was in place, I focused on the small interactions that make the system feel real. Clicking a Needs Attention card filters the table and explains why those transactions were surfaced. Clicking a row opens the side panel. Clicking <strong>Request update</strong> triggers a confirmation state and removes the row from the active queue, which makes resolution feel like a true state transition rather than a fake button click.
-      </p>
-      <p class="cs-p">
-        My next step is to build this in code using Tailwind and AI-assisted tools so I can push the interaction model further and make the prototype feel even closer to a real product.
-      </p>
-      <div class="img-block" aria-label="Prototype flow">
-        <div class="img-accent-line"></div>
-        <div class="prototype-embed">
-          <iframe title="Payments operations dashboard prototype" src="https://www.figma.com/embed?embed_host=share&url=YOUR_FIGMA_PROTOTYPE_URL" allowfullscreen></iframe>
-        </div>
-        <div class="img-caption-bar"><div class="img-caption-text"><strong>Optional:</strong> embed your live Figma prototype here, or replace this block with a GIF / sequence image if you want more control over how it appears.</div></div>
-      </div>
-    </section>
+  <p class="cs-p">
+    This project started as a challenge to myself. I’ve spent a lot of time designing for end users — consumers, students, and broad audiences — but I wanted to push into a space that felt less familiar and more operational.
+  </p>
 
-    <section id="outcome" class="cs-section" aria-labelledby="out-h">
-      <div class="cs-section-label" aria-hidden="true">Outcome</div>
-      <h2 class="cs-h2" id="out-h">The final concept closes the gap between <em>insight</em> and <em>action.</em></h2>
-      <p class="cs-p">
-        The biggest shift in this project was moving from a passive transaction table to a real operational workflow. Instead of asking analysts to interpret a long list of statuses on their own, the system now helps them see what matters, understand what happened, and take the next appropriate step without leaving the interface.
-      </p>
-      <div class="impact-bar" aria-label="Concept outcomes">
-        <div class="impact-label">what this design improves</div>
-        <div class="impact-stats">
-          <div><div class="stat-num">Less manual scanning</div><div class="stat-desc">High-priority transactions are surfaced before analysts have to dig through the table.</div></div>
-          <div><div class="stat-num">Clearer failure handling</div><div class="stat-desc">Issue context, recommendations, and timelines make failure states easier to understand.</div></div>
-          <div><div class="stat-num">Stronger resolution flow</div><div class="stat-desc">The interface supports triage, investigation, and action in one connected system.</div></div>
-        </div>
-      </div>
-    </section>
+  <p class="cs-p">
+    So instead of designing another consumer payments app, I focused on a <strong>payments operations analyst</strong> — someone responsible for monitoring, investigating, and resolving unclear or failed transactions behind the scenes.
+  </p>
 
-    <section id="learnings" class="cs-section" aria-labelledby="learn-h">
-      <div class="cs-section-label" aria-hidden="true">Learnings</div>
-      <h2 class="cs-h2" id="learn-h">This project reminded me that systems matter more than single screens.</h2>
-      <div class="learning-list" role="list">
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">01</span>
-          <div class="learning-text"><strong>Designing for experts doesn’t mean removing guidance.</strong> Ops analysts do not need hand-holding, but they do need clean, well-structured decision support. The challenge was figuring out how to guide without over-explaining.</div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">02</span>
-          <div class="learning-text"><strong>Status is not the same thing as urgency.</strong> One of the strongest ideas in this project was separating raw system states from derived priority categories. That distinction made the whole interface clearer.</div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">03</span>
-          <div class="learning-text"><strong>The most valuable move was connecting insight to action.</strong> A dashboard alone would not have been enough. The project became much stronger once it supported the full flow from triage to investigation to resolution.</div>
-        </div>
+  <div class="tradeoff-header" aria-label="Research framing">
+    <div class="tradeoff-header-label">How I approached it</div>
+    <div class="tradeoff-header-text">
+      Since I didn’t have direct access to internal tools, I pulled from publicly available resources — documentation, walkthroughs, and real examples — to understand how analysts actually investigate transactions.
+    </div>
+  </div>
+
+  <div class="two-col" aria-label="Role breakdown">
+    <div class="col-card">
+      <div class="col-label">What this role does</div>
+      <div class="col-item">Monitor transaction queues</div>
+      <div class="col-item">Investigate failed or unclear payments</div>
+      <div class="col-item">Interpret system signals and logs</div>
+      <div class="col-item">Take action or escalate issues</div>
+    </div>
+    <div class="col-card">
+      <div class="col-label">What stood out</div>
+      <div class="col-item">The work is less about browsing data and more about making decisions under uncertainty</div>
+      <div class="col-item">The hardest moments aren’t obvious failures — they’re ambiguous ones</div>
+      <div class="col-item">Most existing patterns prioritize status visibility over resolution</div>
+    </div>
+  </div>
+</section>
+
+<section id="workflow" class="cs-section" aria-labelledby="flow-h">
+  <div class="cs-section-label" aria-hidden="true">Workflow + emotions</div>
+  <h2 class="cs-h2" id="flow-h">Before designing anything, I mapped the workflow and where it starts to break.</h2>
+
+  <p class="cs-p">
+    To make the role more concrete, I mapped a typical investigation flow and visualized the emotional shifts that happen along the way. The hardest part isn’t finding information — it’s knowing what it means and what to do next.
+  </p>
+
+  <div class="img-row" aria-label="Storyboard and user flow">
+    <div class="img-block" aria-label="Storyboard for payments operations analyst">
+      <div class="img-accent-line"></div>
+      <img src="payments-storyboard.png" alt="Storyboard showing a payments operations analyst reviewing and resolving a transaction" style="width:100%;display:block;">
+      <div class="img-caption-bar">
+        <div class="img-caption-text"><strong>Storyboard:</strong> mapped the analyst’s experience from noticing a flagged transaction to deciding whether to escalate or resolve it.</div>
       </div>
-    </section>
+    </div>
+
+    <div class="img-block" aria-label="Simple user flow for payments operations analyst">
+      <div class="img-accent-line"></div>
+      <img src="payments-user-flow.png" alt="User flow showing alert, investigate, interpret, decide, and act" style="width:100%;display:block;">
+      <div class="img-caption-bar">
+        <div class="img-caption-text"><strong>User flow:</strong> alert → investigate → interpret → decide → act.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="conflict-header" aria-label="Workflow insight">
+    <div class="conflict-header-label">What the flow revealed</div>
+    <div class="conflict-header-text">
+      The most stressful point in the workflow is not seeing that something is wrong — it’s figuring out <strong>what the problem actually is</strong> and whether the system is giving you enough confidence to act.
+    </div>
+  </div>
+</section>
+
+<section id="competitive" class="cs-section" aria-labelledby="comp-h">
+  <div class="cs-section-label" aria-hidden="true">Competitive scan</div>
+  <h2 class="cs-h2" id="comp-h">I also looked at how payments are handled in consumer-facing products today.</h2>
+
+  <p class="cs-p">
+    I studied payment experiences from <strong>Revolut, Wells Fargo, and Chase</strong> to understand how current systems communicate transaction status, history, and failure. These flows are designed well for visibility — but not for resolution.
+  </p>
+
+  <div class="two-col" aria-label="Competitive analysis summary">
+    <div class="col-card">
+      <div class="col-label">What current flows do well</div>
+      <div class="col-item">Surface transaction status clearly</div>
+      <div class="col-item">Show searchable history and receipts</div>
+      <div class="col-item">Support awareness at a glance</div>
+      <div class="col-item">Handle happy-path confirmations well</div>
+    </div>
+    <div class="col-card">
+      <div class="col-label">What was missing</div>
+      <div class="col-item">Little context around why failures happened</div>
+      <div class="col-item">Few clear recovery actions</div>
+      <div class="col-item">No prioritization layer for what needs attention first</div>
+      <div class="col-item">Support and resolution often happen outside the transaction itself</div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>These flows are optimized for people sending money — not for people responsible for resolving issues.</p>
+    <cite>Main takeaway from the competitive scan</cite>
+  </div>
+</section>
+
+<section id="insight" class="cs-section" aria-labelledby="insight-h">
+  <div class="cs-section-label" aria-hidden="true">Insight</div>
+  <h2 class="cs-h2" id="insight-h">Status isn’t the same thing as understanding.</h2>
+
+  <p class="cs-p">
+    The more I looked into the workflow, the clearer the gap became: most systems are good at showing status, but weak at supporting decisions.
+  </p>
+
+  <p class="cs-p">
+    A label like <strong>pending</strong> or <strong>failed</strong> doesn’t actually help someone do their job. What analysts need is context, clarity, and a clear next step.
+  </p>
+
+  <div class="tradeoff-header" aria-label="Design framing">
+    <div class="tradeoff-header-label">Core design principle</div>
+    <div class="tradeoff-header-text">
+      I designed for decision-making, not just visibility. Every part of the system needed to answer: <strong>What happened? Why did it happen? What should happen next?</strong>
+    </div>
+  </div>
+</section>
+
+<section id="design" class="cs-section" aria-labelledby="des-h">
+  <div class="cs-section-label" aria-hidden="true">Design</div>
+  <h2 class="cs-h2" id="des-h">I designed the system in three layers: <em>prioritize, investigate, resolve.</em></h2>
+
+  <div class="img-block" aria-label="Final dashboard overview">
+    <div class="img-accent-line"></div>
+    <img src="payments-dashboard-overview.png" alt="Payments dashboard with needs attention cards and transaction table" style="width:100%;display:block;">
+    <div class="img-caption-bar">
+      <div class="img-caption-text"><strong>Dashboard overview:</strong> surfaces what needs attention first, then lets analysts move directly into investigation.</div>
+    </div>
+  </div>
+
+  <p class="cs-p">
+    The first major move was introducing a <strong>Needs Attention</strong> layer. Instead of forcing analysts to scan an entire table to figure out what matters, the interface surfaces priority categories first: <strong>Failed, Delayed, Repeated failures, and High-value.</strong>
+  </p>
+
+  <p class="cs-p">
+    I treated these as a prioritization layer rather than a status layer. The table still shows raw transaction state, while the cards help analysts interpret what deserves attention first.
+  </p>
+
+  <div class="decision-grid" aria-label="System design decisions">
+    <div class="decision-card tradeoff-card">
+      <div class="dc-tension">
+        <div class="dc-tag tension-tag">Prioritization</div>
+        <div class="dc-text">Most transaction tables treat every row equally, which makes urgent issues easy to miss.</div>
+      </div>
+      <div class="dc-resolution">
+        <div class="dc-tag resolution-tag">Design response</div>
+        <div class="dc-text"><strong>Surface urgency before the table.</strong> Analysts should know where to focus before they start scanning rows.</div>
+      </div>
+    </div>
+
+    <div class="decision-card tradeoff-card">
+      <div class="dc-tension">
+        <div class="dc-tag tension-tag">Table structure</div>
+        <div class="dc-text">Dense systems can easily become hard to parse if every detail is exposed at once.</div>
+      </div>
+      <div class="dc-resolution">
+        <div class="dc-tag resolution-tag">Design response</div>
+        <div class="dc-text"><strong>Keep issue labels short and reusable.</strong> Detailed context is moved into the investigation panel, where decisions actually happen.</div>
+      </div>
+    </div>
+
+    <div class="decision-card tradeoff-card">
+      <div class="dc-tension">
+        <div class="dc-tag tension-tag">Action model</div>
+        <div class="dc-text">Most tools show what happened, but don’t help users move toward resolution.</div>
+      </div>
+      <div class="dc-resolution">
+        <div class="dc-tag resolution-tag">Design response</div>
+        <div class="dc-text"><strong>Separate status, issue, and action.</strong> Each layer answers a different question and reduces hesitation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="img-block" aria-label="Transaction side panel">
+    <div class="img-accent-line"></div>
+    <img src="payments-side-panel.png" alt="Transaction detail panel showing issue, recommendation, timeline, and actions" style="width:100%;display:block;">
+    <div class="img-caption-bar">
+      <div class="img-caption-text"><strong>Investigation panel:</strong> turns a transaction detail view into a decision-making workflow.</div>
+    </div>
+  </div>
+
+  <p class="cs-p">
+    This panel is where the project became a resolution system rather than just a dashboard. Once an analyst clicks into a transaction, they need four things immediately: what happened, why it happened, what to do next, and what has already happened in the system.
+  </p>
+
+  <div class="two-col" aria-label="Panel structure">
+    <div class="col-card">
+      <div class="col-label">What it explains</div>
+      <div class="col-item">Status and issue in plain language</div>
+      <div class="col-item">A recommendation grounded in the current situation</div>
+      <div class="col-item">Timeline context for auditability</div>
+    </div>
+    <div class="col-card">
+      <div class="col-label">What it supports</div>
+      <div class="col-item">Fast triage without leaving the page</div>
+      <div class="col-item">Reusable action patterns like Request update and Escalate</div>
+      <div class="col-item">A clear transition from investigation to action</div>
+    </div>
+  </div>
+</section>
+
+<section id="edgecase" class="cs-section" aria-labelledby="edge-h">
+  <div class="cs-section-label" aria-hidden="true">Edge case</div>
+  <h2 class="cs-h2" id="edge-h">Not every issue is a clear failure.</h2>
+
+  <p class="cs-p">
+    Some of the hardest cases are the ones that sit in between — where a payment is technically still <strong>pending</strong>, but something feels off. I wanted the system to support that ambiguity without collapsing everything into success or failure.
+  </p>
+
+  <div class="img-block" aria-label="Delayed pending edge case">
+    <div class="img-accent-line"></div>
+    <img src="payments-delayed-panel.png" alt="Delayed pending transaction panel showing timeline and escalation guidance" style="width:100%;display:block;">
+    <div class="img-caption-bar">
+      <div class="img-caption-text"><strong>Delayed edge case:</strong> keeps the system status accurate while still surfacing that the transaction may need attention.</div>
+    </div>
+  </div>
+
+  <p class="cs-p">
+    Instead of changing the system status, I used a derived label — <strong>Delayed</strong> — to signal urgency. That lets the product stay accurate while still helping analysts notice when a pending transaction has exceeded expected processing time.
+  </p>
+
+  <div class="conflict-header" aria-label="Edge case rationale">
+    <div class="conflict-header-label">Why this mattered</div>
+    <div class="conflict-header-text">
+      I wanted to avoid premature actions. In this case, the system supports the decision rather than forcing one — making time-based context visible, then allowing the analyst to monitor or escalate.
+    </div>
+  </div>
+</section>
+
+<section id="prototype" class="cs-section" aria-labelledby="pro-h">
+  <div class="cs-section-label" aria-hidden="true">Prototype</div>
+  <h2 class="cs-h2" id="pro-h">I prototyped this like a workflow, not a slideshow.</h2>
+
+  <p class="cs-p">
+    Once the core UI was in place, I focused on the state transitions that make the system feel real: clicking a Needs Attention card filters the table, clicking a row opens the investigation panel, and actions like <strong>Request update</strong> or <strong>Escalate</strong> are framed as part of an operational workflow rather than isolated clicks.
+  </p>
+
+  <div class="img-block" aria-label="Prototype flow">
+    <div class="img-accent-line"></div>
+    <div class="prototype-embed">
+      <iframe title="Payments operations dashboard prototype" src="https://www.figma.com/embed?embed_host=share&url=YOUR_FIGMA_PROTOTYPE_URL" allowfullscreen></iframe>
+    </div>
+    <div class="img-caption-bar">
+      <div class="img-caption-text"><strong>Prototype:</strong> embed your Figma flow here once ready, or replace this with a short GIF if you want more control.</div>
+    </div>
+  </div>
+</section>
+
+<section id="reflection" class="cs-section" aria-labelledby="ref-h">
+  <div class="cs-section-label" aria-hidden="true">Reflection</div>
+  <h2 class="cs-h2" id="ref-h">This project pushed me to think beyond interfaces.</h2>
+
+  <p class="cs-p">
+    Designing for operations meant designing for ambiguity, time pressure, and decision-making — not just transaction flows.
+  </p>
+
+  <p class="cs-p">
+    What I liked most about this project was that it made me think in systems: how language scales, how urgency is surfaced, and how a product can support action without pretending every situation is equally clear.
+  </p>
+
+  <div class="learning-list" role="list">
+    <div class="learning" role="listitem">
+      <span class="learning-num" aria-hidden="true">01</span>
+      <div class="learning-text">
+        <strong>Status is not the same thing as urgency.</strong>
+        One of the strongest ideas in this project was separating raw system state from the prioritization layer above it.
+      </div>
+    </div>
+    <div class="learning" role="listitem">
+      <span class="learning-num" aria-hidden="true">02</span>
+      <div class="learning-text">
+        <strong>Good decision support is different from more information.</strong>
+        The goal wasn’t to surface every possible detail — it was to structure the right information at the right moment.
+      </div>
+    </div>
+    <div class="learning" role="listitem">
+      <span class="learning-num" aria-hidden="true">03</span>
+      <div class="learning-text">
+        <strong>This is a space I want to keep exploring.</strong>
+        It pushed me outside my comfort zone in a way that felt useful, and made me more interested in designing for complex, high-stakes systems.
+      </div>
+    </div>
+  </div>
+</section>
   </main>
 </div>
 
