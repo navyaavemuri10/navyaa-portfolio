@@ -356,122 +356,163 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   </div>
 </section>
 
-<section id="system-overview" class="cs-section" aria-labelledby="system-h">
+<section id="design" class="cs-section" aria-labelledby="design-h">
   <div class="cs-section-label" aria-hidden="true">Design</div>
-  <h2 class="cs-h2" id="edge-h">I designed the system in three layers: prioritize, investigate, and resolve.</h2>
+  <h2 class="cs-h2" id="design-h">I designed the system in three layers: prioritize, investigate, and resolve.</h2>
+
+  <!-- EXPLORATION -->
+  <h3 class="cs-h3" style="margin-top:24px;">Focusing on the resolution flow</h3>
+
+  <div class="tradeoff-header">
+    <div class="tradeoff-header-label">Design decision</div>
+    <div class="tradeoff-header-text">
+      The value in this project wasn’t designing another table but designing for resolution.
+    </div>
+  </div>
+
+  <!-- SYSTEM OVERVIEW -->
+  <h3 class="cs-h3" style="margin-top:40px;">Prioritize: surfacing what matters first</h3>
+
+  <p class="cs-p">
+    Instead of treating the dashboard as a flat table, I introduced a prioritization layer that surfaces what needs attention before analysts begin investigating.
+  </p>
+
   <div class="img-block" aria-label="Annotated payments dashboard overview">
-
-  <img
-    src="prioritization-image.png"
-    alt="Payments dashboard with numbered markers highlighting prioritization, status separation, issue labels, and table scanning structure"
-    style="width:100%;display:block;"
-  />
-
-  <div class="img-caption-bar">
-    <div class="img-caption-text">
-      <strong>System overview:</strong> numbered markers highlight key structural decisions in the dashboard.
+    <div class="img-accent-line"></div>
+    <img
+      src="prioritization-image.png"
+      alt="Payments dashboard with numbered markers highlighting prioritization and table structure"
+      style="width:100%;display:block;"
+    />
+    <div class="img-caption-bar">
+      <div class="img-caption-text">
+        <strong>System overview:</strong> the dashboard prioritizes urgency before presenting detailed data.
+      </div>
     </div>
   </div>
-</div>
 
-<div class="two-col annotated-notes" aria-label="Dashboard callouts">
+  <div class="two-col annotated-notes">
 
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">1</span>
-      <span class="callout-heading">Surfaces what needs attention first</span>
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">1</span>
+        <span class="callout-heading">Surfaces what needs attention first</span>
+      </div>
+      <p class="annotated-note-text">
+        Analysts can immediately identify which categories require action instead of scanning every transaction.
+      </p>
     </div>
-    <p class="annotated-note-text">
-      Analysts can immediately see which categories require action before scanning the full table.
-    </p>
+
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">2</span>
+        <span class="callout-heading">Separates priority from system status</span>
+      </div>
+      <p class="annotated-note-text">
+        “Needs Attention” highlights urgency without replacing raw states like pending or failed.
+      </p>
+    </div>
+
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">3</span>
+        <span class="callout-heading">Uses short, scannable issue labels</span>
+      </div>
+      <p class="annotated-note-text">
+        The table remains readable while detailed explanations are deferred to the investigation panel.
+      </p>
+    </div>
+
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">4</span>
+        <span class="callout-heading">Designed for scanning, not reading</span>
+      </div>
+      <p class="annotated-note-text">
+        Structured to support fast triage without opening every transaction.
+      </p>
+    </div>
+
   </div>
 
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">2</span>
-      <span class="callout-heading">Separates priority from system status</span>
+  <!-- COMPONENTS -->
+  <h3 class="cs-h3" style="margin-top:40px;">Designing for consistency and reuse</h3>
+
+  <p class="cs-p">
+    Once the structure was defined, I translated it into reusable patterns — ensuring that status, issue labels, and actions remained consistent across the experience.
+  </p>
+
+  <div class="img-block">
+    <div class="img-accent-line"></div>
+    <img src="components.png" alt="Design system components for status, labels, and actions" style="width:100%;display:block;">
+    <div class="img-caption-bar">
+      <div class="img-caption-text">
+        <strong>Component system:</strong> reusable patterns for clarity and consistency across the workflow.
+      </div>
     </div>
-    <p class="annotated-note-text">
-      “Needs Attention” is a derived layer for urgency, not a replacement for raw states like pending or failed.
-    </p>
   </div>
 
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">3</span>
-      <span class="callout-heading">Short, scannable issue labels</span>
-    </div>
-    <p class="annotated-note-text">
-      Keeps the table readable while moving detailed explanations into the investigation panel.
-    </p>
-  </div>
+  <!-- INVESTIGATION PANEL -->
+  <h3 class="cs-h3" style="margin-top:40px;">Investigate: turning information into action</h3>
 
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">4</span>
-      <span class="callout-heading">Designed for scanning, not reading</span>
-    </div>
-    <p class="annotated-note-text">
-      Status, issue, and activity are structured to support fast triage without opening every transaction.
-    </p>
-  </div>
+  <p class="cs-p">
+    Once a transaction is selected, the experience shifts from scanning to decision-making. The investigation panel brings together context, explanation, and action in one place.
+  </p>
 
-</div>
-</section>
-
-    <section>
-
-  <div class="img-block" aria-label="Transaction side panel">
+  <div class="img-block">
     <div class="img-accent-line"></div>
     <img src="transactions-image.png" alt="Transaction detail panel showing issue, recommendation, timeline, and actions" style="width:100%;display:block;">
     <div class="img-caption-bar">
-      <div class="img-caption-text"><strong>Investigation panel:</strong> turns a transaction detail view into a decision-making workflow.</div>
+      <div class="img-caption-text">
+        <strong>Investigation panel:</strong> supports understanding, decision-making, and resolution without leaving context.
+      </div>
     </div>
   </div>
 
-  <div class="two-col annotated-notes" aria-label="Dashboard callouts">
+  <div class="two-col annotated-notes">
 
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">1</span>
-      <span class="callout-heading">Keeps key context visible</span>
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">1</span>
+        <span class="callout-heading">Keeps key context visible</span>
+      </div>
+      <p class="annotated-note-text">
+        Analysts can orient themselves quickly without digging into details.
+      </p>
     </div>
-    <p class="annotated-note-text">
-      Transaction type, amount, status, and recency are visible immediately so analysts can orient themselves before reading deeper.
-    </p>
+
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">2</span>
+        <span class="callout-heading">Separates state, signal, and cause</span>
+      </div>
+      <p class="annotated-note-text">
+        Distinguishes what happened, why it matters, and what’s wrong.
+      </p>
+    </div>
+
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">3</span>
+        <span class="callout-heading">Turns visibility into action</span>
+      </div>
+      <p class="annotated-note-text">
+        The system pairs issues with clear next steps, reducing hesitation.
+      </p>
+    </div>
+
+    <div class="col-card annotated-note">
+      <div class="callout-title-row">
+        <span class="callout-num">4</span>
+        <span class="callout-heading">Supports auditability</span>
+      </div>
+      <p class="annotated-note-text">
+        A concise timeline reconstructs what happened without switching tools.
+      </p>
+    </div>
+
   </div>
 
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">2</span>
-      <span class="callout-heading">Separates state, signal, and cause</span>
-    </div>
-    <p class="annotated-note-text">
-      Status shows what happened, the label highlights urgency or pattern, and the issue explains why this transaction needs attention.
-    </p>
-  </div>
-
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">3</span>
-      <span class="callout-heading">Turns issue visibility into a next step</span>
-    </div>
-    <p class="annotated-note-text">
-     The recommendation module pairs the issue with a clear action and a short explanation, so the system supports resolution instead of just reporting failure.
-    </p>
-  </div>
-
-  <div class="col-card annotated-note">
-    <div class="callout-title-row">
-      <span class="callout-num">4</span>
-      <span class="callout-heading">Supports auditability and fast reconstruction</span>
-    </div>
-    <p class="annotated-note-text">
-      The timeline makes it easy to understand what happened in sequence without digging through logs or switching tools.
-    </p>
-  </div>
-
-</div>
 </section>
 
 <section id="edgecase" class="cs-section" aria-labelledby="edge-h">
