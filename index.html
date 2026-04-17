@@ -359,8 +359,8 @@ const vidObserver = new IntersectionObserver((entries) => {
     } else {
       vid.pause();
       vid.currentTime = 0;
-      vid.style.opacity = '0';
-      if(img) img.style.opacity = '1';
+      vid.style.opacity = '1';
+      if(img) img.style.opacity = '0';
     }
   });
 }, { threshold: 0.15 });
