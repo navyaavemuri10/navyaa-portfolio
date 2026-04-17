@@ -130,35 +130,50 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
 .ui-callout{
   position:absolute;
-  display:flex;
-  align-items:flex-start;
-  gap:8px;
-  max-width:240px;
   z-index:2;
 }
 
 .ui-callout-dot{
-  width:10px;
-  height:10px;
+  width:12px;
+  height:12px;
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 0 4px rgba(107,191,176,.12);
-  flex-shrink:0;
-  margin-top:8px;
+  box-shadow:0 0 0 6px rgba(107,191,176,.12);
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.ui-callout:hover .ui-callout-dot{
+  transform:scale(1.15);
+  box-shadow:0 0 0 10px rgba(107,191,176,.18);
 }
 
 .ui-callout-card{
-  background:rgba(17,18,18,.94);
+  position:absolute;
+  top:18px;
+  left:18px;
+  background:rgba(17,18,18,.96);
   border:.5px solid var(--border);
   border-radius:8px;
   padding:12px 14px;
   backdrop-filter:blur(8px);
   box-shadow:0 10px 30px rgba(0,0,0,.18);
+  width:220px;
+
+  opacity:0;
+  transform:translateY(6px);
+  pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+}
+
+.ui-callout:hover .ui-callout-card{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
 }
 
 .ui-callout-title{
   font-size:11px;
-  line-height:1.4;
   color:var(--text);
   font-weight:500;
   margin-bottom:4px;
@@ -166,29 +181,38 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
 .ui-callout-text{
   font-size:11px;
-  line-height:1.55;
+  line-height:1.5;
   color:var(--muted);
 }
-
 /* Desktop positions */
 .ui-callout-1{
   top:40px;
   left:26px;
 }
 
-.ui-callout-2{
-  top:138px;
-  right:26px;
+.ui-callout-2 .ui-callout-card{
+  top:18px;
+  left:auto;
+  right:18px;
 }
 
-.ui-callout-3{
-  bottom:132px;
-  right:24px;
+.ui-callout-3 .ui-callout-card{
+  top:auto;
+  bottom:18px;
+  left:auto;
+  right:18px;
 }
 
-.ui-callout-4{
-  bottom:34px;
-  left:34px;
+.ui-callout-4 .ui-callout-card{
+  top:auto;
+  bottom:18px;
+  left:18px;
+}
+
+  .ui-callout-dot::after{
+  content:'';
+  position:absolute;
+  inset:-8px;
 }
 
 .annotated-ui-mobile-notes{
@@ -413,7 +437,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <div class="annotated-ui" aria-label="Annotated payments dashboard overview">
     <div class="annotated-ui-image-wrap">
       <img
-        src="prioritization.png"
+        src="prioritization-image.png"
         alt="Needs attention cards and transaction table UI"
         class="annotated-ui-image"
       />
