@@ -110,6 +110,93 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .footer-cta:hover{background:#0D1620;}
 .prototype-embed{padding:20px;}
 .prototype-embed iframe{border:.5px solid var(--border);border-radius:8px;width:100%;height:640px;background:#0F1010;}
+  .annotated-ui{
+  margin:22px 0;
+}
+
+.annotated-ui-image-wrap{
+  position:relative;
+  background:var(--surface);
+  border:.5px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.annotated-ui-image{
+  width:100%;
+  display:block;
+  height:auto;
+}
+
+.ui-callout{
+  position:absolute;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  max-width:240px;
+  z-index:2;
+}
+
+.ui-callout-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 4px rgba(107,191,176,.12);
+  flex-shrink:0;
+  margin-top:8px;
+}
+
+.ui-callout-card{
+  background:rgba(17,18,18,.94);
+  border:.5px solid var(--border);
+  border-radius:8px;
+  padding:12px 14px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.ui-callout-title{
+  font-size:11px;
+  line-height:1.4;
+  color:var(--text);
+  font-weight:500;
+  margin-bottom:4px;
+}
+
+.ui-callout-text{
+  font-size:11px;
+  line-height:1.55;
+  color:var(--muted);
+}
+
+/* Desktop positions */
+.ui-callout-1{
+  top:40px;
+  left:26px;
+}
+
+.ui-callout-2{
+  top:138px;
+  right:26px;
+}
+
+.ui-callout-3{
+  bottom:132px;
+  right:24px;
+}
+
+.ui-callout-4{
+  bottom:34px;
+  left:34px;
+}
+
+.annotated-ui-mobile-notes{
+  display:none;
+  margin-top:12px;
+  gap:10px;
+  flex-direction:column;
+}
 @media(max-width:900px){
   .g-nav{padding:0 32px;}
   .page-wrap{grid-template-columns:1fr;padding:0 32px;}
@@ -128,6 +215,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .hero-media{min-height:420px;}
   .g-footer{padding:28px 32px;}
   .cs-title{font-size:30px;}
+   .ui-callout{
+    display:none;
+  }
+
+  .annotated-ui-mobile-notes{
+    display:flex;
+  }
 }
 @media(max-width:600px){
   .g-nav{padding:0 20px;}
@@ -319,8 +413,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <div class="annotated-ui" aria-label="Annotated payments dashboard overview">
     <div class="annotated-ui-image-wrap">
       <img
-        src="payments-dashboard-overview.png"
-        alt="Payments operations dashboard showing needs attention cards and transaction table"
+        src="prioritization.png"
+        alt="Needs attention cards and transaction table UI"
         class="annotated-ui-image"
       />
 
