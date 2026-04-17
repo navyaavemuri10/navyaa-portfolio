@@ -56,14 +56,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .cs-pill{font-size:11px;font-weight:400;color:#2A2A2A;background:#EEECEA;border:.5px solid #D8D6D2;border-radius:100px;padding:4px 12px;letter-spacing:.01em;}
 
 /* PLAY GRID */
-.play-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.play-grid{display:flex;flex-direction:column;gap:48px;}
 .play-card{text-decoration:none;display:block;}
-.play-thumb{width:100%;aspect-ratio:4/3;background:var(--surface);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.play-thumb{width:748px;max-width:100%;aspect-ratio:748/619;background:var(--surface);border-radius:12px;overflow:hidden;margin-bottom:20px;}
 .play-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
 .play-card:hover .play-thumb img{transform:scale(1.02);}
-.play-title{font-size:14px;font-weight:400;color:var(--text);margin-bottom:4px;transition:color .2s;}
+.play-eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.play-title{font-size:20px;font-weight:400;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:8px;transition:color .2s;}
 .play-card:hover .play-title{color:var(--accent);}
-.play-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.play-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;max-width:600px;}
 
 /* HOVER — HTP */
 .htp{position:relative;}
@@ -93,6 +94,23 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .cs-card.sharp,.play-card.sharp{
   opacity:1;
   transform:translateY(0);
+}
+
+/* unclear → clear: page starts soft, sharpens on scroll */
+.main{
+  filter:saturate(.7) contrast(.92);
+  transition:filter 1.2s ease;
+}
+.main.sharp{
+  filter:saturate(1) contrast(1);
+}
+
+  .main{
+  filter:saturate(.7) contrast(.92);
+  transition:filter 1.2s ease;
+}
+.main.sharp{
+  filter:saturate(1) contrast(1);
 }
 
 /* STAMP FLOAT */
@@ -139,8 +157,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 
     <!-- BIO -->
     <div class="bio">
-      <p class="bio-headline">Navyaa Vemuri is a Product Designer who designs for trust by making systems understandable, predictable, and actionable.</p>
-      <p class="bio-sub">Background spanning enterprise B2B SaaS, entertainment media, and AI-augmented experiences. Previously at <a href="case_study_cisco.html">Tesla</a>, <a href="case_study_cisco.html">Cisco</a>, <a href="case_study_cnn.html">CNN</a>, <a href="case_study_chw.html">Cal Poly</a>.</p>
+      <p class="bio-headline">Navyaa Vemuri is a Product Designer who designs for trust by making systems understandable and actionable.</p>
+      <p class="bio-sub">I’ve worked across enterprise tools, AI-powered features, and consumer platforms at <a href="https://tesla.com">Tesla</a>, <a href="https://splunk.com">Cisco Splunk</a>, <a href="https://cnn.com">CNN</a>, <a href="https://chw.calpoly.edu">Cal Poly</a>.</p>
     </div>
 
     <!-- TABS -->
@@ -160,8 +178,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
           </div>
           <div class="cs-body">
             <div class="cs-eyebrow">Tesla · UX Consultant · 2025</div>
-            <div class="cs-title">Designing a commute experience Tesla staff could actually rely on</div>
-            <div class="cs-desc">Shuttle times, parking availability, and trip planning — built natively into the existing app to replace a fragmented third-party tool.</div>
+            <div class="cs-title">Shipped a commute experience Tesla staff could actually rely on</div>
+            <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience with something predictable and easy to use. </div>
             <div class="cs-pills">
               <span class="cs-pill">Enterprise UX</span>
               <span class="cs-pill">Product Design</span>
@@ -178,8 +196,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
           </div>
           <div class="cs-body">
             <div class="cs-eyebrow">Cisco Splunk · UX Design Intern · Summer 2025</div>
-            <div class="cs-title">Enterprise UX across a fragmented AI-era ecosystem</div>
-            <div class="cs-desc">Audited 8+ enterprise domains during a $28B acquisition, redesigned a demo discovery system, and prototyped an AI-powered interaction pattern for developer workflows.</div>
+            <div class="cs-title">Bringing clarity to a fragmented enterprise ecosystem</div>
+            <div class="cs-desc">Audited 8+ domains, redesigned demo discovery, and introduced an AI-powered interaction pattern to help developers navigate workflows with confidence.</div>
             <div class="cs-pills">
               <span class="cs-pill">Enterprise UX</span>
               <span class="cs-pill">Systems Design</span>
@@ -196,8 +214,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
           </div>
           <div class="cs-body">
             <div class="cs-eyebrow">Cal Poly · UX Lead · 2023–2025</div>
-            <div class="cs-title">Redesigning trust in a university health system</div>
-            <div class="cs-desc">Redesigned a campus health portal for 23,000+ students — shifted from low-trust navigation to a structured system that increased engagement by 690%.</div>
+            <div class="cs-title">Turning a low-trust health portal into something students could confidently use</div>
+            <div class="cs-desc">Restructured navigation and interaction patterns for 23,000+ students, increasing engagement by 690% and reducing drop-off by 60%.</div>
             <div class="cs-pills">
               <span class="cs-pill">Healthcare UX</span>
               <span class="cs-pill">Information Architecture</span>
@@ -214,8 +232,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
           </div>
           <div class="cs-body">
             <div class="cs-eyebrow">CNN · Content Design Intern · Summer 2024</div>
-            <div class="cs-title">Designing for mobile-first news at scale</div>
-            <div class="cs-desc">Built CNN's first content design guidelines from scratch and shipped election center experiences seen by millions in 11 weeks.</div>
+            <div class="cs-title">Designing consistent, mobile-first news experiences at scale</div>
+            <div class="cs-desc">Built CNN’s first content design system and shipped election coverage experiences used by millions in 11 weeks.</div>
             <div class="cs-pills">
               <span class="cs-pill">Content Design</span>
               <span class="cs-pill">Information Architecture</span>
@@ -231,28 +249,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
           </div>
           <div class="cs-body">
             <div class="cs-eyebrow">UX Hackathon · 1st Place</div>
-            <div class="cs-title">Navi — safe pedestrian mobile app</div>
+            <div class="cs-title">Designing a real-time safety system for everyday travel</div>
             <div class="cs-desc">0 to 1 mobile app with AI companion, safe route navigation, and location sharing. Research to prototype in 24 hours.</div>
             <div class="cs-pills">
               <span class="cs-pill">Product Design</span>
               <span class="cs-pill">AI Interaction</span>
-              <span class="cs-pill">UX Research</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="cs-card" href="ncur.html" style="position:relative;">
-          <div class="cs-thumb" style="background:#F2EEF8;border-radius:12px;overflow:hidden;margin-bottom:20px;display:flex;align-items:center;justify-content:center;width:748px;max-width:100%;aspect-ratio:748/619;">
-            <img src="ncur-thumb.png" alt="NCUR Research" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
-            <div style="position:absolute;top:16px;right:16px;background:rgba(100,70,180,.12);border:.5px solid rgba(100,70,180,.3);border-radius:4px;padding:4px 10px;font-size:10px;color:#6446B4;letter-spacing:.08em;text-transform:uppercase;">NCUR 2025</div>
-          </div>
-          <div class="cs-body">
-            <div class="cs-eyebrow">Independent Research · 2025</div>
-            <div class="cs-title">Design patterns of human-agent mutual teaming for bidirectional trust</div>
-            <div class="cs-desc">Researched how users build trust with AI agents in complex systems. Presented at the National Conference on Undergraduate Research.</div>
-            <div class="cs-pills">
-              <span class="cs-pill">Human-AI Interaction</span>
-              <span class="cs-pill">AI Trust</span>
               <span class="cs-pill">UX Research</span>
             </div>
           </div>
@@ -263,29 +264,44 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 
     <!-- PLAY TAB -->
     <div class="tab-panel" id="tab-play">
-      <div class="play-grid">
-        <a class="play-card" href="play.html">
-          <div class="play-thumb"><img src="spending-thumb.png" alt="Spending app" onerror="this.style.background='#F0EFEC'"></div>
-          <div class="play-title">Spending intervention app</div>
-          <div class="play-desc">AI-powered fintech app built in Lovable</div>
-        </a>
-        <a class="play-card" href="play.html">
-          <div class="play-thumb"><img src="audit-thumb.png" alt="Smart Audit" onerror="this.style.background='#EEF0EC'"></div>
-          <div class="play-title">Smart Audit — UX heuristic tool</div>
-          <div class="play-desc">AI evaluation against Nielsen's 10 heuristics</div>
-        </a>
-        <a class="play-card" href="play.html">
-          <div class="play-thumb"><img src="candle-thumb.png" alt="Candle maker" onerror="this.style.background='#F5EEE8'"></div>
-          <div class="play-title">Figma Make candle maker</div>
-          <div class="play-desc">Sensory UI experiment built in an afternoon</div>
-        </a>
-        <a class="play-card" href="play.html">
-          <div class="play-thumb"><img src="play-thumb.png" alt="Playground" onerror="this.style.background='#EEEAF4'"></div>
-          <div class="play-title">Graphics & experiments</div>
-          <div class="play-desc">Visual work, type, and creative explorations</div>
-        </a>
+  <div class="play-grid">
+
+    <a class="play-card" href="play.html">
+      <div class="play-thumb" style="background:#F0EFEC;"><img src="spending-thumb.png" alt="Spending app" onerror="this.style.opacity=0"></div>
+      <div class="play-eyebrow">AI Build · Lovable</div>
+      <div class="play-title">Spending intervention app</div>
+      <div class="play-desc">A financial bodyguard for Gen Z — location-triggered alerts and barcode scanning to pause impulse spending before it happens.</div>
+      <div class="cs-pills">
+        <span class="cs-pill">AI Prototyping</span>
+        <span class="cs-pill">Product Design</span>
+        <span class="cs-pill">Fintech</span>
       </div>
-    </div>
+    </a>
+
+    <a class="play-card" href="https://ai-ux-audit.lovable.app" target="_blank">
+      <div class="play-thumb" style="background:#EEF0EC;"><img src="audit-thumb.png" alt="Smart Audit" onerror="this.style.opacity=0"></div>
+      <div class="play-eyebrow">AI Build · Lovable</div>
+      <div class="play-title">Smart Audit — UX heuristic analysis tool</div>
+      <div class="play-desc">AI-powered evaluation against Nielsen's 10 heuristics — severity ratings, impact/effort scoring, and it shows the positives too.</div>
+      <div class="cs-pills">
+        <span class="cs-pill">AI Prototyping</span>
+        <span class="cs-pill">UX Research</span>
+      </div>
+    </a>
+
+    <a class="play-card" href="play.html">
+      <div class="play-thumb" style="background:#F5EEE8;"><img src="candle-thumb.png" alt="Candle maker" onerror="this.style.opacity=0"></div>
+      <div class="play-eyebrow">AI Build · Figma Make</div>
+      <div class="play-title">Figma Make candle maker</div>
+      <div class="play-desc">Designing for scent — a sensory candle customizer built entirely in Figma Make in one afternoon.</div>
+      <div class="cs-pills">
+        <span class="cs-pill">AI Prototyping</span>
+        <span class="cs-pill">Product Design</span>
+      </div>
+    </a>
+
+  </div>
+</div>
 
   </main>
 </div>
@@ -338,6 +354,16 @@ const sharpObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  let pageSharpened = false;
+window.addEventListener('scroll', () => {
+  if(!pageSharpened && window.scrollY > 40){
+    document.querySelector('.main').classList.add('sharp');
+    pageSharpened = true;
+  }
+}, { passive: true });
+
+  
 
 document.querySelectorAll('.cs-card, .play-card').forEach(card => {
   sharpObserver.observe(card);
