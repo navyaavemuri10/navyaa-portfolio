@@ -314,28 +314,6 @@ function switchTab(name){
   document.getElementById('tab-'+name).classList.add('active');
 }
 
-document.querySelectorAll('.htp').forEach(el=>{
-  const vid=el.querySelector('.htp-vid');
-  const img=el.querySelector('.htp-img');
-  if(!vid)return;
-  vid.preload='auto';
-  vid.load();
-  el.addEventListener('mouseenter',()=>{
-    if(window.innerWidth<=768)return;
-    vid.currentTime=0;
-    vid.play().catch(()=>{});
-    vid.style.opacity='1';
-    if(img)img.style.opacity='0';
-  });
-  el.addEventListener('mouseleave',()=>{
-    if(window.innerWidth<=768)return;
-    vid.pause();
-    vid.currentTime=0;
-    vid.style.opacity='0';
-    if(img)img.style.opacity='1';
-  });
-});
-
 // Page load — fade in
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
@@ -345,17 +323,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 80);
 });
 
-// Scroll sharpening — IntersectionObserver on each card
-const sharpObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
-      // slight delay per card for stagger feel
-      setTimeout(() => e.target.classList.add('sharp'), 60);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  let pageSharpened = false;
+// Page-level unclear → clear on first scroll
+let pageSharpened = false;
 window.addEventListener('scroll', () => {
   if(!pageSharpened && window.scrollY > 40){
     document.querySelector('.main').classList.add('sharp');
@@ -363,11 +332,40 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-  
+// Card-level sharpening on scroll
+const sharpObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('sharp'), 60);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.cs-card, .play-card').forEach(card => {
-  sharpObserver.observe(card);
+document.querySelectorAll('.htp-vid').forEach(vid => {
+  vid.preload = 'auto';
+  vid.load();
 });
+// Video plays when in view
+const vidObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const vid = e.target.querySelector('.htp-vid');
+    const img = e.target.querySelector('.htp-img');
+    if(!vid) return;
+    if(e.isIntersecting){
+      vid.currentTime = 0;
+      vid.play().catch(()=>{});
+      vid.style.opacity = '1';
+      if(img) img.style.opacity = '0';
+    } else {
+      vid.pause();
+      vid.currentTime = 0;
+      vid.style.opacity = '0';
+      if(img) img.style.opacity = '1';
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.htp').forEach(el => vidObserver.observe(el));
 
 </script>
 </body>
