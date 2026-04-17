@@ -427,89 +427,65 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </section>
 
 <section id="system-overview" class="cs-section" aria-labelledby="system-h">
-  <div class="cs-section-label" aria-hidden="true">System overview</div>
-  <h2 class="cs-h2" id="system-h">Designed to prioritize what needs attention before analysts start scanning rows.</h2>
+  <div class="img-block" aria-label="Annotated payments dashboard overview">
+  <div class="img-accent-line"></div>
 
-  <p class="cs-p">
-    Instead of showing every transaction equally, the system surfaces urgency first. The goal wasn’t more visibility — it was faster decision-making.
-  </p>
+  <img
+    src="prioritization-image.png"
+    alt="Payments dashboard with numbered markers highlighting prioritization, status separation, issue labels, and table scanning structure"
+    style="width:100%;display:block;"
+  />
 
-  <div class="annotated-ui" aria-label="Annotated payments dashboard overview">
-    <div class="annotated-ui-image-wrap">
-      <img
-        src="prioritization-image.png"
-        alt="Needs attention cards and transaction table UI"
-        class="annotated-ui-image"
-      />
-
-      <div class="ui-callout ui-callout-1">
-        <div class="ui-callout-dot" aria-hidden="true"></div>
-        <div class="ui-callout-card">
-          <div class="ui-callout-title">Surfaces what needs attention first</div>
-          <div class="ui-callout-text">
-            Analysts can immediately see which categories require action before scanning the full table.
-          </div>
-        </div>
-      </div>
-
-      <div class="ui-callout ui-callout-2">
-        <div class="ui-callout-dot" aria-hidden="true"></div>
-        <div class="ui-callout-card">
-          <div class="ui-callout-title">Separates priority from system status</div>
-          <div class="ui-callout-text">
-            “Needs Attention” is a derived layer for urgency, not a replacement for raw states like pending or failed.
-          </div>
-        </div>
-      </div>
-
-      <div class="ui-callout ui-callout-3">
-        <div class="ui-callout-dot" aria-hidden="true"></div>
-        <div class="ui-callout-card">
-          <div class="ui-callout-title">Short, scannable issue labels</div>
-          <div class="ui-callout-text">
-            Keeps the table readable while moving detailed explanations into the investigation panel.
-          </div>
-        </div>
-      </div>
-
-      <div class="ui-callout ui-callout-4">
-        <div class="ui-callout-dot" aria-hidden="true"></div>
-        <div class="ui-callout-card">
-          <div class="ui-callout-title">Designed for scanning, not reading</div>
-          <div class="ui-callout-text">
-            Status, issue, and activity are structured to support fast triage without opening every transaction.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="annotated-ui-mobile-notes" aria-label="Dashboard callouts for small screens">
-      <div class="ui-callout-card">
-        <div class="ui-callout-title">Surfaces what needs attention first</div>
-        <div class="ui-callout-text">
-          Analysts can immediately see which categories require action before scanning the full table.
-        </div>
-      </div>
-      <div class="ui-callout-card">
-        <div class="ui-callout-title">Separates priority from system status</div>
-        <div class="ui-callout-text">
-          “Needs Attention” is a derived layer for urgency, not a replacement for raw states like pending or failed.
-        </div>
-      </div>
-      <div class="ui-callout-card">
-        <div class="ui-callout-title">Short, scannable issue labels</div>
-        <div class="ui-callout-text">
-          Keeps the table readable while moving detailed explanations into the investigation panel.
-        </div>
-      </div>
-      <div class="ui-callout-card">
-        <div class="ui-callout-title">Designed for scanning, not reading</div>
-        <div class="ui-callout-text">
-          Status, issue, and activity are structured to support fast triage without opening every transaction.
-        </div>
-      </div>
+  <div class="img-caption-bar">
+    <div class="img-caption-text">
+      <strong>System overview:</strong> numbered markers highlight key structural decisions in the dashboard.
     </div>
   </div>
+</div>
+
+<div class="two-col annotated-notes" aria-label="Dashboard callouts">
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">1</span>
+      <span class="callout-heading">Surfaces what needs attention first</span>
+    </div>
+    <p class="annotated-note-text">
+      Analysts can immediately see which categories require action before scanning the full table.
+    </p>
+  </div>
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">2</span>
+      <span class="callout-heading">Separates priority from system status</span>
+    </div>
+    <p class="annotated-note-text">
+      “Needs Attention” is a derived layer for urgency, not a replacement for raw states like pending or failed.
+    </p>
+  </div>
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">3</span>
+      <span class="callout-heading">Short, scannable issue labels</span>
+    </div>
+    <p class="annotated-note-text">
+      Keeps the table readable while moving detailed explanations into the investigation panel.
+    </p>
+  </div>
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">4</span>
+      <span class="callout-heading">Designed for scanning, not reading</span>
+    </div>
+    <p class="annotated-note-text">
+      Status, issue, and activity are structured to support fast triage without opening every transaction.
+    </p>
+  </div>
+
+</div>
 </section>
 
     <section>
