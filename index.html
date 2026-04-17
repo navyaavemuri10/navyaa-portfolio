@@ -97,19 +97,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 }
 
 /* unclear → clear: page starts soft, sharpens on scroll */
-.main{
+.bio, .cs-card, .play-card{
   filter:saturate(.7) contrast(.92);
-  transition:filter 1.2s ease;
+  transition:filter .8s ease;
 }
-.main.sharp{
-  filter:saturate(1) contrast(1);
-}
-
-  .main{
-  filter:saturate(.7) contrast(.92);
-  transition:filter 1.2s ease;
-}
-.main.sharp{
+.bio.loaded, .cs-card.sharp, .play-card.sharp{
   filter:saturate(1) contrast(1);
 }
 
@@ -359,8 +351,8 @@ const vidObserver = new IntersectionObserver((entries) => {
     } else {
       vid.pause();
       vid.currentTime = 0;
-      vid.style.opacity = '1';
-      if(img) img.style.opacity = '0';
+      vid.style.opacity = '0';
+      if(img) img.style.opacity = '1';
     }
   });
 }, { threshold: 0.15 });
