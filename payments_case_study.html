@@ -357,6 +357,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </section>
 
 <section id="system-overview" class="cs-section" aria-labelledby="system-h">
+  <div class="cs-section-label" aria-hidden="true">Design</div>
+  <h2 class="cs-h2" id="edge-h">I designed the system in three layers: prioritize, investigate, and resolve.</h2>
   <div class="img-block" aria-label="Annotated payments dashboard overview">
 
   <img
@@ -421,30 +423,55 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
   <div class="img-block" aria-label="Transaction side panel">
     <div class="img-accent-line"></div>
-    <img src="payments-side-panel.png" alt="Transaction detail panel showing issue, recommendation, timeline, and actions" style="width:100%;display:block;">
+    <img src="transactions-image.png" alt="Transaction detail panel showing issue, recommendation, timeline, and actions" style="width:100%;display:block;">
     <div class="img-caption-bar">
       <div class="img-caption-text"><strong>Investigation panel:</strong> turns a transaction detail view into a decision-making workflow.</div>
     </div>
   </div>
 
-  <p class="cs-p">
-    This panel is where the project became a resolution system rather than just a dashboard. Once an analyst clicks into a transaction, they need four things immediately: what happened, why it happened, what to do next, and what has already happened in the system.
-  </p>
+  <div class="two-col annotated-notes" aria-label="Dashboard callouts">
 
-  <div class="two-col" aria-label="Panel structure">
-    <div class="col-card">
-      <div class="col-label">What it explains</div>
-      <div class="col-item">Status and issue in plain language</div>
-      <div class="col-item">A recommendation grounded in the current situation</div>
-      <div class="col-item">Timeline context for auditability</div>
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">1</span>
+      <span class="callout-heading">Keeps key context visible</span>
     </div>
-    <div class="col-card">
-      <div class="col-label">What it supports</div>
-      <div class="col-item">Fast triage without leaving the page</div>
-      <div class="col-item">Reusable action patterns like Request update and Escalate</div>
-      <div class="col-item">A clear transition from investigation to action</div>
-    </div>
+    <p class="annotated-note-text">
+      Transaction type, amount, status, and recency are visible immediately so analysts can orient themselves before reading deeper.
+    </p>
   </div>
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">2</span>
+      <span class="callout-heading">Separates state, signal, and cause</span>
+    </div>
+    <p class="annotated-note-text">
+      Status shows what happened, the label highlights urgency or pattern, and the issue explains why this transaction needs attention.
+    </p>
+  </div>
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">3</span>
+      <span class="callout-heading">Turns issue visibility into a next step</span>
+    </div>
+    <p class="annotated-note-text">
+     The recommendation module pairs the issue with a clear action and a short explanation, so the system supports resolution instead of just reporting failure.
+    </p>
+  </div>
+
+  <div class="col-card annotated-note">
+    <div class="callout-title-row">
+      <span class="callout-num">4</span>
+      <span class="callout-heading">Supports auditability and fast reconstruction</span>
+    </div>
+    <p class="annotated-note-text">
+      The timeline makes it easy to understand what happened in sequence without digging through logs or switching tools.
+    </p>
+  </div>
+
+</div>
 </section>
 
 <section id="edgecase" class="cs-section" aria-labelledby="edge-h">
