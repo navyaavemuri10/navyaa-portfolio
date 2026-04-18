@@ -81,20 +81,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
   .play-grid{grid-template-columns:1fr;}
 }
 
-/* LOAD STATE — everything starts soft */
-.main{opacity:0;filter:blur(2px);transition:opacity .8s ease,filter .8s ease;}
-.main.loaded{opacity:1;filter:blur(0);}
-
-/* SCROLL SHARPENING — cards start muted, sharpen on scroll */
-.cs-card,.play-card{
-  opacity:.7;
-  transform:translateY(8px);
-  transition:opacity .5s ease,transform .5s ease;
-}
-.cs-card.sharp,.play-card.sharp{
-  opacity:1;
-  transform:translateY(0);
-}
 
 /* STAMP FLOAT */
 @keyframes stamp-float{
@@ -112,11 +98,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
   animation-play-state:paused;
 }
 
-/* BIO fades in on load */
-.bio{opacity:0;transform:translateY(12px);transition:opacity .7s .2s ease,transform .7s .2s ease;}
-.bio.loaded{opacity:1;transform:translateY(0);}
-.tabs{opacity:0;transition:opacity .6s .4s ease;}
-.tabs.loaded{opacity:1;}
 </style>
 </head>
 <body>
@@ -297,30 +278,7 @@ function switchTab(name){
   document.getElementById('tab-'+name).classList.add('active');
 }
 
-// Page load — fade in
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    document.querySelector('.main').classList.add('loaded');
-    document.querySelector('.bio').classList.add('loaded');
-    document.querySelector('.tabs').classList.add('loaded');
-  }, 80);
-});
 
-
-
-// Card-level sharpening on scroll
-const sharpObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      setTimeout(() => e.target.classList.add('sharp'), 60);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.htp-vid').forEach(vid => {
-  vid.preload = 'auto';
-  vid.load();
-});
 // Video plays when in view
 const vidObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
