@@ -96,15 +96,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
   transform:translateY(0);
 }
 
-/* unclear → clear: page starts soft, sharpens on scroll */
-.bio, .cs-card, .play-card{
-  filter:saturate(.7) contrast(.92);
-  transition:filter .8s ease;
-}
-.bio.loaded, .cs-card.sharp, .play-card.sharp{
-  filter:saturate(1) contrast(1);
-}
-
 /* STAMP FLOAT */
 @keyframes stamp-float{
   0%{transform:translateY(0) rotate(-.5deg);}
@@ -315,14 +306,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 80);
 });
 
-// Page-level unclear → clear on first scroll
-let pageSharpened = false;
-window.addEventListener('scroll', () => {
-  if(!pageSharpened && window.scrollY > 40){
-    document.querySelector('.main').classList.add('sharp');
-    pageSharpened = true;
-  }
-}, { passive: true });
+
 
 // Card-level sharpening on scroll
 const sharpObserver = new IntersectionObserver((entries) => {
