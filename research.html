@@ -41,27 +41,8 @@
     .hero-img{width:100%;background:radial-gradient(circle at top left,rgba(183,138,45,.18),transparent 34%),radial-gradient(circle at bottom right,rgba(46,91,78,.18),transparent 40%),linear-gradient(135deg,#F7F4ED 0%,#F7F8F6 48%,#EFF5F1 100%);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:center;padding:48px 32px;}
     .hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
 
-    /* CYCLE DIAGRAM — fully fluid, no fixed widths or absolute positioning */
-    .cycle-wrap{width:100%;max-width:600px;}
-    .cycle-ring{display:none;}
-    /* top row: empty | Phase1 | empty */
-    .cycle-row{display:grid;gap:12px;align-items:center;}
-    .cycle-row-top{grid-template-columns:1fr minmax(0,160px) 1fr;}
-    .cycle-row-mid{grid-template-columns:minmax(0,160px) minmax(0,140px) minmax(0,160px);}
-    .cycle-row-bot{grid-template-columns:1fr minmax(0,160px) 1fr;}
-    .cycle-spacer{visibility:hidden;}
-    .cycle-core{border-radius:50%;background:#fff;border:.5px solid var(--border);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;font-size:12px;line-height:1.35;color:var(--accent);letter-spacing:-.01em;font-weight:300;aspect-ratio:1/1;}
-    .cycle-card{background:white;border:.5px solid var(--border);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow);}
-    .cycle-step{font-size:9px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px;}
-    .cycle-title{font-size:13px;line-height:1.2;margin-bottom:3px;letter-spacing:-.01em;color:var(--text);font-weight:400;}
-    .cycle-desc{font-size:11px;line-height:1.5;color:var(--muted);}
-    @media(max-width:600px){
-      .cycle-row-top,.cycle-row-bot{grid-template-columns:1fr 1fr;}
-      .cycle-row-mid{grid-template-columns:1fr 1fr;}
-      .cycle-core{display:none;}
-      .cycle-spacer{display:none;}
-    }
-
+   .hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:480px;position:relative;overflow:hidden;}
+    .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
     /* HERO COPY — below image */
     .hero-copy{padding:42px 64px 48px;background:var(--bg);border-bottom:.5px solid var(--border);}
     .hero-kicker{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
@@ -189,44 +170,8 @@
 
   <div class="right-col">
 
-    <!-- HERO IMAGE — cycle diagram -->
-    <div class="hero-img" id="overview">
-      <div class="cycle-wrap">
-        <!-- Top row: Phase 1 centered -->
-        <div class="cycle-row cycle-row-top">
-          <div class="cycle-spacer"></div>
-          <div class="cycle-card">
-            <div class="cycle-step">Phase 1</div>
-            <div class="cycle-title">Agent Planning</div>
-            <div class="cycle-desc">Clarify assumptions before acting.</div>
-          </div>
-          <div class="cycle-spacer"></div>
-        </div>
-        <!-- Mid row: Phase 4 | core | Phase 2 -->
-        <div class="cycle-row cycle-row-mid">
-          <div class="cycle-card">
-            <div class="cycle-step">Phase 4</div>
-            <div class="cycle-title">Mutual Learning</div>
-            <div class="cycle-desc">Adapt from corrections over time.</div>
-          </div>
-          <div class="cycle-core">Bidirectional<br>Trust Cycle</div>
-          <div class="cycle-card">
-            <div class="cycle-step">Phase 2</div>
-            <div class="cycle-title">Agent Proposal</div>
-            <div class="cycle-desc">Surface rationale, sources, and confidence.</div>
-          </div>
-        </div>
-        <!-- Bottom row: Phase 3 centered -->
-        <div class="cycle-row cycle-row-bot">
-          <div class="cycle-spacer"></div>
-          <div class="cycle-card">
-            <div class="cycle-step">Phase 3</div>
-            <div class="cycle-title">Human Review</div>
-            <div class="cycle-desc">Keep meaningful human oversight in the loop.</div>
-          </div>
-          <div class="cycle-spacer"></div>
-        </div>
-      </div>
+     <div class="hero-media" style="min-height:440px;max-height:580px;">
+      <img src="ncur.png" alt="Bidirectional Trust Framework">
     </div>
 
     <!-- HERO COPY — below image -->
