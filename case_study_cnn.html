@@ -4,779 +4,363 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CNN Election Center & Content Guidelines — Navyaa Vemuri</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #111212;
-      --surface: #161818;
-      --border: #1E2020;
-      --text: #DDD8D0;
-      --muted: #A8A29A;
-      --dim: #686460;
-      --accent: #C4745A;
-      --accent-bg: #1E100C;
-      --accent-border: #3A1E16;
-      --link-accent: #7AB4D8;
-    }
-
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .cs-sidebar {
-      width: 280px;
-      flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      padding: 48px 40px;
-      display: flex;
-      flex-direction: column;
-      border-right: 0.5px solid var(--border);
-      overflow-y: auto;
-      scrollbar-width: none;
-      background: var(--bg);
-    }
-
-    .cs-sidebar::-webkit-scrollbar { display: none; }
-
-    .nav-logo {
-      font-size: 14px;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      margin-bottom: 28px;
-    }
-
-    .toc-label {
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .toc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      margin-bottom: auto;
-    }
-
-    .toc-link {
-      font-size: 13px;
-      color: var(--dim);
-      text-decoration: none;
-      display: block;
-      padding: 6px 0 6px 12px;
-      border-left: 1.5px solid var(--border);
-      transition: color .2s, border-color .2s, padding-left .18s;
-      line-height: 1.4;
-    }
-
-    .toc-link:hover {
-      color: var(--text);
-      border-left-color: var(--muted);
-      padding-left: 15px;
-    }
-
-    .toc-link.active {
-      color: var(--accent);
-      border-left-color: var(--accent);
-      padding-left: 16px;
-    }
-
-    .sidebar-links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-top: 24px;
-      border-top: 0.5px solid var(--border);
-      margin-top: 24px;
-    }
-
-    .sidebar-link {
-      font-size: 11px;
-      color: var(--dim);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color .2s;
-    }
-
-    .sidebar-link:hover,
-    .sidebar-link.cta { color: var(--link-accent); }
-
-    .right-col {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .hero-media {
-      width: 100%;
-      min-height: 580px;
-      max-height: 580px;
-      overflow: hidden;
-      background: var(--surface);
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .hero-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
-    .cs-main {
-      padding: 52px 64px 96px;
-      max-width: 920px;
-    }
-
-    .cs-eyebrow {
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .cs-title {
-      font-size: 40px;
-      font-weight: 300;
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-      margin-bottom: 14px;
-      max-width: 720px;
-    }
-
-    .cs-title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .cs-tagline {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.72;
-      max-width: 620px;
-      margin-bottom: 28px;
-    }
-
-    .meta-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border: 0.5px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 36px;
-    }
-
-    .meta-cell {
-      background: var(--surface);
-      padding: 16px 20px;
-    }
-
-    .meta-cell + .meta-cell { border-left: 0.5px solid var(--border); }
-
-    .meta-label {
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .meta-val {
-      font-size: 13px;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
-    .impact-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-
-    .impact-card {
-      background: var(--accent-bg);
-      border: 0.5px solid var(--accent-border);
-      border-radius: 10px;
-      padding: 20px 22px;
-    }
-
-    .impact-label {
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .stat-num {
-      font-size: 30px;
-      font-weight: 300;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .stat-desc {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-      line-height: 1.5;
-    }
-
-    .cs-section { margin-bottom: 64px; }
-
-    .cs-section-label {
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .cs-section-label::after {
-      content: '';
-      flex: 1;
-      height: 0.5px;
-      background: var(--border);
-    }
-
-    .cs-h2 {
-      font-size: 24px;
-      font-weight: 300;
-      line-height: 1.28;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-    }
-
-    .cs-h2 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .cs-p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 14px;
-      max-width: 690px;
-    }
-
-    .two-col,
-    .img-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 22px 0;
-    }
-
-    .col-card,
-    .img-block,
-    .tradeoff,
-    .conflict,
-    .guideline-card {
-      background: var(--surface);
-      border: 0.5px solid var(--border);
-      border-radius: 10px;
-    }
-
-    .col-card {
-      padding: 18px 20px;
-    }
-
-    .col-label,
-    .tradeoff-label,
-    .conflict-label {
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .col-item,
-    .tradeoff-body,
-    .conflict-body,
-    .learning-text {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .col-item {
-      padding: 5px 0;
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .col-item:last-child { border-bottom: none; }
-
-    .pull-quote {
-      margin: 24px 0;
-      padding: 22px 26px;
-      border-left: 2px solid var(--accent);
-      background: var(--accent-bg);
-      border-radius: 0 8px 8px 0;
-      position: relative;
-    }
-
-    .pull-quote p {
-      font-size: 15px;
-      font-style: italic;
-      color: var(--text);
-      line-height: 1.65;
-    }
-
-    .pull-quote cite {
-      display: block;
-      font-size: 11px;
-      color: var(--dim);
-      margin-top: 10px;
-      font-style: normal;
-    }
-
-    .img-block {
-      overflow: hidden;
-      margin: 22px 0;
-      position: relative;
-    }
-
-    .img-block img,
-    .img-block video {
-      width: 100%;
-      display: block;
-    }
-
-    .img-caption-bar {
-      padding: 10px 18px;
-      border-top: 0.5px solid var(--border);
-    }
-
-    .img-caption-text {
-      font-size: 11px;
-      color: var(--dim);
-      line-height: 1.6;
-    }
-
-    .tradeoff,
-    .conflict {
-      border-left: 2px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-      padding: 20px 24px;
-      margin: 18px 0;
-    }
-
-    .guideline-card {
-      overflow: hidden;
-      border-left: 2px solid var(--accent);
-      margin: 22px 0;
-    }
-
-    .guideline-head,
-    .guideline-foot {
-      background: var(--surface);
-      padding: 16px 20px;
-    }
-
-    .guideline-head {
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .guideline-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .guideline-item {
-      padding: 14px 20px;
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      gap: 12px;
-    }
-
-    .guideline-item:nth-child(odd) {
-      border-right: 0.5px solid var(--border);
-    }
-
-    .guideline-num {
-      font-size: 10px;
-      color: var(--dim);
-      min-width: 16px;
-      margin-top: 1px;
-    }
-
-    .guideline-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 3px;
-    }
-
-    .guideline-copy {
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .learning-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-top: 18px;
-    }
-
-    .learning {
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 14px;
-      align-items: start;
-    }
-
-    .learning-num {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 500;
-      padding-top: 2px;
-    }
-
-    .learning-text strong {
-      display: block;
-      font-size: 14px;
-      color: var(--text);
-      font-weight: 400;
-      margin-bottom: 4px;
-    }
-
-    .g-footer {
-      border-top: 0.5px solid var(--border);
-      padding: 32px 64px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-left {
-      font-size: 12px;
-      color: var(--dim);
-    }
-
-    .footer-left em {
-      font-style: italic;
-      color: var(--muted);
-    }
-
-    .footer-note {
-      font-size: 11px;
-      color: var(--dim);
-      margin-top: 5px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .footer-link,
-    .footer-cta {
-      font-size: 12px;
-      text-decoration: none;
-    }
-
-    .footer-link { color: var(--muted); }
-    .footer-cta {
-      color: var(--link-accent);
-      border: 0.5px solid #1E3048;
-      border-radius: 4px;
-      padding: 7px 16px;
-    }
-
-    @media (max-width: 900px) {
-      .layout { flex-direction: column; }
-
-      .cs-sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 0.5px solid var(--border);
-        padding: 24px;
-      }
-
-      .toc-list {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 4px;
-      }
-
-      .toc-link {
-        border-left: none;
-        border-bottom: 1.5px solid var(--border);
-        padding: 5px 10px;
-      }
-
-      .toc-link.active { border-bottom-color: var(--accent); }
-      .cs-main { padding: 32px 24px 64px; }
-      .meta-row { grid-template-columns: repeat(2, 1fr); }
-      .impact-grid, .two-col, .img-row, .guideline-grid { grid-template-columns: 1fr; }
-      .guideline-item:nth-child(odd) { border-right: none; }
-      .g-footer { padding: 24px; flex-direction: column; text-align: center; }
-    }
-
-    @media (max-width: 600px) {
-      .cs-title { font-size: 28px; }
-      .meta-row { grid-template-columns: 1fr; }
-      .meta-cell + .meta-cell { border-left: none; border-top: 0.5px solid var(--border); }
-    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#FDFDFD;--surface:#F4F3F0;--border:#E8E8E4;
+      --text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;
+      --accent:#3B5BDB;--accent-bg:#EEF2FF;--accent-border:#C5D0FA;
+      --conflict:#C4745A;--conflict-bg:#FDF0EC;--conflict-border:#F0C8B8;
+      --nav-h:60px;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+
+    .layout{display:flex;min-height:100vh;}
+
+    .cs-sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);overflow-y:auto;scrollbar-width:none;}
+    .cs-sidebar::-webkit-scrollbar{display:none;}
+    .stamp{width:160px;margin-bottom:32px;flex-shrink:0;}
+    .stamp img{width:100%;display:block;background:#E8EAF0;min-height:130px;}
+    @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
+    .stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
+    .stamp:hover img{animation-play-state:paused;}
+    .toc-label{font-size:9px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;margin-bottom:auto;}
+    .toc-link{font-size:13px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
+    .toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
+    .toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
+    .back-link{font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding-top:24px;border-top:.5px solid var(--border);margin-top:24px;transition:color .2s;flex-shrink:0;}
+    .back-link:hover{color:var(--text);}
+
+    .right-col{flex:1;overflow-y:auto;min-width:0;}
+
+    .hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:480px;position:relative;overflow:hidden;}
+    .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+
+    .cs-main{padding:52px 64px 96px;min-width:0;max-width:900px;}
+
+    .cs-eyebrow{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+    .cs-title{font-size:44px;font-weight:300;line-height:1.08;letter-spacing:-.03em;max-width:700px;color:var(--text);margin-bottom:14px;}
+    .cs-title em{font-style:italic;color:var(--accent);}
+    .cs-tagline{font-size:16px;color:var(--text);line-height:1.65;max-width:640px;margin-bottom:28px;}
+    .meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;}
+    .meta-cell{background:var(--surface);padding:16px 20px;}
+    .meta-cell+.meta-cell{border-left:.5px solid var(--border);}
+    .meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;font-weight:500;}
+    .meta-val{font-size:13px;color:var(--text);line-height:1.4;}
+    .scan-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 28px;}
+    .scan-problem,.scan-role{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;}
+    .scan-label{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
+    .scan-summary p{font-size:14px;color:var(--text);line-height:1.65;}
+    .impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px;}
+    .impact-card{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;padding:20px 22px;}
+    .impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:500;}
+    .stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
+    .stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+    .cs-section{margin-bottom:64px;}
+    .cs-section-label{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-weight:500;}
+    .cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
+    .cs-h2{font-size:26px;font-weight:400;color:var(--text);letter-spacing:-.02em;line-height:1.22;margin-bottom:14px;}
+    .cs-h2 em{font-style:italic;color:var(--accent);}
+    .cs-p{font-size:15px;color:var(--muted);line-height:1.78;margin-bottom:14px;}
+    .cs-p:last-child{margin-bottom:0;}
+    .cs-p strong{color:var(--text);font-weight:400;}
+    .pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
+    .pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.15;font-family:Georgia,serif;line-height:1;}
+    .pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
+    .pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
+    .img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
+    .img-block img,.img-block video{width:100%;display:block;border-radius:6px;position:relative;z-index:1;}
+    .img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
+    .img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
+    .img-row .img-block{margin:0;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
+    .col-card{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:18px 20px;}
+    .col-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
+    .col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:5px 0;border-bottom:.5px solid var(--border);}
+    .col-item:last-child{border-bottom:none;}
+    .tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
+    .tradeoff-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+    .tradeoff-body{font-size:13px;color:var(--muted);line-height:1.78;}
+    .tradeoff-body strong{color:var(--text);font-weight:400;}
+    .learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
+    .learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
+    .learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
+    .learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
+    .learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
+    .conflict{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
+    .conflict-label{font-size:10px;color:var(--conflict);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+    .conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
+    .conflict-body strong{color:var(--text);font-weight:400;}
+    .img-caption-bar{padding:10px 18px;border-top:.5px solid var(--border);}
+    .img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
+
+    .g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+    .footer-left{font-size:12px;color:var(--dim);}
+    .footer-left em{font-style:italic;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
+    .footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+    .footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
+    .footer-link:hover{color:var(--text);}
+    .footer-cta{font-size:12px;color:var(--accent);text-decoration:none;border:.5px solid var(--accent-border);border-radius:4px;padding:7px 16px;transition:background .2s;}
+    .footer-cta:hover{background:var(--accent-bg);}
+
+    @media(max-width:900px){
+      .layout{flex-direction:column;}
+      .cs-sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px;}
+      .stamp{width:80px;margin-bottom:0;}
+      .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;margin-bottom:0;}
+      .toc-link{border-left:none;border-bottom:1.5px solid var(--border);padding:5px 10px;}
+      .toc-link.active{border-bottom-color:var(--accent);}
+      .back-link{border-top:none;margin-top:0;padding-top:0;}
+      .cs-main{padding:32px 24px 64px;}
+      .meta-row{grid-template-columns:repeat(2,1fr);}
+      .impact-grid,.scan-summary,.img-row,.two-col{grid-template-columns:1fr;}
+      .g-footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
+    }
+    @media(max-width:600px){.cs-title{font-size:28px;}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
   </style>
 </head>
 <body>
-  <div class="layout">
-    <aside class="cs-sidebar">
-      <a class="nav-logo" href="index.html">navyaa vemuri</a>
+<div class="layout">
 
-      <div class="toc-label">on this page</div>
-      <ul class="toc-list">
-        <li><a href="#overview" class="toc-link active">Overview</a></li>
-        <li><a href="#problem" class="toc-link">The problem</a></li>
-        <li><a href="#research" class="toc-link">Research</a></li>
-        <li><a href="#guidelines" class="toc-link">Content guidelines</a></li>
-        <li><a href="#election" class="toc-link">Election Center</a></li>
-        <li><a href="#tv" class="toc-link">Smart TV banner</a></li>
-        <li><a href="#learnings" class="toc-link">Learnings</a></li>
-      </ul>
+  <aside class="cs-sidebar">
+    <div class="stamp">
+      <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.background='#E8EAF0'">
+    </div>
+    <div class="toc-label">on this page</div>
+    <ul class="toc-list">
+      <li><a href="#overview" class="toc-link active">Overview</a></li>
+      <li><a href="#problem" class="toc-link">The problem</a></li>
+      <li><a href="#research" class="toc-link">Research</a></li>
+      <li><a href="#guidelines" class="toc-link">Content guidelines</a></li>
+      <li><a href="#election" class="toc-link">Election Center</a></li>
+      <li><a href="#tv" class="toc-link">Smart TV banner</a></li>
+      <li><a href="#learnings" class="toc-link">Learnings</a></li>
+    </ul>
+    <a href="index.html" class="back-link">← back to work</a>
+  </aside>
 
-      <div class="sidebar-links">
-        <a class="sidebar-link" href="index.html#work">← back to work</a>
-        <a class="sidebar-link" href="play.html">play</a>
-        <a class="sidebar-link" href="about.html">about</a>
-        <a class="sidebar-link cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
-      </div>
-    </aside>
+  <div class="right-col">
 
-    <div class="right-col">
-      <div class="hero-media">
-        <img src="cnn.png" alt="CNN Election Center snippet" />
-      </div>
+    <div class="hero-media" style="min-height:580px;max-height:580px;">
+      <img src="cnn.png" alt="CNN Election Center snippet">
+    </div>
 
-      <main class="cs-main">
-        <section id="overview">
-          <div class="cs-eyebrow">CNN · Content Design Intern · Summer 2024</div>
-          <h1 class="cs-title">designing for millions,<br>with <em>one shot</em> to get it right.</h1>
-          <p class="cs-tagline">How I built CNN's first content design guidelines from scratch and supported election-centered work across web, mobile, and Smart TV during one of the most high-stakes news moments of the year.</p>
+    <div class="cs-main">
 
-          <div class="meta-row">
-            <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-val">Content Design Intern</div></div>
-            <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-val">Jun–Aug 2024 · 11 weeks</div></div>
-            <div class="meta-cell"><div class="meta-label">Tools</div><div class="meta-val">Figma · FigJam · Jira · ZeroHeight</div></div>
-            <div class="meta-cell"><div class="meta-label">Scope</div><div class="meta-val">Web · mobile · Smart TV</div></div>
+      <section id="overview">
+        <div class="cs-eyebrow">CNN · Content Design Intern · Summer 2024</div>
+        <h1 class="cs-title">designing for millions, with <em>one shot</em> to get it right.</h1>
+        <p class="cs-tagline">How I built CNN's first content design guidelines from scratch and supported election center work across web, mobile, and Smart TV during one of the most high-stakes news moments of the year.</p>
+
+        <div class="scan-summary">
+          <div class="scan-problem">
+            <div class="scan-label">The problem</div>
+            <p>A newly integrated content design team had no shared standards for voice, hierarchy, or how content should scale across digital surfaces.</p>
           </div>
-
-          <div class="impact-grid">
-            <div class="impact-card"><div class="impact-label">Standards</div><div class="stat-num">1st</div><div class="stat-desc">content design guidelines created for CNN digital</div></div>
-            <div class="impact-card"><div class="impact-label">Platforms</div><div class="stat-num">3</div><div class="stat-desc">platforms supported across election-centered work</div></div>
-            <div class="impact-card"><div class="impact-label">Reach</div><div class="stat-num">M+</div><div class="stat-desc">viewers reached through shipped surfaces</div></div>
+          <div class="scan-role">
+            <div class="scan-label">What I did</div>
+            <p>Created CNN's first content design guidelines and supported election-centered design work across web, mobile, and Smart TV.</p>
           </div>
-        </section>
+        </div>
 
-        <section id="problem" class="cs-section">
-          <div class="cs-section-label">The problem</div>
-          <h2 class="cs-h2">A newly integrated team with no shared content system.</h2>
-          <p class="cs-p">CNN's content design team had been newly integrated, but there was no centralized guidance for voice, hierarchy, or how content should behave across surfaces. Different teams were solving the same problems in different ways.</p>
-          <p class="cs-p">My job was to define what strong content design looked like at CNN, document it, and help the team move faster with a common language.</p>
+        <div class="meta-row">
+          <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-val">Content Design Intern</div></div>
+          <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-val">Jun–Aug 2024 · 11 weeks</div></div>
+          <div class="meta-cell"><div class="meta-label">Tools</div><div class="meta-val">Figma · FigJam · Jira · ZeroHeight</div></div>
+          <div class="meta-cell"><div class="meta-label">Scope</div><div class="meta-val">Web · mobile · Smart TV</div></div>
+        </div>
 
-          <div class="two-col">
-            <div class="col-card">
-              <div class="col-label">What was breaking down</div>
-              <div class="col-item">Inconsistent voice across teams and platforms</div>
-              <div class="col-item">Duplicated work and slow review cycles</div>
-              <div class="col-item">No onboarding resource for new contributors</div>
-              <div class="col-item">Fragmented user experience across surfaces</div>
-            </div>
-            <div class="col-card">
-              <div class="col-label">The constraints</div>
-              <div class="col-item">11-week internship with election coverage approaching</div>
-              <div class="col-item">9 internal users across 7 departments to align</div>
-              <div class="col-item">Needed to balance editorial and product priorities</div>
-              <div class="col-item">Guidelines had to scale across web, mobile, and TV</div>
-            </div>
+        <div class="impact-grid">
+          <div class="impact-card"><div class="impact-label">Standards</div><div class="stat-num">1st</div><div class="stat-desc">content design guidelines created for CNN digital</div></div>
+          <div class="impact-card"><div class="impact-label">Platforms</div><div class="stat-num">3</div><div class="stat-desc">platforms supported across election-centered work</div></div>
+          <div class="impact-card"><div class="impact-label">Reach</div><div class="stat-num">M+</div><div class="stat-desc">viewers reached through shipped surfaces</div></div>
+        </div>
+      </section>
+
+      <section id="problem" class="cs-section">
+        <div class="cs-section-label">The problem</div>
+        <h2 class="cs-h2">A newly integrated team with no standardized guidelines.</h2>
+        <p class="cs-p">CNN's content design team had just been integrated across the organization without centralized guidelines or standards. Different teams used different voices, visual approaches, and content hierarchies, which led to fragmented internal and external user experiences.</p>
+        <p class="cs-p">My job was to figure out what good content design looked like at CNN, document it, and help the team move faster with a shared language.</p>
+
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-label">No guidelines meant</div>
+            <div class="col-item">Inconsistent voice across platforms</div>
+            <div class="col-item">Duplicated effort across teams</div>
+            <div class="col-item">Slow review and approval cycles</div>
+            <div class="col-item">No onboarding resource for new team members</div>
           </div>
-        </section>
-
-        <section id="research" class="cs-section">
-          <div class="cs-section-label">Research</div>
-          <h2 class="cs-h2">9 users. 7 departments. 2 weeks.</h2>
-          <p class="cs-p">I interviewed internal stakeholders across CNN Digital because the success of the work depended on the people who would actually use it. The goal was to uncover what standards were missing, where misalignment happened, and what would make a shared system stick.</p>
-
-          <div class="img-block">
-            <img src="comp-analysis.png" alt="Competitor analysis of content design guidelines" />
-            <div class="img-caption-bar"><div class="img-caption-text">Competitor analysis comparing direct and indirect approaches to content design guidance.</div></div>
+          <div class="col-card">
+            <div class="col-label">The constraints</div>
+            <div class="col-item">11-week timeline with election coverage looming</div>
+            <div class="col-item">9 users across 7 departments to align</div>
+            <div class="col-item">Balancing editorial voice with product needs</div>
+            <div class="col-item">Guidelines had to work across web, mobile, and TV</div>
           </div>
+        </div>
+      </section>
 
-          <div class="pull-quote">
-            <p>"Every team was doing their own thing. There was no shared definition of what good content looked like at CNN."</p>
-            <cite>Research synthesis, June 2024</cite>
-          </div>
-        </section>
+      <section id="research" class="cs-section">
+        <div class="cs-section-label">Research</div>
+        <h2 class="cs-h2">9 users. 7 departments. 2 weeks. 30-minute sessions each.</h2>
+        <p class="cs-p">I interviewed CNN digital employees across multiple teams. Internal user research was critical because the people I interviewed were the same people who would eventually use whatever I built.</p>
 
-        <section id="guidelines" class="cs-section">
-          <div class="cs-section-label">Content guidelines</div>
-          <h2 class="cs-h2">CNN's first content design guidelines, built from interviews instead of assumptions.</h2>
-          <p class="cs-p">I turned research findings into a single source of truth that could standardize day-to-day decisions, reduce review friction, and create consistency across teams without flattening editorial nuance.</p>
+        <div class="img-block">
+          <div class="img-accent-line"></div>
+          <img src="comp-analysis.png" alt="Competitor analysis">
+          <div class="img-caption-bar"><div class="img-caption-text">Competitor analysis of content design guidelines between direct and indirect competitors.</div></div>
+        </div>
 
-          <div class="guideline-card">
-            <div class="guideline-head">
+        <div class="pull-quote">
+          <p>"Every team was doing their own thing. There was no shared definition of what good content looked like at CNN."</p>
+          <cite>Research synthesis, June 2024</cite>
+        </div>
+      </section>
+
+      <section id="guidelines" class="cs-section">
+        <div class="cs-section-label">Content guidelines</div>
+        <h2 class="cs-h2">CNN's first content design guidelines built from interviews, not assumptions.</h2>
+        <p class="cs-p">I synthesized research findings, analyzed existing resources and competitors, and developed a single source of truth that could standardize practices, improve cross-team collaboration, and reduce review friction.</p>
+
+        <div class="img-block" style="padding:0;overflow:hidden;">
+          <div class="img-accent-line"></div>
+          <div style="border-left:2px solid var(--conflict);margin:0;">
+            <div style="background:var(--surface);padding:16px 20px;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
               <div>
                 <div style="font-size:13px;font-weight:500;color:var(--text);">CNN Digital — Content Design Guidelines</div>
-                <div style="font-size:11px;color:var(--muted);margin-top:3px;">First content design standards created for CNN Digital · Summer 2024</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:3px;">First content design standards ever created for CNN digital · Summer 2024</div>
               </div>
-              <span style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:rgba(196,116,90,.1);color:#C4745A;border:.5px solid rgba(196,116,90,.3);">NDA</span>
+              <span style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:var(--conflict-bg);color:var(--conflict);border:.5px solid var(--conflict-border);">NDA</span>
             </div>
-
-            <div class="guideline-grid">
-              <div class="guideline-item"><span class="guideline-num">01</span><div><div class="guideline-title">Content principles</div><div class="guideline-copy">Core values defining strong content and why they matter for trust and clarity.</div></div></div>
-              <div class="guideline-item"><span class="guideline-num">02</span><div><div class="guideline-title">Dos and don'ts</div><div class="guideline-copy">Examples of voice, tone, hierarchy, and formatting decisions shown in practice.</div></div></div>
-              <div class="guideline-item"><span class="guideline-num">03</span><div><div class="guideline-title">Use cases per guideline</div><div class="guideline-copy">Real applications so teams could use the rules across different content types.</div></div></div>
-              <div class="guideline-item"><span class="guideline-num">04</span><div><div class="guideline-title">Team-specific guidance</div><div class="guideline-copy">Guidance tailored to the needs of different teams and surfaces.</div></div></div>
-              <div class="guideline-item"><span class="guideline-num">05</span><div><div class="guideline-title">Consistent page structure</div><div class="guideline-copy">A repeatable hierarchy to make the system easier to navigate and onboard from.</div></div></div>
-              <div class="guideline-item"><span class="guideline-num">06</span><div><div class="guideline-title">Roadshow rollout</div><div class="guideline-copy">Presented across departments so the work became an alignment tool, not just a doc.</div></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;">
+              <div style="padding:14px 20px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);display:flex;gap:12px;"><span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">01</span><div><div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Content principles</div><div style="font-size:11px;color:var(--muted);line-height:1.55;">Core values and why each one matters to CNN's brand and audience trust.</div></div></div>
+              <div style="padding:14px 20px;border-bottom:.5px solid var(--border);display:flex;gap:12px;"><span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">02</span><div><div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Dos and don'ts</div><div style="font-size:11px;color:var(--muted);line-height:1.55;">Examples covering voice, tone, hierarchy, and formatting shown in practice.</div></div></div>
+              <div style="padding:14px 20px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);display:flex;gap:12px;"><span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">03</span><div><div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Use cases per guideline</div><div style="font-size:11px;color:var(--muted);line-height:1.55;">Multiple real-world applications for each rule across surfaces and contexts.</div></div></div>
+              <div style="padding:14px 20px;border-bottom:.5px solid var(--border);display:flex;gap:12px;"><span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">04</span><div><div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Team-specific guidelines</div><div style="font-size:11px;color:var(--muted);line-height:1.55;">Tailored standards for each team's content surface.</div></div></div>
+              <div style="padding:14px 20px;border-right:.5px solid var(--border);display:flex;gap:12px;"><span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">05</span><div><div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Consistent page structure</div><div style="font-size:11px;color:var(--muted);line-height:1.55;">Every section follows the same hierarchy so the system is easy to navigate.</div></div></div>
+              <div style="padding:14px 20px;display:flex;gap:12px;"><span style="font-size:10px;font-weight:500;color:var(--dim);min-width:16px;margin-top:1px;">06</span><div><div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;">Roadshow to full staff</div><div style="font-size:11px;color:var(--muted);line-height:1.55;">Presented across 7 departments to establish a shared source of truth.</div></div></div>
             </div>
-
-            <div class="guideline-foot" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:0.5px solid var(--border);">
+            <div style="background:var(--surface);padding:10px 20px;border-top:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
               <span style="font-size:11px;color:var(--muted);">Built from 9 user interviews across 7 departments · ZeroHeight</span>
-              <span style="font-size:11px;font-weight:500;color:#C4745A;">CNN's first content design guidelines</span>
+              <span style="font-size:11px;font-weight:500;color:var(--conflict);">CNN's first ever content design guidelines</span>
             </div>
           </div>
-
-          <div class="tradeoff">
-            <div class="tradeoff-label">Key decision</div>
-            <div class="tradeoff-body">Rather than document everything, I focused on the highest-frequency content decisions people were making inconsistently. Voice and tone came first because they touched every surface.</div>
-          </div>
-        </section>
-
-        <section id="election" class="cs-section">
-          <div class="cs-section-label">Election Center</div>
-          <h2 class="cs-h2">A living product that changed with the <em>election timeline.</em></h2>
-          <p class="cs-p">The Election Center was never one fixed design. It evolved week by week as user needs shifted from context and education to speed, comparison, and results. I iterated on hierarchy and layout while presenting the work to engineers and product leaders to align on user-centered changes.</p>
-
-          <div class="img-row">
-            <div class="img-block">
-              <video src="EC-1.mp4" loop muted playsinline controls></video>
-              <div class="img-caption-bar"><div class="img-caption-text">Early cycle: more contextual and education-first for users still learning the landscape.</div></div>
-            </div>
-            <div class="img-block">
-              <video src="EC-2.mp4" loop muted playsinline controls></video>
-              <div class="img-caption-bar"><div class="img-caption-text">Election night: faster, denser, and built around definitive answers.</div></div>
-            </div>
-          </div>
-
-          <div class="two-col">
-            <div class="col-card">
-              <div class="col-label">Design intent</div>
-              <div class="col-item">Use video placement to support scanning behavior and business goals</div>
-              <div class="col-item">Shift grid density as users move from discovery to comparison</div>
-              <div class="col-item">Group objective financial data to balance campaign-heavy content</div>
-            </div>
-            <div class="col-card">
-              <div class="col-label">Why it mattered</div>
-              <div class="col-item">Users needed different information at different moments</div>
-              <div class="col-item">The layout had to support both exploration and rapid retrieval</div>
-              <div class="col-item">Trust depended on hierarchy holding up under pressure</div>
-            </div>
-          </div>
-
-          <div class="img-block">
-            <video src="election-mobile.mp4" loop muted playsinline controls></video>
-            <div class="img-caption-bar"><div class="img-caption-text">Mobile-first thinking ensured the same content priorities held up across breakpoints.</div></div>
-          </div>
-
-          <div class="conflict">
-            <div class="conflict-label">What actually shipped</div>
-            <div class="conflict-body">My designs did not ship pixel-for-pixel, but that taught me something more valuable: in newsroom environments, final work is shaped by editorial priorities, engineering constraints, timing, and multiple stakeholders. I learned how to defend rationale, adapt quickly, and not equate authorship with impact.</div>
-          </div>
-        </section>
-
-        <section id="tv" class="cs-section">
-          <div class="cs-section-label">Smart TV banner</div>
-          <h2 class="cs-h2">One banner in <em>millions</em> of living rooms.</h2>
-          <p class="cs-p">For CNN's Smart TV election banner, I focused on content that would motivate action without overwhelming viewers: one clear headline, one supporting line, a QR code, and a URL. The goal was to create urgency and clarity in a surface people would only glance at briefly.</p>
-
-          <div class="img-block">
-            <img src="banner.png" alt="Smart TV banner and rationale breakdown" />
-            <div class="img-caption-bar"><div class="img-caption-text">Banner breakdown showing both the messaging rationale and the shipped TV experience.</div></div>
-          </div>
-        </section>
-
-        <section id="learnings" class="cs-section">
-          <div class="cs-section-label">Learnings</div>
-          <h2 class="cs-h2">What high-stakes, high-speed design taught me.</h2>
-          <div class="learning-list">
-            <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>Content design is systems design.</strong> The hardest part was not writing rules, but structuring them so people would actually use them.</div></div>
-            <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>Speed and quality need a system underneath them.</strong> Iteration only works when the team has a shared frame for making decisions.</div></div>
-            <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>The best copy disappears into behavior.</strong> The Smart TV banner worked when people simply knew what to do next.</div></div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="g-footer">
-        <div class="footer-left">
-          <em>complexity is easy but clarity takes work.</em>
-          <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
         </div>
-        <nav class="footer-links">
-          <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
-          <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
-        </nav>
-      </footer>
+
+        <div class="tradeoff">
+          <div class="tradeoff-label">Key decisions</div>
+          <div class="tradeoff-body">I led a prioritization workshop to understand impact versus effort. Rather than trying to document everything, I focused on the highest-frequency decisions that teams were making inconsistently.</div>
+        </div>
+      </section>
+
+      <section id="election" class="cs-section">
+        <div class="cs-section-label">Election Center</div>
+        <h2 class="cs-h2">A living product. Iterated weekly through the <em>entire election cycle.</em></h2>
+        <p class="cs-p">The Election Center wasn't a single design but a product that changed shape as the election timeline evolved. I iterated on layouts and information hierarchy weekly, presenting to engineers and product leaders to build buy-in for user-centered changes while balancing business objectives.</p>
+        <p class="cs-p">The core challenge was that what users needed to know shifted as the election got closer. Early coverage needed context and education. Closer to election night, it needed speed and results.</p>
+
+        <div class="img-row">
+          <div class="img-block">
+            <div class="img-accent-line"></div>
+            <video src="EC-1.mp4" loop muted playsinline controls></video>
+            <div class="img-caption-bar"><div class="img-caption-text">Early cycle. Education-first, contextual, built for users still learning the candidates and issues.</div></div>
+          </div>
+          <div class="img-block">
+            <div class="img-accent-line"></div>
+            <video src="EC-2.mp4" loop muted playsinline controls></video>
+            <div class="img-caption-bar"><div class="img-caption-text">Election night. Results-first, fast, built for users who need a single definitive answer.</div></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-label">Design intent</div>
+            <div class="col-item">Video content on the far right to align with the F-pattern of scanning</div>
+            <div class="col-item">Weighted grid transitioning to an even grid for news and media</div>
+            <div class="col-item">Bipolar comparison layout for rapid information retrieval</div>
+            <div class="col-item">Objective data blocks to reinforce source-of-truth credibility</div>
+          </div>
+          <div class="col-card">
+            <div class="col-label">Why it mattered</div>
+            <div class="col-item">Supported business goals without losing clarity</div>
+            <div class="col-item">Helped users explore early and compare later</div>
+            <div class="col-item">Reduced the need to leave the site to compare candidates</div>
+            <div class="col-item">Balanced subjective campaign content with factual reference points</div>
+          </div>
+        </div>
+
+        <div class="img-block">
+          <div class="img-accent-line"></div>
+          <video src="election-mobile.mp4" loop muted playsinline controls></video>
+          <div class="img-caption-bar"><div class="img-caption-text">Designing mobile first helped ensure the hierarchy held up across every breakpoint.</div></div>
+        </div>
+
+        <div class="conflict">
+          <div class="conflict-label">What actually shipped</div>
+          <div class="conflict-body">My designs didn't ship directly, but the bigger lesson was learning how editorial priorities, user needs, business timelines, and engineering constraints all shape the final product. I learned to present work, defend rationale, and not take iteration personally.</div>
+        </div>
+      </section>
+
+      <section id="tv" class="cs-section">
+        <div class="cs-section-label">Smart TV banner</div>
+        <h2 class="cs-h2">One banner in <em>millions</em> of living rooms.</h2>
+        <p class="cs-p">I designed audience-focused messaging for CNN's Smart TV election banner by analyzing what would genuinely motivate action, not just inform. The copy strategy was simple: one clear header, one line of supporting text, a QR code, and a URL for accessibility.</p>
+
+        <div class="img-block">
+          <img src="banner.png" alt="Smart TV to mobile interaction banner">
+          <div class="img-caption-bar"><div class="img-caption-text">On the left is a breakdown of why certain copy and components lived in the banner. On the right is the banner on TV.</div></div>
+        </div>
+      </section>
+
+      <section id="learnings" class="cs-section">
+        <div class="cs-section-label">Learnings</div>
+        <h2 class="cs-h2">What high-stakes, high-speed design taught me.</h2>
+        <div class="learning-list">
+          <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>Content design is systems design.</strong> Building guidelines wasn't just writing words. It was creating a system people could actually use.</div></div>
+          <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>Speed and quality aren't opposites if you have a system.</strong> Rapid iteration only worked because the work had a consistent structure underneath it.</div></div>
+          <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>The best copy is invisible.</strong> On the Smart TV banner, success meant a viewer didn't consciously read the copy. They just knew what to do next.</div></div>
+        </div>
+      </section>
+
     </div>
+
+    <footer class="g-footer">
+      <div class="footer-left">
+        <em>complexity is easy. clarity takes work.</em>
+        <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
+        <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+      </div>
+    </footer>
   </div>
+</div>
 
-  <script>
-    (function () {
-      const links = document.querySelectorAll('.toc-link');
-      const sections = document.querySelectorAll('section[id]');
-      if (!sections.length) return;
-
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            links.forEach((link) => link.classList.remove('active'));
-            const active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
-            if (active) active.classList.add('active');
-          }
-        });
-      }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
-
-      sections.forEach((section) => obs.observe(section));
-    })();
-  </script>
+<script>
+(function(){
+  const links=document.querySelectorAll('.toc-link');
+  const sections=document.querySelectorAll('section[id]');
+  if(!sections.length)return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=document.querySelector('.toc-link[href="#'+e.target.id+'"]');
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-10% 0px -75% 0px',threshold:0});
+  sections.forEach(s=>obs.observe(s));
+})();
+</script>
 </body>
 </html>
