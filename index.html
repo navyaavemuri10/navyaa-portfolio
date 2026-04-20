@@ -8,13 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--bg:#FDFDFD;--text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;--border:#E8E8E4;--surface:#F4F3F0;--accent:#3B5BDB;--nav-w:320px;}
+:root{--bg:#FDFDFD;--text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;--border:#E8E8E4;--surface:#F4F3F0;--accent:#3B5BDB;--nav-w:320px;--modal-overlay:rgba(26,26,26,.35);}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
 
-/* LAYOUT */
 .layout{display:flex;min-height:100vh;}
-
-/* SIDEBAR */
 .sidebar{width:var(--nav-w);flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);}
 .stamp{width:160px;margin-bottom:20px;}
 .stamp img{width:100%;display:block;}
@@ -22,10 +19,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .sidebar-link{font-size:13px;font-weight:400;color:var(--muted);text-decoration:none;letter-spacing:.02em;text-transform:uppercase;transition:color .2s;}
 .sidebar-link:hover{color:var(--text);}
 
-/* MAIN */
 .main{flex:1;overflow-y:auto;padding:48px 72px 96px;}
-
-/* BIO */
 .bio{max-width:640px;margin-bottom:32px;}
 .bio-headline{font-size:28px;font-weight:400;line-height:1.4;color:var(--text);letter-spacing:-.02em;margin-bottom:16px;}
 .bio-headline a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);}
@@ -34,30 +28,26 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .bio-sub a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);transition:text-decoration-color .2s;}
 .bio-sub a:hover{text-decoration-color:var(--text);}
 
-/* TABS */
 .tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:32px;max-width:640px;}
 .tab{font-size:14px;font-weight:400;color:var(--dim);padding:10px 0;margin-right:32px;cursor:pointer;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;letter-spacing:.04em;}
 .tab.active{color:var(--text);border-bottom-color:var(--text);}
 .tab-panel{display:none;}
 .tab-panel.active{display:block;}
 
-/* CARDS */
 .cards{display:flex;flex-direction:column;gap:48px;}
 .cs-card{text-decoration:none;display:block;}
 .cs-thumb{width:748px;max-width:100%;height:auto;aspect-ratio:748/619;background:var(--surface);border-radius:12px;overflow:hidden;margin-bottom:20px;display:block;}
 .cs-thumb img,.cs-thumb video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
 .cs-card:hover .cs-thumb img,.cs-card:hover .cs-thumb video{transform:scale(1.02);}
-.cs-body{}
 .cs-eyebrow{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
 .cs-title{font-size:20px;font-weight:400;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:8px;transition:color .2s;}
 .cs-card:hover .cs-title{color:var(--accent);}
 .cs-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;max-width:600px;}
 .cs-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.cs-pill{font-size:12px;font-weight:400;color:#2A2A2A;background:##FDFDFD;border:.5px solid #D8D6D2;border-radius:100px;padding:4px 12px;letter-spacing:.01em;}
+.cs-pill{font-size:12px;font-weight:400;color:#2A2A2A;background:#FDFDFD;border:.5px solid #D8D6D2;border-radius:100px;padding:4px 12px;letter-spacing:.01em;}
 
-/* PLAY GRID */
 .play-grid{display:flex;flex-direction:column;gap:48px;}
-.play-card{text-decoration:none;display:block;}
+.play-card{text-decoration:none;display:block;cursor:pointer;}
 .play-thumb{width:748px;max-width:100%;aspect-ratio:748/619;background:var(--surface);border-radius:12px;overflow:hidden;margin-bottom:20px;}
 .play-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
 .play-card:hover .play-thumb img{transform:scale(1.02);}
@@ -66,10 +56,41 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .play-card:hover .play-title{color:var(--accent);}
 .play-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;max-width:600px;}
 
-/* HOVER — HTP */
 .htp{position:relative;}
 .htp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s;z-index:1;}
 .htp-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s;z-index:2;}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:var(--modal-overlay);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--bg);border:.5px solid var(--border);border-radius:16px;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.12);}
+.modal-box::-webkit-scrollbar{width:6px;}
+.modal-box::-webkit-scrollbar-thumb{background:#D8D6D2;border-radius:999px;}
+.modal-close-btn{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:16px 18px 0;background:linear-gradient(to bottom,var(--bg) 75%,rgba(253,253,253,0));}
+.modal-x{width:32px;height:32px;border-radius:50%;border:.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;transition:color .2s,border-color .2s;}
+.modal-x:hover{color:var(--text);border-color:#D8D6D2;}
+.modal-hero-img{width:100%;display:block;max-height:320px;object-fit:cover;}
+.modal-hero-ph{width:100%;height:220px;background:var(--surface);}
+.modal-content{padding:24px 28px 36px;}
+.modal-tag-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.modal-title{font-size:24px;font-weight:400;color:var(--text);letter-spacing:-.02em;margin-bottom:8px;line-height:1.2;}
+.modal-tagline{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:20px;}
+.modal-divider{height:.5px;background:var(--border);margin:20px 0;}
+.modal-section-title{font-size:10px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;}
+.modal-body-text{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
+.modal-body-text:last-child{margin-bottom:0;}
+.modal-workflow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
+.wf-step{font-size:12px;color:var(--muted);background:var(--surface);border:.5px solid var(--border);border-radius:6px;padding:5px 10px;}
+.wf-arrow{font-size:10px;color:var(--dim);}
+.modal-link-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);border:.5px solid #C5D0FA;background:#EEF2FF;border-radius:6px;padding:7px 14px;text-decoration:none;transition:border-color .2s,background .2s;}
+.modal-link-btn:hover{border-color:#AEBFF8;background:#E7EDFF;}
+.m-tag{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:20px;display:inline-block;}
+.m-tag-ai{background:rgba(58,91,219,.08);color:var(--accent);border:.5px solid rgba(58,91,219,.18);}
+
+.footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;align-items:center;justify-content:space-between;max-width:1160px;margin:0 auto;}
+.footer-txt{font-size:12px;color:var(--dim);}
+.footer-links{display:flex;gap:20px;}
+.footer-link{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s;}
+.footer-link:hover{color:var(--muted);}
 
 @media(max-width:900px){
   .layout{flex-direction:column;}
@@ -77,33 +98,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
   .stamp{width:80px;margin-bottom:0;}
   .sidebar-links{flex-direction:row;gap:16px;margin-top:0;}
   .main{padding:32px 24px 64px;}
-  .cs-thumb{width:100%;}
-  .play-grid{grid-template-columns:1fr;}
+  .cs-thumb,.play-thumb{width:100%;}
+  .footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
 }
 
-
-/* STAMP FLOAT */
-@keyframes stamp-float{
-  0%{transform:translateY(0) rotate(-.5deg);}
-  33%{transform:translateY(-6px) rotate(.3deg);}
-  66%{transform:translateY(-3px) rotate(-.2deg);}
-  100%{transform:translateY(0) rotate(-.5deg);}
-}
-.stamp img{
-  animation:stamp-float 4s ease-in-out infinite;
-  transition:animation-play-state .3s;
-  will-change:transform;
-}
-.stamp:hover img{
-  animation-play-state:paused;
-}
-
+@keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
+.stamp img{animation:stamp-float 4s ease-in-out infinite;transition:animation-play-state .3s;will-change:transform;}
+.stamp:hover img{animation-play-state:paused;}
 </style>
 </head>
 <body>
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="stamp">
       <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
@@ -116,25 +121,19 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
-
-    <!-- BIO -->
     <div class="bio">
       <p class="bio-headline">Navyaa Vemuri is a Product Designer who designs for trust by making systems understandable and actionable.</p>
       <p class="bio-sub">I’ve worked across enterprise tools, AI-powered features, and consumer platforms at <a href="https://tesla.com">Tesla</a>, <a href="https://splunk.com">Cisco Splunk</a>, <a href="https://cnn.com">CNN</a>, <a href="https://chw.calpoly.edu">Cal Poly</a>.</p>
     </div>
 
-    <!-- TABS -->
     <div class="tabs">
       <div class="tab active" onclick="switchTab('work')">Work</div>
       <div class="tab" onclick="switchTab('play')">Play</div>
     </div>
 
-    <!-- WORK TAB -->
     <div class="tab-panel active" id="tab-work">
       <div class="cards">
-
         <a class="cs-card" aria-label="Tesla — Under NDA">
           <div class="cs-thumb htp" style="background:#F0EDED;">
             <img src="tesla-thumb.png" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
@@ -143,7 +142,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
           <div class="cs-body">
             <div class="cs-eyebrow">Tesla · UX Consultant · 2025</div>
             <div class="cs-title">Shipped a commute experience Tesla staff could actually rely on - COMING SOON</div>
-            <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience with something predictable and easy to use. </div>
+            <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience with something predictable and easy to use.</div>
             <div class="cs-pills">
               <span class="cs-pill">Enterprise UX</span>
               <span class="cs-pill">Product Design</span>
@@ -222,40 +221,56 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
             </div>
           </div>
         </a>
-
       </div>
     </div>
 
-    <!-- PLAY TAB -->
     <div class="tab-panel" id="tab-play">
-  <div class="play-grid">
+      <div class="play-grid">
+        <a class="play-card" href="#" onclick="openModal('spending'); return false;">
+          <div class="play-thumb" style="background:#F0EFEC;"><img src="proxy-full.png" alt="Spending app" onerror="this.style.opacity=0"></div>
+          <div class="play-eyebrow">AI Build · Lovable</div>
+          <div class="play-title">Spending intervention app</div>
+          <div class="play-desc">A financial bodyguard for Gen Z — location-triggered alerts and barcode scanning to pause impulse spending before it happens.</div>
+          <div class="cs-pills">
+            <span class="cs-pill">AI Prototyping</span>
+            <span class="cs-pill">Product Design</span>
+            <span class="cs-pill">Fintech</span>
+          </div>
+        </a>
 
-<a class="play-card" href="play.html" onclick="openModal('spending'); return false;">
-  <div class="play-thumb" style="background:#F0EFEC;"><img src="spending-thumb.png" alt="Spending app" onerror="this.style.opacity=0"></div>
-      <div class="play-eyebrow">AI Build · Lovable</div>
-      <div class="play-title">Spending intervention app</div>
-      <div class="play-desc">A financial bodyguard for Gen Z — location-triggered alerts and barcode scanning to pause impulse spending before it happens.</div>
-      <div class="cs-pills">
-        <span class="cs-pill">AI Prototyping</span>
-        <span class="cs-pill">Product Design</span>
-        <span class="cs-pill">Fintech</span>
+        <a class="play-card" href="https://ai-ux-audit.lovable.app" target="_blank">
+          <div class="play-thumb" style="background:#EEF0EC;"><img src="audit-thumb.png" alt="Smart Audit" onerror="this.style.opacity=0"></div>
+          <div class="play-eyebrow">AI Build · Lovable</div>
+          <div class="play-title">Smart Audit — UX heuristic analysis tool</div>
+          <div class="play-desc">AI-powered evaluation against Nielsen's 10 heuristics — severity ratings, impact/effort scoring, and it shows the positives too.</div>
+          <div class="cs-pills">
+            <span class="cs-pill">AI Prototyping</span>
+            <span class="cs-pill">UX Research</span>
+          </div>
+        </a>
       </div>
-    </a>
+    </div>
+  </main>
+</div>
 
-    <a class="play-card" href="https://ai-ux-audit.lovable.app" target="_blank">
-      <div class="play-thumb" style="background:#EEF0EC;"><img src="audit-thumb.png" alt="Smart Audit" onerror="this.style.opacity=0"></div>
-      <div class="play-eyebrow">AI Build · Lovable</div>
-      <div class="play-title">Smart Audit — UX heuristic analysis tool</div>
-      <div class="play-desc">AI-powered evaluation against Nielsen's 10 heuristics — severity ratings, impact/effort scoring, and it shows the positives too.</div>
-      <div class="cs-pills">
-        <span class="cs-pill">AI Prototyping</span>
-        <span class="cs-pill">UX Research</span>
-      </div>
-    </a>
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-close-btn">
+      <div class="modal-x" onclick="closeModal()">×</div>
+    </div>
+    <div id="modal-inner"></div>
   </div>
 </div>
 
-  </main>
+<div style="max-width:1160px;margin:0 auto;">
+  <div class="footer">
+    <span class="footer-txt">last updated march 2026 · made by navyaa vemuri</span>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/navyaavemuri" class="footer-link">LinkedIn ↗</a>
+      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="footer-link">Resume ↗</a>
+      <a href="mailto:navyaa.vemuri@gmail.com" class="footer-link">say hi ↗</a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -266,8 +281,6 @@ function switchTab(name){
   document.getElementById('tab-'+name).classList.add('active');
 }
 
-
-// Video plays when in view
 const vidObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     const vid = e.target.querySelector('.htp-vid');
@@ -289,6 +302,66 @@ const vidObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.htp').forEach(el => vidObserver.observe(el));
 
+const modals = {
+  spending: {
+    img: 'proxy-full.png',
+    tag: 'ai build · lovable',
+    tagClass: 'm-tag-ai',
+    title: 'spending intervention app',
+    tagline: 'Frictionless spending is the #1 enemy of Gen Z savings, which I can 100% attest. I wanted to build a financial bodyguard that works in the real world, not just inside a banking app.',
+    link: 'https://proxy10.lovable.app/',
+    linkLabel: 'try live app →',
+    sections: [
+      { title: 'the idea', body: 'The smallest amount of logic required to make a user think twice before tapping Pay.' },
+      { title: 'how it works', body: 'Two modes of intervention: physical and digital. Location detection triggers when you enter a retail danger zone. Barcode scan checks any item against your weekly budget before you commit. The Vault holds paused items so nothing is lost, just delayed. Power off button exists intentionally — it is a partner, not a prison.' },
+      { title: 'the build', body: 'I used AI as a strategic design partner rather than simply telling it what to do. Before touching Lovable, I wireframed in Figma to lock in the information architecture and give the AI a concrete visual reference. Prompting works better when you know exactly what you are asking for.' },
+      { title: 'workflow', workflow: ['Perplexity', 'research', 'Figma', 'wireframes', 'Gemini', 'prompt architecture', 'Lovable', 'deployment'] },
+      { title: 'constraint', body: '10 Lovable credits, end-to-end.' },
+      { title: 'learnings', body: 'My first dip into fintech — designing for trust, safety, and a problem I actually experience. AI prototyping is messy by nature, but that is the point: it is about prompt engineering your way to a real idea, not a perfect one.' }
+    ]
+  }
+};
+
+function openModal(id) {
+  const m = modals[id];
+  if (!m) return;
+  let html = '';
+  html += `<img class="modal-hero-img" src="${m.img}" alt="${m.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="modal-hero-ph" style="display:none;"></div>`;
+  html += `<div class="modal-content">`;
+  html += `<div class="modal-tag-row"><span class="m-tag ${m.tagClass}">${m.tag}</span></div>`;
+  html += `<div class="modal-title" id="modal-title">${m.title}</div>`;
+  html += `<div class="modal-tagline">${m.tagline}</div>`;
+  if (m.link) html += `<a class="modal-link-btn" href="${m.link}" target="_blank">${m.linkLabel}</a>`;
+  m.sections.forEach(s => {
+    html += `<div class="modal-divider"></div><div class="modal-section-title">${s.title}</div>`;
+    if (s.workflow) {
+      html += `<div class="modal-workflow">`;
+      s.workflow.forEach((step, i) => {
+        html += `<span class="wf-step">${step}</span>`;
+        if (i < s.workflow.length - 1) html += `<span class="wf-arrow">→</span>`;
+      });
+      html += `</div>`;
+    } else {
+      html += `<div class="modal-body-text">${s.body}</div>`;
+    }
+  });
+  html += `</div>`;
+  document.getElementById('modal-inner').innerHTML = html;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('modal-box').scrollTop = 0;
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
