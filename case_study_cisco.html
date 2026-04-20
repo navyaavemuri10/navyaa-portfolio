@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enterprise AI and Product Strategy, Cisco Splunk — Navyaa Vemuri</title>
+<title>Campus Health Portal — Navyaa Vemuri</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -15,99 +16,16 @@
   --nav-h:60px;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;}
-.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:480px;position:relative;overflow:hidden;}
-.hero-media-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:80px 64px;position:relative;z-index:1;}
-.hero-media-tag{font-size:11px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;border:.5px solid var(--accent-border);background:var(--accent-bg);padding:4px 12px;border-radius:20px;}
-.hero-media-hint{font-size:13px;color:var(--dim);letter-spacing:.04em;}
-.page-wrap{max-width:1160px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:200px 1fr;gap:0;align-items:start;}
-.toc-col{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));padding:40px 32px 40px 0;overflow-y:auto;border-right:.5px solid var(--border);scrollbar-width:none;}
-.toc-col::-webkit-scrollbar{display:none;}
-.toc-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);text-decoration:none;margin-bottom:24px;padding-bottom:20px;border-bottom:.5px solid var(--border);transition:color .2s;}
-.toc-back:hover{color:var(--accent);}
-.toc-back:hover .back-arr{transform:translateX(-3px);}
-.back-arr{display:inline-block;transition:transform .2s;}
-.toc-label{font-size:9px;color:var(--accent);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
-.toc-link{font-size:14px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
-.toc-link:hover{color:var(--muted);border-left-color:var(--muted);padding-left:15px;}
-.toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
-.toc-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
-.cs-main{padding:52px 0 96px 56px;min-width:0;}
-.cs-eyebrow{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;opacity:0;animation:up .5s .05s forwards;}
-.cs-title{font-size:38px;font-weight:300;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:14px;opacity:0;animation:up .6s .15s forwards;}
-.cs-title em{font-style:italic;color:var(--accent);}
-.cs-tagline{font-size:15px;color:var(--muted);line-height:1.74;max-width:560px;margin-bottom:36px;opacity:0;animation:up .6s .25s forwards;}
-.meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;opacity:0;animation:up .5s .35s forwards;}
-.meta-cell{background:var(--surface);padding:16px 20px;}
-.meta-cell+.meta-cell{border-left:.5px solid var(--border);}
-.meta-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
-.meta-val{font-size:13px;color:var(--text);line-height:1.4;}
-.impact-bar{padding:24px 28px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;margin-bottom:40px;opacity:0;animation:up .6s .45s forwards;}
-.impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
-.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
-.stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
-.cs-section{margin-bottom:64px;}
-.cs-section-label{font-size:10px;color:var(--accent);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
-.cs-section-label::after{content:"";flex:1;height:.5px;background:var(--border);}
-.cs-h2{font-size:21px;font-weight:300;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:14px;}
-.cs-h2 em{font-style:italic;color:var(--accent);}
-.cs-p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
-.cs-p:last-child{margin-bottom:0;}
-.cs-p strong{color:var(--text);font-weight:400;}
-.pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
-.pull-quote::before{content:"\201C";position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.2;font-family:Georgia,serif;line-height:1;}
-.pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
-.pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
-.conflict{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
-.conflict-label{font-size:10px;color:var(--conflict);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
-.conflict-body strong{color:var(--text);font-weight:400;}
-.conflict-body p{margin-bottom:10px;}
-.conflict-body p:last-child{margin-bottom:0;}
-.proj-cards{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
-.proj-card{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:18px 22px;}
-.proj-num{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
-.proj-title{font-size:15px;color:var(--text);font-weight:400;margin-bottom:6px;}
-.proj-desc{font-size:13px;color:var(--muted);line-height:1.65;}
-.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:#0D0F0F;border:.5px solid var(--border);position:relative;}.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
-.img-inner{padding:64px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;position:relative;z-index:1;}
-.img-inner.short{padding:44px 28px;}
-.img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
-.img-caption{font-size:11px;color:var(--dim);font-style:italic;margin-top:4px;}
-.img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
-.img-row .img-block{margin:0;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
-.col-card{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:18px 20px;}
-.col-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
-.col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:5px 0;border-bottom:.5px solid var(--border);}
-.col-item:last-child{border-bottom:none;}
-.tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
-.tradeoff-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.tradeoff-body{font-size:13px;color:var(--muted);line-height:1.78;}
-.tradeoff-body strong{color:var(--text);font-weight:400;}
-.tradeoff-body p{margin-bottom:10px;}
-.tradeoff-body p:last-child{margin-bottom:0;}
-.learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
-.learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
-.learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
-.learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
-.learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
-.g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
-.footer-left{font-size:12px;color:var(--dim);}
-.footer-left em{font-style:italic;color:var(--muted);}
-.footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
-.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
-.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
-.footer-link:hover{color:var(--text);}
-.footer-cta{font-size:12px;color:#7AB4D8;text-decoration:none;border:.5px solid #1E3048;border-radius:4px;padding:7px 16px;transition:background .2s;}
-.footer-cta:hover{background:#0D1620;}
- /* NAV SIDEBAR */
-  .cs-sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);overflow-y:auto;scrollbar-width:none;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+
+/* LAYOUT */
+.layout{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.cs-sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);overflow-y:auto;scrollbar-width:none;}
 .cs-sidebar::-webkit-scrollbar{display:none;}
 .stamp{width:160px;margin-bottom:32px;flex-shrink:0;}
-.stamp img{width:100%;display:block;}
+.stamp img{width:100%;display:block;background:#E8EAF0;min-height:130px;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
 .stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
 .stamp:hover img{animation-play-state:paused;}
@@ -119,7 +37,77 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .back-link{font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding-top:24px;border-top:.5px solid var(--border);margin-top:24px;transition:color .2s;flex-shrink:0;}
 .back-link:hover{color:var(--text);}
 
-/* DECISION CARDS */
+/* RIGHT COLUMN */
+.right-col{flex:1;overflow-y:auto;min-width:0;}
+
+/* HERO */
+.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:480px;position:relative;overflow:hidden;}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+
+/* PAGE WRAP */
+.page-wrap{max-width:900px;padding:0;}
+
+/* MAIN */
+.cs-main{padding:52px 64px 96px;min-width:0;}
+
+/* CONTENT STYLES */
+.cs-eyebrow{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+.cs-title{font-size:44px;font-weight:300;line-height:1.08;letter-spacing:-.03em;max-width:700px;color:var(--text);margin-bottom:14px;}
+.cs-title em{font-style:italic;color:var(--accent);}
+.cs-tagline{font-size:16px;color:var(--text);line-height:1.65;max-width:640px;margin-bottom:28px;}
+.meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;}
+.meta-cell{background:var(--surface);padding:16px 20px;}
+.meta-cell+.meta-cell{border-left:.5px solid var(--border);}
+.meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;font-weight:500;}
+.meta-val{font-size:13px;color:var(--text);line-height:1.4;}
+.scan-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 28px;}
+.scan-problem,.scan-role{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;}
+.scan-label{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
+.scan-summary p{font-size:14px;color:var(--text);line-height:1.65;}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px;}
+.impact-card{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;padding:20px 22px;}
+.impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:500;}
+.stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
+.stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.cs-section{margin-bottom:64px;}
+.cs-section-label{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-weight:500;}
+.cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
+.cs-h2{font-size:26px;font-weight:400;color:var(--text);letter-spacing:-.02em;line-height:1.22;margin-bottom:14px;}
+.cs-h2 em{font-style:italic;color:var(--accent);}
+.cs-p{font-size:15px;color:var(--muted);line-height:1.78;margin-bottom:14px;}
+.cs-p:last-child{margin-bottom:0;}
+.cs-p strong{color:var(--text);font-weight:400;}
+.pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
+.pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.15;font-family:Georgia,serif;line-height:1;}
+.pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
+.pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
+.conflict{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
+.conflict-label{font-size:10px;color:var(--conflict);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
+.conflict-body strong{color:var(--text);font-weight:400;}
+.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
+.img-block img{width:100%;display:block;border-radius:6px;position:relative;z-index:1;}
+.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
+.img-inner{padding:64px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;}
+.img-inner.short{padding:44px 28px;}
+.img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
+.img-caption{font-size:11px;color:var(--dim);font-style:italic;margin-top:4px;}
+.img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
+.img-row .img-block{margin:0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
+.col-card{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:18px 20px;}
+.col-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
+.col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:5px 0;border-bottom:.5px solid var(--border);}
+.col-item:last-child{border-bottom:none;}
+.tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
+.tradeoff-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.tradeoff-body{font-size:13px;color:var(--muted);line-height:1.78;}
+.tradeoff-body strong{color:var(--text);font-weight:400;}
+.learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
+.learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
+.learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
+.learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
+.learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
 .decision-grid{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
 .decision-card{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:.5px solid var(--border);border-radius:8px;overflow:hidden;}
 .decision-card.conflict-card{border-left:2px solid var(--conflict);}
@@ -140,511 +128,533 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-we
 .tradeoff-header-text{font-size:13px;color:var(--muted);line-height:1.65;}
 .tradeoff-header-text strong{color:var(--text);font-weight:400;}
 .img-caption-bar{padding:10px 18px;border-top:.5px solid var(--border);}
-.img-caption-text{font-size:12px;color:var(--dim);line-height:1.6;}
+.img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
 .img-caption-text strong{color:var(--muted);font-weight:400;}
-
+/* IA DIAGRAM — keep dark internally */
+.ia-wrap{background:#111212;padding:32px;border-radius:12px;}
+.ia-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:0 28px;}
+.ia-divider{background:#222424;}
+.ia-side{padding:0 8px;}
+.ia-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.ia-label.old{color:#686460;}
+.ia-label.new{color:#7B9FD4;}
+.ia-label::after{content:'';flex:1;height:.5px;background:#222424;}
+.ia-heading{font-size:14px;font-weight:500;color:#DDD8D0;margin-bottom:18px;line-height:1.3;}
+.tree{display:flex;flex-direction:column;gap:5px;}
+.node{display:flex;align-items:center;gap:5px;}
+.nb{border-radius:5px;padding:5px 10px;font-size:11px;font-weight:400;}
+.nb.root{background:#1E2020;border:.5px solid #2E3030;color:#DDD8D0;font-weight:500;}
+.nb.l1{background:#181A1A;border:.5px solid #252828;color:#C4BFB8;}
+.nb.l2{background:#141616;border:.5px solid #202222;color:#9A9490;}
+.nb.l3{background:#111313;border:.5px solid #1C1E1E;color:#686460;text-decoration:line-through;opacity:.6;}
+.nb.new-root{background:#0D1520;border:.5px solid #1A2D44;color:#DDD8D0;font-weight:500;}
+.nb.new-l1{background:#0A1018;border:.5px solid #162030;color:#C4BFB8;}
+.nb.new-l2{background:#081015;border:.5px solid #122030;color:#9A9490;}
+.ln{color:#3A3C3C;font-size:11px;flex-shrink:0;}
+.i1{margin-left:16px;}.i2{margin-left:32px;}.i3{margin-left:48px;}
+.tag{font-size:9px;margin-left:5px;padding:2px 6px;border-radius:10px;}
+.tag.dup{background:#2A1010;color:#E24B4A;border:.5px solid #4A1A1A;}
+.tag.dead{background:#1A1A10;color:#B09020;border:.5px solid #3A3010;}
+.tag.buried{background:#1A1010;color:#906040;border:.5px solid #3A2010;}
+.nb.emph-old{color:#E8C090!important;border-color:#5A3A20!important;background:#1C1208!important;}
+.nb.emph-new{color:#9FC8E8!important;border-color:#2A4A6A!important;background:#0A1828!important;font-weight:500!important;}
+.annotations{display:flex;gap:6px;margin-top:20px;flex-wrap:wrap;}
+.ann{font-size:10px;padding:4px 10px;border-radius:20px;}
+.ann.old{background:#1C1414;border:.5px solid #3A2020;color:#9A6060;}
+.ann.new{background:#0D1520;border:.5px solid #1A2D44;color:#7B9FD4;}
+/* CHART */
+.chart-block{margin:22px 0;background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;position:relative;}
+.chart-header{padding:22px 24px 0;}
+.chart-eyebrow{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px;font-weight:500;}
+.chart-title{font-size:15px;font-weight:400;color:var(--text);letter-spacing:-.01em;margin-bottom:5px;}
+.chart-sub{font-size:12px;color:var(--dim);line-height:1.6;}
+.chart-body{padding:20px 24px 24px;}
+.chart-footer{padding:12px 24px;border-top:.5px solid var(--border);display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--border);}
+.stat-cell{background:var(--surface);padding:18px 20px;}
+.stat-cell+.stat-cell{border-left:.5px solid var(--border);}
+.stat-year{font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px;}
+.stat-n{font-size:24px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;}
+.stat-badge{display:inline-block;margin-top:6px;font-size:10px;color:var(--accent);background:var(--accent-bg);border:.5px solid var(--accent-border);padding:2px 8px;border-radius:20px;}
+.stat-badge.baseline{color:var(--dim);background:transparent;border-color:var(--border);}
+/* FOOTER */
+.g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-left{font-size:12px;color:var(--dim);}
+.footer-left em{font-style:italic;color:var(--muted);}
+.footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
+.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
+.footer-link:hover{color:var(--text);}
+.footer-cta{font-size:12px;color:var(--accent);text-decoration:none;border:.5px solid var(--accent-border);border-radius:4px;padding:7px 16px;transition:background .2s;}
+.footer-cta:hover{background:var(--accent-bg);}
 @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:900px){
-  .g-nav{padding:0 32px;}
-.page-wrap{display:flex;align-items:start;}  .toc-col{position:static;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:28px 0 20px;}
-  .toc-back{margin-bottom:16px;padding-bottom:16px;}
-  .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;}
+  .layout{flex-direction:column;}
+  .cs-sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px;}
+  .stamp{width:80px;margin-bottom:0;}
+  .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;margin-bottom:0;}
   .toc-link{border-left:none;border-bottom:1.5px solid var(--border);padding:5px 10px;}
   .toc-link.active{border-bottom-color:var(--accent);}
-  .toc-link:hover{padding-left:10px;}
-  .cs-main{padding:40px 0 72px;}
+  .back-link{border-top:none;margin-top:0;padding-top:0;}
+  .cs-main{padding:32px 24px 64px;}
   .meta-row{grid-template-columns:repeat(2,1fr);}
-  .meta-cell+.meta-cell{border-left:none;}
-  .meta-row .meta-cell:nth-child(odd){border-right:.5px solid var(--border);}
-  .meta-row .meta-cell:nth-child(3),.meta-row .meta-cell:nth-child(4){border-top:.5px solid var(--border);}
-  .impact-stats{grid-template-columns:1fr 1fr;}
-  .img-row,.two-col{grid-template-columns:1fr;}
-  .hero-media-inner{padding:60px 32px;}
-  .g-footer{padding:28px 32px;}
-  .cs-title{font-size:30px;}
+  .impact-grid,.scan-summary,.img-row,.two-col,.decision-card,.ia-grid{grid-template-columns:1fr;}
+  .ia-divider{display:none;}
+  .g-footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
 }
-@media(max-width:600px){
-  .g-nav{padding:0 20px;}
-  .nav-links .nav-link:not(.nav-cta){display:none;}
-  .page-wrap{padding:0 20px;}
-  .hero-media-inner{padding:48px 20px;}
-  .impact-stats{grid-template-columns:1fr;}
-  .cs-title{font-size:26px;}
-  .g-footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}.cs-eyebrow,.cs-title,.cs-tagline,.meta-row,.impact-bar{opacity:1;transform:none;}}
+@media(max-width:600px){.cs-title{font-size:28px;}.stat-row{grid-template-columns:1fr;}.stat-cell+.stat-cell{border-left:none;border-top:.5px solid var(--border);}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
 <body>
+<div class="layout">
 
-<nav class="g-nav" aria-label="Site navigation">
-  <a class="nav-logo" href="index.html">navyaa vemuri</a>
-  <div class="nav-links">
-    <a class="nav-link" href="index.html#work">work</a>
-    <a class="nav-link" href="play.html">play</a>
-    <a class="nav-link" href="about.html">about</a>
-    <a class="nav-link nav-cta" href="mailto:navyaa.vemuri@gmail.com">say hi</a>
-  </div>
-</nav>
-
-<div style="flex:1;overflow-y:auto;min-width:0;">
-  <div class="hero-media" role="img" aria-label="Cisco Splunk Demo Center and AI feature preview" style="height:580px;overflow:hidden;">
-  <img src="cisco.png" style="width:100%;height:100%;object-fit:cover;display:block;"></img>
-</div>
-
-<div class="page-wrap">
   <aside class="cs-sidebar">
-  <div class="stamp">
-    <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.background='#E8EAF0';this.style.minHeight='130px'">
+    <div class="stamp">
+      <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.background='#E8EAF0'">
+    </div>
+    <div class="toc-label">on this page</div>
+    <ul class="toc-list">
+      <li><a href="#overview" class="toc-link active">Overview</a></li>
+      <li><a href="#problem" class="toc-link">The problem</a></li>
+      <li><a href="#constraint" class="toc-link">The constraint</a></li>
+      <li><a href="#conflict" class="toc-link">The conflict</a></li>
+      <li><a href="#research" class="toc-link">Research</a></li>
+      <li><a href="#design" class="toc-link">Design</a></li>
+      <li><a href="#outcome" class="toc-link">Outcome</a></li>
+      <li><a href="#learnings" class="toc-link">Learnings</a></li>
+    </ul>
+    <a href="index.html" class="back-link">← back to work</a>
+  </aside>
+
+  <div class="right-col">
+
+    <div class="hero-media" style="min-height:580px;max-height:580px;">
+      <img src="Thumbnail (2).png" alt="Campus Health and Wellbeing portal">
+    </div>
+
+    <div class="cs-main">
+
+      <section id="overview">
+        <div class="cs-eyebrow">Cal Poly · UX Lead · Sept 2023 to Dec 2025</div>
+        <h1 class="cs-title">rebuilding trust in a campus health portal</h1>
+        <p class="cs-tagline">I redesigned Cal Poly's health portal to rebuild trust, improve clarity, and to transform into a campus-wide source of truth.</p>
+
+        <div class="scan-summary">
+          <div class="scan-problem">
+            <div class="scan-label">The problem</div>
+            <p>Students didn't trust the website — so they avoided it entirely, even for basic information like hours and appointment booking.</p>
+          </div>
+          <div class="scan-role">
+            <div class="scan-label">What I did</div>
+            <p>Redesigned the portal end-to-end within Drupal 7 constraints, focusing on trust, clarity, accessibility, and information architecture.</p>
+          </div>
+        </div>
+
+        <div class="meta-row">
+          <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-val">Solo UX Designer (first ever)</div></div>
+          <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-val">Sept 2023 to Dec 2025</div></div>
+          <div class="meta-cell"><div class="meta-label">Tools</div><div class="meta-val">Figma · Drupal 7 · HTML/CSS</div></div>
+          <div class="meta-cell"><div class="meta-label">Scope</div><div class="meta-val">End-to-end, 100% shipped</div></div>
+        </div>
+
+        <div class="impact-grid">
+          <div class="impact-card"><div class="impact-label">Engagement</div><div class="stat-num">690%</div><div class="stat-desc">increase in engaged sessions (13,003 → 102,652) in year one</div></div>
+          <div class="impact-card"><div class="impact-label">Retention</div><div class="stat-num">60%</div><div class="stat-desc">decrease in drop-off across redesigned pages</div></div>
+          <div class="impact-card"><div class="impact-label">Delivery</div><div class="stat-num">100%</div><div class="stat-desc">of designed work shipped over 2+ years of iteration</div></div>
+        </div>
+
+        <div class="img-row">
+          <div class="img-block">
+            <div style="position:relative;">
+              <img src="chw-beforeimage.png" alt="Portal before redesign">
+              <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--conflict);background:var(--conflict-bg);border:.5px solid var(--conflict-border);padding:3px 10px;border-radius:20px;">Before</span>
+            </div>
+            <div class="img-caption-bar"><div class="img-caption-text">Dense text, weak hierarchy, critical actions buried</div></div>
+          </div>
+          <div class="img-block">
+            <div style="position:relative;">
+              <img src="chw-afterimage.png" alt="Portal after redesign">
+              <span style="position:absolute;top:12px;left:12px;z-index:2;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);border:.5px solid var(--accent-border);padding:3px 10px;border-radius:20px;">After</span>
+            </div>
+            <div class="img-caption-bar"><div class="img-caption-text">Clear hierarchy, stronger trust cues, easier decision-making</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="problem" class="cs-section">
+        <div class="cs-section-label">The problem</div>
+        <h2 class="cs-h2">Students didn't trust the website — so they stopped using it.</h2>
+        <p class="cs-p">When I joined Campus Health and Wellbeing, the portal had only 13,003 engaged sessions across a campus of 23,000 students. But the real issue was behavioral: students would rather walk to the health center than rely on the site for basic information.</p>
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-label">What was happening</div>
+            <div class="col-item">Students walked in-person for hours, locations, and appointment info</div>
+            <div class="col-item">Critical information buried 3+ clicks deep</div>
+            <div class="col-item">Dense text created cognitive overload</div>
+          </div>
+          <div class="col-card">
+            <div class="col-label">Why it mattered</div>
+            <div class="col-item">Low trust in the site as a reliable resource</div>
+            <div class="col-item">High drop-off across key entry pages</div>
+            <div class="col-item">Staff handled questions the portal should have answered</div>
+          </div>
+        </div>
+        <div class="pull-quote">
+          <p>"Students were asking staff in person rather than use the website, even for basic things like hours and appointment booking."</p>
+          <cite>Staff interviews, September 2023</cite>
+        </div>
+        <div class="img-block">
+          <div class="img-accent-line"></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px;position:relative;z-index:1;align-items:start;">
+            <img src="chw-before1.png" alt="Original portal screenshot 1" style="width:100%;display:block;border-radius:6px;">
+            <img src="chw-before2.png" alt="Original portal screenshot 2" style="width:100%;display:block;border-radius:6px;">
+            <img src="chw-before3.png" alt="Original portal screenshot 3" style="width:100%;display:block;border-radius:6px;">
+          </div>
+          <div class="img-caption-bar"><div class="img-caption-text">Original portal — dense content, inconsistent hierarchy, and weak trust signals</div></div>
+        </div>
+      </section>
+
+      <section id="constraint" class="cs-section">
+        <div class="cs-section-label">The constraint</div>
+        <h2 class="cs-h2">Drupal 7 offered almost no design flexibility.</h2>
+        <p class="cs-p">Instead of treating the platform as a blocker, I designed a workaround system that prioritized clarity, trust, and accessibility within the limits of an outdated CMS.</p>
+        <div class="decision-grid">
+          <div class="decision-card tradeoff-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">Platform limitations</div><div class="dc-text">No font control, no color customization, no responsive layouts, and no modern component system.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">My approach</div><div class="dc-text">Designed in <strong>Figma</strong> and exported visuals as PNGs into Drupal to preserve hierarchy and visual trust cues.</div></div>
+          </div>
+          <div class="decision-card tradeoff-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">The tradeoff</div><div class="dc-text">PNG-based layouts don't reflow responsively, which meant a desktop-optimized experience.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">Why I accepted it</div><div class="dc-text"><strong>75% of users were on desktop</strong>, and the trust problem was more urgent than waiting years for a platform upgrade.</div></div>
+          </div>
+          <div class="decision-card tradeoff-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">SEO risk</div><div class="dc-text">Image-based text is invisible to search engines — a major issue for a health resource portal.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">How I handled it</div><div class="dc-text">Body copy remained <strong>native Drupal text</strong> for SEO, and every exported image received comprehensive alt text.</div></div>
+          </div>
+        </div>
+        <div class="img-block">
+          <div class="img-accent-line"></div>
+          <img src="chw-library.png" alt="Figma component library overview">
+          <div class="img-caption-bar"><div class="img-caption-text">Component library used to create consistency, hierarchy, and reusable design decisions across the portal</div></div>
+        </div>
+      </section>
+
+      <section id="conflict" class="cs-section">
+        <div class="cs-section-label">The conflict</div>
+        <h2 class="cs-h2">Staff wanted more text. Data showed that density was exactly why students left.</h2>
+        <p class="cs-p">Health information felt too important to simplify, so staff often pushed for dense pages. Analytics showed those long text blocks were the clearest driver of abandonment.</p>
+        <div class="decision-grid">
+          <div class="decision-card conflict-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">Staff belief</div><div class="dc-text">More information meant more clarity. Students needed all the context before taking action.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">What data showed</div><div class="dc-text">Long text blocks were the <strong>primary drop-off driver</strong> across informational pages.</div></div>
+          </div>
+          <div class="decision-card conflict-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">My first instinct</div><div class="dc-text">React to each content-heavy request case by case in review meetings.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">What worked better</div><div class="dc-text"><strong>Lead with data before the discussion started</strong>, shifting the conversation from preference to shared problem-solving.</div></div>
+          </div>
+          <div class="decision-card tradeoff-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">The real solution</div><div class="dc-text">The answer wasn't removing information. A lot of the content was genuinely important.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">Design strategy</div><div class="dc-text"><strong>Progressive disclosure</strong>: short, scannable headers up front, with deeper detail available through linked pages and structured CTAs.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" class="cs-section">
+        <div class="cs-section-label">Research</div>
+        <h2 class="cs-h2">No formal research budget. I built my own lightweight system.</h2>
+        <p class="cs-p">Without a formal research budget, I built a scrappy research practice to stay close to real student behavior and validate design decisions quickly.</p>
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-label">Methods</div>
+            <div class="col-item">Social listening on Reddit and Facebook groups</div>
+            <div class="col-item">Staff interviews to capture recurring questions</div>
+            <div class="col-item">Guerrilla feedback through student assistants</div>
+            <div class="col-item">Google Analytics deep dives on scroll and drop-off</div>
+            <div class="col-item">Survey partnership for STI campaign research</div>
+          </div>
+          <div class="col-card">
+            <div class="col-label">Key insights</div>
+            <div class="col-item">Students couldn't find appointment booking without help</div>
+            <div class="col-item">Health content felt clinical and unwelcoming</div>
+            <div class="col-item">STI resources increased anxiety instead of action</div>
+            <div class="col-item">75% desktop usage validated platform tradeoffs</div>
+            <div class="col-item">Highest drop-off happened on dense informational pages</div>
+          </div>
+        </div>
+        <div class="chart-block">
+          <div class="img-accent-line"></div>
+          <div class="chart-header">
+            <div class="chart-eyebrow">Analytics · Before redesign · 2022–23</div>
+            <div class="chart-title">Views vs engaged sessions by page</div>
+            <div class="chart-sub">High traffic, low retention. The gap between arrivals and engagement revealed a trust problem, not a discoverability problem.</div>
+          </div>
+          <div class="chart-body">
+            <div style="position:relative;width:100%;height:260px;"><canvas id="dropoffChart"></canvas></div>
+          </div>
+          <div class="chart-footer">
+            <div class="legend-item"><span class="legend-dot" style="background:#D8D6D2;border:.5px solid #C8C6C2;"></span>Total views</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#3B5BDB;"></span>Engaged sessions</div>
+            <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--dim);font-style:italic;">Data: Sept 2022 – Sept 2023</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="design" class="cs-section">
+        <div class="cs-section-label">Design</div>
+        <h2 class="cs-h2">System first. Pages second.</h2>
+        <p class="cs-p">Before designing pages, I restructured the underlying information architecture to reduce complexity, eliminate duplication, and surface high-intent actions earlier.</p>
+
+        <div class="img-block">
+          <div class="img-accent-line"></div>
+          <div class="ia-wrap">
+            <div style="margin-bottom:24px;padding-bottom:20px;border-bottom:.5px solid #222424;">
+              <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#686460;margin-bottom:6px;">Information architecture</div>
+              <div style="display:flex;align-items:baseline;gap:12px;">
+                <span style="font-size:16px;font-weight:500;color:#DDD8D0;">Old IA</span>
+                <span style="font-size:13px;color:#3A3C3C;">→</span>
+                <span style="font-size:16px;font-weight:500;color:#7B9FD4;">New IA</span>
+              </div>
+              <div style="font-size:12px;color:#686460;margin-top:4px;">From fragmented navigation to task-based clarity</div>
+            </div>
+            <div class="ia-grid">
+              <div class="ia-side">
+                <div class="ia-label old">Before</div>
+                <div class="ia-heading">Department-based structure — fragmented and hard to navigate</div>
+                <div class="tree">
+                  <div class="node"><div class="nb root">Campus Health & Wellbeing</div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb l1">Health Services</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2 emph-old">Book Appointment <span class="tag buried">buried</span></div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">STI Testing</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Forms <span class="tag dead">dead link</span></div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb l1">Counseling Services</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Book Appointment <span class="tag dup">duplicate</span></div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Crisis Resources</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Forms <span class="tag dup">duplicate</span></div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb l1">Wellbeing</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Sexual Health <span class="tag buried">buried</span></div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Safer <span class="tag buried">buried</span></div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Recovery Resources <span class="tag dead">dead link</span></div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb l1">About</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Basic Needs <span class="tag buried">buried</span></div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l2">Food Pantry <span class="tag dup">duplicate</span></div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l3">Outdated Staff Page</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb l3">Old Events Page</div></div>
+                </div>
+                <div class="annotations">
+                  <span class="ann old">Department-based structure</span>
+                  <span class="ann old">Key actions buried 3+ levels deep</span>
+                  <span class="ann old">Duplicate content across sections</span>
+                  <span class="ann old">Dead links throughout</span>
+                </div>
+              </div>
+              <div class="ia-divider"></div>
+              <div class="ia-side">
+                <div class="ia-label new">After</div>
+                <div class="ia-heading">Task-based structure — clearer paths and reduced complexity</div>
+                <div class="tree">
+                  <div class="node"><div class="nb new-root">Campus Health & Wellbeing</div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb new-l1 emph-new">Book Appointment</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb new-l2">Medical · Counseling · Wellbeing</div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb new-l1">Mental Health & Counseling</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb new-l2">CAPS · Crisis Support</div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb new-l1">Sexual Health & Safety</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb new-l2">STI Testing · Safer</div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb new-l1">Basic Needs</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb new-l2">Food Pantry · Resources</div></div>
+                  <div class="node i1"><div class="ln">└</div><div class="nb new-l1">Wellbeing & Recovery</div></div>
+                  <div class="node i2"><div class="ln">└</div><div class="nb new-l2">PULSE · Mustangs for Recovery</div></div>
+                </div>
+                <div class="annotations">
+                  <span class="ann new">Organized by student tasks</span>
+                  <span class="ann new">Max 2 levels deep</span>
+                  <span class="ann new">Single source of truth</span>
+                  <span class="ann new">Dead links removed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="img-caption-bar"><div class="img-caption-text"><strong>Structural shift:</strong> moved from a department-based hierarchy with buried actions and duplicated content to a flatter, task-based structure with clearer entry points.</div></div>
+        </div>
+
+        <div class="tradeoff-header">
+          <div class="tradeoff-header-label">Special project: STI awareness campaign</div>
+          <div class="tradeoff-header-text">Partnered with a student sexual health organization to study attitudes toward testing, then translated those findings into a warmer, more actionable communication system.</div>
+        </div>
+        <div class="decision-grid">
+          <div class="decision-card tradeoff-card">
+            <div class="dc-tension"><div class="dc-tag tension-tag">What research showed</div><div class="dc-text">Clinical language and warning-style framing increased anxiety and caused students to disengage.</div></div>
+            <div class="dc-resolution"><div class="dc-tag resolution-tag">Design response</div><div class="dc-text"><strong>Make it feel like guidance, not a warning</strong> — warmer visuals, normalized language, and student-reviewed copy at every stage.</div></div>
+          </div>
+        </div>
+        <div class="img-row">
+          <div class="img-block">
+            <img src="survey.jpeg" alt="STI awareness campaign survey booth">
+            <div class="img-caption-bar"><div class="img-caption-text">Survey booth used to gather real student input on testing attitudes and messaging tone</div></div>
+          </div>
+          <div class="img-block">
+            <div class="img-inner short">
+              <div class="img-label">Final STI campaign design artifact</div>
+              <div class="img-caption">Add one final visual here: poster, landing page, flyer, or campaign asset</div>
+            </div>
+            <div class="img-caption-bar"><div class="img-caption-text">Use this slot to show warmth, tone, color, and communication craft</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="outcome" class="cs-section">
+        <div class="cs-section-label">Outcome</div>
+        <h2 class="cs-h2">From 56% reach to nearly the entire campus.</h2>
+        <p class="cs-p">In the first full year after the redesign, engaged sessions grew from 13,003 to 102,652. Drop-off fell 60% across redesigned pages. By year three, engagement had surpassed 200,000 sessions.</p>
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-label">Beyond the metrics</div>
+            <div class="col-item">Established the first UX function in the department</div>
+            <div class="col-item">Built a reusable design system for future teams</div>
+            <div class="col-item">Shipped 100% of designed work</div>
+          </div>
+          <div class="col-card">
+            <div class="col-label">Long-term impact</div>
+            <div class="col-item">Portal became a trusted source of truth</div>
+            <div class="col-item">Engagement continued growing after year one</div>
+            <div class="col-item">The system scaled beyond my tenure</div>
+          </div>
+        </div>
+        <div class="chart-block">
+          <div class="img-accent-line"></div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="stat-year">Year 1 · 2022–23</div><div class="stat-n">13K</div><div class="stat-lbl">engaged sessions</div><div class="stat-badge baseline">baseline</div></div>
+            <div class="stat-cell"><div class="stat-year">Year 2 · 2023–24</div><div class="stat-n">102K</div><div class="stat-lbl">engaged sessions</div><div class="stat-badge">↑ 690%</div></div>
+            <div class="stat-cell"><div class="stat-year">Year 3 · 2024–25</div><div class="stat-n">200K+</div><div class="stat-lbl">engaged sessions</div><div class="stat-badge">↑ continued growth</div></div>
+          </div>
+          <div class="chart-header" style="padding-top:20px;">
+            <div class="chart-eyebrow">Outcome · Engagement growth</div>
+            <div class="chart-title">Engaged sessions over three years</div>
+            <div class="chart-sub">From 13,003 at baseline to 200,000+ confirmed — a 15× increase across the redesign period.</div>
+          </div>
+          <div class="chart-body">
+            <div style="position:relative;width:100%;height:200px;"><canvas id="growthChart"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="learnings" class="cs-section">
+        <div class="cs-section-label">Learnings</div>
+        <h2 class="cs-h2">What this project taught me</h2>
+        <div class="learning-list">
+          <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>Constraints are a design material.</strong>Drupal 7 forced sharper decisions about where control mattered most, and how to justify tradeoffs clearly.</div></div>
+          <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>Data builds alignment.</strong>Leading with evidence turned stakeholder conflict into a shared problem-solving process.</div></div>
+          <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>Trust is the product.</strong>The real challenge wasn't making the portal look better — it was making students believe it was worth using.</div></div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="g-footer">
+      <div class="footer-left">
+        <em>"complexity is easy. clarity takes work."</em>
+        <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+        <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
+        <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+      </nav>
+    </footer>
+
   </div>
-  <div class="toc-label">on this page</div>
-  <ul class="toc-list">
-    <li><a href="#overview" class="toc-link">Overview</a></li>
-    <li><a href="#context" class="toc-link">Context</a></li>
-    <li><a href="#audit" class="toc-link">Heuristic audit</a></li>
-    <li><a href="#demo" class="toc-link">Demo Center</a></li>
-    <li><a href="#ai" class="toc-link">AI code snippet</a></li>
-    <li><a href="#learnings" class="toc-link">Learnings</a></li>
-  </ul>
-  <a href="index.html" class="back-link">← back to work</a>
-</aside>
-
-  <main class="cs-main">
-
-    <section id="overview" aria-labelledby="cs-title">
-      <div class="cs-eyebrow">Cisco Splunk · UX Design Intern · Summer 2025</div>
-      <h1 class="cs-title" id="cs-title">three projects. twelve weeks.<br><em>all shipped.</em></h1>
-      <p class="cs-tagline">How I audited an entire enterprise web ecosystem, designed a demo discovery platform from zero to live, and innovated at a org-wide hackathon.</p>
-
-      <div class="meta-row" role="list" aria-label="Project details">
-        <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">UX Design Intern</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">Jun to Sept 2025 (12 weeks)</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · Miro · UserTesting · Cisco AI · Jira</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Scope</div><div class="meta-val">3 projects, all live or dev-ready</div></div>
-      </div>
-
-      <div class="impact-bar" aria-label="Project outcomes">
-        <div class="impact-label">tldr; the outcomes</div>
-        <div class="impact-stats">
-          <div><div class="stat-num">8+</div><div class="stat-desc">domains audited, findings immediately prioritized across sprint teams</div></div>
-          <div><div class="stat-num">3 to 1</div><div class="stat-desc">clicks reduced to find demos, Demo Center now live on splunk.com</div></div>
-          <div><div class="stat-num">100%</div><div class="stat-desc">user satisfaction in testing for AI code snippet feature</div></div>
-        </div>
-      </div>
-
-      <div class="proj-cards" aria-label="Three projects at a glance">
-        <div class="proj-card">
-          <div class="proj-num">Project 01</div>
-          <div class="proj-title">Heuristic evaluation of Splunk's entire web ecosystem</div>
-          <div class="proj-desc">Audited 8 or more domains against Nielsen's 10 heuristics. Findings presented to all sprint teams and immediately prioritized for resolution.</div>
-        </div>
-        <div class="proj-card">
-          <div class="proj-num">Project 02</div>
-          <div class="proj-title">Product Demo Center: research to live on splunk.com</div>
-          <div class="proj-desc">Designed a centralized demo discovery platform from scratch. Cut navigation depth from 3 or more clicks to 1. Currently live.</div>
-        </div>
-        <div class="proj-card">
-          <div class="proj-num">Project 03</div>
-          <div class="proj-title">Agentic AI code snippet feature: hackathon win to dev-ready specs</div>
-          <div class="proj-desc">Identified a high-intent drop-off moment, designed an AI-powered solution during the org hackathon, achieved 100% satisfaction in user testing, delivered complete dev specs.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="context" class="cs-section" aria-labelledby="ctx-h">
-      <div class="cs-section-label" aria-hidden="true">Context</div>
-      <h2 class="cs-h2" id="ctx-h">A $28 billion acquisition. Two disconnected ecosystems. One summer to help make sense of it.</h2>
-      <p class="cs-p">In 2024, Cisco acquired Splunk for $28 billion. When I joined in summer 2025, Splunk was in the middle of a complex integration: preparing to consolidate into cisco.com while maintaining its distinct product ecosystem and brand. This created structural UX problems that individual product teams could not see from inside their silos.</p>
-      <p class="cs-p">My work touched all three layers: auditing the fragmented current state, improving how users discovered and navigated products, and designing AI-powered features that pushed the experience forward.</p>
-    </section>
-
-    <section id="audit" class="cs-section" aria-labelledby="aud-h">
-      <div class="cs-section-label" aria-hidden="true">Heuristic audit</div>
-      <h2 class="cs-h2" id="aud-h">Eight domains inspected through Nielsen's 10 Heuristics</h2>
-      <p class="cs-p">I combed through every page, component, and user flow across Splunk's web ecosystem. Every violation was documented by heuristic, rated by severity (critical, major, or minor), and accompanied by screenshots and specific recommendations. The goal was not just to find problems but to give sprint teams something they could immediately act on.</p>
-      <p class="cs-p">The audit also revealed something important: product teams working on individual domains had no visibility into the patterns across the whole ecosystem. Navigation inconsistencies, terminology fragmentation, and broken information flows only became visible when you looked at all eight domains together. That perspective was the unique value I added.</p>
-
-
-      <!-- INTERACTIVE JOURNEY MAP -->
-      <div style="margin:24px 0;">
-        <div class="cs-section-label" aria-hidden="true">Interactive prototype</div>
-        <div style="border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
-          <iframe
-            src="splunk_journey_map.html"
-            style="width:100%;height:620px;border:none;display:block;"
-            title="Splunk Customer Experience Journey Map — interactive prototype"
-            loading="lazy">
-          </iframe>
-        </div>
-        <p style="font-size:11px;color:var(--dim);font-style:italic;margin-top:10px;line-height:1.6;">
-          Built in Claude Code for stakeholder accessibility — click any stage or domain card to explore cross-domain pain points and recommendations.
-        </p>
-      </div>
-
-      <div class="two-col" aria-label="Audit deliverables and impact">
-        <div class="col-card">
-          <div class="col-label">What I delivered</div>
-          <div class="col-item">Full audit spreadsheet: every violation categorized and severity-rated</div>
-          <div class="col-item">Interactive prototype of findings (built in Claude Code for stakeholder accessibility)</div>
-          <div class="col-item">Presentations delivered to all sprint teams</div>
-          <div class="col-item">Framework for ongoing heuristic evaluation</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">The impact</div>
-          <div class="col-item">Recommendations immediately prioritized in sprint planning</div>
-          <div class="col-item">Created an editable document that could be passed down and through the org</div>
-          <div class="col-item">Established heuristic evaluation as a repeatable process</div>
-          <div class="col-item">Cross-domain patterns visible to leadership for the first time</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="demo" class="cs-section" aria-labelledby="demo-h">
-      <div class="cs-section-label" aria-hidden="true">Demo Center</div>
-      <h2 class="cs-h2" id="demo-h">Users could not find the demos. So they never used them.</h2>
-      <p class="cs-p">Splunk had no centralized home for product demos. They were buried under Main Nav, then Resources, then filtered by "Product Tours." Three or more clicks to get to something most users never discovered existed. I analyzed Mouseflow session recordings and confirmed: nearly no one found the demos through organic navigation. The demos were effectively invisible.</p>
-      <p class="cs-p">My goal was to design a dedicated discovery platform that put demos front and center, and to get it live before the end of my internship.</p>
-
-      <div class="pull-quote">
-        <p>"Users who found the demos had to navigate through three or more clicks, and most users never discovered they existed at all."</p>
-        <cite>Mouseflow session analysis, June 2025</cite>
-      </div>
-
-      <!-- WIREFRAME PROGRESSION -->
-      <div style="margin:28px 0;" aria-label="Wireframe progression V1 to V8">
-        <div class="cs-section-label" aria-hidden="true">Wireframe progression</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-
-          <!-- LOW FI V1-V3 -->
-          <div style="background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:#1A1816;padding:7px 12px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">V1 – V3 &nbsp;·&nbsp; low fi</span>
-              <span style="font-size:9px;color:var(--dim);">structure</span>
-            </div>
-            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;">
-              <div style="height:6px;background:#2A2826;border-radius:2px;"></div>
-              <div style="display:flex;gap:5px;margin-top:2px;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="height:4px;background:#2A2826;border-radius:2px;"></div><div style="height:3px;width:55%;background:#2A2826;border-radius:2px;"></div><div style="height:3px;width:35%;background:#2A2826;border-radius:2px;margin-top:2px;"></div></div>
-                <div style="width:36%;height:36px;background:#2A2826;border-radius:3px;"></div>
-              </div>
-              <div style="height:3px;width:40%;background:#2A2826;border-radius:2px;margin-top:2px;"></div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:2px;">
-                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
-                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-              </div>
-              <div style="background:#222;border-radius:3px;padding:5px;margin-top:2px;display:flex;gap:3px;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:60%;background:#2A2826;border-radius:1px;"></div></div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:60%;background:#2A2826;border-radius:1px;"></div></div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:60%;background:#2A2826;border-radius:1px;"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MID FI V4-V7 -->
-          <div style="background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:#1A1816;padding:7px 12px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:10px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;">V4 – V7 &nbsp;·&nbsp; mid fi</span>
-              <span style="font-size:9px;color:var(--dim);">content</span>
-            </div>
-            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;">
-              <div style="height:6px;background:#2A2826;border-radius:2px;"></div>
-              <div style="display:flex;gap:4px;align-items:center;background:#1A2830;border-radius:3px;padding:5px;margin-top:2px;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A3840;border-radius:1px;"></div><div style="height:2px;width:55%;background:#2A3840;border-radius:1px;"></div></div>
-                <div style="height:12px;width:26%;background:var(--accent);border-radius:3px;opacity:.35;"></div>
-              </div>
-              <div style="display:flex;gap:4px;">
-                <div style="width:24%;background:#222;border-radius:3px;padding:4px;display:flex;flex-direction:column;gap:2px;">
-                  <div style="height:3px;background:#2A2826;border-radius:1px;"></div>
-                  <div style="height:2px;width:85%;background:#2A2826;border-radius:1px;"></div>
-                  <div style="height:2px;width:70%;background:#2A2826;border-radius:1px;"></div>
-                  <div style="height:2px;width:80%;background:#2A2826;border-radius:1px;"></div>
-                  <div style="height:2px;width:65%;background:#2A2826;border-radius:1px;"></div>
-                </div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
-                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
-                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                  </div>
-                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
-                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                    <div style="background:#222;border-radius:3px;padding:4px;"><div style="height:18px;background:#2A2826;border-radius:2px;margin-bottom:3px;"></div><div style="height:3px;width:70%;background:#2A2826;border-radius:1px;"></div><div style="height:2px;width:50%;background:#2A2826;border-radius:1px;margin-top:2px;"></div></div>
-                  </div>
-                </div>
-              </div>
-              <div style="background:#1A2830;border-radius:3px;padding:5px;margin-top:2px;display:flex;gap:4px;align-items:center;">
-                <div style="width:20px;height:20px;border-radius:50%;background:#2A3840;flex-shrink:0;"></div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="height:3px;background:#2A3840;border-radius:1px;"></div><div style="height:2px;width:55%;background:#2A3840;border-radius:1px;"></div></div>
-                <div style="display:flex;gap:2px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.5;"></div><div style="width:5px;height:5px;border-radius:50%;background:#2A3840;"></div><div style="width:5px;height:5px;border-radius:50%;background:#2A3840;"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HI FI V8 — mimics splunk.com/interactive-tours -->
-          <div style="background:var(--surface);border:.5px solid rgba(107,191,176,.35);border-radius:10px;overflow:hidden;">
-            <div style="background:#0C1A18;padding:7px 12px;border-bottom:.5px solid rgba(107,191,176,.2);display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:10px;color:#6BBFB0;letter-spacing:.08em;text-transform:uppercase;">V8 &nbsp;·&nbsp; shipped</span>
-              <span style="font-size:9px;background:#0F6E56;color:#E1F5EE;padding:1px 7px;border-radius:10px;font-weight:500;">live</span>
-            </div>
-            <div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;">
-              <div style="height:6px;background:#1A2826;border-radius:2px;opacity:.7;"></div>
-              <!-- hero: featured demo left + list right -->
-              <div style="display:flex;gap:5px;margin-top:2px;">
-                <div style="flex:1.2;background:#1A2826;border-radius:4px;padding:6px;display:flex;flex-direction:column;gap:3px;">
-                  <div style="height:3px;width:35%;background:#6BBFB0;border-radius:1px;opacity:.4;"></div>
-                  <div style="height:3px;width:70%;background:#6BBFB0;border-radius:1px;opacity:.25;"></div>
-                  <div style="height:3px;width:55%;background:#1E3A34;border-radius:1px;margin-top:1px;"></div>
-                  <div style="height:22px;background:#0C2220;border-radius:3px;margin-top:3px;"></div>
-                  <div style="display:flex;gap:3px;margin-top:2px;">
-                    <div style="height:10px;width:38%;background:#6BBFB0;border-radius:2px;opacity:.35;"></div>
-                    <div style="height:10px;width:30%;background:#1E3A34;border-radius:2px;"></div>
-                  </div>
-                </div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;justify-content:center;">
-                  <div style="height:3px;width:80%;background:#1E3A34;border-radius:1px;"></div>
-                  <div style="height:3px;width:65%;background:#1E3A34;border-radius:1px;"></div>
-                  <div style="height:3px;width:72%;background:#1E3A34;border-radius:1px;"></div>
-                  <div style="height:3px;width:60%;background:#1E3A34;border-radius:1px;"></div>
-                  <div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div>
-                </div>
-              </div>
-              <!-- category tabs -->
-              <div style="display:flex;gap:4px;margin-top:3px;">
-                <div style="height:10px;width:30%;background:#6BBFB0;border-radius:10px;opacity:.4;"></div>
-                <div style="height:10px;width:30%;background:#1E3A34;border-radius:10px;"></div>
-                <div style="height:10px;width:30%;background:#1E3A34;border-radius:10px;"></div>
-              </div>
-              <!-- card grid -->
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:2px;">
-                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
-                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
-                <div style="background:#1A2826;border:.5px solid rgba(107,191,176,.12);border-radius:3px;padding:4px;"><div style="height:20px;background:#6BBFB0;border-radius:2px;margin-bottom:3px;opacity:.18;"></div><div style="height:3px;width:75%;background:#1E3A34;border-radius:1px;"></div><div style="height:2px;width:55%;background:#1E3A34;border-radius:1px;margin-top:2px;"></div></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div style="display:flex;gap:14px;margin-top:8px;flex-wrap:wrap;align-items:center;">
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--dim);"><div style="width:6px;height:6px;border-radius:50%;background:var(--dim);"></div>structure carried</div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--accent);"><div style="width:6px;height:6px;border-radius:50%;background:var(--accent);"></div>added / evolved</div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#6BBFB0;"><div style="width:6px;height:6px;border-radius:50%;background:#6BBFB0;"></div>shipped on splunk.com</div>
-        </div>
-      </div>
-
-      <div class="conflict-header" aria-label="Stakeholder conflicts on Demo Center">
-        <div class="conflict-header-label">The conflicts I navigated</div>
-        <div class="conflict-header-text">Two real disagreements shaped the final design. I resolved both with user evidence, not opinion.</div>
-      </div>
-      <div class="decision-grid" aria-label="Conflict and resolution breakdown">
-        <div class="decision-card conflict-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">Business wanted</div>
-            <div class="dc-text">Multiple featured demos at the top for product visibility. More surface area = more chances to convert.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">Testing showed</div>
-            <div class="dc-text">Decision paralysis. Users felt overwhelmed before orienting. I <strong>played the recordings in the room.</strong> We simplified the hero.</div>
-          </div>
-        </div>
-        <div class="decision-card conflict-card">
-          <div class="dc-tension">
-            <div class="dc-tag tension-tag">Users wanted</div>
-            <div class="dc-text">Robust filters by product type, use case, and role. Standard catalog UX.</div>
-          </div>
-          <div class="dc-resolution">
-            <div class="dc-tag resolution-tag">The constraint</div>
-            <div class="dc-text">Only 12 demos at launch. Full filters would look empty. <strong>Launched with category tabs,</strong> built filter infrastructure for future scale.</div>
-          </div>
-        </div>
-      </div>
-
-
-    <div class="img-block" aria-label="Live Demo Center on splunk.com">
-  <video src="democenter.mp4" autoplay loop muted playsinline style="width:100%;display:block;background:#0D0F0F;min-height:200px;"></video>
-  <div class="img-caption-bar"><p class="img-caption-text">The Demo Center live on splunk.com. Navigation reduced from 3+ clicks (Resources > Filter > Product Tours) to a single prominent entry point from the homepage.</p></div>
 </div>
 
-    <section id="ai" class="cs-section" aria-labelledby="ai-h">
-      <div class="cs-section-label" aria-hidden="true">AI code snippet</div>
-      <h2 class="cs-h2" id="ai-h">A drop-off moment that needed to be addressed</h2>
-      <p class="cs-p">Through research, I identified that code snippets on Splunk's technical blogs were a high-intent drop-off point. I uncovered that a user reads a post, copies a snippet, leaves. While that moment of interaction signals interest, nothing was being done with it.</p>
-      <p class="cs-p">I entered our team's hackathon as the only UX intern in the room and started my process by doing competitor analysis, seeing where our experience was lacking, and understanding how AI can be integrated to match Cisco's mission of creating more personalized experiences.</p>
-      <p class="cs-p">The concept: a user copies a code snippet -> trigger contextual AI-powered resource recommendations through Cisco's LLM pipeline based on their interests and web activity.</p>
-
-      <div class="img-block" aria-label="Code Snippet Feature Prototype">
-        <video src="codesnippet.mp4" data-autoplay loop muted playsinline style="width:100%;display:block;"></video>
-        <div class="img-caption-bar"><p class="img-caption-text">A lightweight version of the code snippet has been shipped while the agentic AI flows are tested within engineering.</p></div>
-      </div>
-
-      <!-- PUSHBACK VISUAL — simplified -->
-      <div style="margin:20px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px;" aria-label="Stakeholder pushback and resolution">
-
-        <div style="background:rgba(196,116,90,.08);border:.5px solid rgba(196,116,90,.25);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;">
-          <div style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--conflict);">the concern</div>
-          <div style="font-size:13px;color:var(--muted);line-height:1.6;font-style:italic;">"Too complex — technical users just want to copy code and move on."</div>
-          <div style="font-size:11px;color:var(--dim);">— senior stakeholder</div>
-        </div>
-
-        <div style="background:rgba(107,191,176,.06);border:.5px solid rgba(107,191,176,.2);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;">
-          <div style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#6BBFB0;">the evidence</div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="font-size:28px;font-weight:600;color:#6BBFB0;letter-spacing:-.02em;line-height:1;">100%</div>
-            <div style="font-size:12px;color:var(--muted);line-height:1.5;">So I decided to head to UserTesting.com -> satisfaction across 6 developers & engineers on UserTesting.com</div>
-          </div>
-          <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;">
-            <div style="height:100%;width:100%;background:#6BBFB0;border-radius:3px;"></div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="img-block" aria-label="User Testing Snapshot for Code Snippet">
-  <img src="testing.png" style="width:100%;display:block;" alt="User testing analysis from UserTesting.com on Figma">
-  <div class="img-caption-bar"><p class="img-caption-text">Analysis of user testing results from UserTesting.com done in Figma.</p></div>
-</div>
-
-      <p class="cs-p">Once the concept was validated, I delivered full engineering-ready specs — not just pretty mockups. That meant spacing and sizing annotations, component states, responsive breakpoints for desktop, tablet, and mobile, interaction triggers, and color and typography tokens. The goal was that an engineer could pick this up without needing to ask me a single question.</p>
-
-<p class="cs-p">Once the concept was validated, I delivered full engineering-ready specs. That meant spacing and sizing annotations, component states, responsive breakpoints for desktop, tablet, and mobile, interaction triggers, and color and typography tokens. The goal was that an engineer could pick this up without needing to ask me a single question.</p>
-
-<div class="img-block" aria-label="Visual design spec">
-  <div class="img-accent-line"></div>
-  <img src="ui-specs.png" style="width:100%;display:block;" alt="Visual design spec showing spacing annotations and component layout">
-  <div class="img-caption-bar"><p class="img-caption-text">Visual spec — spacing, sizing, responsive breakpoints, and color tokens.</p></div>
-</div>
-
-<div class="img-block" aria-label="Interaction design spec">
-  <div class="img-accent-line"></div>
-  <img src="interaction-specs.png" style="width:100%;display:block;" alt="Interaction spec showing component states and trigger flows">
-  <div class="img-caption-bar"><p class="img-caption-text">Interaction spec — component states (default, hover, active), trigger flows, and timing.</p></div>
-</div>
-      
-
-      <!-- AI UX CONSIDERATIONS -->
-      <div class="cs-section-label" style="margin-top:40px;" aria-hidden="true">Designing with AI — what I learned</div>
-      <h2 class="cs-h2" style="margin-bottom:12px;">I was figuring it out as I went. Here's what I got right, and what I'd do differently.</h2>
-      <p class="cs-p">This was genuinely one of my first times designing an AI feature. I didn't come in with a formal AI design framework — I was learning on the fly. But I did make some intentional decisions around trust and transparency, and I've thought a lot since about what I'd add now.</p>
-
-      <div class="two-col" style="margin-top:20px;" aria-label="AI design decisions">
-        <div class="col-card">
-          <div class="col-label">what I designed for</div>
-          <div class="col-item"><strong style="color:var(--text);font-weight:500;">Trust &amp; transparency.</strong> The AI surfaced related docs based on the user's copied code and browsing history. Obvious problem: why would a developer trust an AI-suggested link? My answer was a small question mark beside the recommendations — a tooltip explaining exactly how the AI made the connection. Not a whole explanation, just enough to say "here's why I'm showing you this."</div>
-          <div class="col-item" style="font-size:12px;color:var(--dim);font-style:italic;">No official framework, just instinct and Cisco's internal AI docs. I should've gone deeper on established AI design principles. That's a gap I've been actively filling since.</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">if I could do this again</div>
-          <div class="col-item"><strong style="color:var(--text);font-weight:500;">Uncertainty states.</strong> The feature showed suggestions without signaling how confident the AI was in each one. I'd now add a match score under each resource. A simple bar showing how closely it matched what the user copied. Turns a black-box output into something users can actually evaluate.</div>
-          <div class="col-item"><strong style="color:var(--text);font-weight:500;">A proper framework.</strong> Google PAIR, Microsoft HAX. I'd use established AI design principles to stress-test decisions rather than going purely by feel. There's a lot I didn't know I didn't know.</div>
-          <div style="margin-top:14px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:8px;padding:12px 14px;">
-            <div style="font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">match score — what I'd add</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div style="font-size:11px;color:var(--muted);flex:1;">SPL Functions Reference</div>
-                <div style="width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--accent);border-radius:3px;"></div></div>
-                <div style="font-size:10px;color:var(--accent);min-width:28px;text-align:right;">92%</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div style="font-size:11px;color:var(--muted);flex:1;">Search Tutorial</div>
-                <div style="width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;"><div style="width:64%;height:100%;background:var(--accent);border-radius:3px;opacity:.7;"></div></div>
-                <div style="font-size:10px;color:var(--accent);min-width:28px;text-align:right;">64%</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div style="font-size:11px;color:var(--muted);flex:1;">Lookup Commands</div>
-                <div style="width:80px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;"><div style="width:38%;height:100%;background:var(--accent);border-radius:3px;opacity:.45;"></div></div>
-                <div style="font-size:10px;color:var(--accent);min-width:28px;text-align:right;">38%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="learnings" class="cs-section" aria-labelledby="learn-h">
-      <div class="cs-section-label" aria-hidden="true">Learnings</div>
-      <h2 class="cs-h2" id="learn-h">What twelve weeks in enterprise taught me.</h2>
-      <div class="learning-list" role="list">
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">01</span>
-          <div class="learning-text">
-            <strong>Understand the technology before designing for it.</strong>
-            I researched Cisco's AI infrastructure before opening Figma for the code snippet feature because I quickly realized I needed to understand some of the back-end before starting to design an experience for users. 
-          </div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">02</span>
-          <div class="learning-text">
-            <strong>In enterprise, data wins arguments that taste cannot.</strong>
-            Both the Demo Center and the AI feature involved real disagreements with stakeholders. In both cases, user research recordings were more persuasive than any slide or design rationale. Watching a user struggle in real time changes the conversation.
-          </div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">03</span>
-          <div class="learning-text">
-            <strong>Document your rationale as carefully as your designs.</strong>
-            In a 12-week internship, you will not be there to explain your decisions later. Every tradeoff I made, every stakeholder conflict I resolved, and every constraint I accepted got documented clearly in handoff. The team should be able to pick up where I left off without having to reverse-engineer my thinking.
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<footer class="g-footer" aria-label="Site footer">
-  <div class="footer-left">
-    <em>"complexity is easy. clarity takes work."</em>
-    <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
-  </div>
-  <nav class="footer-links" aria-label="Footer links">
-    <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
-    <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" aria-label="Download resume">Resume</a>
-    <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi</a>
-  </nav>
-</div>
-</footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+const gridColor = 'rgba(0,0,0,0.05)';
+const tickColor = '#ABABAB';
+const labelColor = '#6B6B6B';
+
+new Chart(document.getElementById('growthChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2022–23', '2023–24', '2024–25'],
+    datasets: [{
+      data: [13003, 102652, 200000],
+      backgroundColor: ['#C5D0FA', '#7F8FE8', '#3B5BDB'],
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#fff',
+        borderColor: '#E8E8E4',
+        borderWidth: 1,
+        titleColor: '#1A1A1A',
+        bodyColor: '#6B6B6B',
+        padding: 12,
+        callbacks: { label: ctx => ctx.raw === 200000 ? '  200,000+ (confirmed floor)' : '  ' + ctx.raw.toLocaleString() + ' engaged sessions' }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { color: labelColor, font: { size: 12 } } },
+      y: { grid: { color: gridColor }, border: { display: false }, ticks: { color: tickColor, font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'K' : v } }
+    }
+  }
+});
+
+new Chart(document.getElementById('dropoffChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Home', 'Counseling', 'Immunizations', 'About Us', 'Pharmacy', 'Immuniz. (Aug)', 'Basic Needs'],
+    datasets: [
+      { label: 'Total views', data: [9336, 4568, 3742, 2067, 1820, 1224, 1108], backgroundColor: '#E8E8E4', borderRadius: 4, borderSkipped: false },
+      { label: 'Engaged sessions', data: [4127, 1890, 1583, 864, 807, 535, 500], backgroundColor: '#3B5BDB', borderRadius: 4, borderSkipped: false }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#fff',
+        borderColor: '#E8E8E4',
+        borderWidth: 1,
+        titleColor: '#1A1A1A',
+        bodyColor: '#6B6B6B',
+        padding: 12,
+        callbacks: { label: ctx => '  ' + ctx.dataset.label + ': ' + ctx.raw.toLocaleString() }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { color: labelColor, font: { size: 11 }, maxRotation: 30 } },
+      y: { grid: { color: gridColor }, border: { display: false }, ticks: { color: tickColor, font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(1) + 'K' : v } }
+    }
+  }
+});
+
+// TOC active state
 (function(){
-  const links=document.querySelectorAll(".toc-link");
-  const sections=document.querySelectorAll("main section[id]");
-  if(!sections.length)return;
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
+  const links = document.querySelectorAll('.toc-link');
+  const sections = document.querySelectorAll('section[id]');
+  if(!sections.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
       if(e.isIntersecting){
-        links.forEach(l=>l.classList.remove("active"));
-        const a=document.querySelector(".toc-link[href=\"#"+e.target.id+"\"]");
-        if(a)a.classList.add("active");
+        links.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector('.toc-link[href="#'+e.target.id+'"]');
+        if(a) a.classList.add('active');
       }
     });
-  },{rootMargin:"-10% 0px -75% 0px",threshold:0});
-  sections.forEach(s=>obs.observe(s));
+  }, {rootMargin:'-10% 0px -75% 0px', threshold:0});
+  sections.forEach(s => obs.observe(s));
 })();
-</script>
-  <script>
-const videos = document.querySelectorAll('video[data-autoplay]');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.play();
-    } else {
-      entry.target.pause();
-      entry.target.currentTime = 0;
-    }
-  });
-}, { threshold: 0.3 });
-videos.forEach(v => observer.observe(v));
 </script>
 </body>
 </html>
