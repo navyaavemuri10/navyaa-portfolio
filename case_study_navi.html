@@ -1,544 +1,714 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navi — Pedestrian Safety App · Navyaa Vemuri</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#111212;--surface:#161818;--border:#1E2020;
-  --text:#DDD8D0;--muted:#A8A29A;--dim:#686460;
-  --accent:#8FA876;--accent-bg:#101A0E;--accent-border:#1E3018;
-  --nav-h:60px;
-}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navi — Pedestrian Safety App · Navyaa Vemuri</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.g-nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 64px;background:var(--bg);border-bottom:.5px solid var(--border);}
-.nav-logo{font-size:14px;color:var(--text);text-decoration:none;letter-spacing:-.01em;}
-.nav-links{display:flex;gap:28px;align-items:center;}
-.nav-link{font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px;}
-.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:.5px;background:var(--accent);transition:width .25s;}
-.nav-link:hover{color:var(--text);}
-.nav-link:hover::after,.nav-link:focus-visible::after{width:100%;}
-.nav-link:focus-visible{outline:2px solid #7AB4D8;outline-offset:4px;border-radius:2px;}
-.nav-cta{color:#7AB4D8!important;}
+    :root {
+      --bg: #111212;
+      --surface: #161818;
+      --border: #1E2020;
+      --text: #DDD8D0;
+      --muted: #A8A29A;
+      --dim: #686460;
+      --accent: #8FA876;
+      --accent-bg: #101A0E;
+      --accent-border: #1E3018;
+      --link-accent: #7AB4D8;
+    }
 
-.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:480px;position:relative;overflow:hidden;}
-.hero-media-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:80px 64px;}
-.hero-media-tag{font-size:11px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;border:.5px solid var(--accent-border);background:var(--accent-bg);padding:4px 12px;border-radius:20px;}
-.hero-media-hint{font-size:13px;color:var(--dim);letter-spacing:.04em;}
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-.page-wrap{max-width:1160px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:200px 1fr;gap:0;align-items:start;}
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
 
-.toc-col{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));padding:52px 32px 52px 0;overflow-y:auto;border-right:.5px solid var(--border);scrollbar-width:none;}
-.toc-col::-webkit-scrollbar{display:none;}
-.toc-label{font-size:12px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
-.toc-link{font-size:14px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
-.toc-link:hover{color:var(--muted);border-left-color:var(--muted);padding-left:15px;}
-.toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
-.toc-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
+    .cs-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      border-right: 0.5px solid var(--border);
+      overflow-y: auto;
+      scrollbar-width: none;
+      background: var(--bg);
+    }
 
-.cs-main{padding:52px 0 96px 56px;min-width:0;}
-.cs-eyebrow{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;opacity:0;animation:up .5s .05s forwards;}
-.cs-title{font-size:38px;font-weight:300;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:14px;opacity:0;animation:up .6s .15s forwards;}
-.cs-title em{font-style:italic;color:var(--accent);}
-.cs-tagline{font-size:15px;color:var(--muted);line-height:1.74;max-width:560px;margin-bottom:36px;opacity:0;animation:up .6s .25s forwards;}
+    .cs-sidebar::-webkit-scrollbar { display: none; }
 
-.meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;opacity:0;animation:up .5s .35s forwards;}
-.meta-cell{background:var(--surface);padding:16px 20px;}
-.meta-cell+.meta-cell{border-left:.5px solid var(--border);}
-.meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
-.meta-val{font-size:13px;color:var(--text);line-height:1.4;}
+    .nav-logo {
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
 
-.impact-bar{padding:24px 28px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;margin-bottom:40px;opacity:0;animation:up .6s .45s forwards;}
-.impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
-.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
-.stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+    .toc-label {
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
 
-/* Personality for Navi: a constraint badge */
-.constraint-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:6px;padding:8px 14px;margin-bottom:20px;font-size:12px;color:var(--accent);}
-.constraint-badge span{font-size:16px;}
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-bottom: auto;
+    }
 
-.cs-section{margin-bottom:60px;}
-.cs-section-label{font-size:10px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
-.cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
-.cs-h2{font-size:21px;font-weight:300;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:14px;}
-.cs-h2 em{font-style:italic;color:var(--accent);}
-.cs-p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
-.cs-p:last-child{margin-bottom:0;}
-.cs-p strong{color:var(--text);font-weight:400;}
+    .toc-link {
+      font-size: 13px;
+      color: var(--dim);
+      text-decoration: none;
+      display: block;
+      padding: 6px 0 6px 12px;
+      border-left: 1.5px solid var(--border);
+      transition: color .2s, border-color .2s, padding-left .18s;
+      line-height: 1.4;
+    }
 
-/* Stats in text — for the research data */
-.stat-row{display:flex;gap:16px;margin:18px 0;flex-wrap:wrap;}
-.stat-pill{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:14px 18px;flex:1;min-width:140px;}
-.stat-pill-num{font-size:24px;font-weight:300;color:var(--accent);line-height:1;}
-.stat-pill-desc{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+    .toc-link:hover {
+      color: var(--text);
+      border-left-color: var(--muted);
+      padding-left: 15px;
+    }
 
-.pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
-.pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.2;font-family:Georgia,serif;line-height:1;}
-.pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
-.pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
+    .toc-link.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      padding-left: 16px;
+    }
 
-.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
-.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;}
-.img-inner{padding:64px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;}
-.img-inner.short{padding:44px 28px;}
-.img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
-.img-caption{padding: 10px;font-size:11px;color:var(--dim);font-style:italic;margin-top:4px;}
-.img-block .img-accent-line,.img-block .img-inner{position:relative;z-index:1;}
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 24px;
+      border-top: 0.5px solid var(--border);
+      margin-top: 24px;
+    }
 
-.img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
-.img-row .img-block{margin:0;}
-.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:22px 0;}
-.img-trio .img-block{margin:0;}
+    .sidebar-link {
+      font-size: 11px;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
 
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
-.col-card{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:18px 20px;}
-.col-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
-.col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:5px 0;border-bottom:.5px solid var(--border);}
-.col-item:last-child{border-bottom:none;}
+    .sidebar-link:hover,
+    .sidebar-link.cta { color: var(--link-accent); }
 
-.tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
-.tradeoff-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.tradeoff-body{font-size:13px;color:var(--muted);line-height:1.75;}
-.tradeoff-body strong{color:var(--text);font-weight:400;}
+    .right-col {
+      flex: 1;
+      min-width: 0;
+    }
 
-.learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
-.learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
-.learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
-.learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
-.learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
+    .hero-media {
+      width: 100%;
+      min-height: 580px;
+      max-height: 580px;
+      overflow: hidden;
+      background: var(--surface);
+      border-bottom: 0.5px solid var(--border);
+    }
 
-/* WIN CARD — personality moment */
-.win-card{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:12px;padding:28px 32px;text-align:center;margin:24px 0;}
-.win-emoji{font-size:36px;margin-bottom:12px;display:block;}
-.win-title{font-size:22px;font-weight:300;color:var(--text);margin-bottom:8px;}
-.win-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
 
-.g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
-.footer-left{font-size:12px;color:var(--dim);}
-.footer-left em{font-style:italic;color:var(--muted);}
-.footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
-.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
-.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
-.footer-link:hover{color:var(--text);}
-.footer-cta{font-size:12px;color:#7AB4D8;text-decoration:none;border:.5px solid #1E3048;border-radius:4px;padding:7px 16px;transition:background .2s;}
-.footer-cta:hover{background:#0D1620;}
+    .cs-main {
+      padding: 52px 64px 96px;
+      max-width: 920px;
+    }
 
-@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-@media(max-width:900px){
-  .g-nav{padding:0 32px;}
-  .page-wrap{grid-template-columns:1fr;padding:0 32px;}
-  .toc-col{position:static;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:28px 0 24px;}
-  .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;}
-  .toc-link{border-left:none;border-bottom:1.5px solid var(--border);padding:5px 10px;}
-  .toc-link.active{border-bottom-color:var(--accent);}
-  .toc-link:hover{padding-left:10px;}
-  .cs-main{padding:40px 0 72px;}
-  .meta-row{grid-template-columns:repeat(2,1fr);}
-  .meta-cell+.meta-cell{border-left:none;}
-  .meta-row .meta-cell:nth-child(odd){border-right:.5px solid var(--border);}
-  .meta-row .meta-cell:nth-child(3),.meta-row .meta-cell:nth-child(4){border-top:.5px solid var(--border);}
-  .impact-stats{grid-template-columns:1fr 1fr;}
-  .img-row,.two-col,.img-trio{grid-template-columns:1fr;}
-  .stat-row{flex-direction:column;}
-  .hero-media-inner{padding:60px 32px;}
-  .g-footer{padding:28px 32px;}
-  .cs-title{font-size:30px;}
-}
-@media(max-width:600px){
-  .g-nav{padding:0 20px;}
-  .nav-links .nav-link:not(.nav-cta){display:none;}
-  .page-wrap{padding:0 20px;}
-  .hero-media-inner{padding:48px 20px;}
-  .impact-stats{grid-template-columns:1fr;}
-  .cs-title{font-size:26px;}
-  .g-footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}.cs-eyebrow,.cs-title,.cs-tagline,.meta-row,.impact-bar{opacity:1;transform:none;}}
-</style>
+    .cs-eyebrow {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .cs-title {
+      font-size: 40px;
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      max-width: 700px;
+    }
+
+    .cs-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .cs-tagline {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.72;
+      max-width: 620px;
+      margin-bottom: 28px;
+    }
+
+    .constraint-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-bg);
+      border: 0.5px solid var(--accent-border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 36px;
+    }
+
+    .meta-cell {
+      background: var(--surface);
+      padding: 16px 20px;
+    }
+
+    .meta-cell + .meta-cell { border-left: 0.5px solid var(--border); }
+
+    .meta-label {
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .meta-val {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .impact-card {
+      background: var(--accent-bg);
+      border: 0.5px solid var(--accent-border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .impact-label {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .stat-num {
+      font-size: 30px;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .cs-section { margin-bottom: 64px; }
+
+    .cs-section-label {
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cs-section-label::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    .cs-h2 {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .cs-h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .cs-p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+      max-width: 680px;
+    }
+
+    .two-col,
+    .img-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .col-card,
+    .img-block,
+    .tradeoff,
+    .win-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .col-card {
+      padding: 18px 20px;
+    }
+
+    .col-label,
+    .tradeoff-label {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .col-item,
+    .tradeoff-body,
+    .learning-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .col-item {
+      padding: 5px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .col-item:last-child { border-bottom: none; }
+
+    .pull-quote {
+      margin: 24px 0;
+      padding: 22px 26px;
+      border-left: 2px solid var(--accent);
+      background: var(--accent-bg);
+      border-radius: 0 8px 8px 0;
+      position: relative;
+    }
+
+    .pull-quote p {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 10px;
+      font-style: normal;
+    }
+
+    .img-block img {
+      width: 100%;
+      display: block;
+    }
+
+    .img-caption-bar {
+      padding: 10px 18px;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .img-caption-text {
+      font-size: 11px;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    .tradeoff {
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin: 18px 0;
+    }
+
+    .learning-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 18px;
+    }
+
+    .learning {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .learning-num {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 500;
+      padding-top: 2px;
+    }
+
+    .learning-text strong {
+      display: block;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .win-card {
+      padding: 28px 32px;
+      text-align: center;
+      background: var(--accent-bg);
+      border-color: var(--accent-border);
+    }
+
+    .win-emoji {
+      font-size: 36px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .win-title {
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+
+    .win-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .g-footer {
+      border-top: 0.5px solid var(--border);
+      padding: 32px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-left {
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    .footer-left em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 5px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-link,
+    .footer-cta {
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .footer-link {
+      color: var(--muted);
+    }
+
+    .footer-cta {
+      color: var(--link-accent);
+      border: 0.5px solid #1E3048;
+      border-radius: 4px;
+      padding: 7px 16px;
+    }
+
+    @media (max-width: 900px) {
+      .layout { flex-direction: column; }
+
+      .cs-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 0.5px solid var(--border);
+        padding: 24px;
+      }
+
+      .toc-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .toc-link {
+        border-left: none;
+        border-bottom: 1.5px solid var(--border);
+        padding: 5px 10px;
+      }
+
+      .toc-link.active { border-bottom-color: var(--accent); }
+
+      .cs-main { padding: 32px 24px 64px; }
+      .meta-row { grid-template-columns: repeat(2, 1fr); }
+      .impact-grid, .two-col, .img-row { grid-template-columns: 1fr; }
+      .g-footer { padding: 24px; flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .cs-title { font-size: 28px; }
+      .meta-row { grid-template-columns: 1fr; }
+      .meta-cell + .meta-cell { border-left: none; border-top: 0.5px solid var(--border); }
+    }
+  </style>
 </head>
 <body>
+  <div class="layout">
+    <aside class="cs-sidebar">
+      <a class="nav-logo" href="index.html">navyaa vemuri</a>
 
-<nav class="g-nav" aria-label="Site navigation">
-  <a class="nav-logo" href="index.html">navyaa vemuri</a>
-  <div class="nav-links">
-    <a class="nav-link" href="index.html#work">work</a>
-    <a class="nav-link" href="play.html">play</a>
-    <a class="nav-link" href="about.html">about</a>
-    <a class="nav-link nav-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+      <div class="toc-label">on this page</div>
+      <ul class="toc-list">
+        <li><a href="#overview" class="toc-link active">Overview</a></li>
+        <li><a href="#problem" class="toc-link">The problem</a></li>
+        <li><a href="#research" class="toc-link">Research</a></li>
+        <li><a href="#ideation" class="toc-link">Ideation</a></li>
+        <li><a href="#design" class="toc-link">Design</a></li>
+        <li><a href="#outcome" class="toc-link">Outcome</a></li>
+        <li><a href="#learnings" class="toc-link">Learnings</a></li>
+      </ul>
+
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="index.html#work">← back to work</a>
+        <a class="sidebar-link" href="play.html">play</a>
+        <a class="sidebar-link" href="about.html">about</a>
+        <a class="sidebar-link cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+      </div>
+    </aside>
+
+    <div class="right-col">
+      <div class="hero-media">
+        <img src="navi.png" alt="Navi — pedestrian app preview" />
+      </div>
+
+      <main class="cs-main">
+        <section id="overview">
+          <div class="cs-eyebrow">UX Fest SLO · 24-hour designathon · Team of 5</div>
+          <h1 class="cs-title">a safety app that felt like<br>a friend <em>walking beside you.</em></h1>
+          <p class="cs-tagline">How five designers tackled pedestrian safety in 24 hours — with real user research, a GPT-4o integration, and a first place finish.</p>
+
+          <div class="constraint-badge">⏱ 24 hours to research, design, prototype, and present.</div>
+
+          <div class="meta-row">
+            <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-val">Full Stack Designer</div></div>
+            <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-val">24 hours</div></div>
+            <div class="meta-cell"><div class="meta-label">Team</div><div class="meta-val">5 designers</div></div>
+            <div class="meta-cell"><div class="meta-label">Tools</div><div class="meta-val">Figma · FigJam · GPT-4o</div></div>
+          </div>
+
+          <div class="impact-grid">
+            <div class="impact-card"><div class="impact-label">Outcome</div><div class="stat-num">🥇</div><div class="stat-desc">1st place among 20+ teams at UX Fest SLO</div></div>
+            <div class="impact-card"><div class="impact-label">Research</div><div class="stat-num">50+</div><div class="stat-desc">data points with 3 rounds of affinity mapping</div></div>
+            <div class="impact-card"><div class="impact-label">Iteration</div><div class="stat-num">3</div><div class="stat-desc">rounds from lo-fi to hi-fi in under 24 hours</div></div>
+          </div>
+        </section>
+
+        <section id="problem" class="cs-section">
+          <div class="cs-section-label">The problem</div>
+          <h2 class="cs-h2">The prompt was travel. We designed for the trip people make <em>every day.</em></h2>
+          <p class="cs-p">Instead of focusing on flights or itineraries, we centered a problem that felt immediate and personal: the anxiety of walking alone. That reframed the project from generic travel planning into pedestrian safety.</p>
+
+          <div class="two-col">
+            <div class="col-card">
+              <div class="col-label">What we noticed</div>
+              <div class="col-item">People already piece together safety behaviors across multiple apps</div>
+              <div class="col-item">Current map tools optimize for speed, not walking confidence</div>
+              <div class="col-item">There was no single flow built around pedestrian reassurance</div>
+            </div>
+            <div class="col-card">
+              <div class="col-label">Why it mattered</div>
+              <div class="col-item">Walking alone affects daily routines, not just rare moments</div>
+              <div class="col-item">Fear changes how people move through the world</div>
+              <div class="col-item">Safety support should feel calming, not alarmist</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="research" class="cs-section">
+          <div class="cs-section-label">Research</div>
+          <h2 class="cs-h2">50+ data points and 3 rounds of affinity mapping <em>in under 4 hours.</em></h2>
+          <p class="cs-p">We combined quick interviews and synthesis to identify three recurring pain points: uncertainty in route safety, fragmented location sharing, and the need to feel accompanied when nobody is available.</p>
+
+          <div class="img-block">
+            <img src="affinity-map.png" alt="FigJam affinity mapping session" />
+            <div class="img-caption-bar"><div class="img-caption-text">FigJam affinity map clustering interview data into pain points, behaviors, and insights.</div></div>
+          </div>
+
+          <div class="pull-quote">
+            <p>"Even short, real-time conversations with AI can increase user confidence and reduce anxiety when walking alone."</p>
+            <cite>GPT-4o interaction testing, Navi research</cite>
+          </div>
+        </section>
+
+        <section id="ideation" class="cs-section">
+          <div class="cs-section-label">Ideation</div>
+          <h2 class="cs-h2">We translated behaviors into features without <em>designing around fear.</em></h2>
+          <p class="cs-p">The key was mapping what people already did for safety into a more intentional product flow: safer route selection, built-in location sharing, and an AI companion call when no one else could pick up.</p>
+
+          <div class="img-block">
+            <img src="userflows.png" alt="User flow diagram showing all app paths" />
+            <div class="img-caption-bar"><div class="img-caption-text">Full user flow covering onboarding, route selection, location sharing, companion support, and incident reporting.</div></div>
+          </div>
+
+          <div class="tradeoff">
+            <div class="tradeoff-label">Key calls we made</div>
+            <div class="tradeoff-body">We removed the nav bar when it created overload, cut friend route visibility when it felt too derivative, and replaced neighborhood safety ratings with incident-based data to avoid reinforcing bias.</div>
+          </div>
+        </section>
+
+        <section id="design" class="cs-section">
+          <div class="cs-section-label">Design</div>
+          <h2 class="cs-h2">Material Design gave us speed. The real focus was the <em>interaction model.</em></h2>
+          <p class="cs-p">With only 24 hours, we used Material Design as a reliable foundation and spent our time on the moments that defined the product: choosing a safer route, sharing progress, and accessing the AI companion.</p>
+
+          <div class="img-row">
+            <div class="img-block">
+              <img src="find-route-cover.png" alt="Safe route selection feature" />
+              <div class="img-caption-bar"><div class="img-caption-text">Safe route selection based on efficiency and incident data.</div></div>
+            </div>
+            <div class="img-block">
+              <img src="ai-call-cover.png" alt="AI companion call feature" />
+              <div class="img-caption-bar"><div class="img-caption-text">AI companion feature that helps users feel accompanied in real time.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="outcome" class="cs-section">
+          <div class="cs-section-label">Outcome</div>
+          <div class="img-block">
+            <img src="win.jpeg" alt="Navi team winning first place" />
+            <div class="img-caption-bar"><div class="img-caption-text">The Navi team with judges at UX Fest SLO.</div></div>
+          </div>
+
+          <div class="win-card">
+            <span class="win-emoji">🏆</span>
+            <div class="win-title">First place, UX Fest SLO</div>
+            <div class="win-desc">Among 20+ teams. Judges highlighted the depth of research and the AI companion concept as the strongest differentiators.</div>
+          </div>
+        </section>
+
+        <section id="learnings" class="cs-section">
+          <div class="cs-section-label">Learnings</div>
+          <h2 class="cs-h2">What 24 hours of pressure taught me.</h2>
+          <div class="learning-list">
+            <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>Rapid testing still reveals real issues</strong> Even quick feedback surfaced overload and bias risks we would have missed otherwise.</div></div>
+            <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>Validate the technology before designing around it</strong> We researched GPT-4o first, then committed to the AI companion experience.</div></div>
+            <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>Safety products should support, not intensify fear</strong> The best decisions often came from removing features that felt dramatic but could do harm.</div></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="g-footer">
+        <div class="footer-left">
+          <em>"complexity is easy. clarity takes work."</em>
+          <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
+        </div>
+        <nav class="footer-links">
+          <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
+          <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
+        </nav>
+      </footer>
+    </div>
   </div>
-</nav>
 
-<div class="hero-media" style="min-height:580px;max-height:580px;" role="img" aria-label="Navi — pedestrian app preview">
-  <img src="navi.png" alt="Navi — pedestrian app preview" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
-</div>
-<div class="page-wrap">
-  <aside class="toc-col" aria-label="Table of contents">
-    <div class="toc-label">On this page</div>
-    <ul class="toc-list" role="list">
-      <li><a class="toc-link active" href="#overview">Overview</a></li>
-      <li><a class="toc-link" href="#problem">The problem</a></li>
-      <li><a class="toc-link" href="#research">Research</a></li>
-      <li><a class="toc-link" href="#ideation">Ideation</a></li>
-      <li><a class="toc-link" href="#design">Design</a></li>
-      <li><a class="toc-link" href="#outcome">Outcome</a></li>
-      <li><a class="toc-link" href="#learnings">Learnings</a></li>
-    </ul>
-  </aside>
+  <script>
+    (function () {
+      const links = document.querySelectorAll('.toc-link');
+      const sections = document.querySelectorAll('section[id]');
+      if (!sections.length) return;
 
-  <main class="cs-main">
-
-    <section id="overview" aria-labelledby="cs-title">
-      <div class="cs-eyebrow">UX Fest SLO · 24-hour designathon · Team of 5</div>
-      <h1 class="cs-title" id="cs-title">a safety app that felt like<br>a friend <em>walking beside you.</em></h1>
-      <p class="cs-tagline">How five designers tackled pedestrian safety in 24 hours — with real user research, a GPT-4o integration, and a first place finish.</p>
-
-      <div class="constraint-badge" aria-label="24 hour time constraint">
-        <span aria-hidden="true">⏱</span>
-        24 hours to research, design, prototype, and present.
-      </div>
-
-      <div class="meta-row" role="list" aria-label="Project details">
-        <div class="meta-cell" role="listitem"><div class="meta-label">Role</div><div class="meta-val">Full Stack Designer</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Timeline</div><div class="meta-val">24 hours</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Team</div><div class="meta-val">5 designers</div></div>
-        <div class="meta-cell" role="listitem"><div class="meta-label">Tools</div><div class="meta-val">Figma · FigJam · GPT-4o</div></div>
-      </div>
-
-      <div class="impact-bar" aria-label="Project outcomes">
-        <div class="impact-label">tldr; the outcomes</div>
-        <div class="impact-stats">
-          <div><div class="stat-num">🥇</div><div class="stat-desc">1st place among 20+ teams at UX Fest SLO</div></div>
-          <div><div class="stat-num">50+</div><div class="stat-desc">data points, 3 rounds of affinity mapping</div></div>
-          <div><div class="stat-num">3</div><div class="stat-desc">rounds of iteration from lo-fi to hi-fi</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="problem" class="cs-section" aria-labelledby="prob-h">
-      <div class="cs-section-label" aria-hidden="true">The problem</div>
-      <h2 class="cs-h2" id="prob-h">The prompt was "travel." We built for<br>the trip most people don't think about.</h2>
-      <p class="cs-p">The hackathon prompt asked for a travel experience. Every team reached for flights, hotels, and itineraries. We took a step back: <strong>what travel problem actually affects people every single day?</strong> For five women on our team, the answer came quickly — walking alone, and the anxiety that comes with it.</p>
-
-      <div class="stat-row" aria-label="Research statistics on pedestrian safety fears">
-        <div class="stat-pill"><div class="stat-pill-num">45%</div><div class="stat-pill-desc">of women feel unsafe taking walks in their area (Gallup, 2023)</div></div>
-        <div class="stat-pill"><div class="stat-pill-num">60%</div><div class="stat-pill-desc">of adults felt unsafe walking alone after dark (ONS, 2021)</div></div>
-        <div class="stat-pill"><div class="stat-pill-num">40%</div><div class="stat-pill-desc">of Americans afraid to walk alone at night — highest since 1993 (Gallup, 2025)</div></div>
-      </div>
-    </section>
-
-    <section id="research" class="cs-section" aria-labelledby="res-h">
-      <div class="cs-section-label" aria-hidden="true">Research</div>
-      <h2 class="cs-h2" id="res-h">50+ data points. 3 rounds of affinity mapping.<br><em>In under 4 hours.</em></h2>
-      <p class="cs-p">We ran rapid interviews and synthesized findings into three clear pain points. Not assumptions, actual patterns from real people. The affinity map below shows how we clustered raw data into insight categories in real time during the hackathon.</p>
-
-      <div class="img-block" aria-label="FigJam affinity mapping session">
-        <div class="img-accent-line"></div>
-        <img src="affinity-map.png" style="width:100%;display:block;" alt="FigJam affinity mapping session showing clustered data points">
-        <div class="img-caption-bar"><p class="img-caption-text">FigJam affinity map — 50+ data points clustered into main pain points, behaviors, contributing factors, and insights. Done in under 4 hours.</p></div>
-      </div>
-
-      <!-- 3 PAIN POINTS -->
-      <div class="cs-section-label" style="margin-top:32px;" aria-hidden="true">3 core pain points</div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;">
-          <div style="min-width:32px;height:32px;background:#8FA876;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0;">1</div>
-          <div>
-            <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px;">Uncertainty in route safety</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6;">Users spend extra time researching new or unfamiliar areas beforehand, looking for the safest and most efficient route. No single tool gave them pedestrian-specific safety data.</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;">
-          <div style="min-width:32px;height:32px;background:#8FA876;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0;">2</div>
-          <div>
-            <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px;">Sharing location for reassurance</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6;">Users feel more secure when they inform friends or family of their location and route. But doing this was fragmented across multiple apps — texts, Life360, Google Maps share — with no unified experience.</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;">
-          <div style="min-width:32px;height:32px;background:#8FA876;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0;">3</div>
-          <div>
-            <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px;">Staying on the phone to feel safe</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6;">Users call trusted people or pretend to be on a call to deter potential threats. When no one is available, they feel more vulnerable — there was no designed solution for this gap.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="two-col" style="margin-top:20px;" aria-label="Research findings">
-        <div class="col-card">
-          <div class="col-label">What existed already</div>
-          <div class="col-item">Google Maps — fastest route, not safest</div>
-          <div class="col-item">Waze — built for drivers, not pedestrians</div>
-          <div class="col-item">Citizen — crime data, no route guidance</div>
-          <div class="col-item">Nothing unified for pedestrian safety</div>
-        </div>
-        <div class="col-card">
-          <div class="col-label">The gap we designed for</div>
-          <div class="col-item">Route safety ranked by real incident data</div>
-          <div class="col-item">Location sharing built into the walk flow</div>
-          <div class="col-item">An AI companion for when no one picks up</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="ideation" class="cs-section" aria-labelledby="ide-h">
-      <div class="cs-section-label" aria-hidden="true">Ideation</div>
-      <h2 class="cs-h2" id="ide-h">Translating pain points into features<br><em>without reinforcing fear.</em></h2>
-      <p class="cs-p">We mapped each pain point to a behavior, and each behavior to a solution. The user flow diagram below shows how we thought through every path a user might take through the app before opening Figma.</p>
-
-      <!-- BEHAVIOR TO SOLUTION -->
-      <div style="margin:22px 0;display:flex;flex-direction:column;gap:10px;">
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;">
-          <div style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);">Current behavior</div>
-          <div></div>
-          <div style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#8FA876;">Our solution</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;">
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="background:rgba(239,108,108,.1);border:.5px solid rgba(239,108,108,.25);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;">Spending time researching area beforehand, previewing routes in Google Maps</div>
-            <div style="background:rgba(239,108,108,.1);border:.5px solid rgba(239,108,108,.25);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;">Calling someone who has their location, letting people know their route</div>
-            <div style="background:rgba(239,108,108,.1);border:.5px solid rgba(239,108,108,.25);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;">Using Life360 so friends are aware of location</div>
-          </div>
-          <div style="font-size:16px;color:var(--dim);">→</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="background:rgba(143,168,118,.1);border:.5px solid rgba(143,168,118,.3);border-radius:6px;padding:10px 12px;font-size:12px;color:#8FA876;line-height:1.5;font-style:italic;">Offering multiple routes based on efficiency and safety, ranked by incident data</div>
-            <div style="background:rgba(143,168,118,.1);border:.5px solid rgba(143,168,118,.3);border-radius:6px;padding:10px 12px;font-size:12px;color:#8FA876;line-height:1.5;font-style:italic;">Some method of informing others about intended route or where they currently are</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:8px;">
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="background:rgba(239,108,108,.1);border:.5px solid rgba(239,108,108,.25);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;">Tries to talk loudly using buzzwords like "you're watching my location right?"</div>
-            <div style="background:rgba(239,108,108,.1);border:.5px solid rgba(239,108,108,.25);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;">Calls friends and family so she doesn't feel alone</div>
-            <div style="background:rgba(239,108,108,.1);border:.5px solid rgba(239,108,108,.25);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5;">Pretends to be on the phone or act busy to deter threats</div>
-          </div>
-          <div style="font-size:16px;color:var(--dim);">→</div>
-          <div>
-            <div style="background:rgba(143,168,118,.1);border:.5px solid rgba(143,168,118,.3);border-radius:6px;padding:10px 12px;font-size:12px;color:#8FA876;line-height:1.5;font-style:italic;">Some method of being able to call someone to seem busy and have support</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- USER FLOWS -->
-      <div class="cs-section-label" style="margin-top:32px;" aria-hidden="true">User flows</div>
-      <div class="img-block" aria-label="User flow diagram">
-        <div class="img-accent-line"></div>
-        <img src="userflows.png" style="width:100%;display:block;" alt="User flow diagram showing all app paths">
-        <div class="img-caption-bar"><p class="img-caption-text">Full user flow diagram — onboarding, route selection, location sharing, tracking friends, safety alerts, and incident reporting. Built before any wireframes.</p></div>
-      </div>
-
-      <div class="tradeoff" aria-label="Key design decisions from testing">
-        <div class="tradeoff-label">Key calls we made in testing</div>
-        <div class="tradeoff-body">
-          <strong>Removed the nav bar between low-fi and mid-fi -> </strong>It was giving users information overload.<br><br>
-          <strong>Removed friends' route visibility -> </strong>Too similar to existing apps, not differentiated enough.<br><br>
-          <strong>Removed safety ratings by neighborhood -> </strong>Ratings could mis-generalize areas and reinforce bias. We replaced with incident-based data that showed facts, not judgments.
-        </div>
-      </div>
-    </section>
-
-    <section id="design" class="cs-section" aria-labelledby="des-h">
-      <div class="cs-section-label" aria-hidden="true">Design</div>
-      <h2 class="cs-h2" id="des-h">Material Design as a foundation.<br>Speed and familiarity as a feature.</h2>
-      <p class="cs-p">With 24 hours total, we made a deliberate choice: base our design system on Material Design. Users already know it, and its documentation meant we could move fast without sacrificing consistency. We spent our limited time on the interactions that mattered most — the AI companion and the route safety flow.</p>
-
-      <!-- NAVI FEATURE CAROUSEL -->
-      <div style="width:100%;font-family:inherit;margin:22px 0;">
-        <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
-          <button onclick="naviSlide(0)" id="navi-tab-0" style="font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;border:.5px solid var(--border);color:var(--text);cursor:pointer;background:var(--surface);">Safe route selection</button>
-          <button onclick="naviSlide(1)" id="navi-tab-1" style="font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;border:.5px solid var(--border);color:var(--muted);cursor:pointer;background:transparent;">Location sharing</button>
-          <button onclick="naviSlide(2)" id="navi-tab-2" style="font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;border:.5px solid var(--border);color:var(--muted);cursor:pointer;background:transparent;">AI companion call</button>
-        </div>
-        <div id="navi-slide-0" style="display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;">
-          <div style="background:var(--surface);border-radius:10px;display:flex;justify-content:center;">
-            <div style="width:180px;height:360px;background:#111;border-radius:28px;overflow:hidden;border:6px solid #222;">
-              <video id="navi-vid-0" src="find-route.mp4" loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;justify-content:space-between;min-height:360px;padding-top:4px;">
-            <div style="display:flex;flex-direction:column;gap:16px;">
-              <div>
-                <div style="font-size:11px;color:var(--dim);letter-spacing:.06em;">Feature 01</div>
-                <div style="font-size:16px;font-weight:500;color:var(--text);line-height:1.3;margin-top:2px;">Safe route selection with incident data</div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:12px;">
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">Input a destination or choose from saved places</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">Reduces friction — most walks are routine, so saved destinations make it faster to get going safely</div></div>
-                </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">View ranked safe routes based on incident reports</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">Surfaces real community-reported data so users make an informed choice, not just the fastest path</div></div>
-                </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">Each route shows estimated time and incident count</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">Lets users weigh safety vs speed themselves — respects autonomy rather than deciding for them</div></div>
-                </div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;padding-top:16px;border-top:.5px solid var(--border);margin-top:auto;">
-              <div onclick="naviSlide(0)" style="width:6px;height:6px;border-radius:50%;background:#8FA876;cursor:pointer;"></div>
-              <div onclick="naviSlide(1)" style="width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;"></div>
-              <div onclick="naviSlide(2)" style="width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;"></div>
-            </div>
-          </div>
-        </div>
-        <div id="navi-slide-1" style="display:none;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;">
-          <div style="background:var(--surface);border-radius:10px;display:flex;justify-content:center;">
-            <div style="width:180px;height:360px;background:#111;border-radius:28px;overflow:hidden;border:6px solid #222;">
-              <video id="navi-vid-1" src="share-route.mp4" loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;justify-content:space-between;min-height:360px;padding-top:4px;">
-            <div style="display:flex;flex-direction:column;gap:16px;">
-              <div>
-                <div style="font-size:11px;color:var(--dim);letter-spacing:.06em;">Feature 02</div>
-                <div style="font-size:16px;font-weight:500;color:var(--text);line-height:1.3;margin-top:2px;">Sharing location with trusted contacts</div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:12px;">
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">Share ETA and live route with trusted contacts</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">Accountability without intrusion — contacts only see what is needed, not constant tracking</div></div>
-                </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">Contact receives a message with route preview link</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">Lowers the barrier for the contact — no app install needed, just a link they can check if worried</div></div>
-                </div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;padding-top:16px;border-top:.5px solid var(--border);margin-top:auto;">
-              <div onclick="naviSlide(0)" style="width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;"></div>
-              <div onclick="naviSlide(1)" style="width:6px;height:6px;border-radius:50%;background:#8FA876;cursor:pointer;"></div>
-              <div onclick="naviSlide(2)" style="width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;"></div>
-            </div>
-          </div>
-        </div>
-        <div id="navi-slide-2" style="display:none;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;">
-          <div style="background:var(--surface);border-radius:10px;display:flex;justify-content:center;">
-            <div style="width:180px;height:360px;background:#111;border-radius:28px;overflow:hidden;border:6px solid #222;">
-              <video id="navi-vid-2" src="ai-call.mp4" loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;justify-content:space-between;min-height:360px;padding-top:4px;">
-            <div style="display:flex;flex-direction:column;gap:16px;">
-              <div>
-                <div style="font-size:11px;color:var(--dim);letter-spacing:.06em;">Feature 03</div>
-                <div style="font-size:16px;font-weight:500;color:var(--text);line-height:1.3;margin-top:2px;">AI companion call for safer walks</div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:12px;">
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">AI-generated call mimics natural human conversation</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">Being on a call is a known deterrent — this gives users that protection even when no one is available</div></div>
-                </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <div style="width:5px;height:5px;border-radius:50%;background:#8FA876;flex-shrink:0;margin-top:6px;"></div>
-                  <div><div style="font-size:14px;color:var(--text);line-height:1.5;">One-tap access to call 911 at any point</div><div style="font-size:12px;color:var(--muted);line-height:1.55;margin-top:2px;">The companion call buys time, but real help is always one tap away — users never feel trapped</div></div>
-                </div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;padding-top:16px;border-top:.5px solid var(--border);margin-top:auto;">
-              <div onclick="naviSlide(0)" style="width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;"></div>
-              <div onclick="naviSlide(1)" style="width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;"></div>
-              <div onclick="naviSlide(2)" style="width:6px;height:6px;border-radius:50%;background:#8FA876;cursor:pointer;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pull-quote">
-        <p>"Even short, real-time conversations with AI can increase user confidence and reduce anxiety when walking alone."</p>
-        <cite>— GPT-4o interaction testing, Navi research</cite>
-      </div>
-
-      <script>
-      function naviSlide(n){
-        [0,1,2].forEach(i=>{
-          const slide=document.getElementById('navi-slide-'+i);
-          const tab=document.getElementById('navi-tab-'+i);
-          const vid=document.getElementById('navi-vid-'+i);
-          const isActive=i===n;
-          slide.style.display=isActive?'grid':'none';
-          tab.style.background=isActive?'var(--surface)':'transparent';
-          tab.style.color=isActive?'var(--text)':'var(--muted)';
-          if(vid){isActive?vid.play():(vid.pause(),vid.currentTime=0);}
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            links.forEach((link) => link.classList.remove('active'));
+            const active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
         });
-      }
-      </script>
-    </section>
+      }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
 
-    <section id="outcome" class="cs-section" aria-labelledby="out-h">
-      <div class="cs-section-label" aria-hidden="true">Outcome</div>
-       <div class="img-block" aria-label="Team winning">
-        <div class="img-accent-line"></div>
-        <img src="win.jpeg" style="width:100%;display:block;" alt="First place winning image">
-        <div class="img-caption-bar"><p class="img-caption-text">The Navi Team & Judges!</p></div>
-      </div>
-
-      <div class="win-card" aria-label="First place win">
-        <span class="win-emoji" aria-hidden="true">🏆</span>
-        <div class="win-title">First place, UX Fest SLO</div>
-        <div class="win-desc">Among 20+ teams. Data-driven, user-tested, and shipped in 24 hours. The judges cited our research depth and the AI companion feature as the strongest differentiators.</div>
-      </div>
-    </section>
-
-    <section id="learnings" class="cs-section" aria-labelledby="learn-h">
-      <div class="cs-section-label" aria-hidden="true">Learnings</div>
-      <h2 class="cs-h2" id="learn-h">What 24 hours of real pressure taught me.</h2>
-      <div class="learning-list" role="list">
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">01</span>
-          <div class="learning-text">
-            <strong>Rapid testing still gives you real insights</strong>
-            We didn't have days or weeks. We had hours. But even a quick round of user feedback revealed things we never would have caught on our own — the nav bar overload, the bias in safety ratings. Research doesn't have to be long to be meaningful.
-          </div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">02</span>
-          <div class="learning-text">
-            <strong>Validate the technology before designing for it</strong>
-            I led the GPT-4o research before we committed to the AI companion feature. Designing around AI assumptions you haven't tested leads to features that don't actually work. We validated first — then designed.
-          </div>
-        </div>
-        <div class="learning" role="listitem">
-          <span class="learning-num" aria-hidden="true">03</span>
-          <div class="learning-text">
-            <strong>Designing for safety means designing against fear</strong>
-            The hardest moment was cutting the neighborhood safety ratings. They felt useful. But they were a design choice that could harm real communities. That tension — between what feels helpful and what actually is — is something I think about in every project now.
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<footer class="g-footer" aria-label="Site footer">
-  <div class="footer-left">
-    <em>"complexity is easy. clarity takes work."</em>
-    <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
-  </div>
-  <nav class="footer-links" aria-label="Footer links">
-    <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" aria-label="Download resume">Resume ↗</a>
-    <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
-  </nav>
-</footer>
-
-<script>
-(function(){
-  const links=document.querySelectorAll('.toc-link');
-  const sections=document.querySelectorAll('main section[id]');
-  if(!sections.length)return;
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.toc-link[href="#'+e.target.id+'"]');if(a)a.classList.add('active');}});
-  },{rootMargin:'-10% 0px -75% 0px',threshold:0});
-  sections.forEach(s=>obs.observe(s));
-})();
-</script>
+      sections.forEach((section) => obs.observe(section));
+    })();
+  </script>
 </body>
 </html>
