@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enterprise AI and Product Strategy, Cisco Splunk — Navyaa Vemuri</title>
+<title>Cisco Splunk — Navyaa Vemuri</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -13,453 +13,382 @@
   --text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;
   --accent:#3B5BDB;--accent-bg:#EEF2FF;--accent-border:#C5D0FA;
   --conflict:#C4745A;--conflict-bg:#FDF0EC;--conflict-border:#F0C8B8;
-  --nav-h:60px;
+  --shadow:0 12px 32px rgba(26,26,26,.06);
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
 .layout{display:flex;min-height:100vh;}
-/* SIDEBAR */
-.cs-sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);overflow-y:auto;scrollbar-width:none;}
-.cs-sidebar::-webkit-scrollbar{display:none;}
-.stamp{width:160px;margin-bottom:32px;flex-shrink:0;}
+
+/* sidebar */
+.cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
+.stamp{width:180px;margin-bottom:28px;flex-shrink:0;}
 .stamp img{width:100%;display:block;background:#E8EAF0;min-height:130px;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
 .stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
 .stamp:hover img{animation-play-state:paused;}
-.toc-label{font-size:9px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;margin-bottom:auto;}
+.sidebar-mid{display:flex;flex-direction:column;gap:18px;}
+.back-link{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
+.back-link:hover{color:var(--text);}
+.toc-label{font-size:9px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-top:6px;}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
 .toc-link{font-size:13px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
 .toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
 .toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
-.back-link{font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding-top:24px;border-top:.5px solid var(--border);margin-top:24px;transition:color .2s;flex-shrink:0;}
-.back-link:hover{color:var(--text);}
-/* RIGHT COLUMN */
-.right-col{flex:1;min-width:0;}
-.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:480px;position:relative;overflow:hidden;}
+.sidebar-bottom{margin-top:auto;padding-top:28px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:18px;}
+.sidebar-link{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
+.sidebar-link:hover{color:var(--text);}
+
+/* mobile */
+.mobile-topbar,.mobile-toc{display:none;}
+.mobile-topbar{position:sticky;top:0;z-index:50;background:rgba(253,253,253,.92);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:18px 20px;align-items:center;justify-content:space-between;}
+.mobile-brand{font-size:14px;color:var(--text);text-decoration:none;letter-spacing:-.01em;}
+.mobile-menu-btn{border:none;background:transparent;display:flex;flex-direction:column;gap:5px;padding:4px;cursor:pointer;}
+.mobile-menu-btn span{width:18px;height:1.5px;background:var(--text);display:block;transition:transform .25s,opacity .25s;}
+.mobile-menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.mobile-menu-btn.open span:nth-child(2){opacity:0;}
+.mobile-menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:59px 0 auto 0;z-index:45;background:rgba(253,253,253,.98);border-bottom:.5px solid var(--border);padding:24px 20px 28px;box-shadow:var(--shadow);}
+.mobile-menu.open{display:block;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:18px;}
+.mobile-menu-link{font-size:15px;color:var(--muted);text-decoration:none;}
+.mobile-menu-link:hover{color:var(--text);}
+.mobile-toc{position:sticky;top:59px;z-index:40;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:10px 20px;overflow-x:auto;scrollbar-width:none;gap:12px;}
+.mobile-toc::-webkit-scrollbar{display:none;}
+.mobile-toc-link{white-space:nowrap;font-size:12px;color:var(--dim);text-decoration:none;padding:6px 10px;border:.5px solid var(--border);border-radius:999px;background:var(--bg);}
+.mobile-toc-link.active{color:var(--accent);border-color:var(--accent-border);background:var(--accent-bg);}
+
+.right-col{flex:1;min-width:0;overflow-y:auto;}
+.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:420px;max-height:560px;overflow:hidden;}
 .hero-media img{width:100%;height:100%;object-fit:cover;display:block;}
-/* MAIN */
-.cs-main{padding:52px 64px 96px;min-width:0;}
-/* CONTENT */
-.cs-eyebrow{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
-.cs-title{font-size:38px;font-weight:300;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:14px;}
-.cs-title em{font-style:italic;color:var(--accent);}
-.cs-tagline{font-size:15px;color:var(--muted);line-height:1.74;max-width:560px;margin-bottom:36px;}
-.meta-row{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px;}
-.meta-cell{background:var(--surface);padding:16px 20px;}
-.meta-cell+.meta-cell{border-left:.5px solid var(--border);}
-.meta-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;font-weight:500;}
-.meta-val{font-size:13px;color:var(--text);line-height:1.4;}
-.impact-bar{padding:24px 28px;background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:10px;margin-bottom:40px;}
-.impact-label{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;font-weight:500;}
-.impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.stat-num{font-size:30px;font-weight:300;color:var(--accent);letter-spacing:-.02em;line-height:1;}
-.stat-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
-.cs-section{margin-bottom:64px;}
-.cs-section-label{font-size:10px;color:var(--accent);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-weight:500;}
+.cs-main{padding:52px 64px 96px;max-width:960px;}
+.cs-section{margin-bottom:72px;scroll-margin-top:110px;}
+
+.cs-eyebrow,.cs-section-label,.metric-label,.mini-label,.scan-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
+.cs-eyebrow{color:var(--accent);margin-bottom:14px;}
+.cs-title{font-size:46px;font-weight:300;line-height:1.05;letter-spacing:-.04em;max-width:760px;margin-bottom:16px;}
+.cs-title em,.cs-h2 em{font-style:italic;color:var(--accent);}
+.cs-tagline{font-size:17px;line-height:1.7;color:var(--text);max-width:720px;margin-bottom:28px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.hero-badge{font-size:12px;font-weight:400;color:#2A2A2A;background:#FDFDFD;border:.5px solid #D8D6D2;border-radius:999px;padding:5px 12px;letter-spacing:.01em;}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.metric-card{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:12px;padding:20px 22px;}
+.metric-num{font-size:30px;font-weight:300;color:var(--accent);line-height:1;letter-spacing:-.02em;}
+.metric-label{color:var(--accent);margin-bottom:14px;}
+.metric-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px;}
+.scan-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.scan-card{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;}
+.scan-label{color:var(--accent);margin-bottom:8px;}
+.scan-copy{font-size:14px;color:var(--text);line-height:1.65;}
+.cs-section-label{color:var(--dim);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
 .cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
-.cs-h2{font-size:21px;font-weight:300;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:14px;}
-.cs-h2 em{font-style:italic;color:var(--accent);}
-.cs-p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
-.cs-p:last-child{margin-bottom:0;}
+.cs-h2{font-size:28px;font-weight:400;line-height:1.2;letter-spacing:-.025em;margin-bottom:14px;max-width:760px;}
+.cs-p{font-size:15px;color:var(--muted);line-height:1.8;max-width:720px;margin-bottom:14px;}
 .cs-p strong{color:var(--text);font-weight:400;}
+.two-col,.img-row,.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
+.mini-grid.three{grid-template-columns:repeat(3,1fr);}
+.col-card,.mini-card,.annotation-card{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;}
+.col-label,.mini-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
+.col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:6px 0;border-bottom:.5px solid var(--border);}
+.col-item:last-child{border-bottom:none;}
+.mini-copy,.annotation-copy{font-size:13px;color:var(--muted);line-height:1.7;}
+.annotation-title{font-size:13px;color:var(--text);font-weight:500;margin-bottom:8px;}
+.img-block{margin:22px 0;border-radius:12px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
+.img-block img,.img-block video{width:100%;display:block;}
+.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
+.img-caption-bar{padding:12px 18px;border-top:.5px solid var(--border);}
+.img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
 .pull-quote{margin:24px 0;padding:22px 26px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 8px 8px 0;position:relative;}
 .pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.15;font-family:Georgia,serif;line-height:1;}
 .pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
 .pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
-.conflict{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
-.conflict-label{font-size:10px;color:var(--conflict);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
-.conflict-body strong{color:var(--text);font-weight:400;}
-.proj-cards{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
-.proj-card{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:18px 22px;}
-.proj-num{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
-.proj-title{font-size:15px;color:var(--text);font-weight:400;margin-bottom:6px;}
-.proj-desc{font-size:13px;color:var(--muted);line-height:1.65;}
-.img-block{margin:22px 0;border-radius:10px;overflow:hidden;background:var(--surface);border:.5px solid var(--border);position:relative;}
-.img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
-.img-inner{padding:64px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;position:relative;z-index:1;}
-.img-inner.short{padding:44px 28px;}
-.img-label{font-size:12px;color:var(--muted);letter-spacing:.04em;}
-.img-caption{font-size:11px;color:var(--dim);font-style:italic;margin-top:4px;}
-.img-block img,.img-block video{width:100%;display:block;}
-.img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
-.img-row .img-block{margin:0;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
-.col-card{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:18px 20px;}
-.col-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
-.col-item{font-size:13px;color:var(--muted);line-height:1.6;padding:5px 0;border-bottom:.5px solid var(--border);}
-.col-item:last-child{border-bottom:none;}
-.tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
-.tradeoff-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.tradeoff-body{font-size:13px;color:var(--muted);line-height:1.78;}
-.tradeoff-body strong{color:var(--text);font-weight:400;}
+.tradeoff,.conflict{border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
+.tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);}
+.conflict{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);}
+.tradeoff-label,.conflict-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.tradeoff-label{color:var(--accent);} .conflict-label{color:var(--conflict);}
+.tradeoff-body,.conflict-body{font-size:13px;color:var(--muted);line-height:1.78;}
 .learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
 .learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
 .learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
 .learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
 .learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
-.decision-grid{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
-.decision-card{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:.5px solid var(--border);border-radius:8px;overflow:hidden;}
-.decision-card.conflict-card{border-left:2px solid var(--conflict);}
-.decision-card.tradeoff-card{border-left:2px solid var(--accent);}
-.dc-tension{padding:16px 18px;border-right:.5px solid var(--border);}
-.dc-resolution{padding:16px 18px;background:var(--bg);}
-.dc-tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
-.dc-tag.tension-tag{color:var(--conflict);}
-.dc-tag.resolution-tag{color:var(--accent);}
-.dc-text{font-size:13px;color:var(--muted);line-height:1.68;}
-.dc-text strong{color:var(--text);font-weight:400;}
-.conflict-header{background:var(--conflict-bg);border:.5px solid var(--conflict-border);border-left:2px solid var(--conflict);border-radius:0 8px 8px 0;padding:14px 20px;margin:18px 0 8px;}
-.conflict-header-label{font-size:10px;color:var(--conflict);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
-.conflict-header-text{font-size:13px;color:var(--muted);line-height:1.65;}
-.conflict-header-text strong{color:var(--text);font-weight:400;}
-.img-caption-bar{padding:10px 18px;border-top:.5px solid var(--border);}
-.img-caption-text{font-size:11px;color:var(--dim);line-height:1.6;}
-.img-caption-text strong{color:var(--muted);font-weight:400;}
-/* WIREFRAME PROGRESSION */
-.wire-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0;}
-.wire-card{background:var(--surface);border:.5px solid var(--border);border-radius:10px;overflow:hidden;}
-.wire-header{background:#F0EFEC;padding:7px 12px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.wire-header-label{font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
-.wire-header-badge{font-size:9px;background:#3B5BDB;color:#fff;padding:1px 7px;border-radius:10px;font-weight:500;}
-.wire-body{padding:10px 12px 14px;display:flex;flex-direction:column;gap:5px;}
-.wl{height:6px;background:#E0DEDB;border-radius:2px;}
-.wl.sm{height:4px;}
-.wl.accent{background:#C5D0FA;}
-.wb{background:#EEECEA;border-radius:3px;padding:4px;}
-.wb-img{height:18px;background:#E0DEDB;border-radius:2px;margin-bottom:3px;}
-.wb-t{height:3px;width:70%;background:#E0DEDB;border-radius:1px;}
-.wb-s{height:2px;width:50%;background:#E0DEDB;border-radius:1px;margin-top:2px;}
-.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:2px;}
-/* PUSHBACK VISUAL */
-.pushback-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}
-.pushback-card{border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;}
-.pushback-card.tension{background:var(--conflict-bg);border:.5px solid var(--conflict-border);}
-.pushback-card.evidence{background:#F0FDF8;border:.5px solid #B8E8D8;}
-.pushback-tag{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;}
-.pushback-tag.t{color:var(--conflict);}
-.pushback-tag.e{color:#0F6E56;}
-.pushback-quote{font-size:13px;color:var(--muted);line-height:1.6;font-style:italic;}
-.pushback-attr{font-size:11px;color:var(--dim);}
-.pushback-stat{font-size:28px;font-weight:600;color:#0F6E56;letter-spacing:-.02em;line-height:1;}
-.pushback-sub{font-size:12px;color:var(--muted);line-height:1.5;}
-.pushback-bar{height:6px;background:#E0F5EE;border-radius:3px;overflow:hidden;margin-top:4px;}
-.pushback-bar-fill{height:100%;background:#0F6E56;border-radius:3px;}
-/* AI MATCH SCORE */
-.match-score-card{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:8px;padding:12px 14px;margin-top:14px;}
-.match-score-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-weight:500;}
-.match-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.match-row:last-child{margin-bottom:0;}
-.match-name{font-size:11px;color:var(--muted);flex:1;}
-.match-bar-wrap{width:80px;height:5px;background:#E8E8E4;border-radius:3px;overflow:hidden;}
-.match-bar-fill{height:100%;background:var(--accent);border-radius:3px;}
-.match-pct{font-size:10px;color:var(--accent);min-width:28px;text-align:right;}
-/* FOOTER */
 .g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
-.footer-left{font-size:12px;color:var(--dim);}
-.footer-left em{font-style:italic;color:var(--muted);}
-.footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
-.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
-.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
-.footer-link:hover{color:var(--text);}
-.footer-cta{font-size:12px;color:var(--accent);text-decoration:none;border:.5px solid var(--accent-border);border-radius:4px;padding:7px 16px;}
-.footer-cta:hover{background:var(--accent-bg);}
-@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.footer-left{font-size:12px;color:var(--dim);} .footer-left em{font-style:italic;color:var(--muted);} .footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
+.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}.footer-link:hover{color:var(--text);} .footer-cta{font-size:12px;color:var(--accent);text-decoration:none;border:.5px solid var(--accent-border);border-radius:4px;padding:7px 16px;transition:background .2s;}.footer-cta:hover{background:var(--accent-bg);}
+
 @media(max-width:900px){
-  .layout{flex-direction:column;}
-  .cs-sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:24px;flex-direction:row;flex-wrap:wrap;gap:16px;}
-  .stamp{width:80px;margin-bottom:0;}
-  .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;margin-bottom:0;}
-  .toc-link{border-left:none;border-bottom:1.5px solid var(--border);padding:5px 10px;}
-  .toc-link.active{border-bottom-color:var(--accent);}
-  .back-link{border-top:none;margin-top:0;padding-top:0;}
+  .layout{display:block;}
+  .cs-sidebar{display:none;}
+  .mobile-topbar,.mobile-toc{display:flex;}
+  .right-col{width:100%;}
+  .hero-media{min-height:320px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
-  .meta-row{grid-template-columns:repeat(2,1fr);}
-  .impact-stats,.two-col,.img-row,.decision-card,.wire-grid,.pushback-grid{grid-template-columns:1fr;}
-  .g-footer{padding:24px;flex-direction:column;gap:12px;}
+  .metrics-grid,.scan-summary,.two-col,.img-row,.mini-grid,.mini-grid.three{grid-template-columns:1fr;}
+  .g-footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+@media(max-width:600px){.cs-title{font-size:34px;}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 </style>
 </head>
 <body>
-<div class="layout">
+<div class="mobile-topbar">
+  <a href="index.html" class="mobile-brand">navyaa vemuri</a>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-links">
+    <a href="index.html#work" class="mobile-menu-link">← Back to work</a>
+    <a href="about.html" class="mobile-menu-link">About me</a>
+    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank" rel="noopener">Resume ↗</a>
+    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
+  </div>
+</div>
+<div class="mobile-toc">
+  <a href="#overview" class="mobile-toc-link active">Overview</a>
+  <a href="#context" class="mobile-toc-link">Context</a>
+  <a href="#audit" class="mobile-toc-link">Audit</a>
+  <a href="#demo" class="mobile-toc-link">Demo Center</a>
+  <a href="#ai" class="mobile-toc-link">AI Feature</a>
+  <a href="#learnings" class="mobile-toc-link">Learnings</a>
+</div>
 
+<div class="layout">
   <aside class="cs-sidebar">
     <div class="stamp">
       <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.background='#E8EAF0'">
     </div>
-    <div class="toc-label">on this page</div>
-    <ul class="toc-list">
-      <li><a href="#overview" class="toc-link active">Overview</a></li>
-      <li><a href="#context" class="toc-link">Context</a></li>
-      <li><a href="#audit" class="toc-link">Heuristic audit</a></li>
-      <li><a href="#demo" class="toc-link">Demo Center</a></li>
-      <li><a href="#ai" class="toc-link">AI code snippet</a></li>
-      <li><a href="#learnings" class="toc-link">Learnings</a></li>
-    </ul>
-    <a href="index.html" class="back-link">← back to work</a>
+    <div class="sidebar-mid">
+      <a href="index.html#work" class="back-link">← Back to work</a>
+      <div class="toc-label">on this page</div>
+      <ul class="toc-list">
+        <li><a href="#overview" class="toc-link active">Overview</a></li>
+        <li><a href="#context" class="toc-link">Context</a></li>
+        <li><a href="#audit" class="toc-link">Audit</a></li>
+        <li><a href="#demo" class="toc-link">Demo Center</a></li>
+        <li><a href="#ai" class="toc-link">AI Feature</a></li>
+        <li><a href="#learnings" class="toc-link">Learnings</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-bottom">
+      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-link" target="_blank" rel="noopener">Resume ↗</a>
+      <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-link">Mail ↗</a>
+    </div>
   </aside>
 
   <div class="right-col">
-
-    <div class="hero-media" style="height:580px;">
-      <img src="cisco.png" alt="Cisco Splunk" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <div class="hero-media">
+      <img src="cisco.png" alt="Cisco Splunk">
     </div>
 
     <div class="cs-main">
-
-      <section id="overview">
+      <section id="overview" class="cs-section">
         <div class="cs-eyebrow">Cisco Splunk · UX Design Intern · Summer 2025</div>
-        <h1 class="cs-title">three projects. twelve weeks.<br><em>all shipped.</em></h1>
-        <p class="cs-tagline">How I audited an entire enterprise web ecosystem, designed a demo discovery platform from zero to live, and innovated at a org-wide hackathon.</p>
+        <h1 class="cs-title">Improved discovery, clarity, and AI engagement across Cisco Splunk in 12 weeks.</h1>
+        <p class="cs-tagline">I joined during a complex post-acquisition moment and worked across three leverage points: ecosystem usability, demo discovery, and AI-powered engagement. In one summer, I audited 8+ domains, shipped a new Demo Center live on splunk.com, and designed an AI code snippet feature that tested at 100% satisfaction.</p>
 
-        <div class="meta-row">
-          <div class="meta-cell"><div class="meta-label">Role</div><div class="meta-val">UX Design Intern</div></div>
-          <div class="meta-cell"><div class="meta-label">Timeline</div><div class="meta-val">Jun to Sept 2025 (12 weeks)</div></div>
-          <div class="meta-cell"><div class="meta-label">Tools</div><div class="meta-val">Figma · Miro · UserTesting · Cisco AI · Jira</div></div>
-          <div class="meta-cell"><div class="meta-label">Scope</div><div class="meta-val">3 projects, all live or dev-ready</div></div>
+        <div class="hero-badges">
+          <span class="hero-badge">Enterprise UX</span>
+          <span class="hero-badge">AI interaction</span>
+          <span class="hero-badge">Systems thinking</span>
+          <span class="hero-badge">12-week sprint</span>
+          <span class="hero-badge">Shipped work</span>
         </div>
 
-        <div class="impact-bar">
-          <div class="impact-label">tldr; the outcomes</div>
-          <div class="impact-stats">
-            <div><div class="stat-num">8+</div><div class="stat-desc">domains audited, findings immediately prioritized across sprint teams</div></div>
-            <div><div class="stat-num">3 to 1</div><div class="stat-desc">clicks reduced to find demos, Demo Center now live on splunk.com</div></div>
-            <div><div class="stat-num">100%</div><div class="stat-desc">user satisfaction in testing for AI code snippet feature</div></div>
+        <div class="metrics-grid">
+          <div class="metric-card"><div class="metric-label">Audit scope</div><div class="metric-num">8+</div><div class="metric-desc">domains reviewed across Splunk's web ecosystem</div></div>
+          <div class="metric-card"><div class="metric-label">Navigation</div><div class="metric-num">3 to 1</div><div class="metric-desc">clicks reduced to find product demos</div></div>
+          <div class="metric-card"><div class="metric-label">Validation</div><div class="metric-num">100%</div><div class="metric-desc">feature satisfaction in AI snippet testing</div></div>
+          <div class="metric-card"><div class="metric-label">Delivery</div><div class="metric-num">3</div><div class="metric-desc">projects shipped or handed off dev-ready</div></div>
+        </div>
+
+        <div class="scan-summary">
+          <div class="scan-card">
+            <div class="scan-label">The challenge</div>
+            <div class="scan-copy">Cisco had just acquired Splunk, which meant users were moving through a fragmented ecosystem during a major transition.</div>
           </div>
-        </div>
-
-        <div class="proj-cards">
-          <div class="proj-card"><div class="proj-num">Project 01</div><div class="proj-title">Heuristic evaluation of Splunk's entire web ecosystem</div><div class="proj-desc">Audited 8 or more domains against Nielsen's 10 heuristics. Findings presented to all sprint teams and immediately prioritized for resolution.</div></div>
-          <div class="proj-card"><div class="proj-num">Project 02</div><div class="proj-title">Product Demo Center: research to live on splunk.com</div><div class="proj-desc">Designed a centralized demo discovery platform from scratch. Cut navigation depth from 3 or more clicks to 1. Currently live.</div></div>
-          <div class="proj-card"><div class="proj-num">Project 03</div><div class="proj-title">Agentic AI code snippet feature: hackathon to dev-ready specs</div><div class="proj-desc">Identified a high-intent drop-off moment, designed an AI-powered solution during the org hackathon, achieved 100% satisfaction in user testing, delivered complete dev specs.</div></div>
+          <div class="scan-card">
+            <div class="scan-label">What I did</div>
+            <div class="scan-copy">I found three leverage points that could improve the experience quickly: cross-domain usability, demo discovery, and retention after high-intent code interactions.</div>
+          </div>
         </div>
       </section>
 
       <section id="context" class="cs-section">
         <div class="cs-section-label">Context</div>
-        <h2 class="cs-h2">A $28 billion acquisition. Two disconnected ecosystems. One summer to help make sense of it.</h2>
-        <p class="cs-p">In 2024, Cisco acquired Splunk for $28 billion. When I joined in summer 2025, Splunk was in the middle of a complex integration: preparing to consolidate into cisco.com while maintaining its distinct product ecosystem and brand. This created structural UX problems that individual product teams could not see from inside their silos.</p>
-        <p class="cs-p">My work touched all three layers: auditing the fragmented current state, improving how users discovered and navigated products, and designing AI-powered features that pushed the experience forward.</p>
+        <h2 class="cs-h2">I joined in the middle of a complex integration, where users were feeling the seams.</h2>
+        <p class="cs-p">Cisco acquired Splunk in 2024 for $28 billion. By summer 2025, Splunk was preparing to consolidate into cisco.com while still maintaining its own product ecosystem. That created a UX problem bigger than any one page or team: people were moving through disconnected surfaces with inconsistent language, navigation, and priorities.</p>
+        <p class="cs-p">My work focused on three places where design could make the biggest difference quickly: understanding ecosystem-wide friction, making demos easier to discover, and designing a smarter response to high-intent developer behavior.</p>
+
+        <div class="mini-grid three">
+          <div class="mini-card"><div class="mini-label">Systems view</div><div class="mini-copy">Audited the experience across multiple domains instead of only looking at isolated product pages.</div></div>
+          <div class="mini-card"><div class="mini-label">Product value</div><div class="mini-copy">Made it easier for users to discover demos that helped them understand what Splunk actually offered.</div></div>
+          <div class="mini-card"><div class="mini-label">Future-facing UX</div><div class="mini-copy">Explored how AI could keep developers engaged after they copied a code snippet and were ready to leave.</div></div>
+        </div>
       </section>
 
       <section id="audit" class="cs-section">
-        <div class="cs-section-label">Heuristic audit</div>
-        <h2 class="cs-h2">Eight domains inspected through Nielsen's 10 Heuristics</h2>
-        <p class="cs-p">I combed through every page, component, and user flow across Splunk's web ecosystem. Every violation was documented by heuristic, rated by severity (critical, major, or minor), and accompanied by screenshots and specific recommendations. The goal was not just to find problems but to give sprint teams something they could immediately act on.</p>
-        <p class="cs-p">The audit also revealed something important: product teams working on individual domains had no visibility into the patterns across the whole ecosystem. Navigation inconsistencies, terminology fragmentation, and broken information flows only became visible when you looked at all eight domains together. That perspective was the unique value I added.</p>
+        <div class="cs-section-label">Audit</div>
+        <h2 class="cs-h2">I turned a fragmented web ecosystem into something teams could actually act on.</h2>
+        <p class="cs-p">I audited 8 or more domains against Nielsen's 10 heuristics and documented issues by severity, pattern, and affected user flow. The value was not just spotting problems. It was making cross-domain friction visible in a way sprint teams could prioritize.</p>
+        <p class="cs-p">I did not redesign these pages during my internship. Instead, I translated the highest-impact issues into actionable recommendations that teams could carry forward.</p>
 
         <div style="margin:24px 0;border-radius:12px;overflow:hidden;border:.5px solid var(--border);">
           <iframe src="splunk_journey_map.html" style="width:100%;height:620px;border:none;display:block;" title="Splunk Customer Experience Journey Map" loading="lazy"></iframe>
         </div>
-        <p style="font-size:11px;color:var(--dim);font-style:italic;margin-top:10px;line-height:1.6;">Built in Claude Code for stakeholder accessibility — click any stage or domain card to explore cross-domain pain points and recommendations.</p>
+        <div class="img-caption-bar" style="margin-top:-22px;border:.5px solid var(--border);border-top:none;border-radius:0 0 12px 12px;background:var(--surface);"><div class="img-caption-text">Interactive journey map built to help stakeholders see pain points across domains, not just inside their own teams.</div></div>
 
         <div class="two-col">
           <div class="col-card">
             <div class="col-label">What I delivered</div>
-            <div class="col-item">Full audit spreadsheet: every violation categorized and severity-rated</div>
-            <div class="col-item">Interactive prototype of findings (built in Claude Code)</div>
-            <div class="col-item">Presentations delivered to all sprint teams</div>
-            <div class="col-item">Framework for ongoing heuristic evaluation</div>
+            <div class="col-item">Full heuristic audit with categorized issues and severity ratings</div>
+            <div class="col-item">Cross-domain journey map for stakeholder visibility</div>
+            <div class="col-item">Prioritized recommendations teams could pull into sprint planning</div>
+            <div class="col-item">A repeatable evaluation method for future audits</div>
           </div>
           <div class="col-card">
-            <div class="col-label">The impact</div>
-            <div class="col-item">Recommendations immediately prioritized in sprint planning</div>
-            <div class="col-item">Created an editable document that could be passed through the org</div>
-            <div class="col-item">Established heuristic evaluation as a repeatable process</div>
-            <div class="col-item">Cross-domain patterns visible to leadership for the first time</div>
+            <div class="col-label">Why it mattered</div>
+            <div class="col-item">Made ecosystem-level patterns visible for the first time</div>
+            <div class="col-item">Shifted teams from isolated fixes to shared UX issues</div>
+            <div class="col-item">Turned abstract usability problems into concrete next steps</div>
+            <div class="col-item">Created leverage beyond a single page or feature</div>
           </div>
+        </div>
+
+        <div class="tradeoff">
+          <div class="tradeoff-label">What I would add next</div>
+          <div class="tradeoff-body">If I had more time, this section would include lightweight recommendation concepts for the most severe patterns. For now, I am keeping this honest to the work that was actually delivered: diagnostic strategy, prioritization, and communication.</div>
         </div>
       </section>
 
       <section id="demo" class="cs-section">
         <div class="cs-section-label">Demo Center</div>
-        <h2 class="cs-h2">Users could not find the demos. So they never used them.</h2>
-        <p class="cs-p">Splunk had no centralized home for product demos. They were buried under Main Nav, then Resources, then filtered by "Product Tours." Three or more clicks to get to something most users never discovered existed. I analyzed Mouseflow session recordings and confirmed: nearly no one found the demos through organic navigation.</p>
-        <p class="cs-p">My goal was to design a dedicated discovery platform that put demos front and center, and to get it live before the end of my internship.</p>
+        <h2 class="cs-h2">Users could not find the demos, so they never used them.</h2>
+        <p class="cs-p">Splunk had no centralized home for product demos. To find one, users had to move through multiple layers of navigation, and most never discovered the content at all. Mouseflow recordings made that clear fast.</p>
+        <p class="cs-p">I designed a dedicated Demo Center that made demos easy to discover, easier to scan, and easier to access directly from the homepage.</p>
 
         <div class="pull-quote">
           <p>"Users who found the demos had to navigate through three or more clicks, and most users never discovered they existed at all."</p>
           <cite>Mouseflow session analysis, June 2025</cite>
         </div>
 
-        <div class="cs-section-label" style="margin-top:28px;">Wireframe progression</div>
-        <div class="wire-grid">
-          <div class="wire-card">
-            <div class="wire-header"><span class="wire-header-label">V1 – V3 · low fi</span><span style="font-size:9px;color:var(--dim);">structure</span></div>
-            <div class="wire-body">
-              <div class="wl"></div>
-              <div style="display:flex;gap:5px;margin-top:2px;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div class="wl sm"></div><div class="wl sm" style="width:55%;"></div></div>
-                <div style="width:36%;height:36px;background:#E0DEDB;border-radius:3px;"></div>
-              </div>
-              <div class="wgrid"><div class="wb"><div class="wb-img"></div><div class="wb-t"></div><div class="wb-s"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div><div class="wb-s"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div><div class="wb-s"></div></div></div>
-              <div class="wgrid"><div class="wb"><div class="wb-img"></div><div class="wb-t"></div><div class="wb-s"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div><div class="wb-s"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div><div class="wb-s"></div></div></div>
-            </div>
+        <div class="img-row">
+          <div class="annotation-card">
+            <div class="annotation-title">Before</div>
+            <div class="annotation-copy">Homepage → Resources → Product Tours → filtered list. High friction before the user even knew what was available.</div>
           </div>
-          <div class="wire-card">
-            <div class="wire-header"><span class="wire-header-label" style="color:var(--accent);">V4 – V7 · mid fi</span><span style="font-size:9px;color:var(--dim);">content</span></div>
-            <div class="wire-body">
-              <div class="wl"></div>
-              <div style="display:flex;gap:4px;align-items:center;background:var(--accent-bg);border-radius:3px;padding:5px;margin-top:2px;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div class="wl sm accent"></div><div class="wl sm accent" style="width:55%;"></div></div>
-                <div style="height:12px;width:26%;background:var(--accent);border-radius:3px;opacity:.35;"></div>
-              </div>
-              <div style="display:flex;gap:4px;">
-                <div style="width:24%;background:var(--surface);border-radius:3px;padding:4px;display:flex;flex-direction:column;gap:2px;"><div class="wl sm"></div><div class="wl sm"></div><div class="wl sm"></div></div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
-                  <div class="wgrid"><div class="wb"><div class="wb-img"></div><div class="wb-t"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div></div></div>
-                  <div class="wgrid"><div class="wb"><div class="wb-img"></div><div class="wb-t"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div></div><div class="wb"><div class="wb-img"></div><div class="wb-t"></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="wire-card" style="border-color:#B8E8D8;">
-            <div class="wire-header" style="background:#F0FDF8;border-bottom-color:#B8E8D8;"><span class="wire-header-label" style="color:#0F6E56;">V8 · shipped</span><span class="wire-header-badge" style="background:#0F6E56;">live</span></div>
-            <div class="wire-body">
-              <div class="wl" style="background:#B8E8D8;opacity:.7;"></div>
-              <div style="display:flex;gap:5px;margin-top:2px;">
-                <div style="flex:1.2;background:#E8F8F4;border-radius:4px;padding:6px;display:flex;flex-direction:column;gap:3px;"><div class="wl sm" style="background:#0F6E56;opacity:.4;width:35%;"></div><div class="wl sm" style="background:#0F6E56;opacity:.25;width:70%;"></div><div style="height:22px;background:#C8F0E8;border-radius:3px;margin-top:3px;"></div></div>
-                <div style="flex:1;display:flex;flex-direction:column;gap:2px;justify-content:center;"><div class="wl sm" style="background:#C8F0E8;"></div><div class="wl sm" style="background:#C8F0E8;width:65%;"></div><div class="wl sm" style="background:#C8F0E8;width:72%;"></div></div>
-              </div>
-              <div style="display:flex;gap:4px;margin-top:3px;"><div style="height:10px;width:30%;background:#0F6E56;border-radius:10px;opacity:.4;"></div><div style="height:10px;width:30%;background:#C8F0E8;border-radius:10px;"></div><div style="height:10px;width:30%;background:#C8F0E8;border-radius:10px;"></div></div>
-              <div class="wgrid"><div class="wb" style="background:#E8F8F4;"><div class="wb-img" style="background:#B8E8D8;"></div><div class="wb-t" style="background:#B8E8D8;"></div></div><div class="wb" style="background:#E8F8F4;"><div class="wb-img" style="background:#B8E8D8;"></div><div class="wb-t" style="background:#B8E8D8;"></div></div><div class="wb" style="background:#E8F8F4;"><div class="wb-img" style="background:#B8E8D8;"></div><div class="wb-t" style="background:#B8E8D8;"></div></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="conflict-header">
-          <div class="conflict-header-label">The conflicts I navigated</div>
-          <div class="conflict-header-text">Two real disagreements shaped the final design. I resolved both with user evidence, not opinion.</div>
-        </div>
-        <div class="decision-grid">
-          <div class="decision-card conflict-card">
-            <div class="dc-tension"><div class="dc-tag tension-tag">Business wanted</div><div class="dc-text">Multiple featured demos at the top for product visibility. More surface area = more chances to convert.</div></div>
-            <div class="dc-resolution"><div class="dc-tag resolution-tag">Testing showed</div><div class="dc-text">Decision paralysis. Users felt overwhelmed before orienting. I <strong>played the recordings in the room.</strong> We simplified the hero.</div></div>
-          </div>
-          <div class="decision-card conflict-card">
-            <div class="dc-tension"><div class="dc-tag tension-tag">Users wanted</div><div class="dc-text">Robust filters by product type, use case, and role. Standard catalog UX.</div></div>
-            <div class="dc-resolution"><div class="dc-tag resolution-tag">The constraint</div><div class="dc-text">Only 12 demos at launch. Full filters would look empty. <strong>Launched with category tabs,</strong> built filter infrastructure for future scale.</div></div>
+          <div class="annotation-card">
+            <div class="annotation-title">After</div>
+            <div class="annotation-copy">Homepage → Demo Center. One clear entry point with featured demos and a dedicated browsing surface.</div>
           </div>
         </div>
 
         <div class="img-block">
-          <video src="democenter.mp4" autoplay loop muted playsinline style="width:100%;display:block;min-height:200px;background:var(--surface);"></video>
-          <div class="img-caption-bar"><p class="img-caption-text">The Demo Center live on splunk.com. Navigation reduced from 3+ clicks to a single prominent entry point from the homepage.</p></div>
+          <video src="democenter.mp4" autoplay loop muted playsinline></video>
+          <div class="img-caption-bar"><div class="img-caption-text">The Demo Center live on splunk.com. The main win was not just the page itself. It was reducing friction at the point of discovery.</div></div>
+        </div>
+
+        <div class="conflict">
+          <div class="conflict-label">Stakeholder pushback</div>
+          <div class="conflict-body">Business stakeholders wanted multiple featured demos in the hero for visibility. Testing showed that the extra choices made people hesitate. I played the recordings in the room and used that evidence to simplify the entry experience.</div>
         </div>
       </section>
 
       <section id="ai" class="cs-section">
-        <div class="cs-section-label">AI code snippet</div>
-        <h2 class="cs-h2">A drop-off moment that needed to be addressed</h2>
-        <p class="cs-p">Through research, I identified that code snippets on Splunk's technical blogs were a high-intent drop-off point. A user reads a post, copies a snippet, leaves. While that moment of interaction signals interest, nothing was being done with it.</p>
-        <p class="cs-p">I entered our team's hackathon as the only UX intern in the room and started my process by doing competitor analysis, seeing where our experience was lacking, and understanding how AI can be integrated to match Cisco's mission of creating more personalized experiences.</p>
-        <p class="cs-p">The concept: a user copies a code snippet, trigger contextual AI-powered resource recommendations through Cisco's LLM pipeline based on their interests and web activity.</p>
+        <div class="cs-section-label">AI Feature</div>
+        <h2 class="cs-h2">I found a high-intent drop-off moment and designed an AI response to it.</h2>
+        <p class="cs-p">On Splunk's technical blogs, users often copied a code snippet and left immediately after. That moment clearly signaled intent, but nothing in the experience responded to it.</p>
+        <p class="cs-p">For our team hackathon, I designed a feature that used that moment to surface contextual documentation and learning resources through Cisco's AI infrastructure. The goal was simple: turn a likely exit into continued engagement.</p>
 
         <div class="img-block">
-          <video src="codesnippet.mp4" loop muted playsinline style="width:100%;display:block;"></video>
-          <div class="img-caption-bar"><p class="img-caption-text">A lightweight version of the code snippet has been shipped while the agentic AI flows are tested within engineering.</p></div>
+          <video src="codesnippet.mp4" loop muted playsinline></video>
+          <div class="img-caption-bar"><div class="img-caption-text">The feature triggered after a snippet copy event and introduced relevant next-step resources instead of letting the interaction end there.</div></div>
         </div>
 
-        <div class="pushback-grid">
-          <div class="pushback-card tension">
-            <div class="pushback-tag t">The concern</div>
-            <div class="pushback-quote">"Too complex — technical users just want to copy code and move on."</div>
-            <div class="pushback-attr">— senior stakeholder</div>
+        <div class="img-row">
+          <div class="annotation-card">
+            <div class="annotation-title">Why it worked</div>
+            <div class="annotation-copy">It met users right at the moment of intent instead of asking them to start a new search from scratch.</div>
           </div>
-          <div class="pushback-card evidence">
-            <div class="pushback-tag e">The evidence</div>
-            <div class="pushback-stat">100%</div>
-            <div class="pushback-sub">satisfaction across 6 developers and engineers on UserTesting.com</div>
-            <div class="pushback-bar"><div class="pushback-bar-fill" style="width:100%;"></div></div>
+          <div class="annotation-card">
+            <div class="annotation-title">What I designed for</div>
+            <div class="annotation-copy">Trust and transparency. I added a small explainer so users could understand why the AI suggested those resources.</div>
           </div>
         </div>
 
-        <div class="img-block">
-          <img src="testing.png" alt="User testing analysis" style="width:100%;display:block;">
-          <div class="img-caption-bar"><p class="img-caption-text">Analysis of user testing results from UserTesting.com done in Figma.</p></div>
+        <div class="mini-grid">
+          <div class="mini-card"><div class="mini-label">Validation</div><div class="mini-copy">UserTesting sessions with 6 developers and engineers showed 100% satisfaction with the concept.</div></div>
+          <div class="mini-card"><div class="mini-label">Delivery</div><div class="mini-copy">I handed off full visual and interaction specs so engineering could evaluate the feature without extra clarification.</div></div>
         </div>
 
-        <p class="cs-p">Once the concept was validated, I delivered full engineering-ready specs — spacing and sizing annotations, component states, responsive breakpoints, interaction triggers, and color and typography tokens. The goal was that an engineer could pick this up without needing to ask me a single question.</p>
-
-        <div class="img-block">
-          <div class="img-accent-line"></div>
-          <img src="ui-specs.png" alt="Visual design spec" style="width:100%;display:block;">
-          <div class="img-caption-bar"><p class="img-caption-text">Visual spec — spacing, sizing, responsive breakpoints, and color tokens.</p></div>
-        </div>
-
-        <div class="img-block">
-          <div class="img-accent-line"></div>
-          <img src="interaction-specs.png" alt="Interaction design spec" style="width:100%;display:block;">
-          <div class="img-caption-bar"><p class="img-caption-text">Interaction spec — component states (default, hover, active), trigger flows, and timing.</p></div>
-        </div>
-
-        <div class="cs-section-label" style="margin-top:40px;">Designing with AI — what I learned</div>
-        <h2 class="cs-h2" style="margin-bottom:12px;">I was figuring it out as I went. Here's what I got right, and what I'd do differently.</h2>
-        <p class="cs-p">This was genuinely one of my first times designing an AI feature. I didn't come in with a formal AI design framework — I was learning on the fly. But I did make some intentional decisions around trust and transparency, and I've thought a lot since about what I'd add now.</p>
-
-        <div class="two-col" style="margin-top:20px;">
-          <div class="col-card">
-            <div class="col-label">What I designed for</div>
-            <div class="col-item"><strong style="color:var(--text);font-weight:500;">Trust and transparency.</strong> The AI surfaced related docs based on the user's copied code and browsing history. My answer was a small question mark beside the recommendations — a tooltip explaining exactly how the AI made the connection.</div>
-            <div class="col-item" style="font-size:12px;color:var(--dim);font-style:italic;">No official framework, just instinct and Cisco's internal AI docs. I should've gone deeper on established AI design principles. That's a gap I've been actively filling since.</div>
+        <div class="img-row">
+          <div class="img-block">
+            <img src="ui-specs.png" alt="Visual design spec">
+            <div class="img-caption-bar"><div class="img-caption-text">Visual spec covering spacing, sizing, responsive behavior, and tokens.</div></div>
           </div>
-          <div class="col-card">
-            <div class="col-label">If I could do this again</div>
-            <div class="col-item"><strong style="color:var(--text);font-weight:500;">Uncertainty states.</strong> The feature showed suggestions without signaling how confident the AI was in each one. I'd now add a match score under each resource.</div>
-            <div class="col-item"><strong style="color:var(--text);font-weight:500;">A proper framework.</strong> Google PAIR, Microsoft HAX. I'd use established AI design principles to stress-test decisions rather than going purely by feel.</div>
-            <div class="match-score-card">
-              <div class="match-score-label">Match score — what I'd add</div>
-              <div class="match-row"><span class="match-name">SPL Functions Reference</span><div class="match-bar-wrap"><div class="match-bar-fill" style="width:92%;"></div></div><span class="match-pct">92%</span></div>
-              <div class="match-row"><span class="match-name">Search Tutorial</span><div class="match-bar-wrap"><div class="match-bar-fill" style="width:64%;opacity:.7;"></div></div><span class="match-pct">64%</span></div>
-              <div class="match-row"><span class="match-name">Lookup Commands</span><div class="match-bar-wrap"><div class="match-bar-fill" style="width:38%;opacity:.45;"></div></div><span class="match-pct">38%</span></div>
-            </div>
+          <div class="img-block">
+            <img src="interaction-specs.png" alt="Interaction design spec">
+            <div class="img-caption-bar"><div class="img-caption-text">Interaction spec covering triggers, states, and timing.</div></div>
           </div>
+        </div>
+
+        <div class="tradeoff">
+          <div class="tradeoff-label">What I would refine next</div>
+          <div class="tradeoff-body">If I kept building this feature, I would add clearer uncertainty signals like match strength and better ways for users to tune or dismiss recommendations. That would make the AI feel more transparent and controllable.</div>
         </div>
       </section>
 
       <section id="learnings" class="cs-section">
         <div class="cs-section-label">Learnings</div>
-        <h2 class="cs-h2">What twelve weeks in enterprise taught me.</h2>
+        <h2 class="cs-h2">What 12 weeks in enterprise taught me.</h2>
         <div class="learning-list">
-          <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>Understand the technology before designing for it.</strong>I researched Cisco's AI infrastructure before opening Figma for the code snippet feature because I quickly realized I needed to understand some of the back-end before starting to design an experience for users.</div></div>
-          <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>In enterprise, data wins arguments that taste cannot.</strong>Both the Demo Center and the AI feature involved real disagreements with stakeholders. In both cases, user research recordings were more persuasive than any slide or design rationale.</div></div>
-          <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>Document your rationale as carefully as your designs.</strong>In a 12-week internship, you will not be there to explain your decisions later. Every tradeoff I made, every stakeholder conflict I resolved, and every constraint I accepted got documented clearly in handoff.</div></div>
+          <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>Find leverage fast.</strong> In a large org, you cannot fix everything. The real skill is identifying the points where a design decision can unlock broader clarity.</div></div>
+          <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>User evidence changes minds faster than opinions do.</strong> The strongest moments in this internship were not just design reviews. They were the moments when recordings and testing data shifted stakeholder decisions.</div></div>
+          <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>Enterprise design is as much about systems and communication as screens.</strong> The work mattered because it connected product, business goals, and real user behavior.</div></div>
         </div>
       </section>
-
     </div>
 
     <footer class="g-footer">
       <div class="footer-left">
-        <em>"complexity is easy. clarity takes work."</em>
+        <em>complexity is easy. clarity takes work.</em>
         <div class="footer-note">last updated march 2026 · made by navyaa vemuri</div>
       </div>
       <nav class="footer-links">
-        <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn</a>
-        <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume</a>
-        <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi</a>
+        <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+        <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
+        <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
       </nav>
     </footer>
-
   </div>
 </div>
 
 <script>
+function toggleMobileMenu(){
+  const btn=document.getElementById('mobileMenuBtn');
+  const menu=document.getElementById('mobileMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
 (function(){
-  const links = document.querySelectorAll('.toc-link');
-  const sections = document.querySelectorAll('section[id]');
-  if(!sections.length) return;
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
+  const desktopLinks=document.querySelectorAll('.toc-link');
+  const mobileLinks=document.querySelectorAll('.mobile-toc-link');
+  const sections=document.querySelectorAll('section[id]');
+  if(!sections.length)return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
       if(e.isIntersecting){
-        links.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector('.toc-link[href="#'+e.target.id+'"]');
-        if(a) a.classList.add('active');
+        const id=e.target.id;
+        desktopLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+id));
+        mobileLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+id));
       }
     });
-  }, {rootMargin:'-10% 0px -75% 0px', threshold:0});
-  sections.forEach(s => obs.observe(s));
+  },{rootMargin:'-18% 0px -70% 0px',threshold:0});
+  sections.forEach(s=>obs.observe(s));
 })();
 </script>
 </body>
