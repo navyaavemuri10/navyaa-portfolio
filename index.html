@@ -476,12 +476,9 @@ function playStampVideo(){
   const vid=document.getElementById('stamp-vid');
   overlay.classList.add('active');
   vid.currentTime=0;
-  vid.play();
+  vid.play().catch(()=>{});
   vid.onended=()=>{ window.location.href='index.html'; };
 }
-
-/* play on load */
-window.addEventListener('load',()=>playStampVideo());
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
