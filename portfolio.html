@@ -477,7 +477,7 @@ function playStampVideo(){
   overlay.classList.add('active');
   vid.currentTime=0;
   vid.play().catch(()=>{});
-  vid.onended=()=>{ window.location.href='index.html'; };
+  vid.onended=()=>{ window.location.href='portfolio.html'; };
 }
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
