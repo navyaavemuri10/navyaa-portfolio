@@ -594,7 +594,7 @@ async function submitJD(){
   /* API */
   let parsed=null;
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    const resp=await /api/chat,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
