@@ -595,13 +595,13 @@ async function submitJD(){
   let parsed=null;
   try {
   const resp = await fetch('/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      jd,
-      systemPrompt: SYSTEM_PROMPT
-    })
-  });
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    jd,
+    systemPrompt: SYSTEM_PROMPT
+  })
+});
 
   const data = await resp.json();
 
