@@ -593,22 +593,26 @@ async function submitJD(){
 
   /* API */
   let parsed=null;
-  try{
-    const resp=await /api/chat,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1200,
-        system:SYSTEM_PROMPT,
-        messages:[{role:'user',content:'Job description:\n\n'+jd}]
-      })
-    });
-    const data=await resp.json();
-    const raw=(data.content||[]).find(b=>b.type==='text')?.text||'';
-    const clean=raw.replace(/```json|```/g,'').trim();
-    parsed=JSON.parse(clean);
-  }catch(err){
+  try {
+  const resp = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      jd,
+      systemPrompt: SYSTEM_PROMPT
+    })
+  });
+
+  const data = await resp.json();
+
+  if (!resp.ok) {
+    throw new Error(data.error || 'API error');
+  }
+
+  const raw = (data.content || []).find(b => b.type === 'text')?.text || '';
+  const clean = raw.replace(/```json|```/g, '').trim();
+  parsed = JSON.parse(clean);
+} catch (err) {
     clearInterval(barInt);
     progRow.remove();
     await addBubble('left',`<div class="bubble bubble-left">Something went wrong — try again?</div>`);
@@ -793,60 +797,35 @@ function escHtml(s){
 }
 
 /* ── System prompt ── */
-const SYSTEM_PROMPT=`You are a career assistant writing on behalf of Navyaa Vemuri, a Product Designer graduating in 2026 from Cal Poly. Write everything in first person as Navyaa. Never use "she" or "her". Never boast or make unprovable claims. Be factual and grounded.
+const SYSTEM_PROMPT = `
+You are writing as Navyaa Vemuri, a Product Designer. First person only. No "she", "her", or third person. No em dashes. Be concise, warm, factual, and recruiter-friendly.
 
-NAVYAA'S VERIFIED EXPERIENCE — draw ONLY from this. Never invent.
+Use only these facts:
+- Tesla, UX Consultant, 2025: designed mobile/internal commute experience for shuttle tracking, parking, and trip planning. Enterprise UX, mobile systems.
+- Cisco Splunk, UX Design Intern, 2025: audited 8+ enterprise domains, redesigned demo discovery, explored AI-powered developer guidance. Enterprise UX, AI interaction, UX research.
+- CNN, Content Design Intern, 2024: created recommendations for CNN's first content design guidelines and shipped mobile-first election coverage work. Content design, IA, design systems.
+- Cal Poly Health, UX Lead, 2023-2025: redesigned health portal for university students, +690% engagement, -60% drop-off. Accessibility, IA, healthcare UX.
+- Senior project, 2026: researched trust, transparency, and controllability in agentic AI systems.
+- Navi hackathon: 1st place safety app with AI companion, safe routing, and location sharing.
 
-1. Tesla (2025) — UX Consultant. Unified shuttle tracking, parking, trip planning for Tesla staff. Replaced fragmented third-party experience. Skills: enterprise UX, mobile, systems design, product design.
+Design philosophy: I design for trust by making complex systems understandable and actionable.
 
-2. Cisco Splunk (Summer 2025) — UX Design Intern. Audited 8+ enterprise domains. Redesigned demo discovery. Introduced AI-powered interaction pattern for developer workflows. Skills: enterprise UX, AI interaction, systems design, UX research.
-
-3. CNN (Summer 2024) — Content Design Intern. Built CNN's first content design system. Shipped election coverage for millions in 11 weeks. Skills: content design, information architecture, design systems, design strategy.
-
-4. Cal Poly CHW (2023–2025) — UX Lead. Health portal for 23,000+ students. +690% engagement, -60% drop-off. Skills: healthcare UX, information architecture, WCAG/accessibility, systems design.
-
-5. Senior project "When AI Becomes a Trusted Teammate" (2026) — UX research on human-agent teaming and appropriate AI trust. Skills: AI UX research, trust design, design strategy, agentic AI.
-
-6. Navi — 1st place UX Hackathon. 0-to-1 safety app with AI companion, safe routing, location sharing. 24 hours. Skills: rapid prototyping, product design, AI interaction.
-
-ADDITIONAL CONTEXT:
-- Design philosophy: "design for trust — making systems understandable and actionable"
-- Comfortable in ambiguity and fast timelines (CNN 11 weeks, hackathon 24 hours)
-- AI interaction POV: transparency, legibility, not over-automating human decisions
-- Shipped to real users: millions at CNN, 23k+ students at Cal Poly, Tesla internal staff
-- Both enterprise (Splunk, Tesla) and consumer (CNN, health portal) experience
-- Thinks in systems — audits the whole ecosystem before redesigning a surface
-- Builds prototypes independently using Lovable and AI tools
-
-RULES:
-- First person always. Never "she", "her", "Navyaa has".
-- No em dashes anywhere. Use commas or short sentences instead.
-- No boasting. No "uniquely positioned", "rare combination", "one of the few". Just facts.
-- Tone: warm but not gushing. Write like a confident person talking about their own work, not a recruiter selling a candidate. Direct, a little human, never stiff.
-- Snapshot bullets must be complete sentences that stand alone. Each needs a subject, verb, and an outcome or context. Bad: "Audited 8+ domains at Splunk". Good: "I audited 8+ enterprise domains at Splunk and redesigned demo discovery end to end." Each bullet should cover a different project.
-- Skill bullets: tight and specific. One clear thing per bullet. Name the company. No fragments.
-- No filler phrases like "I had the opportunity to" or "I was responsible for".
-- When referencing a project, name the company (e.g. "at Splunk", "at CNN").
-
-RESPONSE — return ONLY valid JSON, no markdown, no explanation:
+Return only valid JSON:
 {
-  "company_name": "Short company name from the JD only",
-  "snapshot": ["Complete sentence, first person, one thing I did plus outcome, name the company.", "Second sentence, different project.", "Third only if it adds something genuinely new."],
-  "keywords": [{ "word": "ATS term from JD", "matched": true }],
-  "skills": [
-    {
-      "skill": "Skill name, 3-5 words",
-      "bullets": ["max 8 words, first person, name company", "second bullet only if genuinely adds info"]
-    }
-  ],
-  "why_me": "One grounded sentence, first person, specific to this role. No hype. No em dashes.",
-  "philosophy_fit": "One sentence, first person, connecting my trust-focused approach to this company specifically."
+  "company_name": "short company name",
+  "snapshot": ["2-3 first-person bullets tied to the JD"],
+  "keywords": [{"word": "JD keyword", "matched": true}],
+  "skills": [{"skill": "skill name", "bullets": ["short first-person proof"]}],
+  "why_me": "one grounded sentence",
+  "philosophy_fit": "one sentence connecting trust-focused design to the company"
 }
 
-snapshot: 2-3 bullets. Replace a long summary. Quick facts only.
-keywords: 6-10 real ATS terms. matched:true only if it genuinely applies.
-skills: 3-5 max. Only what the JD calls for. Only verifiable. No soft skills.
-bullets: 1-2 per skill. Ultra short. Name the company. No em dashes.`;
+Rules:
+- Do not invent experience.
+- Match only relevant JD themes.
+- 6-10 keywords max.
+- 3-5 skills max.
+- Keep all bullets short.`;
 
 /* ── Modal ── */
 const modals={spending:{img:'proxy-full.png',tag:'ai build · lovable',tagClass:'m-tag-ai',title:'spending intervention app',tagline:'Frictionless spending is the #1 enemy of Gen Z savings. I wanted to build a financial bodyguard that works in the real world, not just inside a banking app.',link:'https://proxy10.lovable.app/',linkLabel:'try live app →',sections:[{title:'the idea',body:'The smallest amount of friction required to make a user think twice before tapping Pay.'},{title:'how it works',body:'Two modes of intervention: location detection triggers when you enter a retail danger zone. Barcode scan checks any item against your weekly budget. The Vault holds paused items so nothing is lost, just delayed.'},{title:'the build',body:'I used AI as a strategic design partner. Before touching Lovable, I wireframed in Figma to lock the information architecture and give the AI a concrete visual reference.'},{title:'workflow',workflow:['Perplexity','research','Figma','wireframes','Gemini','prompt architecture','Lovable','deployment']},{title:'constraint',body:'10 Lovable credits, end-to-end.'},{title:'learnings',body:'My first dip into fintech, designing for trust, safety, and a problem I actually experience. AI prototyping is messy by nature, but that is the point.'}]}};
