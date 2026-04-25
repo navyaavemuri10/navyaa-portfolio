@@ -17,7 +17,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 
 /* layout */
 .layout{display:flex;min-height:100vh;}
-.sidebar{width:var(--nav-w);flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);}
+.sidebar{width:var(--nav-w);flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
 .stamp{width:160px;margin-bottom:20px;}
 .stamp img{width:100%;display:block;}
 .sidebar-links{display:flex;flex-direction:column;gap:20px;margin-top:32px;}
@@ -264,16 +264,18 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
 <body>
 <div class="layout">
   <aside class="sidebar">
-    <div class="stamp" onclick="playStampVideo()">
-      <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
-    </div>
-    <div class="sidebar-links">
-      <a href="about.html" class="sidebar-link">About</a>
-      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-link" target="_blank">Resume</a>
-      <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-link" target="_blank">LinkedIn</a>
-      <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-link">Email</a>
-    </div>
-  </aside>
+  <div class="stamp" onclick="playStampVideo()">
+    <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
+  </div>
+  <div class="sidebar-mid">
+    <a href="about.html" class="sidebar-link">About</a>
+  </div>
+  <div class="sidebar-bottom">
+    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-link" target="_blank">Resume ↗</a>
+    <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-link" target="_blank">LinkedIn ↗</a>
+    <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-link">Mail ↗</a>
+  </div>
+</aside>
 
   <main class="main">
     <div class="bio">
