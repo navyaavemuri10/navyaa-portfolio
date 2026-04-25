@@ -14,8 +14,8 @@ html,body{min-height:100%;font-family:'DM Sans',sans-serif;-webkit-font-smoothin
 
 /* SIDEBAR */
 .cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
-.stamp{width:180px;margin-bottom:28px;flex-shrink:0;display:block;text-decoration:none;}
-.stamp img{width:100%;display:block;background:#E8EAF0;min-height:130px;}
+.stamp{width:160px;margin-bottom:20px;}
+.stamp img{width:100%;display:block;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
 .stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
 .stamp:hover img{animation-play-state:paused;}
@@ -119,8 +119,8 @@ html,body{min-height:100%;font-family:'DM Sans',sans-serif;-webkit-font-smoothin
 
   <aside class="cs-sidebar">
     <a href="portfolio.html" class="stamp">
-      <img src="stamp.png" alt="Navyaa stamp" onerror="this.style.background='#E8EAF0';this.style.minHeight='130px'">
-    </a>
+<img src="stamp.png" alt="Navyaa stamp"
+onerror="this.style.display='none'">    </a>
     <div class="sidebar-mid">
       <a href="portfolio.html" class="sidebar-link">Work</a>
       <a href="about.html" class="sidebar-link active">About</a>
