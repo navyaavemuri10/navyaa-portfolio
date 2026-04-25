@@ -21,8 +21,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
 /* sidebar */
 .cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
-.stamp{width:180px;margin-bottom:28px;flex-shrink:0;}
-.stamp img{width:100%;display:block;background:#E8EAF0;min-height:130px;}
+.stamp{width:160px;margin-bottom:20px;cursor:pointer;}
+.stamp img{width:100%;display:block;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
 .stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
 .stamp:hover img{animation-play-state:paused;}
@@ -171,11 +171,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </div>
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-links">
-    <a href="index.html#work" class="mobile-menu-link">← Back to work</a>
-    <a href="about.html" class="mobile-menu-link">About me</a>
-    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank" rel="noopener">Resume ↗</a>
-    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
+    <a href="about.html">About</a>
+<a href="index.html#work" class="mobile-menu-link">← Back to work</a>
+<a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank" rel="noopener">Resume ↗</a>
+<a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+<a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
   </div>
 </div>
 <div class="mobile-toc">
@@ -191,21 +191,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 <div class="layout">
   <aside class="cs-sidebar">
     <div class="stamp">
-      <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.background='#E8EAF0'">
+      <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.display='none'">
     </div>
     <div class="sidebar-mid">
-      <a href="index.html#work" class="back-link">← Back to work</a>
-      <div class="toc-label">on this page</div>
-      <ul class="toc-list">
-        <li><a href="#overview" class="toc-link active">Overview</a></li>
-        <li><a href="#problem" class="toc-link">Problem</a></li>
-        <li><a href="#role" class="toc-link">Role</a></li>
-        <li><a href="#constraints" class="toc-link">Constraints</a></li>
-        <li><a href="#design" class="toc-link">Design</a></li>
-        <li><a href="#results" class="toc-link">Results</a></li>
-        <li><a href="#learnings" class="toc-link">Learnings</a></li>
-      </ul>
-    </div>
+  <a href="about.html" class="sidebar-link">About</a>
+  <a href="portfolio.html" class="sidebar-link">← Back to work</a>
+
+  <div class="toc-label">on this page</div>
+  <ul class="toc-list">
+    ...
+  </ul>
+</div>
+
+<div class="sidebar-bottom">
+  <a href="resume-link" class="sidebar-link">Resume ↗</a>
+  <a href="linkedin-link" class="sidebar-link">LinkedIn ↗</a>
+  <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-link">Mail ↗</a>
+</div>
     <div class="sidebar-bottom">
       <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-link" target="_blank" rel="noopener">Resume ↗</a>
       <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-link" target="_blank" rel="noopener">LinkedIn ↗</a>
