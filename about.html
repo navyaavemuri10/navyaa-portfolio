@@ -8,71 +8,86 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--bg:#FDFDFD;--text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;--border:#E8E8E4;--surface:#F4F3F0;--nav-w:280px;}
+:root{--bg:#FDFDFD;--text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;--border:#E8E8E4;--surface:#F4F3F0;}
 html,body{min-height:100%;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);}
-body{background:radial-gradient(ellipse at 100% 0%,#F9D8D0 0%,#F5E4E8 20%,#FDFDFD 60%);}
 .layout{display:flex;min-height:100vh;}
 
-/* SIDEBAR — exact match to all other pages */
+/* SIDEBAR — exact same as case study pages */
 .sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);overflow-y:auto;scrollbar-width:none;}
 .sidebar::-webkit-scrollbar{display:none;}
 .stamp{width:160px;margin-bottom:32px;flex-shrink:0;}
-.stamp img{width:100%;display:block;}
+.stamp img{width:100%;display:block;background:#E8EAF0;min-height:130px;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
 .stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
 .stamp:hover img{animation-play-state:paused;}
-.sidebar-links{display:flex;flex-direction:column;gap:20px;margin-top:0;}
+
+/* top nav links */
+.sidebar-top{display:flex;flex-direction:column;gap:20px;margin-bottom:auto;}
 .sidebar-link{font-size:13px;color:var(--dim);text-decoration:none;letter-spacing:.02em;text-transform:uppercase;transition:color .2s;}
 .sidebar-link:hover{color:var(--text);}
 .sidebar-link.active{color:var(--text);}
 
+/* bottom links */
+.sidebar-bottom{display:flex;flex-direction:column;gap:20px;padding-top:24px;border-top:.5px solid var(--border);margin-top:24px;flex-shrink:0;}
+.sidebar-bottom-link{font-size:13px;color:var(--dim);text-decoration:none;letter-spacing:.02em;text-transform:uppercase;transition:color .2s;}
+.sidebar-bottom-link:hover{color:var(--text);}
+
 /* MAIN */
-.main{flex:1;padding:48px 72px 96px;max-width:860px;}
+.main{flex:1;padding:52px 72px 96px;max-width:860px;}
 
 /* BIO */
-.bio-name{font-size:26px;font-weight:500;color:var(--text);margin-bottom:20px;letter-spacing:-.02em;}
-.bio-p{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:16px;}
+.bio-heading{font-size:22px;font-weight:500;color:var(--text);margin-bottom:24px;letter-spacing:-.01em;}
+.bio-p{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:14px;}
 .bio-p:last-of-type{margin-bottom:0;}
 
 /* EXPERIENCE TABLE */
-.section-label{font-size:12px;color:var(--dim);letter-spacing:.06em;margin-bottom:12px;margin-top:40px;text-transform:uppercase;}
-.exp-table{width:100%;margin-bottom:0;}
-.exp-row{display:grid;grid-template-columns:1fr auto auto;gap:16px;padding:11px 0;border-bottom:.5px solid var(--border);align-items:baseline;}
+.section-label{font-size:12px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;margin-top:44px;}
+.exp-row{display:grid;grid-template-columns:1fr 1fr auto;gap:16px;padding:12px 0;border-bottom:.5px solid var(--border);align-items:baseline;}
 .exp-row:first-child{border-top:.5px solid var(--border);}
-.exp-role{font-size:15px;color:var(--text);}
-.exp-company{font-size:15px;color:var(--text);text-align:right;}
-.exp-date{font-size:14px;color:var(--dim);white-space:nowrap;}
+.exp-role{font-size:16px;color:var(--text);}
+.exp-company{font-size:16px;color:var(--text);text-align:right;}
+.exp-date{font-size:14px;color:var(--dim);white-space:nowrap;text-align:right;}
 
-/* COLLAGE */
-.collage-heading{font-size:26px;font-weight:500;color:var(--text);margin-top:64px;margin-bottom:40px;letter-spacing:-.02em;}
-.collage{position:relative;height:440px;width:100%;}
+/* COLLAGE — matches screenshot exactly */
+.collage-heading{font-size:22px;font-weight:500;color:var(--text);margin-top:56px;margin-bottom:28px;letter-spacing:-.01em;}
+/* 3 columns: wide | narrow | narrow-tall */
+.collage-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:200px 200px;gap:10px;}
 
 /* FLIP CARD */
-.flip-card{position:absolute;cursor:pointer;}
+.flip-card{cursor:pointer;position:relative;}
 .flip-card-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;}
-.flip-card:hover .flip-card-inner{transform:rotateY(180deg);}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;overflow:hidden;}
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;overflow:hidden;}
 .flip-front img{width:100%;height:100%;object-fit:cover;display:block;}
-.flip-back{backface-visibility:hidden;transform:rotateY(180deg);background:#1A1A1A;display:flex;align-items:center;justify-content:center;padding:20px;}
+.flip-back{backface-visibility:hidden;transform:rotateY(180deg);background:#1A1A1A;display:flex;align-items:center;justify-content:center;padding:18px;}
 .flip-back-text{font-size:13px;color:#F0EDE8;line-height:1.65;text-align:center;}
 
-/* PHOTO POSITIONS — no overlaps, nothing cut off */
-/* Row 1: p1, p2, p5 */
-.p1{width:225px;height:178px;left:0;top:8px;transform:rotate(-1deg);z-index:1;}
-.p2{width:188px;height:152px;left:244px;top:0;transform:rotate(1.2deg);z-index:1;}
-.p5{width:198px;height:178px;left:450px;top:6px;transform:rotate(-1.5deg);z-index:1;}
-/* Row 2: p4, p3 */
-.p4{width:172px;height:172px;left:32px;top:216px;transform:rotate(.7deg);z-index:1;}
-.p3{width:162px;height:205px;left:265px;top:208px;transform:rotate(-.8deg);z-index:1;}
+/* grid positions — matching screenshot */
+.g1{grid-column:1;grid-row:1;}        /* top-left wide — group photo */
+.g2{grid-column:2;grid-row:1;}        /* top-center narrow — dj */
+.g3{grid-column:3;grid-row:1 / 3;}    /* RIGHT tall spanning both rows — edge nyc */
+.g4{grid-column:1;grid-row:2;}        /* bottom-left wide — banh mi */
+.g5{grid-column:2;grid-row:2;}        /* bottom-center narrow — singing */
 
 @media(max-width:900px){
   .layout{flex-direction:column;}
   .sidebar{position:static;height:auto;width:100%;border-right:none;border-bottom:.5px solid var(--border);padding:24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px;}
   .stamp{width:80px;margin-bottom:0;}
-  .sidebar-links{flex-direction:row;gap:16px;margin-top:0;}
+  .sidebar-top{flex-direction:row;gap:16px;margin-bottom:0;}
+  .sidebar-bottom{flex-direction:row;gap:16px;padding-top:0;border-top:none;margin-top:0;}
   .main{padding:32px 24px 64px;max-width:100%;}
-  .collage{height:auto;display:flex;flex-direction:column;gap:16px;}
-  .flip-card{position:static!important;width:100%!important;height:220px!important;transform:none!important;}
+  .collage-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px 160px;}
+  .g1{grid-column:1 / 3;grid-row:1;}
+  .g2{grid-column:1;grid-row:2;}
+  .g3{grid-column:2;grid-row:2 / 4;}
+  .g4{grid-column:1;grid-row:3;}
+  .g5{grid-column:1;grid-row:4;grid-row:auto;}
+}
+@media(max-width:560px){
+  .collage-grid{grid-template-columns:1fr 1fr;}
+  .exp-row{grid-template-columns:1fr auto;gap:8px;}
+  .exp-company{text-align:left;}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
@@ -81,26 +96,29 @@ body{background:radial-gradient(ellipse at 100% 0%,#F9D8D0 0%,#F5E4E8 20%,#FDFDF
 <div class="layout">
 
   <aside class="sidebar">
-    <div class="stamp">
+    <a href="portfolio.html" class="stamp">
       <img src="stamp.png" alt="Navyaa stamp" onerror="this.style.background='#E8EAF0';this.style.minHeight='130px'">
-    </div>
-    <div class="sidebar-links">
+    </a>
+    <div class="sidebar-top">
       <a href="index.html" class="sidebar-link">Work</a>
       <a href="about.html" class="sidebar-link active">About</a>
-      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-link" target="_blank">Resume</a>
-      <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-link" target="_blank">LinkedIn</a>
-      <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-link">Email</a>
+    </div>
+    <div class="sidebar-bottom">
+      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-bottom-link" target="_blank">Resume</a>
+      <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-bottom-link" target="_blank">LinkedIn</a>
+      <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-bottom-link">Email</a>
     </div>
   </aside>
 
   <main class="main">
 
-    <div class="bio-name">heyyyy! i'm Navyaa</div>
-    <p class="bio-p">i think of design as making things clearer and easier to use. sometimes that means mapping flows, other times using AI to explore ideas and strategy</p>
-    <p class="bio-p">outside of work, I'm usually singing, pottery making, or trying new vegetarian dishes & desserts</p>
+    <div class="bio-heading">About Me :)</div>
+    <p class="bio-p">To me, design is making experiences clearer and easier to use.</p>
+    <p class="bio-p">Sometimes that means simplifying flows, sometimes refining content, and more recently, its using AI to quickly bring ideas to life.</p>
+    <p class="bio-p">I care about making experiences clear, useful, and trustworthy.</p>
 
     <div class="section-label">experience</div>
-    <div class="exp-table">
+    <div>
       <div class="exp-row"><span class="exp-role">UX Consultant</span><span class="exp-company">Tesla</span><span class="exp-date">2025–2026</span></div>
       <div class="exp-row"><span class="exp-role">UX Designer</span><span class="exp-company">Cal Poly</span><span class="exp-date">2023–2025</span></div>
       <div class="exp-row"><span class="exp-role">UX Design Intern</span><span class="exp-company">Cisco Splunk</span><span class="exp-date">Summer 2025</span></div>
@@ -108,47 +126,53 @@ body{background:radial-gradient(ellipse at 100% 0%,#F9D8D0 0%,#F5E4E8 20%,#FDFDF
     </div>
 
     <div class="section-label">leadership</div>
-    <div class="exp-table">
+    <div>
       <div class="exp-row"><span class="exp-role">President</span><span class="exp-company">Cal Poly iter8</span><span class="exp-date">2024–2025</span></div>
       <div class="exp-row"><span class="exp-role">Consulting Director</span><span class="exp-company">Cal Poly iter8</span><span class="exp-date">2023–2024</span></div>
       <div class="exp-row"><span class="exp-role">Events & Experience Director</span><span class="exp-company">UX Fest SLO</span><span class="exp-date">2023–2024</span></div>
     </div>
 
-    <div class="collage-heading">what shapes me</div>
-    <div class="collage">
+    <div class="collage-heading">me when i'm not working</div>
+    <div class="collage-grid">
 
-      <div class="flip-card p1">
+      <!-- g1: group photo — top-left wide -->
+      <div class="flip-card g1" onclick="toggleFlip(this)">
         <div class="flip-card-inner">
-          <div class="flip-front"><img src="leadership-1.png" alt="iter8"></div>
+          <div class="flip-front"><img src="leadership-1.png" alt="iter8 group"></div>
           <div class="flip-back"><p class="flip-back-text">led cal poly iter8 of 140+ designers. most fulfilling thing i did in college</p></div>
         </div>
       </div>
 
-      <div class="flip-card p2">
+      <!-- g2: dj — top-center narrow -->
+      <div class="flip-card g2" onclick="toggleFlip(this)">
+        <div class="flip-card-inner">
+          <div class="flip-front"><img src="about-4.jpg" alt="dj era"></div>
+          <div class="flip-back"><p class="flip-back-text">my dj era lol, i love experimenting with beats and sounds</p></div>
+        </div>
+      </div>
+
+      <!-- g3: nyc edge — RIGHT tall spanning both rows -->
+      <div class="flip-card g3" onclick="toggleFlip(this)">
+        <div class="flip-card-inner">
+          <div class="flip-front"><img src="about-5.png" alt="edge nyc"></div>
+          <div class="flip-back"><p class="flip-back-text">sunrise yoga on top of the edge in nyc — made me fall in love with the city and experiencing new things, even if it meant waking up at 5am</p></div>
+        </div>
+      </div>
+
+      <!-- g4: banh mi — bottom-left wide -->
+      <div class="flip-card g4" onclick="toggleFlip(this)">
         <div class="flip-card-inner">
           <div class="flip-front"><img src="hobby-5.jpg" alt="singing"></div>
           <div class="flip-back"><p class="flip-back-text">been singing since i was 4. it taught me discipline and how to express myself</p></div>
         </div>
       </div>
 
-      <div class="flip-card p3">
+      <!-- g5: singing — bottom-center narrow -->
+      <div class="flip-card g5" onclick="toggleFlip(this)">
+  
         <div class="flip-card-inner">
           <div class="flip-front"><img src="about-3.jpeg" alt="banh mi"></div>
           <div class="flip-back"><p class="flip-back-text">bahn mi chay from mommy's banh mi in san jose. deeply passionate about food and flavor combinations</p></div>
-        </div>
-      </div>
-
-      <div class="flip-card p4">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="about-4.jpg" alt="dj"></div>
-          <div class="flip-back"><p class="flip-back-text">my dj era lol, i love experimenting with beats and sounds</p></div>
-        </div>
-      </div>
-
-      <div class="flip-card p5">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="about-5.png" alt="nyc"></div>
-          <div class="flip-back"><p class="flip-back-text">sunrise yoga on top of the edge in new york city, made me fall in love with the city and experiencing new things, even if it meant waking up at 5am</p></div>
         </div>
       </div>
 
@@ -156,5 +180,17 @@ body{background:radial-gradient(ellipse at 100% 0%,#F9D8D0 0%,#F5E4E8 20%,#FDFDF
 
   </main>
 </div>
+
+<script>
+function toggleFlip(card) {
+  card.classList.toggle('flipped');
+}
+// On desktop, hover handles it — remove flipped class on mouse leave
+document.querySelectorAll('.flip-card').forEach(card => {
+  card.addEventListener('mouseleave', () => {
+    card.classList.remove('flipped');
+  });
+});
+</script>
 </body>
 </html>
