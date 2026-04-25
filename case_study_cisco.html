@@ -58,8 +58,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .mobile-toc-link.active{color:var(--accent);border-color:var(--accent-border);background:var(--accent-bg);}
 
 .right-col{flex:1;min-width:0;overflow-y:auto;}
-.hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:420px;max-height:560px;overflow:hidden;}
+.hero-media{width:100%;border-bottom:.5px solid var(--border);min-height:500px;max-height:560px;overflow:hidden;}
 .hero-media img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-media video{width:100%;height:100%;object-fit:cover;display:block;}
 .cs-main{padding:52px 64px 96px;max-width:960px;}
 .cs-section{margin-bottom:72px;scroll-margin-top:110px;}
 
@@ -121,7 +122,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .cs-sidebar{display:none;}
   .mobile-topbar,.mobile-toc{display:flex;}
   .right-col{width:100%;}
-  .hero-media{min-height:320px;max-height:420px;}
+  .hero-media{min-height:220px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
   .metrics-grid,.scan-summary,.two-col,.img-row,.mini-grid,.mini-grid.three{grid-template-columns:1fr;}
   .g-footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
@@ -179,10 +180,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     </div>
   </aside>
 
-  <div class="right-col">
-    <div class="hero-media">
-      <img src="cisco.png" alt="Cisco Splunk">
-    </div>
+  <div class="hero-media">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="cisco-cs-thumb.mp4" type="video/mp4">
+  </video>
+</div>
 
     <div class="cs-main">
       <section id="overview" class="cs-section">
