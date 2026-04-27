@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splunk Impact / Effort Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#FDFDFD;font-family:'DM Sans',sans-serif;}
+.wrap{background:#FDFDFD;padding:24px;}
+.matrix-area{position:relative;width:100%;aspect-ratio:1.4/1;border:.5px solid #E8E8E4;border-radius:12px;overflow:hidden;background:#FDFDFD;}
+.q-label{position:absolute;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;pointer-events:none;}
+.axis-lbl{position:absolute;font-size:11px;color:#6B6B6B;font-weight:400;}
+.dot{position:absolute;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;transition:transform .18s;border:1.5px solid #FDFDFD;}
+.dot:hover{transform:translate(-50%,-50%) scale(1.5);z-index:20;}
+.tooltip{position:fixed;background:#1A1A1A;color:#FDFDFD;border-radius:8px;padding:10px 13px;font-size:12px;line-height:1.55;max-width:220px;z-index:100;pointer-events:none;opacity:0;transition:opacity .15s;font-family:'DM Sans',sans-serif;}
+.tooltip.show{opacity:1;}
+.tooltip-title{font-weight:500;font-size:13px;margin-bottom:4px;color:#FDFDFD;}
+.tooltip-domain{color:#ABABAB;font-size:11px;margin-bottom:6px;}
+.tooltip-body{color:#D8D6D2;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#1A1A1A;}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.filter-btn{font-size:11px;padding:5px 12px;border-radius:999px;border:1px solid #D8D6D2;background:#FDFDFD;color:#1A1A1A;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:500;}
+.filter-btn:hover{border-color:#888;background:#F4F3F0;color:#1A1A1A;}
+.filter-btn.active{background:#1A1A1A;color:#FDFDFD;border-color:#1A1A1A;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filter('all',this)">All findings</button>
+    <button class="filter-btn" onclick="filter('nav',this)">Navigation</button>
+    <button class="filter-btn" onclick="filter('ia',this)">Information architecture</button>
+    <button class="filter-btn" onclick="filter('feedback',this)">Feedback & errors</button>
+    <button class="filter-btn" onclick="filter('content',this)">Content</button>
+  </div>
+
+  <div class="matrix-area" id="matrix">
+    <span class="q-label" style="top:12px;left:60px;color:#3B5BDB;">quick wins</span>
+    <span class="q-label" style="top:12px;right:16px;color:#ABABAB;">major projects</span>
+    <span class="q-label" style="bottom:60px;left:60px;color:#ABABAB;">fill-ins</span>
+    <span class="q-label" style="bottom:60px;right:16px;color:#C4745A;">thankless tasks</span>
+    <span class="axis-lbl" style="bottom:16px;left:50%;transform:translateX(-50%);">effort →</span>
+    <span class="axis-lbl" style="left:8px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;">impact →</span>
+    <div id="dots"></div>
+  </div>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#3B5BDB;"></div>Navigation</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#2E5B4E;"></div>Information architecture</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#B78A2D;"></div>Feedback & errors</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#C4745A;"></div>Content</div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-title" id="tt-title"></div>
+  <div class="tooltip-domain" id="tt-domain"></div>
+  <div class="tooltip-body" id="tt-body"></div>
+</div>
+
+<script>
+const findings=[
+  {title:'Inconsistent nav labels',domain:'splunk.com + cisco.com',cat:'nav',effort:20,impact:85,rec:'Align terminology across both properties in a shared glossary. Ship as a content update — no redesign needed.'},
+  {title:'Demo buried 3+ clicks deep',domain:'splunk.com',cat:'ia',effort:35,impact:90,rec:'Move Demo Center to a primary nav slot. I shipped this during my internship — 3 clicks to 1.'},
+  {title:'Zero-state search gives no guidance',domain:'community',cat:'feedback',effort:25,impact:75,rec:'Add a "try these searches" prompt and surface popular queries when results return empty.'},
+  {title:'No breadcrumbs on nested pages',domain:'docs.splunk.com',cat:'nav',effort:15,impact:60,rec:'Inject breadcrumb component — low effort, high clarity gain for technical users navigating deep docs.'},
+  {title:'CTA hierarchy unclear on landing pages',domain:'splunk.com',cat:'content',effort:20,impact:70,rec:'Establish a primary/secondary CTA rule in content guidelines. Apply in a single sprint.'},
+  {title:'Terminology differs between Splunk and Cisco',domain:'cross-domain',cat:'content',effort:65,impact:80,rec:'Requires a cross-org content audit and alignment session. Worth the effort for integration health.'},
+  {title:'Form errors give no inline feedback',domain:'community + support',cat:'feedback',effort:30,impact:65,rec:'Add field-level validation messages. Standard pattern — implementation is straightforward.'},
+  {title:'Docs IA organized by team, not user task',domain:'docs.splunk.com',cat:'ia',effort:80,impact:85,rec:'Restructure top-level categories around user jobs-to-be-done. High effort but high long-term payoff.'},
+  {title:'Blog code snippets have no copy button',domain:'blog',cat:'feedback',effort:10,impact:55,rec:'One-line JS addition. Immediate win — I shipped the AI-enhanced version of this feature.'},
+  {title:'Product tour filter shows empty states',domain:'splunk.com',cat:'ia',effort:40,impact:70,rec:'Replace filter with section-based browsing until demo library scales. Interim solution I implemented.'},
+  {title:'Mobile nav collapses critical actions',domain:'splunk.com',cat:'nav',effort:55,impact:72,rec:'Audit mobile navigation priority and surface key actions in a persistent bottom bar.'},
+  {title:'Partner portal uses different design language',domain:'partners',cat:'content',effort:70,impact:60,rec:'Align partner portal to main brand token set. Medium effort, mostly a design system update.'},
+];
+const colors={nav:'#3B5BDB',ia:'#2E5B4E',feedback:'#B78A2D',content:'#C4745A'};
+let active='all';
+function render(){
+  const matrix=document.getElementById('matrix');
+  const W=matrix.clientWidth-48;
+  const H=matrix.clientHeight-48;
+  const dotsEl=document.getElementById('dots');
+  dotsEl.innerHTML='';
+  findings.forEach(f=>{
+    if(active!=='all'&&f.cat!==active)return;
+    const x=48+(f.effort/100)*W;
+    const y=(1-f.impact/100)*H;
+    const dot=document.createElement('div');
+    dot.className='dot';
+    dot.style.cssText='left:'+x+'px;top:'+y+'px;background:'+colors[f.cat]+';';
+    dot.addEventListener('mouseenter',e=>showTip(e,f));
+    dot.addEventListener('mouseleave',hideTip);
+    dot.addEventListener('mousemove',moveTip);
+    dotsEl.appendChild(dot);
+  });
+}
+const tt=document.getElementById('tooltip');
+function showTip(e,f){
+  document.getElementById('tt-title').textContent=f.title;
+  document.getElementById('tt-domain').textContent=f.domain;
+  document.getElementById('tt-body').textContent=f.rec;
+  tt.classList.add('show');moveTip(e);
+}
+function moveTip(e){
+  tt.style.left=Math.min(e.clientX+14,window.innerWidth-240)+'px';
+  tt.style.top=(e.clientY-10)+'px';
+}
+function hideTip(){tt.classList.remove('show');}
+function filter(cat,btn){
+  active=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+render();
+window.addEventListener('resize',render);
+</script>
+</body>
+</html>
