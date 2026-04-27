@@ -18,10 +18,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 /* layout */
 .layout{display:flex;min-height:100vh;}
 
-/* SIDEBAR - matched to about.html */
+/* SIDEBAR */
 .cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
-.stamp{width:160px;margin-bottom:20px;cursor:pointer;}
+.stamp{width:160px;margin-bottom:20px;display:block;text-decoration:none;}
 .stamp img{width:100%;display:block;}
+@keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
+.stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
+.stamp:hover img{animation-play-state:paused;}
 .sidebar-mid{display:flex;flex-direction:column;gap:18px;}
 .sidebar-link{font-size:13px;font-weight:400;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
 .sidebar-link:hover{color:var(--text);}
@@ -30,115 +33,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .main{flex:1;overflow-y:auto;padding:48px 72px 96px;}
 
 /* bio */
-.bio{max-width:640px;margin-bottom:0;}
-.bio-headline{font-size:28px;font-weight:400;line-height:1.4;color:var(--text);letter-spacing:-.02em;margin-bottom:16px;}
+.bio{max-width:640px;margin-bottom:48px;}
+.bio-headline{font-size:28px;font-weight:400;line-height:1.4;color:var(--text);letter-spacing:-.02em;margin-bottom:16px;animation:fadeUp .55s .1s both;}
 .bio-headline a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);}
 .bio-headline a:hover{text-decoration-color:var(--muted);}
-.bio-sub{font-size:20px;color:var(--muted);line-height:1.75;}
+.bio-sub{font-size:20px;color:var(--muted);line-height:1.75;animation:fadeUp .55s .25s both;}
 .bio-sub a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);transition:text-decoration-color .2s;}
 .bio-sub a:hover{text-decoration-color:var(--text);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
 /* trust word bounce */
 .word-trust{display:inline-block;animation:trust-bounce 3.5s ease-in-out infinite;}
 @keyframes trust-bounce{0%,100%{transform:translateY(0);}40%{transform:translateY(-5px);}60%{transform:translateY(-3px);}75%{transform:translateY(-5px);}90%{transform:translateY(-1px);}}
-
-/* bio fade-up stagger */
-.bio-headline{animation:fadeUp .55s .1s both;}
-.bio-sub{animation:fadeUp .55s .25s both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-/* chat widget */
-.chat-widget{max-width:640px;margin:28px 0 36px;display:flex;flex-direction:column;gap:10px;}
-.bubble-row{display:flex;opacity:0;transform:translateY(8px);transition:opacity .32s ease,transform .32s ease;}
-.bubble-row.visible{opacity:1;transform:translateY(0);}
-.bubble-row.right{justify-content:flex-end;}
-.bubble-row.left{justify-content:flex-start;}
-.bubble{max-width:76%;padding:11px 15px;border-radius:18px;font-size:14px;line-height:1.6;}
-.bubble-right{background:var(--text);color:#FDFDFD;border-radius:18px 18px 4px 18px;}
-.bubble-left{background:var(--surface);color:var(--text);border:.5px solid var(--border);border-radius:18px 18px 18px 4px;}
-.bubble-cta{cursor:pointer;background:var(--text);color:#FDFDFD;border-radius:18px 18px 4px 18px;transition:opacity .15s;}
-.bubble-cta:hover{opacity:.82;}
-
-/* typing dots */
-@keyframes pulse{0%,100%{opacity:.35;}50%{opacity:1;}}
-.typing-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--dim);animation:pulse 1.1s ease-in-out infinite;}
-.typing-dot:nth-child(2){animation-delay:.18s;}
-.typing-dot:nth-child(3){animation-delay:.36s;}
-
-/* parse bar */
-.parse-bar-wrap{margin:6px 0 2px;height:3px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;width:100%;}
-.parse-bar{height:100%;background:#fff;border-radius:99px;width:0%;transition:width .25s ease;}
-.parse-label{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px;}
-
-/* chat input area */
-.chat-input-wrap{max-width:640px;margin-top:2px;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease;}
-.chat-input-wrap.visible{opacity:1;transform:translateY(0);}
-.input-row{display:flex;gap:8px;align-items:flex-end;}
-.jd-textarea{flex:1;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:10px 13px;resize:none;line-height:1.6;outline:none;transition:border-color .15s;min-height:42px;max-height:160px;overflow-y:auto;}
-.jd-textarea:focus{border-color:#BCBBBB;}
-.jd-textarea::placeholder{color:var(--dim);}
-.jd-textarea:disabled{opacity:.5;cursor:not-allowed;}
-.send-btn{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--text);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .15s,transform .1s;}
-.send-btn:hover{opacity:.8;}
-.send-btn:active{transform:scale(.95);}
-.send-btn:disabled{opacity:.3;cursor:not-allowed;}
-.send-btn svg{width:15px;height:15px;fill:#FDFDFD;}
-
-/* edit/trash row under submitted input */
-.input-actions{display:flex;gap:12px;margin-top:6px;justify-content:flex-end;opacity:0;transform:translateY(4px);transition:opacity .25s ease,transform .25s ease;}
-.input-actions.visible{opacity:1;transform:translateY(0);}
-.ia-btn{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--dim);display:flex;align-items:center;gap:4px;padding:3px 6px;border-radius:4px;transition:color .15s,background .15s;}
-.ia-btn:hover{color:var(--text);background:var(--surface);}
-.ia-btn svg{width:13px;height:13px;flex-shrink:0;}
-
-/* result bubble */
-.result-bubble{background:var(--bg);border:.5px solid var(--border);border-radius:18px 18px 18px 4px;width:min(560px,94%);padding:0;overflow:hidden;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease;}
-.result-bubble.visible{opacity:1;transform:translateY(0);}
-
-/* result header */
-.rb-header{padding:11px 16px 10px;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.rb-collab{font-size:13px;font-weight:500;color:var(--text);letter-spacing:-.01em;}
-.rb-header-right{display:flex;align-items:center;gap:8px;}
-.rb-close{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--dim);padding:3px 7px;border-radius:4px;transition:color .15s,background .15s;}
-.rb-close:hover{color:var(--text);background:var(--surface);}
-.rb-copy{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--dim);padding:3px 7px;border-radius:4px;transition:color .15s,background .15s;}
-.rb-copy:hover{color:var(--text);background:var(--surface);}
-
-/* result body */
-.rb-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:13px;}
-
-/* snapshot bullets */
-.rb-snap{list-style:none;padding:0;display:flex;flex-direction:column;gap:5px;}
-.rb-snap li{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;padding-left:18px;position:relative;}
-.rb-snap li::before{content:'•';position:absolute;left:0;color:var(--muted);font-size:16px;line-height:1.4;}
-
-/* section labels - WCAG AA: 12px bold, not light */
-.rb-label{font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
-
-/* keywords */
-.rb-kw-row{display:flex;flex-wrap:wrap;gap:5px;}
-.kw-pill{font-size:13px;padding:4px 10px;border-radius:100px;background:var(--bg);border:.5px solid var(--border);color:var(--text);}
-.kw-pill.matched{background:#EEF2FF;border-color:#C5D0FA;color:#1D3DB5;}
-
-/* skills */
-.skill-item{padding:8px 0;border-bottom:.5px solid var(--border);}
-.skill-item:last-child{border-bottom:none;}
-.skill-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
-.skill-bullets{list-style:none;padding:0;display:flex;flex-direction:column;gap:3px;}
-.skill-bullets li{font-size:13px;color:var(--muted);line-height:1.5;padding-left:18px;position:relative;}
-.skill-bullets li::before{content:'•';position:absolute;left:0;color:var(--dim);font-size:15px;line-height:1.4;}
-.co-link{color:var(--text);text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--dim);}
-.co-link:hover{text-decoration-color:var(--muted);}
-
-/* why me + philosophy */
-.rb-why-text{font-size:14px;font-weight:500;color:var(--text);line-height:1.6;}
-.rb-phil-text{font-size:13px;color:var(--muted);line-height:1.65;font-style:italic;}
-
-/* trust note */
-.rb-trust{font-size:12px;color:var(--muted);line-height:1.5;border-top:.5px solid var(--border);padding-top:11px;margin-top:2px;}
-
-/* divider */
-.rb-div{height:.5px;background:var(--border);}
 
 /* tabs + cards */
 .tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:32px;max-width:640px;}
@@ -157,42 +63,30 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .cs-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;max-width:600px;}
 .cs-pills{display:flex;gap:6px;flex-wrap:wrap;}
 .cs-pill{font-size:12px;font-weight:400;color:#2A2A2A;background:#FDFDFD;border:.5px solid #D8D6D2;border-radius:100px;padding:4px 12px;letter-spacing:.01em;}
-.play-grid{display:flex;flex-direction:column;gap:48px;}
-.play-card{text-decoration:none;display:block;cursor:pointer;}
-.play-thumb{width:748px;max-width:100%;aspect-ratio:748/619;background:var(--surface);border-radius:12px;overflow:hidden;margin-bottom:20px;}
-.play-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
-.play-card:hover .play-thumb img{transform:scale(1.02);}
-.play-eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
-.play-title{font-size:20px;font-weight:400;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:8px;transition:color .2s;}
-.play-card:hover .play-title{color:var(--accent);}
-.play-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;max-width:600px;}
+
+/* hover-to-play */
 .htp{position:relative;}
 .htp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s;z-index:1;}
 .htp-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s;z-index:2;}
 
-/* modal */
-.modal-overlay{display:none;position:fixed;inset:0;background:var(--modal-overlay);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
-.modal-overlay.open{display:flex;}
-.modal-box{background:var(--bg);border:.5px solid var(--border);border-radius:16px;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;position:relative;}
-.modal-close-btn{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:16px 18px 0;background:linear-gradient(to bottom,var(--bg) 75%,rgba(253,253,253,0));}
-.modal-x{width:32px;height:32px;border-radius:50%;border:.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;transition:color .2s,border-color .2s;}
-.modal-x:hover{color:var(--text);border-color:#D8D6D2;}
-.modal-hero-img{width:100%;display:block;max-height:320px;object-fit:cover;}
-.modal-hero-ph{width:100%;height:220px;background:var(--surface);}
-.modal-content{padding:24px 28px 36px;}
-.modal-tag-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.modal-title{font-size:24px;font-weight:400;color:var(--text);letter-spacing:-.02em;margin-bottom:8px;line-height:1.2;}
-.modal-tagline{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:20px;}
-.modal-divider{height:.5px;background:var(--border);margin:20px 0;}
-.modal-section-title{font-size:10px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;}
-.modal-body-text{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
-.modal-workflow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
-.wf-step{font-size:12px;color:var(--muted);background:var(--surface);border:.5px solid var(--border);border-radius:6px;padding:5px 10px;}
-.wf-arrow{font-size:10px;color:var(--dim);}
-.modal-link-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);border:.5px solid #C5D0FA;background:#EEF2FF;border-radius:6px;padding:7px 14px;text-decoration:none;transition:border-color .2s,background .2s;}
-.modal-link-btn:hover{border-color:#AEBFF8;background:#E7EDFF;}
-.m-tag{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:20px;display:inline-block;}
-.m-tag-ai{background:rgba(58,91,219,.08);color:var(--accent);border:.5px solid rgba(58,91,219,.18);}
+/* play grid */
+.play-tight-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;max-width:640px;padding-bottom:80px;}
+.pg-item{display:block;text-decoration:none;cursor:default;}
+a.pg-item{cursor:pointer;}
+.pg-wide{grid-column:span 4;}
+.pg-narrow{grid-column:span 2;}
+.pg-half{grid-column:span 3;}
+.pg-third{grid-column:span 2;}
+.pg-media{width:100%;border-radius:8px;background:var(--surface);overflow:hidden;margin-bottom:7px;}
+.pg-narrow .pg-media,.pg-third .pg-media{aspect-ratio:3/4;}
+.pg-wide .pg-media{aspect-ratio:16/9;}
+.pg-half .pg-media{aspect-ratio:4/3;}
+.pg-media img,.pg-media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
+a.pg-item:hover .pg-media img,a.pg-item:hover .pg-media video{transform:scale(1.03);}
+.pg-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.35;}
+.pg-title.linked{text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--border);transition:text-decoration-color .15s;}
+a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
+.pg-caption{font-size:11px;color:var(--muted);line-height:1.5;}
 
 /* footer */
 .footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;align-items:center;justify-content:space-between;max-width:1160px;margin:0 auto;}
@@ -201,62 +95,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .footer-link{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s;}
 .footer-link:hover{color:var(--muted);}
 
-/* stamp float */
-@keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
-.stamp img{animation:stamp-float 4s ease-in-out infinite;transition:animation-play-state .3s;will-change:transform;}
-.stamp:hover img{animation-play-state:paused;}
-.stamp{cursor:pointer;}
-
-/* fullscreen video overlay */
-.vid-overlay{
-  position:fixed;inset:0;z-index:1000;
-  background:#000;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:opacity .4s ease;
-}
-.vid-overlay.active{opacity:1;pointer-events:all;}
-.vid-overlay video{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-/* ── Play tab tight grid ── */
-.play-tight-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:10px;
-  max-width:640px;
-  padding-bottom:80px;
-}
-/* wide = 4/6 cols, narrow = 2/6, half = 3/6, third = 2/6 */
-.pg-item{display:block;text-decoration:none;cursor:default;}
-a.pg-item{cursor:pointer;}
-.pg-wide{grid-column:span 4;}
-.pg-narrow{grid-column:span 2;}
-.pg-half{grid-column:span 3;}
-.pg-third{grid-column:span 2;}
-
-.pg-media{
-  width:100%;border-radius:8px;
-  background:var(--surface);overflow:hidden;
-  margin-bottom:7px;
-}
-/* vertical (narrow/third) taller, horizontal (wide/half) shorter */
-.pg-narrow .pg-media,.pg-third .pg-media{aspect-ratio:3/4;}
-.pg-wide .pg-media{aspect-ratio:16/9;}
-.pg-half .pg-media{aspect-ratio:4/3;}
-
-.pg-media img,.pg-media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
-a.pg-item:hover .pg-media img,a.pg-item:hover .pg-media video{transform:scale(1.03);}
-
-.pg-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.35;}
-.pg-title.linked{text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--border);transition:text-decoration-color .15s;}
-a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
-.pg-caption{font-size:11px;color:var(--muted);line-height:1.5;}
-
-/* MOBILE TOPBAR - matched to about.html */
+/* MOBILE TOPBAR */
 .mobile-topbar{display:none;position:sticky;top:0;z-index:50;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:16px 20px;align-items:center;justify-content:space-between;}
 .mobile-brand{display:block;text-decoration:none;}
 .mobile-brand img{width:60px;display:block;}
@@ -277,11 +116,15 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
   .mobile-topbar{display:flex;}
   .main{padding:32px 24px 64px;max-width:100%;}
   .footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
+  .play-tight-grid{grid-template-columns:1fr 1fr;max-width:100%;}
+  .pg-wide{grid-column:span 2;}
+  .pg-narrow{grid-column:span 1;}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
 <body>
+
 <div class="mobile-topbar">
   <a href="portfolio.html" class="mobile-brand">
     <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.display='none'">
@@ -322,45 +165,6 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
       <p class="bio-sub">I've worked across enterprise tools, AI-powered features, and consumer platforms at <a href="https://tesla.com">Tesla</a>, <a href="https://splunk.com">Cisco Splunk</a>, <a href="https://cnn.com">CNN</a>, <a href="https://chw.calpoly.edu">Cal Poly</a>.</p>
     </div>
 
-    <!-- chat widget -->
-    <div class="chat-widget" id="chat-widget">
-      <div class="bubble-row right" id="bubble-cta-row">
-        <div class="bubble bubble-cta" id="bubble-cta" onclick="onCtaClick()" role="button" tabindex="0">
-          Want to see how I match your role? →
-        </div>
-      </div>
-    </div>
-
-    <!-- text input, shown after CTA click -->
-    <div class="chat-input-wrap" id="chat-input-wrap">
-      <div class="input-row">
-        <textarea
-          class="jd-textarea"
-          id="jd-input"
-          placeholder="Paste a job description here…"
-          rows="1"
-          oninput="autoResize(this)"
-          onkeydown="handleKey(event)"
-          aria-label="Job description input"
-        ></textarea>
-        <button class="send-btn" id="send-btn" onclick="submitJD()" aria-label="Match my experience">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
-      </div>
-      <div class="input-actions" id="input-actions">
-        <button class="ia-btn" id="edit-btn" onclick="editInput()" aria-label="Edit job description">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Edit
-        </button>
-        <button class="ia-btn" id="trash-btn" onclick="resetChat()" aria-label="Clear and start over">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-          Start over
-        </button>
-      </div>
-    </div>
-
-    <div style="height:36px;"></div>
-
     <div class="tabs">
       <div class="tab active" onclick="switchTab('work')">Work</div>
       <div class="tab" onclick="switchTab('play')">Play</div>
@@ -368,6 +172,7 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
 
     <div class="tab-panel active" id="tab-work">
       <div class="cards">
+
         <a class="cs-card" href="research.html">
           <div class="cs-thumb htp" style="background:#F0EDED;">
             <img src="research-thumb.png" class="htp-img" alt="Research" onerror="this.style.opacity=0">
@@ -378,6 +183,7 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
           <div class="cs-desc">How I applied UX thinking to one of AI's biggest challenges: helping people trust autonomous systems appropriately.</div>
           <div class="cs-pills"><span class="cs-pill">Agentic AI</span><span class="cs-pill">UX Research</span><span class="cs-pill">Design Strategy</span><span class="cs-pill">Trust System</span></div>
         </a>
+
         <a class="cs-card">
           <div class="cs-thumb htp" style="background:#F0EDED;">
             <img src="tesla-thumb.png" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
@@ -388,6 +194,7 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
           <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience.</div>
           <div class="cs-pills"><span class="cs-pill">Enterprise UX</span><span class="cs-pill">Product Design</span><span class="cs-pill">Mobile</span><span class="cs-pill">Systems Design</span></div>
         </a>
+
         <a class="cs-card" href="case_study_cisco.html">
           <div class="cs-thumb htp" style="background:#EDF0F5;">
             <img src="cisco-thumb.png" class="htp-img" alt="Cisco Splunk" onerror="this.style.opacity=0">
@@ -398,6 +205,7 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
           <div class="cs-desc">Audited 8+ domains, redesigned demo discovery, and introduced an AI-powered interaction pattern to help developers navigate workflows with confidence.</div>
           <div class="cs-pills"><span class="cs-pill">Enterprise UX</span><span class="cs-pill">Systems Design</span><span class="cs-pill">AI Interaction</span><span class="cs-pill">UX Research</span></div>
         </a>
+
         <a class="cs-card" href="case_study_chw.html">
           <div class="cs-thumb htp" style="background:#EDF3EE;">
             <img src="chw-thumb.png" class="htp-img" alt="Cal Poly CHW" onerror="this.style.opacity=0">
@@ -408,6 +216,7 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
           <div class="cs-desc">Restructured navigation and interaction patterns for 23,000+ students, increasing engagement by 690% and reducing drop-off by 60%.</div>
           <div class="cs-pills"><span class="cs-pill">Healthcare UX</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">WCAG / Accessibility</span><span class="cs-pill">Systems Design</span></div>
         </a>
+
         <a class="cs-card" href="case_study_cnn.html">
           <div class="cs-thumb htp" style="background:#F5EDED;">
             <img src="cnn-thumb.png" class="htp-img" alt="CNN" onerror="this.style.opacity=0">
@@ -418,6 +227,7 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
           <div class="cs-desc">Built CNN's first content design system and shipped election coverage experiences used by millions in 11 weeks.</div>
           <div class="cs-pills"><span class="cs-pill">Content Design</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">Design Strategy</span></div>
         </a>
+
         <a class="cs-card" href="case_study_navi.html">
           <div class="cs-thumb htp" style="background:#EDEEF5;">
             <img src="navi-thumb.png" class="htp-img" alt="Navi" onerror="this.style.opacity=0">
@@ -428,27 +238,26 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
           <div class="cs-desc">0 to 1 mobile app with AI companion, safe route navigation, and location sharing. Research to prototype in 24 hours.</div>
           <div class="cs-pills"><span class="cs-pill">Product Design</span><span class="cs-pill">AI Interaction</span><span class="cs-pill">UX Research</span></div>
         </a>
+
       </div>
     </div>
 
     <div class="tab-panel" id="tab-play">
       <div class="play-tight-grid">
 
-        <!-- row 1: wide + narrow -->
         <a class="pg-item pg-wide" href="https://proxy10.lovable.app/" target="_blank">
           <div class="pg-media" style="background:#F0EFEC;"><img src="proxy-thumb.png" alt="Spending app" onerror="this.style.display='none'"></div>
           <div class="pg-title linked">Spending Intervention App Concept</div>
           <div class="pg-caption">Financial bodyguard app concept made for people like me who love spending $$ on things</div>
         </a>
         <div class="pg-item pg-narrow">
-          <div class="pg-media" style="background:#EDEEF5;"><img src="graphic-2.png" alt="Navi" onerror="this.style.display='none'"></div>
+          <div class="pg-media" style="background:#EDEEF5;"><img src="graphic-2.png" alt="Birthday card" onerror="this.style.display='none'"></div>
           <div class="pg-title">Birthday Card Visual Design</div>
-          <div class="pg-caption">Printed this card and gifted it to my dear friends:)</div>
+          <div class="pg-caption">Printed this card and gifted it to my dear friends :)</div>
         </div>
 
-        <!-- row 2: narrow + wide -->
-        <div class="pg-item pg-narrow" target="_blank">
-          <div class="pg-media" style="background:#EEF0EC;"><img src="play-4.png" alt="Smart Audit" onerror="this.style.display='none'"></div>
+        <div class="pg-item pg-narrow">
+          <div class="pg-media" style="background:#EEF0EC;"><img src="play-4.png" alt="Cookbook" onerror="this.style.display='none'"></div>
           <div class="pg-title">Cookbook Design</div>
           <div class="pg-caption">Yes, I did put actual paneer biryani into a coconut for a picture.</div>
         </div>
@@ -463,16 +272,9 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
   </main>
 </div>
 
-<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
-  <div class="modal-box" id="modal-box" role="dialog" aria-modal="true">
-    <div class="modal-close-btn"><div class="modal-x" onclick="closeModal()">×</div></div>
-    <div id="modal-inner"></div>
-  </div>
-</div>
-
 <div style="max-width:1160px;margin:0 auto;">
   <div class="footer">
-    <span class="footer-txt">last updated march 2026 · made by navyaa vemuri</span>
+    <span class="footer-txt">last updated april 2026 · made by navyaa vemuri</span>
     <div class="footer-links">
       <a href="https://linkedin.com/in/navyaavemuri" class="footer-link">LinkedIn ↗</a>
       <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="footer-link">Resume ↗</a>
@@ -489,390 +291,29 @@ function toggleMobileMenu(){
   menu.classList.toggle('open');
   document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
 }
-/* ── Stamp video ── */
-function playStampVideo(){
-  const overlay=document.getElementById('vid-overlay');
-  const vid=document.getElementById('stamp-vid');
-  overlay.classList.add('active');
-  vid.currentTime=0;
-  vid.play().catch(()=>{});
-  vid.onended=()=>{ window.location.href='portfolio.html'; };
-}
+
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`.tab[onclick*="${name}"]`).classList.add('active');
+  document.querySelector('.tab[onclick*="'+name+'"]').classList.add('active');
   document.getElementById('tab-'+name).classList.add('active');
 }
 
-/* ── Video on scroll ── */
-const vidObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{const vid=e.target.querySelector('.htp-vid'),img=e.target.querySelector('.htp-img');if(!vid)return;if(e.isIntersecting){vid.currentTime=0;vid.play().catch(()=>{});vid.style.opacity='1';if(img)img.style.opacity='0';}else{vid.pause();vid.currentTime=0;vid.style.opacity='0';if(img)img.style.opacity='1';}});},{threshold:.15});
+const vidObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    const vid=e.target.querySelector('.htp-vid');
+    const img=e.target.querySelector('.htp-img');
+    if(!vid)return;
+    if(e.isIntersecting){
+      vid.currentTime=0;vid.play().catch(()=>{});
+      vid.style.opacity='1';if(img)img.style.opacity='0';
+    }else{
+      vid.pause();vid.currentTime=0;
+      vid.style.opacity='0';if(img)img.style.opacity='1';
+    }
+  });
+},{threshold:.15});
 document.querySelectorAll('.htp').forEach(el=>vidObserver.observe(el));
-
-/* ── Chat state ── */
-let chatState='idle'; // idle | prompted | waiting | done
-let savedJD='';
-let savedResult=null;
-let resultWrap=null;
-
-/* show initial CTA bubble */
-setTimeout(()=>{
-  document.querySelector('#bubble-cta-row').classList.add('visible');
-},900);
-
-/* keyboard support on CTA bubble */
-document.getElementById('bubble-cta').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onCtaClick();}});
-
-function addBubble(side,html){
-  return new Promise(resolve=>{
-    const row=document.createElement('div');
-    row.className=`bubble-row ${side}`;
-    row.innerHTML=html;
-    document.getElementById('chat-widget').appendChild(row);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{row.classList.add('visible');resolve(row);}));
-  });
-}
-
-function addTyping(){
-  const row=document.createElement('div');
-  row.className='bubble-row left';
-  row.id='typing-row';
-  row.innerHTML=`<div class="bubble bubble-left" style="padding:13px 16px;"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
-  document.getElementById('chat-widget').appendChild(row);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>row.classList.add('visible')));
-  return row;
-}
-
-async function onCtaClick(){
-  if(chatState!=='idle')return;
-  chatState='prompted';
-  const cta=document.getElementById('bubble-cta');
-  cta.onclick=null; cta.style.cursor='default'; cta.removeAttribute('tabindex');
-
-  await new Promise(r=>setTimeout(r,200));
-  const t=addTyping();
-  await new Promise(r=>setTimeout(r,900));
-  t.remove();
-
-  const wrap=document.getElementById('chat-input-wrap');
-  wrap.classList.add('visible');
-  setTimeout(()=>document.getElementById('jd-input').focus(),350);
-}
-
-function autoResize(el){
-  el.style.height='auto';
-  el.style.height=Math.min(el.scrollHeight,160)+'px';
-}
-function handleKey(e){
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitJD();}
-}
-
-async function submitJD(){
-  if(chatState!=='prompted')return;
-  const jd=document.getElementById('jd-input').value.trim();
-  if(!jd||jd.length<40)return;
-  chatState='waiting';
-  savedJD=jd;
-
-  const ta=document.getElementById('jd-input');
-  const sendBtn=document.getElementById('send-btn');
-
-  /* clear textarea immediately */
-  ta.value='';
-  ta.style.height='';
-  ta.disabled=true;
-  sendBtn.disabled=true;
-
-  /* user preview bubble */
-  const preview=jd.length>90?jd.slice(0,90)+'…':jd;
-  await addBubble('right',`<div class="bubble bubble-right" style="font-size:13px;color:rgba(255,255,255,.85);">${escHtml(preview)}</div>`);
-
-  /* show edit/trash under input */
-  document.getElementById('input-actions').classList.add('visible');
-
-  /* parsing progress bubble */
-  const progRow=document.createElement('div');
-  progRow.className='bubble-row left';
-  progRow.innerHTML=`<div class="bubble bubble-right" style="background:var(--text);min-width:210px;">
-    <div style="font-size:13px;color:#fff;margin-bottom:8px;">Parsing job description…</div>
-    <div class="parse-bar-wrap"><div class="parse-bar" id="parse-bar"></div></div>
-    <div class="parse-label" id="parse-label">0%</div>
-  </div>`;
-  document.getElementById('chat-widget').appendChild(progRow);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>progRow.classList.add('visible')));
-
-  let pct=0;
-  const barEl=document.getElementById('parse-bar');
-  const lblEl=document.getElementById('parse-label');
-  const barInt=setInterval(()=>{
-    pct=Math.min(pct+(Math.random()*8+4),88);
-    if(barEl)barEl.style.width=pct+'%';
-    if(lblEl)lblEl.textContent=Math.round(pct)+'%';
-  },220);
-
-  /* API */
-  let parsed=null;
-  try {
-  const resp = await fetch('/api/chat', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    jd,
-    systemPrompt: SYSTEM_PROMPT
-  })
-});
-
-  const data = await resp.json();
-
-  if (!resp.ok) {
-    throw new Error(data.error || 'API error');
-  }
-
-  const raw = (data.content || []).find(b => b.type === 'text')?.text || '';
-  const clean = raw.replace(/```json|```/g, '').trim();
-  parsed = JSON.parse(clean);
-} catch (err) {
-    clearInterval(barInt);
-    progRow.remove();
-    await addBubble('left',`<div class="bubble bubble-left">Something went wrong — try again?</div>`);
-    chatState='prompted';
-    ta.disabled=false; sendBtn.disabled=false;
-    return;
-  }
-
-  clearInterval(barInt);
-  if(barEl)barEl.style.width='100%';
-  if(lblEl)lblEl.textContent='100%';
-  await new Promise(r=>setTimeout(r,380));
-  progRow.remove();
-
-  renderResult(parsed);
-  chatState='done';
-}
-
-/* edit: restore saved JD into textarea, remove result */
-function editInput(){
-  if(resultWrap)resultWrap.remove();
-  resultWrap=null;
-  const ta=document.getElementById('jd-input');
-  const sendBtn=document.getElementById('send-btn');
-  ta.value=savedJD;
-  ta.disabled=false;
-  sendBtn.disabled=false;
-  autoResize(ta);
-  ta.focus();
-  document.getElementById('input-actions').classList.remove('visible');
-  chatState='prompted';
-  /* remove the user preview bubble */
-  const rows=[...document.querySelectorAll('.bubble-row.right')];
-  if(rows.length>1) rows[rows.length-1].remove();
-}
-
-/* start over: full reset */
-function resetChat(){
-  if(resultWrap)resultWrap.remove();
-  resultWrap=null;
-  savedJD='';
-  savedResult=null;
-  chatState='prompted';
-  const ta=document.getElementById('jd-input');
-  const sendBtn=document.getElementById('send-btn');
-  ta.value=''; ta.style.height=''; ta.disabled=false;
-  sendBtn.disabled=false;
-  document.getElementById('input-actions').classList.remove('visible');
-  /* remove everything after the initial CTA bubble */
-  const allRows=[...document.querySelectorAll('#chat-widget .bubble-row')];
-  allRows.slice(1).forEach(r=>r.remove());
-}
-
-/* close: collapse result card to a compact summary bubble, expandable again */
-function closeResult(){
-  if(!resultWrap||!savedResult)return;
-  const company=savedResult.company_name||'This company';
-  const snap=(savedResult.snapshot||[]);
-  const preview=snap.length?snap[0]:(savedResult.why_me||'View match');
-
-  const collapsed=document.createElement('div');
-  collapsed.className='bubble-row left';
-  collapsed.style.cssText='opacity:0;transform:translateY(6px);transition:opacity .28s ease,transform .28s ease;';
-  collapsed.innerHTML=`<div class="bubble bubble-left" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 15px;" onclick="expandResult(this)">
-    <div style="flex:1;">
-      <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;">${escHtml(company)} × navyaa</div>
-      <div style="font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px;">${escHtml(preview.length>70?preview.slice(0,70)+'…':preview)}</div>
-    </div>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--dim);"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>`;
-
-  resultWrap.replaceWith(collapsed);
-  resultWrap=collapsed;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{collapsed.style.opacity='1';collapsed.style.transform='translateY(0)';}));
-}
-
-function expandResult(bubbleEl){
-  if(!savedResult)return;
-  const row=bubbleEl.closest('.bubble-row');
-  renderResult(savedResult, row);
-}
-
-/* company link map */
-const CO_MAP={
-  'Tesla':'#','Cisco Splunk':'case_study_cisco.html','Splunk':'case_study_cisco.html',
-  'CNN':'case_study_cnn.html','Cal Poly':'case_study_chw.html','CHW':'case_study_chw.html',
-  'Navi':'case_study_navi.html','senior project':'research.html','Senior project':'research.html'
-};
-function linkCompanies(text){
-  let out=escHtml(text);
-  Object.entries(CO_MAP).forEach(([name,url])=>{
-    const safe=name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    out=out.replace(new RegExp(`(${safe})`,'g'),`<a href="${url}" class="co-link" target="_blank">$1</a>`);
-  });
-  return out;
-}
-
-function renderResult(r, replaceEl=null){
-  savedResult=r;
-  const company=r.company_name||'This company';
-
-  const snapHtml=(r.snapshot||[]).map(b=>`<li>${linkCompanies(b)}</li>`).join('');
-
-  const kwHtml=(r.keywords||[]).map(k=>
-    `<span class="kw-pill${k.matched?' matched':''}">${escHtml(k.word)}</span>`
-  ).join('');
-
-  const skillsHtml=(r.skills||[]).map(s=>{
-    const bullets=(s.bullets||[]).map(b=>`<li>${linkCompanies(b)}</li>`).join('');
-    return `<div class="skill-item">
-      <div class="skill-name">${escHtml(s.skill)}</div>
-      <ul class="skill-bullets">${bullets}</ul>
-    </div>`;
-  }).join('');
-
-  const copyText=[
-    (r.snapshot||[]).map(b=>'· '+b).join('\n'),
-    '',
-    (r.skills||[]).map(s=>s.skill+': '+s.bullets.join('; ')).join('\n'),
-    '',
-    r.why_me||''
-  ].join('\n').trim();
-
-  const wrap=document.createElement('div');
-  wrap.style.cssText='transition:opacity .2s ease,transform .2s ease;';
-
-  const card=document.createElement('div');
-  card.className='result-bubble';
-  card.innerHTML=`
-    <div class="rb-header">
-      <span class="rb-collab">${escHtml(company)} × navyaa</span>
-      <div class="rb-header-right">
-        <button class="rb-copy" onclick="copyResult(this,${JSON.stringify(copyText).replace(/</g,'\\u003c')})">Copy</button>
-        <button class="rb-close" onclick="closeResult()">Close</button>
-      </div>
-    </div>
-    <div class="rb-body">
-      ${snapHtml?`<ul class="rb-snap">${snapHtml}</ul><div class="rb-div"></div>`:''}
-
-      <div>
-        <p class="rb-label">Key terms matched</p>
-        <div class="rb-kw-row">${kwHtml}</div>
-      </div>
-
-      <div>
-        <p class="rb-label">Where my experience applies</p>
-        ${skillsHtml}
-      </div>
-
-      <div>
-        <p class="rb-label">Why me</p>
-        <p class="rb-why-text">${linkCompanies(r.why_me||'')}</p>
-      </div>
-
-      <div>
-        <p class="rb-label">On design philosophy</p>
-        <p class="rb-phil-text">${escHtml(r.philosophy_fit||'')}</p>
-      </div>
-
-      <p class="rb-trust">* Everything here is drawn from my case studies, resume, and about page. Nothing is made up.</p>
-    </div>`;
-
-  wrap.appendChild(card);
-  if(replaceEl){
-    replaceEl.replaceWith(wrap);
-  } else {
-    document.getElementById('chat-widget').appendChild(wrap);
-  }
-  resultWrap=wrap;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>card.classList.add('visible')));
-}
-
-function copyResult(btn,text){
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='Copied';
-    setTimeout(()=>btn.textContent='Copy',2000);
-  });
-}
-
-function escHtml(s){
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-/* ── System prompt ── */
-const SYSTEM_PROMPT = `
-You are writing as Navyaa Vemuri, a Product Designer. First person only. No "she", "her", or third person. No em dashes. Be concise, warm, factual, and recruiter-friendly.
-
-Use only these facts:
-- Tesla, UX Consultant, 2025: designed mobile/internal commute experience for shuttle tracking, parking, and trip planning. Enterprise UX, mobile systems.
-- Cisco Splunk, UX Design Intern, 2025: audited 8+ enterprise domains, redesigned demo discovery, explored AI-powered developer guidance. Enterprise UX, AI interaction, UX research.
-- CNN, Content Design Intern, 2024: created recommendations for CNN's first content design guidelines and shipped mobile-first election coverage work. Content design, IA, design systems.
-- Cal Poly Health, UX Lead, 2023-2025: redesigned health portal for university students, +690% engagement, -60% drop-off. Accessibility, IA, healthcare UX.
-- Senior project, 2026: researched trust, transparency, and controllability in agentic AI systems.
-- Navi hackathon: 1st place safety app with AI companion, safe routing, and location sharing.
-
-Design philosophy: I design for trust by making complex systems understandable and actionable.
-
-Return only valid JSON:
-{
-  "company_name": "short company name",
-  "snapshot": ["2-3 first-person bullets tied to the JD"],
-  "keywords": [{"word": "JD keyword", "matched": true}],
-  "skills": [{"skill": "skill name", "bullets": ["short first-person proof"]}],
-  "why_me": "one grounded sentence",
-  "philosophy_fit": "one sentence connecting trust-focused design to the company"
-}
-
-Rules:
-- Do not invent experience.
-- Match only relevant JD themes.
-- 6-10 keywords max.
-- 3-5 skills max.
-- Keep all bullets short.`;
-
-/* ── Modal ── */
-const modals={spending:{img:'proxy-full.png',tag:'ai build · lovable',tagClass:'m-tag-ai',title:'spending intervention app',tagline:'Frictionless spending is the #1 enemy of Gen Z savings. I wanted to build a financial bodyguard that works in the real world, not just inside a banking app.',link:'https://proxy10.lovable.app/',linkLabel:'try live app →',sections:[{title:'the idea',body:'The smallest amount of friction required to make a user think twice before tapping Pay.'},{title:'how it works',body:'Two modes of intervention: location detection triggers when you enter a retail danger zone. Barcode scan checks any item against your weekly budget. The Vault holds paused items so nothing is lost, just delayed.'},{title:'the build',body:'I used AI as a strategic design partner. Before touching Lovable, I wireframed in Figma to lock the information architecture and give the AI a concrete visual reference.'},{title:'workflow',workflow:['Perplexity','research','Figma','wireframes','Gemini','prompt architecture','Lovable','deployment']},{title:'constraint',body:'10 Lovable credits, end-to-end.'},{title:'learnings',body:'My first dip into fintech, designing for trust, safety, and a problem I actually experience. AI prototyping is messy by nature, but that is the point.'}]}};
-
-function openModal(id){
-  const m=modals[id];if(!m)return;
-  let html='';
-  html+=`<img class="modal-hero-img" src="${m.img}" alt="${m.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="modal-hero-ph" style="display:none;"></div>`;
-  html+=`<div class="modal-content"><div class="modal-tag-row"><span class="m-tag ${m.tagClass}">${m.tag}</span></div><div class="modal-title">${m.title}</div><div class="modal-tagline">${m.tagline}</div>`;
-  if(m.link)html+=`<a class="modal-link-btn" href="${m.link}" target="_blank">${m.linkLabel}</a>`;
-  m.sections.forEach(s=>{
-    html+=`<div class="modal-divider"></div><div class="modal-section-title">${s.title}</div>`;
-    if(s.workflow){html+=`<div class="modal-workflow">`;s.workflow.forEach((step,i)=>{html+=`<span class="wf-step">${step}</span>`;if(i<s.workflow.length-1)html+=`<span class="wf-arrow">→</span>`;});html+=`</div>`;}
-    else html+=`<div class="modal-body-text">${s.body}</div>`;
-  });
-  html+=`</div>`;
-  document.getElementById('modal-inner').innerHTML=html;
-  document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow='';document.getElementById('modal-box').scrollTop=0;}
-function handleOverlayClick(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 </script>
-<!-- fullscreen stamp video -->
-<div class="vid-overlay" id="vid-overlay">
-  <video id="stamp-vid" src="herovid.mp4" playsinline preload="auto"></video>
-</div>
-
 </body>
 </html>
