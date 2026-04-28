@@ -23,9 +23,11 @@
   --conflict-border:#F0C8B8;
   --shadow:0 12px 32px rgba(26,26,26,.06);
   /* Cal Poly green — for meta card */
-  --green-bg:#2E7D5E;
-  --white-text:#e9f5f0;
-  --white-muted:#dee3e1;
+  --green:#2E7D5E;
+  --green-bg:#EBF5F0;
+  --green-border:#B8DDD0;
+  --green-text:#1A4D3A;
+  --green-muted:#3B7A60;
 }
 html{scroll-behavior:smooth;}
 body{
@@ -37,113 +39,103 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ─── PAGE GRID ─── */
-.page{
-  display:block;
-  min-height:100vh;
-}
+/* ─── PAGE LAYOUT — flex like Splunk reference ─── */
+.page{display:flex;min-height:100vh;}
 
 /* ─── LEFT SIDEBAR ─── */
 .sidebar{
-  position:fixed;
-  top:0;left:0;
-  width:220px;
+  width:320px;
+  flex-shrink:0;
+  position:sticky;
+  top:0;
   height:100vh;
-  border-right:1px solid var(--border);
+  border-right:.5px solid var(--border);
   background:var(--bg);
   display:flex;
   flex-direction:column;
-  padding:32px 0 32px 0;
-  z-index:50;
+  padding:48px;
   overflow-y:auto;
 }
 
 /* stamp */
 .sidebar-stamp{
   display:block;
-  padding:0 24px 24px 24px;
-  border-bottom:1px solid var(--border);
+  width:120px;
   margin-bottom:20px;
+  flex-shrink:0;
 }
-.sidebar-stamp img{
-  width:52px;
-  height:52px;
-  display:block;
-}
+.sidebar-stamp img{width:100%;display:block;}
 
 /* back to work */
 .sidebar-back{
-  display:flex;
-  align-items:center;
-  gap:6px;
   font-size:13px;
   color:var(--muted);
   text-decoration:none;
-  padding:0 24px 20px 24px;
+  letter-spacing:.01em;
   transition:color .2s;
+  margin-bottom:18px;
 }
 .sidebar-back:hover{color:var(--text);}
-.sidebar-back-arrow{transition:transform .2s;}
-.sidebar-back:hover .sidebar-back-arrow{transform:translateX(-3px);}
 
 /* on this page label */
 .sidebar-section-label{
-  font-size:10px;
+  font-size:9px;
   text-transform:uppercase;
-  letter-spacing:.1em;
+  letter-spacing:.16em;
   color:var(--dim);
-  padding:0 24px 10px 24px;
+  margin-bottom:8px;
 }
 
 /* toc links */
 .sidebar-toc{
   display:flex;
   flex-direction:column;
+  gap:1px;
   flex:1;
-  padding:0 0 24px 0;
 }
 .sidebar-toc a{
   font-size:13px;
-  color:var(--muted);
+  color:var(--dim);
   text-decoration:none;
-  padding:6px 24px;
-  border-left:2px solid transparent;
-  transition:color .15s, border-color .15s, background .15s;
+  display:block;
+  padding:6px 0 6px 12px;
+  border-left:1.5px solid var(--border);
+  transition:color .2s, border-color .2s, padding-left .18s;
   line-height:1.4;
 }
-.sidebar-toc a:hover{color:var(--text);background:var(--surface);}
-.sidebar-toc a.active{
-  color:var(--accent);
-  border-left-color:var(--accent);
-  background:var(--accent-bg);
-}
+.sidebar-toc a:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
+.sidebar-toc a.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
 
 /* bottom links */
 .sidebar-footer{
-  border-top:1px solid var(--border);
-  padding:20px 24px 0 24px;
+  margin-top:auto;
+  padding-top:28px;
+  border-top:.5px solid var(--border);
   display:flex;
   flex-direction:column;
-  gap:8px;
-  margin-top:auto;
+  gap:18px;
 }
 .sidebar-footer a{
   font-size:13px;
   color:var(--muted);
   text-decoration:none;
-  transition:color .15s;
+  letter-spacing:.01em;
+  transition:color .2s;
 }
 .sidebar-footer a:hover{color:var(--text);}
 
+/* ─── RIGHT COLUMN ─── */
+.right-col{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
 /* ─── MAIN CONTENT ─── */
 .main{
-  margin-left:220px;
-  padding:0 80px 120px 72px;
-  width:calc(100% - 220px);
-  max-width:none;
-}
-.main-inner{
-  max-width:720px;
+  padding:52px 64px 96px;
+  max-width:1040px;
 }
 
 /* ─── HERO ─── */
@@ -166,7 +158,8 @@ body{
   opacity:0;animation:up .6s .25s forwards;
 }
 
-/* ─── METRICS ROW ─── */
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;opacity:0;animation:up .6s .35s forwards;}
+.pill{font-size:12px;color:#2A2A2A;background:var(--bg);border:.5px solid var(--border);border-radius:999px;padding:5px 12px;letter-spacing:.01em;}
 .metrics{
   display:grid;grid-template-columns:repeat(3,1fr);
   margin-top:40px;
@@ -189,22 +182,21 @@ body{
 
 /* ─── META CARD (green) ─── */
 .meta{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  display:grid;grid-template-columns:repeat(4,1fr);
   margin-top:24px;
-  border-radius:8px;
+  border-radius:12px;
   overflow:hidden;
-  background:var(--green-bg);
+  background:#1A4D3A;
   opacity:0;animation:up .5s .45s forwards;
 }
 .meta-group{
-  padding:18px 20px;
+  padding:28px 28px;
 }
-.meta-group:last-child{border-right:none;}
 .meta-label{
-  font-size:10px;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--white-muted);margin-bottom:6px;font-weight:500;
+  font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.45);margin-bottom:10px;font-weight:500;
 }
-.meta-val{font-size:12px;color:var(--white-text);line-height:1.65;}
+.meta-val{font-size:15px;color:#fff;line-height:1.75;}
 
 /* ─── SECTIONS ─── */
 section{padding:60px 0;border-top:1px solid var(--border);}
@@ -414,14 +406,12 @@ footer{
 
 /* ─── HERO VIDEO ─── */
 .hero-video{
-  position:relative;
-  left:calc(-220px - 72px);
-  width:100vw;
+  width:100%;
   aspect-ratio:16/9;
   background:var(--surface);
-  border-bottom:1px solid var(--border);
+  border-bottom:.5px solid var(--border);
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:0;
+  flex-shrink:0;
 }
 .hero-video span{font-size:12px;color:var(--dim);}
 
@@ -439,19 +429,21 @@ footer{
    TABLET  ≤ 1024px
 ══════════════════════════════════════ */
 @media(max-width:1024px){
-  .sidebar{width:180px;}
-  .main{margin-left:180px;width:calc(100% - 180px);padding:0 40px 100px 40px;}
-  .hero-video{left:calc(-180px - 40px);}
+  .sidebar{width:240px;padding:36px;}
+  .main{padding:40px 40px 80px;}
   .meta{grid-template-columns:1fr 1fr;}
   .meta-group:nth-child(2){border-right:none;}
-  .meta-group:nth-child(3){border-top:1px solid var(--green-border);}
-  .metrics{grid-template-columns:repeat(3,1fr);}
+  .meta-group:nth-child(3){border-top:none;}
 }
 
 /* ══════════════════════════════════════
-   MOBILE  ≤ 768px
+   MOBILE  ≤ 900px  (matches Splunk)
 ══════════════════════════════════════ */
-@media(max-width:768px){
+@media(max-width:900px){
+
+  /* switch to block so sidebar disappears cleanly */
+  .page{display:block;}
+  .right-col{width:100%;}
 
   /* hide desktop sidebar */
   .sidebar{display:none;}
@@ -464,8 +456,8 @@ footer{
     position:sticky;top:0;z-index:200;
     background:rgba(253,253,253,.95);
     backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--border);
-    padding:12px 20px;
+    border-bottom:.5px solid var(--border);
+    padding:14px 20px;
     height:56px;
   }
   .mobile-topbar-left{display:flex;align-items:center;gap:12px;}
@@ -478,13 +470,12 @@ footer{
   .mobile-hamburger span{
     display:block;width:22px;height:1.5px;
     background:var(--text);border-radius:2px;
-    transition:transform .25s, opacity .25s;
+    transition:transform .25s,opacity .25s;
   }
   .mobile-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
   .mobile-hamburger.open span:nth-child(2){opacity:0;}
   .mobile-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
 
-  /* drawer overlay */
   .drawer-overlay{
     display:block;
     position:fixed;inset:0;
@@ -495,13 +486,12 @@ footer{
   }
   .drawer-overlay.open{opacity:1;pointer-events:all;}
 
-  /* slide-in drawer */
   .mobile-drawer{
     display:flex;flex-direction:column;
     position:fixed;top:0;right:0;
     width:260px;height:100vh;
     background:var(--bg);
-    border-left:1px solid var(--border);
+    border-left:.5px solid var(--border);
     z-index:195;
     padding:20px 0;
     transform:translateX(100%);
@@ -510,7 +500,7 @@ footer{
   }
   .mobile-drawer.open{transform:translateX(0);}
   .mobile-drawer-label{
-    font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+    font-size:9px;text-transform:uppercase;letter-spacing:.16em;
     color:var(--dim);padding:0 24px 10px 24px;
   }
   .mobile-drawer-toc{display:flex;flex-direction:column;}
@@ -522,90 +512,50 @@ footer{
   .mobile-drawer-toc a:hover{color:var(--text);background:var(--surface);}
   .mobile-drawer-toc a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);}
   .mobile-drawer-footer{
-    border-top:1px solid var(--border);
+    border-top:.5px solid var(--border);
     padding:20px 24px 0;margin-top:auto;
     display:flex;flex-direction:column;gap:10px;
   }
   .mobile-drawer-footer a{font-size:14px;color:var(--muted);text-decoration:none;}
 
-  /* main layout */
-  .main{
-    margin-left:0;
-    width:100%;
-    padding:0 20px 80px 20px;
-  }
+  /* main */
+  .main{padding:32px 24px 64px;}
 
-  /* hero video — full bleed, no sidebar offset */
-  .hero-video{
-    left:-20px;
-    width:100vw;
-    aspect-ratio:16/9;
-  }
-
-  /* hero text */
-  .hero{padding:40px 0 0;}
+  /* hero */
+  .hero{padding:32px 0 0;}
   .hero h1{font-size:28px;}
   .hero-sub{font-size:14px;}
 
-  /* metrics — 2 col then last full width */
+  /* grids */
   .metrics{grid-template-columns:1fr 1fr;}
-  .metric:nth-child(3){
-    grid-column:1/-1;
-    border-right:none;
-    border-top:1px solid var(--border);
-  }
   .metric:nth-child(2){border-right:none;}
-
-  /* meta card — 2x2 */
+  .metric:nth-child(3){grid-column:1/-1;border-top:1px solid var(--border);}
   .meta{grid-template-columns:1fr 1fr;}
   .meta-group{border-right:none!important;}
-  .meta-group:nth-child(odd){border-right:1px solid var(--green-border)!important;}
-  .meta-group:nth-child(3),
-  .meta-group:nth-child(4){border-top:1px solid var(--green-border);}
-
-  /* section headings */
-  .section-hed{font-size:20px;}
-
-  /* two col problem split — stack */
+  .meta-group:nth-child(odd){border-right:none!important;}
   .two-col{grid-template-columns:1fr;}
-
-  /* pain rows — stack image above text */
   .pain-row{grid-template-columns:1fr;gap:16px;}
   .pain-row-img{aspect-ratio:16/9;}
-
-  /* two img constraints — stack */
   .two-img{grid-template-columns:1fr;}
-
-  /* IA diagram — stack */
-  .ia-diagram{grid-template-columns:1fr;gap:0;}
-  .ia-arrow{padding:12px 0;justify-content:flex-start;padding-left:13px;}
-  .ia-col{border-radius:0;}
+  .ia-diagram{grid-template-columns:1fr;}
+  .ia-arrow{padding:12px 0 12px 13px;}
   .ia-col:first-child{border-radius:6px 6px 0 0;}
   .ia-col:last-child{border-radius:0 0 6px 6px;border-top:none;}
-
-  /* result stats — stack */
   .result-stats{grid-template-columns:1fr;}
   .result-stat+.result-stat{border-left:none;border-top:1px solid var(--border);}
-
-  /* footer */
+  .section-hed{font-size:20px;}
   .footer-inner{flex-direction:column;gap:12px;align-items:flex-start;}
-
-  /* carousel controls */
-  .carousel-controls{flex-wrap:wrap;gap:8px;}
 }
 
 /* ══════════════════════════════════════
    SMALL MOBILE  ≤ 480px
 ══════════════════════════════════════ */
 @media(max-width:480px){
-  .main{padding:0 16px 80px 16px;}
-  .hero-video{left:-16px;}
+  .main{padding:24px 16px 64px;}
   .hero h1{font-size:24px;}
   .metrics{grid-template-columns:1fr;}
-  .metric{border-right:none!important;border-top:1px solid var(--border);}
-  .metric:first-child{border-top:none;}
-  .meta{grid-template-columns:1fr 1fr;}
-  .tradeoff{padding:16px 18px;}
+  .metric{border-right:none!important;}
+  .metric+.metric{border-top:1px solid var(--border);}
 }
 </style>
 </head>
@@ -642,32 +592,17 @@ footer{
     <a href="#results">Results</a>
     <a href="#learnings">Learnings</a>
   </nav>
-  <div class="mobile-drawer-footer">
-    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">Resume ↗</a>
-    <a href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
-    <a href="mailto:navyaa.vemuri@gmail.com">Let's Chat ↗</a>
-  </div>
 </div>
 
 <div class="page">
 
   <!-- ═══ SIDEBAR ═══ -->
   <aside class="sidebar">
-
-    <!-- stamp -->
     <a class="sidebar-stamp" href="https://navyaavemuri.com/portfolio.html">
       <img src="https://navyaavemuri.com/stamp.png" alt="Navyaa Vemuri">
     </a>
-
-    <!-- back to work -->
-    <a class="sidebar-back" href="https://navyaavemuri.com/portfolio.html">
-      <span class="sidebar-back-arrow">←</span> Back to work
-    </a>
-
-    <!-- on this page -->
+    <a class="sidebar-back" href="https://navyaavemuri.com/portfolio.html">← Back to work</a>
     <div class="sidebar-section-label">on this page</div>
-
-    <!-- toc -->
     <nav class="sidebar-toc">
       <a href="#overview">Overview</a>
       <a href="#context">Context</a>
@@ -680,19 +615,31 @@ footer{
       <a href="#results">Results</a>
       <a href="#learnings">Learnings</a>
     </nav>
-
   </aside>
 
-  <!-- ═══ MAIN ═══ -->
+  <!-- ═══ RIGHT COL ═══ -->
+    <div class="right-col">
+    <div class="hero-media">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="chw.mp4" type="video/mp4">
+      </video>
+    </div>
+
   <main class="main">
-  <div class="main-inner">
 
     <!-- HERO -->
     <section class="hero" id="overview">
-      <div class="hero-video"><span>cisco.mp4</span></div>
-      <p class="eyebrow" style="margin-top:32px;">Cal Poly · UX Lead · Sept 2023–Dec 2025</p>
+      <p class="eyebrow">Cal Poly · UX Lead · Sept 2023–Dec 2025</p>
       <h1>Rebuilt a health portal students actually <em>trusted</em></h1>
       <p class="hero-sub">690% more engaged sessions. 60% less drop-off. A platform 23,000 students finally relied on.</p>
+
+      <div class="hero-pills">
+        <span class="pill">Solo owner</span>
+        <span class="pill">100% shipped</span>
+        <span class="pill">Legacy systems</span>
+        <span class="pill">Trust design</span>
+        <span class="pill">Data-informed</span>
+      </div>
 
       <div class="metrics">
         <div class="metric">
@@ -713,19 +660,19 @@ footer{
       <div class="meta">
         <div class="meta-group">
           <div class="meta-label">Role</div>
-          <div class="meta-val">Sole UX Designer<br>Front-End Dev</div>
+          <div class="meta-val">Sole UX Designer</div>
         </div>
         <div class="meta-group">
           <div class="meta-label">Team</div>
-          <div class="meta-val">2 Managers<br>2 Graphic Designers<br>1 Dev</div>
+          <div class="meta-val">2 Managers<br>2 Graphic Designers<br>1 Front End-Dev (me!)<br>1 Designer (me!)</div>
         </div>
         <div class="meta-group">
           <div class="meta-label">Timeline</div>
-          <div class="meta-val">Sept 2023–<br>Dec 2025</div>
+          <div class="meta-val">September 2023–<br>December 2025</div>
         </div>
         <div class="meta-group">
           <div class="meta-label">Skills</div>
-          <div class="meta-val">UX Research<br>Web Design<br>Content Design<br>Product Strategy</div>
+          <div class="meta-val">Web Design<br>UX Research<br>Front End-Dev<br>Content Design<br>Product Strategy</div>
         </div>
       </div>
 
@@ -988,6 +935,7 @@ footer{
 
   </div><!-- /main-inner -->
   </main>
+  </div><!-- /right-col -->
 </div>
 
 <script>
