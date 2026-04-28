@@ -91,11 +91,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .pull-quote::before{content:'\201C';position:absolute;top:-4px;left:20px;font-size:48px;color:var(--accent);opacity:.15;font-family:Georgia,serif;line-height:1;}
 .pull-quote p{font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;padding-left:8px;}
 .pull-quote cite{display:block;font-size:11px;color:var(--dim);margin-top:10px;font-style:normal;letter-spacing:.05em;padding-left:8px;}
-.img-block{margin:22px 0;border-radius:12px;overflow:hidden;border:.5px solid var(--border);position:relative;}
-.img-block img{width:100%;display:block;position:relative;z-index:1;}
+.img-block{
+  border:.5px solid var(--border);
+  box-shadow:0 6px 20px rgba(0,0,0,0.04);
+}
+}.img-block img{width:100%;display:block;position:relative;z-index:1;}
 .img-accent-line{height:1.5px;background:var(--accent);width:40px;position:absolute;top:0;left:0;z-index:1;}
-.img-caption-bar{padding:12px 18px;border-top:.5px solid var(--border);}
-.img-caption-text{font-size:13px;color:var(--accent);line-height:1.6;}
+.img-caption-bar{
+  padding:12px 18px;
+  border-top:.5px solid var(--border);
+}.img-caption-text{font-size:13px;color:var(--accent);line-height:1.6;}
 .annotation-card{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;}
 .annotation-title{font-size:13px;color:var(--text);font-weight:500;}
 .annotation-copy{font-size:12px;color:var(--muted);line-height:1.65;}
