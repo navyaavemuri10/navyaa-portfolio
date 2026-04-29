@@ -1,359 +1,694 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Designing Trust for Human-Agent Teaming · Navyaa Vemuri</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;}
-    :root{
-      --bg:#FDFDFD;--surface:#F4F3F0;--surface-2:#F8F7F4;--border:#E8E8E4;
-      --text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;
-      --accent:#2E5B4E;--accent-soft:#ECF4F0;--accent-border:#D3E2DB;
-      --gold:#B78A2D;--gold-soft:#FAF5E8;--gold-border:#E8DAB5;
-      --nav-w:284px;--shadow:0 8px 30px rgba(30,40,35,.05);
-    }
-    html{scroll-behavior:smooth;}
-    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
-    .layout{display:flex;min-height:100vh;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human-Agent Teaming Research — Navyaa Vemuri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#FDFDFD;
+  --surface:#F4F3F0;
+  --border:#E8E8E4;
+  --text:#1A1A1A;
+  --muted:#6B6B6B;
+  --dim:#ABABAB;
+  --accent:#3B5BDB;
+  --accent-bg:#EEF2FF;
+  --accent-border:#C5D0FA;
+  --conflict:#C4745A;
+  --conflict-bg:#FDF0EC;
+  --shadow:0 12px 32px rgba(26,26,26,.06);
+  --meta-bg:#1A1F3A;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
 
-    /* SIDEBAR */
-    .cs-sidebar{width:var(--nav-w);flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);overflow-y:auto;scrollbar-width:none;}
-    .cs-sidebar::-webkit-scrollbar{display:none;}
-    .stamp{width:156px;margin-bottom:30px;flex-shrink:0;}
-    .stamp img{width:100%;display:block;min-height:130px;background:#E8EAF0;border-radius:4px;animation:stampFloat 4s ease-in-out infinite;will-change:transform;}
-    .stamp:hover img{animation-play-state:paused;}
-    @keyframes stampFloat{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
-    .toc-label{font-size:9px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
-    .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;margin-bottom:auto;}
-    .toc-link{font-size:13px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
-    .toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
-    .toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
-    .back-link{font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;padding-top:24px;border-top:.5px solid var(--border);margin-top:24px;transition:color .2s;flex-shrink:0;}
-    .back-link:hover{color:var(--text);}
+/* ─── PAGE LAYOUT ─── */
+.page{display:flex;min-height:100vh;}
 
-    /* RIGHT COL */
-    .right-col{flex:1;min-width:0;}
+/* ─── SIDEBAR ─── */
+.sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;border-right:.5px solid var(--border);background:var(--bg);display:flex;flex-direction:column;padding:48px;overflow-y:auto;}
+.sidebar-stamp{display:block;width:160px;margin-bottom:20px;flex-shrink:0;cursor:pointer;}
+.sidebar-stamp img{width:100%;display:block;}
+@keyframes stamp-float{
+  0%{transform:translateY(0) rotate(-.5deg);}
+  33%{transform:translateY(-6px) rotate(.3deg);}
+  66%{transform:translateY(-3px) rotate(-.2deg);}
+  100%{transform:translateY(0) rotate(-.5deg);}
+}
+.sidebar-stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
+.sidebar-stamp:hover img{animation-play-state:paused;}
+.sidebar-back{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;margin-bottom:18px;}
+.sidebar-back:hover{color:var(--text);}
+.sidebar-section-label{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--dim);margin-bottom:6px;margin-top:6px;}
+.sidebar-toc{display:flex;flex-direction:column;gap:1px;flex:1;}
+.sidebar-toc a{font-size:13px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
+.sidebar-toc a:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
+.sidebar-toc a.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
+.sidebar-footer{margin-top:auto;padding-top:28px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:18px;}
+.sidebar-footer a{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
+.sidebar-footer a:hover{color:var(--text);}
 
-    /* HERO IMAGE */
-    .hero-img{width:100%;background:radial-gradient(circle at top left,rgba(183,138,45,.18),transparent 34%),radial-gradient(circle at bottom right,rgba(46,91,78,.18),transparent 40%),linear-gradient(135deg,#F7F4ED 0%,#F7F8F6 48%,#EFF5F1 100%);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:center;padding:48px 32px;}
-    .hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
+/* ─── RIGHT COL ─── */
+.right-col{flex:1;min-width:0;display:flex;flex-direction:column;}
 
-   .hero-media{width:100%;background:var(--surface);border-bottom:.5px solid var(--border);min-height:480px;position:relative;overflow:hidden;}
-    .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
-    /* HERO COPY — below image */
-    .hero-copy{padding:42px 64px 48px;background:var(--bg);border-bottom:.5px solid var(--border);}
-    .hero-kicker{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
-    .hero-title{font-size:52px;line-height:1.03;letter-spacing:-.04em;font-weight:300;max-width:720px;margin-bottom:18px;}
-    .hero-title em{color:var(--accent);font-style:italic;}
-    .hero-subtitle{font-size:17px;line-height:1.72;color:var(--muted);max-width:640px;margin-bottom:24px;}
-    .hero-subtitle strong{color:var(--text);font-weight:400;}
-    .hero-note{display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);border:.5px solid var(--accent-border);color:var(--accent);border-radius:999px;padding:8px 14px;font-size:12px;margin-bottom:28px;}
-    .hero-meta{display:grid;grid-template-columns:repeat(4,1fr);border:.5px solid var(--border);border-radius:12px;overflow:hidden;max-width:760px;}
-    .hero-meta-cell{padding:16px 18px;background:var(--surface);}
-    .hero-meta-cell+.hero-meta-cell{border-left:.5px solid var(--border);}
-    .hero-meta-label{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
-    .hero-meta-value{font-size:13px;line-height:1.4;color:var(--text);}
+/* ─── HERO MEDIA ─── */
+.hero-media{width:100%;min-height:500px;max-height:560px;overflow:hidden;background:var(--surface);border-bottom:.5px solid var(--border);flex-shrink:0;}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block;}
 
-    /* MAIN CONTENT */
-    .cs-main{padding:52px 64px 96px;max-width:980px;}
-    .cs-section{margin-bottom:72px;scroll-margin-top:24px;}
-    .cs-section-label{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-weight:500;}
-    .cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
-    .cs-h2{font-size:31px;font-weight:400;color:var(--text);letter-spacing:-.03em;line-height:1.16;margin-bottom:14px;max-width:760px;}
-    .cs-h2 em{color:var(--accent);font-style:italic;}
-    .cs-p{font-size:15px;color:var(--muted);line-height:1.82;margin-bottom:14px;max-width:760px;}
-    .cs-p strong{color:var(--text);font-weight:400;}
-    .callout{margin-top:18px;background:var(--gold-soft);border:.5px solid var(--gold-border);border-radius:12px;padding:18px 20px;max-width:760px;}
-    .callout-label{font-size:10px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
-    .callout-body{font-size:14px;line-height:1.7;color:var(--muted);}
-    .meta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px;}
-    .meta-card{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:22px 22px 20px;}
-    .meta-stat{font-size:30px;line-height:1;color:var(--accent);letter-spacing:-.03em;font-weight:300;margin-bottom:10px;}
-    .meta-title{font-size:12px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
-    .meta-desc{font-size:13px;color:var(--muted);line-height:1.62;}
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;}
-    .col-card{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:22px 22px 18px;}
-    .col-label{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;}
-    .col-item{font-size:13px;color:var(--muted);line-height:1.65;padding:8px 0;border-bottom:.5px solid var(--border);}
-    .col-item:last-child{border-bottom:none;}
-    .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
-    .insight-card{background:#fff;border:.5px solid var(--border);border-radius:14px;padding:24px 22px;box-shadow:var(--shadow);}
-    .insight-num{font-size:11px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;}
-    .insight-title{font-size:20px;line-height:1.24;letter-spacing:-.02em;margin-bottom:10px;color:var(--text);}
-    .insight-copy{font-size:13px;color:var(--muted);line-height:1.7;}
-    .framework-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
-    .framework-card{background:var(--surface-2);border:.5px solid var(--border);border-radius:14px;padding:24px 24px 22px;}
-    .framework-phase{font-size:10px;color:var(--gold);letter-spacing:.13em;text-transform:uppercase;margin-bottom:10px;}
-    .framework-title{font-size:24px;letter-spacing:-.02em;line-height:1.15;color:var(--text);margin-bottom:10px;font-weight:400;}
-    .framework-copy{font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:14px;}
-    .framework-example{background:#fff;border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 16px;}
-    .framework-example-label{font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
-    .framework-example p{font-size:13px;line-height:1.68;color:var(--muted);}
-    .carousel-shell{margin-top:26px;}
-    .carousel-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px;}
-    .carousel-note{font-size:12px;color:var(--dim);line-height:1.55;}
-    .carousel-controls{display:flex;gap:8px;flex-shrink:0;}
-    .carousel-btn{border:.5px solid var(--border);background:white;color:var(--text);border-radius:999px;width:40px;height:40px;cursor:pointer;transition:transform .18s,border-color .2s;}
-    .carousel-btn:hover{transform:translateY(-1px);border-color:#CFCFC9;}
-    .carousel-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none;}
-    .carousel-track::-webkit-scrollbar{display:none;}
-    .app-card{flex:0 0 min(720px,86vw);scroll-snap-align:start;background:white;border:.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);}
-    .app-image{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#ECE9E2 0%,#F8F8F5 52%,#ECF3EF 100%);overflow:hidden;}
-    .app-image img{width:100%;height:100%;object-fit:cover;display:block;}
-    .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--muted);font-size:17px;line-height:1.6;letter-spacing:-.01em;}
-    .placeholder em{color:var(--accent);font-style:italic;}
-    .app-body{padding:24px 24px 20px;}
-    .app-kicker{font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;}
-    .app-title{font-size:28px;letter-spacing:-.03em;line-height:1.12;margin-bottom:10px;font-weight:400;}
-    .app-copy{font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:18px;max-width:640px;}
-    .bullet-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-top:6px;}
-    .bullet-item{display:grid;grid-template-columns:16px 1fr;gap:10px;align-items:start;font-size:13px;line-height:1.7;color:var(--muted);}
-    .bullet-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:8px;}
-    .reflection-card,.future-card{background:#fff;border:.5px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow);}
-    .future-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:22px;}
-    .future-mini{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:20px 20px 18px;}
-    .future-mini-title{font-size:11px;color:var(--accent);letter-spacing:.13em;text-transform:uppercase;margin-bottom:10px;}
-    .future-mini-item{font-size:13px;color:var(--muted);line-height:1.65;padding:6px 0;border-bottom:.5px solid var(--border);}
-    .future-mini-item:last-child{border-bottom:none;}
-    .footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
-    .footer-left{font-size:12px;color:var(--dim);}
-    .footer-left em{font-style:italic;color:var(--muted);}
-    .footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
-    .footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
-    .footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}
-    .footer-link:hover{color:var(--text);}
-    .footer-cta{font-size:12px;color:var(--accent);text-decoration:none;border:.5px solid var(--accent-border);border-radius:999px;padding:8px 16px;}
-    .footer-cta:hover{background:var(--accent-soft);}
-    @media(max-width:980px){
-      .layout{flex-direction:column;}
-      .cs-sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:.5px solid var(--border);padding:24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px;}
-      .stamp{width:88px;margin-bottom:0;}
-      .toc-list{flex-direction:row;flex-wrap:wrap;gap:4px;margin-bottom:0;}
-      .toc-link{border-left:none;border-bottom:1.5px solid var(--border);padding:6px 10px;}
-      .toc-link.active{border-bottom-color:var(--accent);}
-      .back-link{border-top:none;margin-top:0;padding-top:0;}
-      .hero-copy,.cs-main,.footer{padding-left:24px;padding-right:24px;}
-      .hero-title{font-size:38px;}
-      .hero-meta,.meta-row,.insight-grid,.framework-grid,.future-grid,.two-col,.bullet-grid{grid-template-columns:1fr;}
+/* ─── MAIN ─── */
+.main{padding:52px 64px 96px;max-width:1040px;}
 
-    }
-    @media(max-width:680px){
-      .hero-title{font-size:31px;}
-      .cs-h2{font-size:25px;}
-      .footer{flex-direction:column;align-items:flex-start;}
-    }
-    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
-  </style>
+/* ─── HERO ─── */
+.hero{padding:72px 0 0;}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;opacity:0;animation:up .5s .05s forwards;}
+.hero h1{font-family:'Lora',serif;font-size:38px;font-weight:400;line-height:1.18;letter-spacing:-.01em;color:var(--text);max-width:640px;opacity:0;animation:up .6s .15s forwards;}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{font-size:15px;color:var(--muted);margin-top:16px;max-width:540px;line-height:1.7;opacity:0;animation:up .6s .25s forwards;}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;opacity:0;animation:up .6s .3s forwards;}
+.pill{font-size:12px;color:#2A2A2A;background:var(--bg);border:.5px solid var(--border);border-radius:999px;padding:5px 12px;letter-spacing:.01em;}
+
+/* ─── METRICS ─── */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px;border:1px solid var(--border);border-radius:8px;overflow:hidden;opacity:0;animation:up .6s .35s forwards;}
+.metric{padding:20px 24px;border-right:1px solid var(--border);background:var(--bg);}
+.metric:last-child{border-right:none;}
+.metric-num{font-size:28px;font-weight:300;color:var(--accent);letter-spacing:-.03em;line-height:1;}
+.metric-label{font-size:11px;color:var(--dim);margin-top:4px;text-transform:uppercase;letter-spacing:.07em;}
+
+/* ─── META CARD (dark navy for research) ─── */
+.meta{display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border-radius:12px;overflow:hidden;background:var(--meta-bg);opacity:0;animation:up .5s .45s forwards;}
+.meta-group{padding:28px;}
+.meta-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:10px;font-weight:500;}
+.meta-val{font-size:15px;color:#fff;line-height:1.75;}
+
+/* ─── SECTIONS ─── */
+section{padding:60px 0;border-top:1px solid var(--border);}
+section.hero{border-top:none;}
+.section-tag{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:12px;}
+.section-hed{font-family:'Lora',serif;font-size:24px;font-weight:400;color:var(--text);line-height:1.3;margin-bottom:16px;}
+.section-hed em{font-style:italic;color:var(--accent);}
+p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:12px;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--text);font-weight:500;}
+
+/* ─── TWO COL ─── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;}
+.split-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:5px;}
+.split-text{font-size:13px;color:var(--muted);line-height:1.75;}
+
+/* ─── INSIGHT ROWS ─── */
+.insight-rows{display:flex;flex-direction:column;gap:0;margin-top:24px;}
+.insight-row{padding:24px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:80px 1fr;gap:24px;align-items:start;}
+.insight-row:first-child{border-top:1px solid var(--border);}
+.insight-num{font-size:11px;color:var(--dim);letter-spacing:.08em;padding-top:2px;}
+.insight-body{}
+.insight-hed{font-size:14px;font-weight:500;color:var(--text);margin-bottom:6px;}
+.insight-text{font-size:13px;color:var(--muted);line-height:1.75;}
+
+/* ─── FRAMEWORK PHASES ─── */
+.phases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+.phase{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:22px 24px;}
+.phase-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px;font-weight:500;}
+.phase-hed{font-size:15px;font-weight:500;color:var(--text);margin-bottom:8px;}
+.phase-body{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.phase-example{font-size:12px;color:var(--muted);background:var(--bg);border:.5px solid var(--border);border-radius:6px;padding:10px 14px;font-style:italic;line-height:1.6;}
+
+/* ─── CAROUSEL (horizontal scroll, old style) ─── */
+.carousel-shell{margin-top:26px;}
+.carousel-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px;}
+.carousel-note{font-size:12px;color:var(--dim);line-height:1.55;}
+.carousel-controls{display:flex;gap:8px;flex-shrink:0;}
+.carousel-btn{border:.5px solid var(--border);background:white;color:var(--text);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:16px;transition:transform .18s,border-color .2s;display:flex;align-items:center;justify-content:center;}
+.carousel-btn:hover{transform:translateY(-1px);border-color:#CFCFC9;}
+.carousel-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none;}
+.carousel-track::-webkit-scrollbar{display:none;}
+.carousel-card{
+  flex:0 0 calc(50% - 7px);
+  scroll-snap-align:start;
+  border:.5px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
+}
+.carousel-card-img{
+  width:100%;aspect-ratio:16/9;
+  background:var(--surface);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.carousel-card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.carousel-card-img span{font-size:12px;color:var(--dim);}
+.carousel-card-body{padding:20px 24px 24px;}
+.carousel-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px;font-weight:500;}
+.carousel-card-hed{font-size:22px;font-weight:400;color:var(--text);margin-bottom:8px;line-height:1.2;}
+.carousel-card-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.carousel-card-list{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.carousel-card-list li{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:.5px solid var(--border);display:flex;align-items:flex-start;gap:6px;padding-right:12px;}
+.carousel-card-list li:nth-last-child(-n+2){border-bottom:none;}
+.carousel-card-list li::before{content:"●";color:var(--accent);font-size:6px;flex-shrink:0;margin-top:5px;}
+
+/* ─── WHAT I DID LIST ─── */
+.did-list{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:0;}
+.did-list li{font-size:14px;color:var(--muted);padding:10px 0;border-bottom:.5px solid var(--border);display:flex;gap:10px;align-items:flex-start;}
+.did-list li:first-child{border-top:.5px solid var(--border);}
+.did-list li::before{content:"→";color:var(--dim);flex-shrink:0;font-size:12px;margin-top:2px;}
+
+/* ─── CALLOUT ─── */
+.callout{margin-top:24px;padding:20px 24px;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;background:var(--accent-bg);}
+.callout p{font-size:14px;color:var(--accent);}
+
+/* ─── FUTURE GRID ─── */
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px;}
+.future-card{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:20px;}
+.future-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:10px;}
+.future-card-list{list-style:none;padding:0;}
+.future-card-list li{font-size:13px;color:var(--muted);padding:5px 0;border-bottom:.5px solid var(--border);}
+.future-card-list li:last-child{border-bottom:none;}
+
+/* ─── PLACEHOLDER ─── */
+.ph{margin-top:16px;border:1px dashed var(--border);border-radius:8px;background:var(--surface);display:flex;align-items:center;justify-content:center;}
+.ph.tall{height:220px;}
+.ph span{font-size:11px;color:var(--dim);}
+
+/* ─── LEARNINGS ─── */
+.learnings{margin-top:24px;}
+.learning{padding:18px 0;border-bottom:1px solid var(--border);}
+.learning:first-child{border-top:1px solid var(--border);}
+.learning-num{font-size:10px;color:var(--dim);letter-spacing:.08em;margin-bottom:4px;}
+.learning-hed{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.learning-body{font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--border);padding:32px 0;margin-top:24px;}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;}
+.footer-note{font-size:11px;color:var(--dim);}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:var(--muted);}
+
+/* ─── ANIMATIONS ─── */
+@keyframes up{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ─── MOBILE TOPBAR ─── */
+.mobile-topbar{display:none;}
+.mobile-drawer{display:none;}
+.drawer-overlay{display:none;}
+
+/* ══════════════════════════════════════
+   TABLET ≤ 1024px
+══════════════════════════════════════ */
+@media(max-width:1024px){
+  .sidebar{width:240px;padding:36px;}
+  .main{padding:40px 40px 80px;}
+  .meta{grid-template-columns:1fr 1fr;}
+  .phases{grid-template-columns:1fr;}
+  .future-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* ══════════════════════════════════════
+   MOBILE ≤ 900px
+══════════════════════════════════════ */
+@media(max-width:900px){
+  .page{display:block;}
+  .right-col{width:100%;}
+  .sidebar{display:none;}
+
+  .mobile-topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    position:sticky;top:0;z-index:200;
+    background:rgba(253,253,253,.95);backdrop-filter:blur(12px);
+    border-bottom:.5px solid var(--border);padding:14px 20px;height:56px;
+  }
+  .mobile-topbar-left{display:flex;align-items:center;gap:12px;}
+  .mobile-topbar-stamp img{width:36px;height:36px;display:block;}
+  .mobile-topbar-back{font-size:13px;color:var(--muted);text-decoration:none;}
+  .mobile-hamburger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:4px;}
+  .mobile-hamburger span{display:block;width:22px;height:1.5px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .25s;}
+  .mobile-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .mobile-hamburger.open span:nth-child(2){opacity:0;}
+  .mobile-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  .drawer-overlay{display:block;position:fixed;inset:0;background:rgba(26,26,26,.4);z-index:190;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .drawer-overlay.open{opacity:1;pointer-events:all;}
+  .mobile-drawer{display:flex;flex-direction:column;position:fixed;top:0;right:0;width:260px;height:100vh;background:var(--bg);border-left:.5px solid var(--border);z-index:195;padding:20px 0;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;}
+  .mobile-drawer.open{transform:translateX(0);}
+  .mobile-drawer-label{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--dim);padding:0 24px 10px 24px;}
+  .mobile-drawer-toc{display:flex;flex-direction:column;}
+  .mobile-drawer-toc a{font-size:14px;color:var(--muted);text-decoration:none;padding:10px 24px;border-left:2px solid transparent;transition:color .15s,border-color .15s,background .15s;}
+  .mobile-drawer-toc a:hover{color:var(--text);background:var(--surface);}
+  .mobile-drawer-toc a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);}
+  .mobile-drawer-footer{border-top:.5px solid var(--border);padding:20px 24px 0;margin-top:auto;display:flex;flex-direction:column;gap:10px;}
+  .mobile-drawer-footer a{font-size:14px;color:var(--muted);text-decoration:none;}
+
+  .main{padding:32px 24px 64px;}
+  .hero{padding:32px 0 0;}
+  .hero h1{font-size:28px;}
+  .hero-sub{font-size:14px;}
+  .metrics{grid-template-columns:1fr 1fr;}
+  .metric:nth-child(2){border-right:none;}
+  .metric:nth-child(3){border-top:1px solid var(--border);}
+  .metric:nth-child(4){border-top:1px solid var(--border);}
+  .meta{grid-template-columns:1fr 1fr;}
+  .two-col{grid-template-columns:1fr;}
+  .phases{grid-template-columns:1fr;}
+  .future-grid{grid-template-columns:1fr;}
+  .insight-row{grid-template-columns:60px 1fr;}
+  .section-hed{font-size:20px;}
+  .footer-inner{flex-direction:column;gap:12px;align-items:flex-start;}
+  .hero-media{min-height:220px;max-height:380px;}
+}
+
+/* ══════════════════════════════════════
+   SMALL MOBILE ≤ 480px
+══════════════════════════════════════ */
+@media(max-width:480px){
+  .main{padding:24px 16px 64px;}
+  .hero h1{font-size:24px;}
+  .metrics{grid-template-columns:1fr;}
+  .metric{border-right:none!important;}
+  .metric+.metric{border-top:1px solid var(--border);}
+}
+</style>
 </head>
 <body>
-<div class="layout">
-  <aside class="cs-sidebar">
-    <div class="stamp">
-      <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.background='#E8EAF0'">
-    </div>
-    <div class="toc-label">on this page</div>
-    <ul class="toc-list">
-      <li><a href="#overview" class="toc-link active">Overview</a></li>
-      <li><a href="#why" class="toc-link">Why this matters</a></li>
-      <li><a href="#role" class="toc-link">My role</a></li>
-      <li><a href="#insights" class="toc-link">Insights</a></li>
-      <li><a href="#framework" class="toc-link">Framework</a></li>
-      <li><a href="#applications" class="toc-link">Practical applications</a></li>
-      <li><a href="#reflection" class="toc-link">Reflection</a></li>
-      <li><a href="#future" class="toc-link">Future work</a></li>
-    </ul>
-    <a href="index.html" class="back-link">← back to work</a>
-  </aside>
 
-  <div class="right-col">
+<!-- ═══ MOBILE TOPBAR ═══ -->
+<div class="mobile-topbar">
+  <div class="mobile-topbar-left">
+    <a class="mobile-topbar-stamp" href="https://navyaavemuri.com/portfolio.html">
+      <img src="https://navyaavemuri.com/stamp.png" alt="Navyaa Vemuri">
+    </a>
+    <a class="mobile-topbar-back" href="https://navyaavemuri.com/portfolio.html">← Back to work</a>
+  </div>
+  <button class="mobile-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
 
-     <div class="hero-media" style="min-height:440px;max-height:580px;">
-      <img src="ncur.png" alt="Bidirectional Trust Framework">
-    </div>
+<div class="drawer-overlay" id="drawer-overlay"></div>
 
-    <!-- HERO COPY — below image -->
-    <div class="hero-copy">
-      <div class="hero-kicker">Senior project · NCUR 2026 · HCI research</div>
-      <h1 class="hero-title">designing trust for <em>human-agent teaming.</em></h1>
-      <p class="hero-subtitle">Presented at NCUR 2026 as my senior project, this research explores how AI agents can become <strong>trustworthy collaborators</strong> rather than reactive tools.<br><br>It began as exploratory research and is now evolving into practical interface concepts for the future of <strong>agentic AI systems</strong>.</p>
-      <div class="hero-note">✦ original framework for trust, oversight, and adaptation</div>
-      <div class="hero-meta">
-        <div class="hero-meta-cell"><div class="hero-meta-label">Role</div><div class="hero-meta-value">Independent researcher + product designer</div></div>
-        <div class="hero-meta-cell"><div class="hero-meta-label">Presented</div><div class="hero-meta-value">NCUR 2026</div></div>
-        <div class="hero-meta-cell"><div class="hero-meta-label">Methods</div><div class="hero-meta-value">Interviews + thematic synthesis</div></div>
-        <div class="hero-meta-cell"><div class="hero-meta-label">Focus</div><div class="hero-meta-value">Agentic AI UX and trust design</div></div>
-      </div>
-    </div>
-
-    <main class="cs-main">
-
-      <section class="cs-section" id="why">
-        <div class="cs-section-label">Why this matters</div>
-        <h2 class="cs-h2">As AI shifts from assistant to <em>actor</em>, trust becomes a design problem.</h2>
-        <p class="cs-p">Traditional software waits for instructions. Agentic systems can plan, decide, and act across multiple steps with less human intervention. That shift changes what users need from an interface.</p>
-        <p class="cs-p">The challenge is no longer just whether an AI response is useful. It is whether people understand <strong>what the system is about to do</strong>, <strong>when to step in</strong>, and <strong>how trust should be repaired when something goes wrong</strong>.</p>
-        <div class="callout">
-          <div class="callout-label">Core idea</div>
-          <div class="callout-body">Trust in agentic systems should be dynamic and collaborative, not one-sided. I wanted to explore what that means for the interfaces designers create.</div>
-        </div>
-      </section>
-
-      <section class="cs-section" id="role">
-        <div class="cs-section-label">My role</div>
-        <h2 class="cs-h2">An exploratory senior project grounded in <em>real practitioner behavior.</em></h2>
-        <p class="cs-p">I led this project independently from research question to presentation. My goal was to understand how people already work with AI today, where trust breaks down, and what interface patterns might better support human-agent collaboration in the future.</p>
-        <div class="meta-row">
-          <div class="meta-card"><div class="meta-stat">8</div><div class="meta-title">Participants</div><div class="meta-desc">Practitioners across design, product, and research who actively use AI in their workflows.</div></div>
-          <div class="meta-card"><div class="meta-stat">2</div><div class="meta-title">Focus areas</div><div class="meta-desc">Current AI usage and trust requirements, including validation and delegation.</div></div>
-          <div class="meta-card"><div class="meta-stat">3</div><div class="meta-title">Analysis stages</div><div class="meta-desc">Initial coding, affinity clustering, and theme generation into a usable framework.</div></div>
-          <div class="meta-card"><div class="meta-stat">1</div><div class="meta-title">Outcome</div><div class="meta-desc">An original design framework for human-agent teaming, presented at NCUR 2026.</div></div>
-        </div>
-        <div class="two-col">
-          <div class="col-card">
-            <div class="col-label">What I did</div>
-            <div class="col-item">Framed the research question around trust in agentic systems</div>
-            <div class="col-item">Conducted semi-structured practitioner interviews</div>
-            <div class="col-item">Synthesized themes across behaviors, needs, and friction points</div>
-            <div class="col-item">Translated findings into a product-facing framework</div>
-            <div class="col-item">Presented the work publicly at NCUR 2026</div>
-          </div>
-          <div class="col-card">
-            <div class="col-label">Who informed it</div>
-            <div class="col-item">UX designers and researchers using AI in daily workflows</div>
-            <div class="col-item">Voices spanning enterprise, independent, and student contexts</div>
-            <div class="col-item">Practitioner perspectives connected to organizations like Cisco, AWS, JPMC, and Visa</div>
-            <div class="col-item">My own experience designing AI-driven features during my Cisco internship</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="cs-section" id="insights">
-        <div class="cs-section-label">Insights</div>
-        <h2 class="cs-h2">Three themes stood out across the research.</h2>
-        <p class="cs-p">What people needed was not blind automation. They wanted AI to accelerate work while still preserving accountability, clarity, and room for intervention.</p>
-        <div class="insight-grid">
-          <div class="insight-card"><div class="insight-num">Insight 01</div><div class="insight-title">AI is useful for low-risk acceleration, not blind autonomy.</div><div class="insight-copy">Participants described AI as a productivity amplifier. It worked best when helping them move faster, not when taking over end-to-end responsibility without oversight.</div></div>
-          <div class="insight-card"><div class="insight-num">Insight 02</div><div class="insight-title">People want reasoning, sources, and confidence signals.</div><div class="insight-copy">Trust increased when the system exposed how it arrived at an answer, what information it relied on, and where uncertainty still existed.</div></div>
-          <div class="insight-card"><div class="insight-num">Insight 03</div><div class="insight-title">Repeated prompting often signals low user confidence.</div><div class="insight-copy">When people keep rephrasing or refining prompts, it often means the system has not interpreted intent well. Most tools treat this as input variation rather than a trust signal.</div></div>
-        </div>
-      </section>
-
-      <section class="cs-section" id="framework">
-        <div class="cs-section-label">Framework</div>
-        <h2 class="cs-h2">From findings to a <em>bidirectional trust cycle.</em></h2>
-        <p class="cs-p">Rather than designing for trust as something a human simply grants or withholds, I reframed trust as something that is built between both sides of the interaction. The result was a four-part framework for human-agent teaming.</p>
-        <div class="framework-grid">
-          <div class="framework-card"><div class="framework-phase">Phase 1</div><div class="framework-title">Agent Planning</div><div class="framework-copy">Before acting, the agent should clarify assumptions, define task boundaries, and surface ambiguity early. This helps prevent miscalibrated trust before it starts.</div><div class="framework-example"><div class="framework-example-label">Example</div><p>"I'm assuming these bold headers represent section titles. Please confirm before I restructure the document."</p></div></div>
-          <div class="framework-card"><div class="framework-phase">Phase 2</div><div class="framework-title">Agent Proposal</div><div class="framework-copy">Instead of acting invisibly, the system should propose a path with rationale, sources, and confidence. Auditability becomes the foundation for accountability.</div><div class="framework-example"><div class="framework-example-label">Example</div><p>"Based on these three sources, I propose this outline. I could not independently verify one claim. Confidence: moderate."</p></div></div>
-          <div class="framework-card"><div class="framework-phase">Phase 3</div><div class="framework-title">Human Review</div><div class="framework-copy">People need meaningful control, especially for higher-stakes actions. Clear review points, override paths, and visible changes keep authority where it matters most.</div><div class="framework-example"><div class="framework-example-label">Example</div><p>Before a report is sent, the system flags low-confidence sections, shows all edits, and requires explicit approval.</p></div></div>
-          <div class="framework-card"><div class="framework-phase">Phase 4</div><div class="framework-title">Mutual Learning</div><div class="framework-copy">Corrections should not disappear after a single interaction. The system should adapt from feedback, while also recognizing when repeated prompting reflects uncertainty or unmet intent.</div><div class="framework-example"><div class="framework-example-label">Example</div><p>After repeated rejections of formal copy, the agent learns that the user prefers warmer language and asks about tone earlier next time.</p></div></div>
-        </div>
-      </section>
-
-      <section class="cs-section" id="applications">
-        <div class="cs-section-label">Practical applications</div>
-        <h2 class="cs-h2">I'm now translating the framework into <em>practical product concepts.</em></h2>
-        <p class="cs-p">This research was never meant to stay theoretical. I'm using it as a foundation for small, concrete interface explorations that show how trust, oversight, and adaptation can appear inside real product experiences.</p>
-        <div class="carousel-shell">
-          <div class="carousel-head">
-            <div class="carousel-note">Each card shows how the framework applies to a specific product concept.</div>
-            <div class="carousel-controls">
-              <button class="carousel-btn" id="carouselPrev" aria-label="Previous">←</button>
-              <button class="carousel-btn" id="carouselNext" aria-label="Next">→</button>
-            </div>
-          </div>
-          <div class="carousel-track" id="carouselTrack">
-            <article class="app-card">
-              <div class="app-image"><img src="agent-research-assistant.png" alt="Research assistant" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="placeholder" style="display:none;">secured the idea, in design progress...</div></div>
-              <div class="app-body"><div class="app-kicker">Concept 01</div><h3 class="app-title">Research Assistant Agent</h3><p class="app-copy">An agent that helps gather sources, summarize findings, and draft structured outputs while making its reasoning visible before anything is finalized.</p><div class="bullet-grid"><div class="bullet-item"><span class="bullet-dot"></span><span>Clarifies the research goal and scope before beginning.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Shows sources, traceability, and confidence beside key claims.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Proposes an outline before generating the full deliverable.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Requires human approval before a final summary is exported.</span></div></div></div>
-            </article>
-            <article class="app-card">
-              <div class="app-image"><img src="workflow-agent.png" alt="Workflow agent" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="placeholder" style="display:none;">secured the idea, in design progress...</div></div>
-              <div class="app-body"><div class="app-kicker">Concept 02</div><h3 class="app-title">Personal Workflow Agent</h3><p class="app-copy">A planning companion that helps organize tasks, prioritize time, and suggest next steps without acting invisibly or taking over too much control.</p><div class="bullet-grid"><div class="bullet-item"><span class="bullet-dot"></span><span>Suggests actions before scheduling or committing changes.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Surfaces why a task was prioritized and what signals informed it.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Lets the user edit, reject, or fine-tune recommendations.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Adapts over time based on preferences the user can see and control.</span></div></div></div>
-            </article>
-            <article class="app-card">
-              <div class="app-image"><img src="financial-copilot.png" alt="Financial copilot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="placeholder" style="display:none;">secured the idea, in design progress...</div></div>
-              <div class="app-body"><div class="app-kicker">Concept 03</div><h3 class="app-title">Financial Copilot</h3><p class="app-copy">A higher-stakes concept where the framework matters even more: the system proposes next steps, explains its logic, and preserves human authority where risk is involved.</p><div class="bullet-grid"><div class="bullet-item"><span class="bullet-dot"></span><span>Never auto-executes sensitive actions without explicit review.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Shows rationale, exceptions, and low-confidence areas before approval.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Creates a visible audit trail for actions, edits, and overrides.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Supports trust repair by surfacing what changed after an error.</span></div></div></div>
-            </article>
-            <article class="app-card">
-              <div class="app-image"><img src="design-partner-agent.png" alt="Design partner" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="placeholder" style="display:none;">secured the idea, in design progress...</div></div>
-              <div class="app-body"><div class="app-kicker">Concept 04</div><h3 class="app-title">Design Partner Agent</h3><p class="app-copy">A concept focused on creative collaboration, where the system becomes more helpful by learning tone, preferences, and feedback patterns instead of just generating faster outputs.</p><div class="bullet-grid"><div class="bullet-item"><span class="bullet-dot"></span><span>Explains why each suggestion was made, not just what changed.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Uses preference memory that can be reviewed, edited, or reset.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Detects repeated revisions as a confidence signal.</span></div><div class="bullet-item"><span class="bullet-dot"></span><span>Gradually becomes a better collaborator through explicit and implicit feedback.</span></div></div></div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="cs-section" id="reflection">
-        <div class="cs-section-label">Reflection</div>
-        <h2 class="cs-h2">This project changed how I think about designing for <em>AI systems.</em></h2>
-        <div class="reflection-card">
-          <p class="cs-p">Before this work, I was already interested in AI as a design space. But researching human-agent teaming pushed me further. It made me think less about single outputs and more about the relationship people build with a system over time.</p>
-          <p class="cs-p">My experience designing AI-powered features at Cisco helped shape this perspective. I kept seeing that the friction was not always about model capability. Often, it was about whether users understood the system well enough to trust it appropriately.</p>
-          <p class="cs-p" style="margin-bottom:0;">That question still feels central to me now: <strong>how do we design AI that feels capable without becoming opaque, and adaptive without becoming overbearing?</strong></p>
-        </div>
-      </section>
-
-      <section class="cs-section" id="future">
-        <div class="cs-section-label">Future work</div>
-        <h2 class="cs-h2">This started as a senior project. I see it as the beginning of a <em>longer design investigation.</em></h2>
-        <div class="future-card">
-          <p class="cs-p">I'm continuing to build on this work by exploring more practical industry use cases, translating the framework into clearer interface patterns, and testing what trustworthy human-agent collaboration could look like in everyday products.</p>
-          <p class="cs-p">The long-term goal is not just to describe how trust works in agentic systems, but to help shape systems that feel understandable, collaborative, and genuinely human-centered.</p>
-          <div class="future-grid">
-            <div class="future-mini"><div class="future-mini-title">Areas I'm exploring</div><div class="future-mini-item">Oversight without unnecessary friction</div><div class="future-mini-item">Trust repair after AI mistakes</div><div class="future-mini-item">Shared memory between people and agents</div><div class="future-mini-item">Legible autonomy in higher-stakes systems</div></div>
-            <div class="future-mini"><div class="future-mini-title">What I'm building next</div><div class="future-mini-item">Small product concepts and UI studies</div><div class="future-mini-item">Prototype flows for practical agent experiences</div><div class="future-mini-item">Interaction patterns for control and review</div><div class="future-mini-item">More applied explorations across industries</div></div>
-            <div class="future-mini"><div class="future-mini-title">What I want to contribute</div><div class="future-mini-item">Design patterns for clearer human-agent teamwork</div><div class="future-mini-item">Frameworks that connect research to product decisions</div><div class="future-mini-item">AI experiences people can understand and shape</div><div class="future-mini-item">A more human-centered future for agentic systems</div></div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="footer">
-      <div class="footer-left">
-        <em>designing for the moment AI becomes a teammate.</em>
-        <div class="footer-note">last updated april 2026 · made by navyaa vemuri</div>
-      </div>
-      <div class="footer-links">
-        <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
-        <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
-        <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
-      </div>
-    </footer>
-
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-label">on this page</div>
+  <nav class="mobile-drawer-toc">
+    <a href="#overview">Overview</a>
+    <a href="#why">Why this matters</a>
+    <a href="#role">My role</a>
+    <a href="#insights">Insights</a>
+    <a href="#framework">Framework</a>
+    <a href="#applications">Applications</a>
+    <a href="#reflection">Reflection</a>
+    <a href="#future">Future work</a>
+  </nav>
+  <div class="mobile-drawer-footer">
+    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">Resume ↗</a>
+    <a href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+    <a href="mailto:navyaa.vemuri@gmail.com">Let's Chat ↗</a>
   </div>
 </div>
 
+<div class="page">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <a class="sidebar-stamp" href="portfolio.html">
+      <img src="stamp.png" alt="Navyaa Vemuri">
+    </a>
+    <a class="sidebar-back" href="portfolio.html">← Back to work</a>
+    <div class="sidebar-section-label">on this page</div>
+    <nav class="sidebar-toc">
+      <a href="#overview">Overview</a>
+      <a href="#why">Why this matters</a>
+      <a href="#role">My role</a>
+      <a href="#insights">Insights</a>
+      <a href="#framework">Framework</a>
+      <a href="#applications">Applications</a>
+      <a href="#reflection">Reflection</a>
+      <a href="#future">Future work</a>
+    </nav>
+  </aside>
+
+  <!-- ═══ RIGHT COL ═══ -->
+  <div class="right-col">
+
+    <div class="hero-media">
+      <img src="https://navyaavemuri.com/ncur.png" alt="Bidirectional Trust Framework">
+    </div>
+
+    <main class="main">
+
+      <!-- HERO / OVERVIEW -->
+      <section class="hero" id="overview">
+        <p class="eyebrow">Senior Project · NCUR 2026 · HCI Research</p>
+        <h1>Designing trust for <em>human-agent teaming.</em></h1>
+        <p class="hero-sub">Presented at NCUR 2026, this research explores how AI agents can become trustworthy collaborators — and what that means for the interfaces designers create.</p>
+
+        <div class="hero-pills">
+          <span class="pill">Independent research</span>
+          <span class="pill">HCI</span>
+          <span class="pill">Agentic AI</span>
+          <span class="pill">NCUR 2026</span>
+          <span class="pill">Original framework</span>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-num">8</div>
+            <div class="metric-label">Participants</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">3</div>
+            <div class="metric-label">Analysis stages</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">4</div>
+            <div class="metric-label">Framework phases</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">1</div>
+            <div class="metric-label">Presented NCUR</div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-group">
+            <div class="meta-label">Role</div>
+            <div class="meta-val">Independent Researcher<br>+ Product Designer</div>
+          </div>
+          <div class="meta-group">
+            <div class="meta-label">Presented</div>
+            <div class="meta-val">NCUR 2026</div>
+          </div>
+          <div class="meta-group">
+            <div class="meta-label">Methods</div>
+            <div class="meta-val">Semi-structured Interviews<br>Thematic Synthesis<br>Affinity Clustering</div>
+          </div>
+          <div class="meta-group">
+            <div class="meta-label">Focus</div>
+            <div class="meta-val">Agentic AI UX<br>Trust Design<br>Human-Agent Collaboration</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY THIS MATTERS -->
+      <section class="reveal" id="why">
+        <p class="section-tag">Why this matters</p>
+        <h2 class="section-hed">As AI shifts from assistant to <em>actor</em>, trust becomes a design problem.</h2>
+        <p>Traditional software waits for instructions. Agentic systems can plan, decide, and act across multiple steps with less human intervention. That shift changes what users need from an interface.</p>
+        <p>The challenge is no longer just whether an AI response is useful. It's whether people understand <strong>what the system is about to do</strong>, <strong>when to step in</strong>, and <strong>how trust should be repaired when something goes wrong</strong>.</p>
+
+        <div class="callout">
+          <p>Trust in agentic systems should be dynamic and collaborative, not one-sided. I wanted to explore what that means for the interfaces designers create.</p>
+        </div>
+      </section>
+
+      <!-- MY ROLE -->
+      <section class="reveal" id="role">
+        <p class="section-tag">My Role</p>
+        <h2 class="section-hed">An exploratory senior project grounded in <em>real practitioner behavior.</em></h2>
+        <p>I led this project independently from research question to presentation — understanding how people already work with AI today, where trust breaks down, and what interface patterns might better support human-agent collaboration in the future.</p>
+
+        <ul class="did-list">
+          <li>Framed the research question around trust in agentic systems</li>
+          <li>Conducted semi-structured interviews with 8 practitioners</li>
+          <li>Synthesized themes across behaviors, needs, and friction points</li>
+          <li>Translated findings into a product-facing framework</li>
+          <li>Presented the work publicly at NCUR 2026</li>
+        </ul>
+
+        <div class="two-col" style="margin-top:28px;">
+          <div>
+            <div class="split-label">Who informed it</div>
+            <div class="split-text">UX designers and researchers using AI in daily workflows — spanning enterprise, independent, and student contexts, connected to organizations like Cisco, AWS, JPMC, and Visa.</div>
+          </div>
+          <div>
+            <div class="split-label">What shaped my lens</div>
+            <div class="split-text">My own experience designing AI-driven features during my Cisco internship — where I kept seeing that friction wasn't about model capability, but whether users understood the system well enough to trust it.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSIGHTS -->
+      <section class="reveal" id="insights">
+        <p class="section-tag">Insights</p>
+        <h2 class="section-hed">Three themes stood out across the research.</h2>
+        <p>People didn't want blind automation. They wanted AI to accelerate work while still preserving accountability, clarity, and room for intervention.</p>
+
+        <div class="insight-rows">
+          <div class="insight-row">
+            <div class="insight-num">01</div>
+            <div class="insight-body">
+              <div class="insight-hed">AI is useful for low-risk acceleration, not blind autonomy.</div>
+              <div class="insight-text">Participants described AI as a productivity amplifier. It worked best when helping them move faster — not when taking over end-to-end responsibility without oversight.</div>
+            </div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-num">02</div>
+            <div class="insight-body">
+              <div class="insight-hed">People want reasoning, sources, and confidence signals.</div>
+              <div class="insight-text">Trust increased when the system exposed how it arrived at an answer, what information it relied on, and where uncertainty still existed.</div>
+            </div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-num">03</div>
+            <div class="insight-body">
+              <div class="insight-hed">Repeated prompting often signals low user confidence.</div>
+              <div class="insight-text">When people keep rephrasing or refining prompts, it often means the system hasn't interpreted intent well. Most tools treat this as input variation rather than a trust signal.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FRAMEWORK -->
+      <section class="reveal" id="framework">
+        <p class="section-tag">Framework</p>
+        <h2 class="section-hed">From findings to a <em>bidirectional trust cycle.</em></h2>
+        <p>Rather than designing for trust as something a human simply grants or withholds, I reframed trust as something built between both sides of the interaction. The result was a four-part framework for human-agent teaming.</p>
+
+        <div class="ph tall" style="margin-top:24px;"><span>[ Bidirectional trust framework diagram ]</span></div>
+
+        <div class="phases">
+          <div class="phase">
+            <div class="phase-label">Phase 1</div>
+            <div class="phase-hed">Agent Planning</div>
+            <div class="phase-body">Before acting, the agent should clarify assumptions, define task boundaries, and surface ambiguity early. This helps prevent miscalibrated trust before it starts.</div>
+            <div class="phase-example">"I'm assuming these bold headers represent section titles. Please confirm before I restructure the document."</div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">Phase 2</div>
+            <div class="phase-hed">Agent Proposal</div>
+            <div class="phase-body">Instead of acting invisibly, the system should propose a path with rationale, sources, and confidence. Auditability becomes the foundation for accountability.</div>
+            <div class="phase-example">"Based on these three sources, I propose this outline. I couldn't independently verify one claim. Confidence: moderate."</div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">Phase 3</div>
+            <div class="phase-hed">Human Review</div>
+            <div class="phase-body">People need meaningful control, especially for higher-stakes actions. Clear review points, override paths, and visible changes keep authority where it matters most.</div>
+            <div class="phase-example">Before a report is sent, the system flags low-confidence sections, shows all edits, and requires explicit approval.</div>
+          </div>
+          <div class="phase">
+            <div class="phase-label">Phase 4</div>
+            <div class="phase-hed">Mutual Learning</div>
+            <div class="phase-body">Corrections shouldn't disappear after a single interaction. The system should adapt from feedback, while also recognizing when repeated prompting reflects uncertainty or unmet intent.</div>
+            <div class="phase-example">After repeated rejections of formal copy, the agent learns the user prefers warmer language and asks about tone earlier next time.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPLICATIONS -->
+      <section class="reveal" id="applications">
+        <p class="section-tag">Practical Applications</p>
+        <h2 class="section-hed">Translating the framework into <em>concrete product concepts.</em></h2>
+        <p>This research was never meant to stay theoretical. I'm using it as a foundation for interface explorations that show how trust, oversight, and adaptation can appear inside real product experiences.</p>
+
+        <div class="carousel-shell">
+          <div class="carousel-head">
+            <div class="carousel-note">Scroll to see all concepts →</div>
+            <div class="carousel-controls">
+              <button class="carousel-btn" id="carousel-prev" aria-label="Previous">←</button>
+              <button class="carousel-btn" id="carousel-next" aria-label="Next">→</button>
+            </div>
+          </div>
+          <div class="carousel-track" id="carousel-track">
+
+            <div class="carousel-card">
+              <div class="carousel-card-img">
+                <img src="https://navyaavemuri.com/agent-research-assistant.png" alt="Research Assistant Agent">
+              </div>
+              <div class="carousel-card-body">
+                <div class="carousel-card-label">Concept 01 · In design progress</div>
+                <div class="carousel-card-hed">Research Assistant Agent</div>
+                <div class="carousel-card-desc">An agent that helps gather sources, summarize findings, and draft structured outputs while making its reasoning visible before anything is finalized.</div>
+                <ul class="carousel-card-list">
+                  <li>Clarifies the research goal and scope before beginning</li>
+                  <li>Shows sources, traceability, and confidence beside key claims</li>
+                  <li>Proposes an outline before generating the full deliverable</li>
+                  <li>Requires human approval before a final summary is exported</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="carousel-card">
+              <div class="carousel-card-img">
+                <img src="https://navyaavemuri.com/workflow-agent.png" alt="Workflow Agent">
+              </div>
+              <div class="carousel-card-body">
+                <div class="carousel-card-label">Concept 02 · In design progress</div>
+                <div class="carousel-card-hed">Personal Workflow Agent</div>
+                <div class="carousel-card-desc">A planning companion that helps organize tasks, prioritize time, and suggest next steps without acting invisibly or taking over too much control.</div>
+                <ul class="carousel-card-list">
+                  <li>Suggests actions before scheduling or committing changes</li>
+                  <li>Surfaces why a task was prioritized and what signals informed it</li>
+                  <li>Lets the user edit, reject, or fine-tune recommendations</li>
+                  <li>Adapts over time based on preferences the user can see and control</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="carousel-card">
+              <div class="carousel-card-img">
+                <img src="https://navyaavemuri.com/financial-copilot.png" alt="Financial Copilot">
+              </div>
+              <div class="carousel-card-body">
+                <div class="carousel-card-label">Concept 03 · In design progress</div>
+                <div class="carousel-card-hed">Financial Copilot</div>
+                <div class="carousel-card-desc">A higher-stakes concept where the framework matters even more — the system proposes next steps, explains its logic, and preserves human authority where risk is involved.</div>
+                <ul class="carousel-card-list">
+                  <li>Never auto-executes sensitive actions without explicit review</li>
+                  <li>Shows rationale, exceptions, and low-confidence areas before approval</li>
+                  <li>Creates a visible audit trail for actions, edits, and overrides</li>
+                  <li>Supports trust repair by surfacing what changed after an error</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="carousel-card">
+              <div class="carousel-card-img">
+                <img src="https://navyaavemuri.com/design-partner-agent.png" alt="Design Partner Agent">
+              </div>
+              <div class="carousel-card-body">
+                <div class="carousel-card-label">Concept 04 · In design progress</div>
+                <div class="carousel-card-hed">Design Partner Agent</div>
+                <div class="carousel-card-desc">A concept focused on creative collaboration, where the system becomes more helpful by learning tone, preferences, and feedback patterns instead of just generating faster outputs.</div>
+                <ul class="carousel-card-list">
+                  <li>Explains why each suggestion was made, not just what changed</li>
+                  <li>Uses preference memory that can be reviewed, edited, or reset</li>
+                  <li>Detects repeated revisions as a confidence signal</li>
+                  <li>Gradually becomes a better collaborator through explicit and implicit feedback</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- REFLECTION -->
+      <section class="reveal" id="reflection">
+        <p class="section-tag">Reflection</p>
+        <h2 class="section-hed">This project changed how I think about designing for <em>AI systems.</em></h2>
+        <p>Before this work, I was already interested in AI as a design space. But researching human-agent teaming pushed me further — thinking less about single outputs and more about the relationship people build with a system over time.</p>
+        <p>My experience designing AI-powered features at Cisco helped shape this perspective. I kept seeing that the friction wasn't about model capability. Often, it was about whether users understood the system well enough to trust it appropriately.</p>
+
+        <div class="callout" style="margin-top:24px;">
+          <p>How do we design AI that feels capable without becoming opaque, and adaptive without becoming overbearing?</p>
+        </div>
+      </section>
+
+      <!-- FUTURE WORK -->
+      <section class="reveal" id="future">
+        <p class="section-tag">Future Work</p>
+        <h2 class="section-hed">This started as a senior project. I see it as the beginning of a <em>longer design investigation.</em></h2>
+        <p>I'm continuing to build on this work — exploring more practical industry use cases, translating the framework into clearer interface patterns, and testing what trustworthy human-agent collaboration could look like in everyday products.</p>
+
+        <div class="future-grid">
+          <div class="future-card">
+            <div class="future-card-label">Areas I'm exploring</div>
+            <ul class="future-card-list">
+              <li>Oversight without unnecessary friction</li>
+              <li>Trust repair after AI mistakes</li>
+              <li>Shared memory between people and agents</li>
+              <li>Legible autonomy in higher-stakes systems</li>
+            </ul>
+          </div>
+          <div class="future-card">
+            <div class="future-card-label">What I'm building next</div>
+            <ul class="future-card-list">
+              <li>Small product concepts and UI studies</li>
+              <li>Prototype flows for practical agent experiences</li>
+              <li>Interaction patterns for control and review</li>
+              <li>More applied explorations across industries</li>
+            </ul>
+          </div>
+          <div class="future-card">
+            <div class="future-card-label">What I want to contribute</div>
+            <ul class="future-card-list">
+              <li>Design patterns for human-agent teamwork</li>
+              <li>Frameworks that connect research to product</li>
+              <li>AI experiences people can understand and shape</li>
+              <li>A more human-centered future for agentic systems</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-inner">
+          <div class="footer-note">last updated april 2026 · navyaa vemuri</div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+            <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">Resume ↗</a>
+            <a href="mailto:navyaa.vemuri@gmail.com">Say hi ↗</a>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </div><!-- /right-col -->
+</div>
+
 <script>
-(function(){
-  const links = document.querySelectorAll('.toc-link');
-  const sections = document.querySelectorAll('[id]');
-  if(sections.length){
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){
-          links.forEach(l => l.classList.remove('active'));
-          const a = document.querySelector('.toc-link[href="#'+e.target.id+'"]');
-          if(a) a.classList.add('active');
-        }
-      });
-    }, {rootMargin:'-10% 0px -72% 0px', threshold:0});
-    sections.forEach(s => obs.observe(s));
-  }
-  const track = document.getElementById('carouselTrack');
-  const prev = document.getElementById('carouselPrev');
-  const next = document.getElementById('carouselNext');
-  function getScrollAmount(){
-    const card = track.querySelector('.app-card');
-    if(!card) return 500;
-    return card.getBoundingClientRect().width + 14;
-  }
-  prev?.addEventListener('click', () => track.scrollBy({left:-getScrollAmount(),behavior:'smooth'}));
-  next?.addEventListener('click', () => track.scrollBy({left:getScrollAmount(),behavior:'smooth'}));
-})();
+// carousel — horizontal scroll
+const track = document.getElementById('carousel-track');
+const cardWidth = () => track?.querySelector('.carousel-card')?.offsetWidth + 14 || 0;
+document.getElementById('carousel-prev')?.addEventListener('click',()=>track?.scrollBy({left:-cardWidth(),behavior:'smooth'}));
+document.getElementById('carousel-next')?.addEventListener('click',()=>track?.scrollBy({left:cardWidth(),behavior:'smooth'}));
+
+// scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver(e=>{
+  e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');revObs.unobserve(el.target);}});
+},{threshold:.06});
+reveals.forEach(el=>revObs.observe(el));
+
+// active side nav
+const navLinks = document.querySelectorAll('.sidebar-toc a, .mobile-drawer-toc a');
+const targets = document.querySelectorAll('section[id]');
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      document.querySelectorAll(`.sidebar-toc a[href="#${e.target.id}"], .mobile-drawer-toc a[href="#${e.target.id}"]`).forEach(a=>a.classList.add('active'));
+    }
+  });
+},{rootMargin:'-10% 0px -80% 0px'});
+targets.forEach(t=>navObs.observe(t));
+
+// hamburger / drawer
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('mobile-drawer');
+const overlay = document.getElementById('drawer-overlay');
+function openDrawer(){drawer.classList.add('open');overlay.classList.add('open');hamburger.classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){drawer.classList.remove('open');overlay.classList.remove('open');hamburger.classList.remove('open');document.body.style.overflow='';}
+hamburger?.addEventListener('click',()=>drawer.classList.contains('open')?closeDrawer():openDrawer());
+overlay?.addEventListener('click',closeDrawer);
+document.querySelectorAll('.mobile-drawer-toc a').forEach(a=>a.addEventListener('click',closeDrawer));
 </script>
 </body>
 </html>
