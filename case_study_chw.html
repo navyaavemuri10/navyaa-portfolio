@@ -60,11 +60,20 @@ body{
 /* stamp */
 .sidebar-stamp{
   display:block;
-  width:120px;
+  width:160px;
   margin-bottom:20px;
   flex-shrink:0;
+  cursor:pointer;
 }
 .sidebar-stamp img{width:100%;display:block;}
+@keyframes stamp-float{
+  0%{transform:translateY(0) rotate(-.5deg);}
+  33%{transform:translateY(-6px) rotate(.3deg);}
+  66%{transform:translateY(-3px) rotate(-.2deg);}
+  100%{transform:translateY(0) rotate(-.5deg);}
+}
+.sidebar-stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
+.sidebar-stamp:hover img{animation-play-state:paused;}
 
 /* back to work */
 .sidebar-back{
@@ -83,7 +92,8 @@ body{
   text-transform:uppercase;
   letter-spacing:.16em;
   color:var(--dim);
-  margin-bottom:8px;
+  margin-bottom:6px;
+  margin-top:6px;
 }
 
 /* toc links */
@@ -240,15 +250,6 @@ p:last-child{margin-bottom:0;}
 }
 .pain-row-list li:last-child{border-bottom:none;}
 .pain-row-list li::before{content:"·";color:var(--dim);flex-shrink:0;}
-
-.hero-video {
-  width: 100%;
-  border-bottom: .5px solid var(--border);
-  min-height: 500px;
-  max-height: 560px;
-  overflow: hidden;
-  background: var(--surface);
-}
 
 /* ─── CAROUSEL (solution) ─── */
 .carousel{margin-top:24px;position:relative;}
@@ -416,7 +417,9 @@ footer{
 /* ─── HERO VIDEO ─── */
 .hero-video{
   width:100%;
-  aspect-ratio:16/9;
+  min-height:500px;
+  max-height:560px;
+  overflow:hidden;
   background:var(--surface);
   border-bottom:.5px solid var(--border);
   display:flex;align-items:center;justify-content:center;
@@ -601,6 +604,11 @@ footer{
     <a href="#results">Results</a>
     <a href="#learnings">Learnings</a>
   </nav>
+  <div class="mobile-drawer-footer">
+    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">Resume ↗</a>
+    <a href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+    <a href="mailto:navyaa.vemuri@gmail.com">Let's Chat ↗</a>
+  </div>
 </div>
 
 <div class="page">
@@ -624,15 +632,18 @@ footer{
       <a href="#results">Results</a>
       <a href="#learnings">Learnings</a>
     </nav>
+    <div class="sidebar-footer">
+      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">Resume ↗</a>
+      <a href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+      <a href="mailto:navyaa.vemuri@gmail.com">Let's Chat ↗</a>
+    </div>
   </aside>
 
   <!-- ═══ RIGHT COL ═══ -->
-    <div class="right-col">
-    <div class="hero-media">
-      <video autoplay muted loop playsinline preload="auto">
-        <source src="chw.mp4" type="video/mp4">
-      </video>
-    </div>
+  <div class="right-col">
+
+    <!-- hero video — full width of right col, above main -->
+    <div class="hero-video"><span>[ Case study hero video ]</span></div>
 
   <main class="main">
 
@@ -942,7 +953,6 @@ footer{
       </div>
     </footer>
 
-  </div><!-- /main-inner -->
   </main>
   </div><!-- /right-col -->
 </div>
