@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHW Growth Chart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FDFDFD;
+    --surface: #F4F3F0;
+    --border: #E8E8E4;
+    --text: #1A1A1A;
+    --muted: #6B6B6B;
+    --dim: #ABABAB;
+    --accent: #3B5BDB;
+  }
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px 24px;
+    width: 100%;
+    max-width: 680px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(26, 77, 58);
+    margin-bottom: 6px;
+  }
+  .title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: var(--dim);
+    margin-bottom: 24px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .stat {
+    padding: 16px 20px;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-value {
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+  .chart-wrap {
+    position: relative;
+    height: 220px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow">Outcome</div>
+  <div class="title">Annual Users — 3-Year Growth</div>
+  <div class="subtitle">Cal Poly Health Portal, redesign impact</div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">13K</div>
+      <div class="stat-label">Year 1</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">102K</div>
+      <div class="stat-label">Year 2</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">200K+</div>
+      <div class="stat-label">Year 3</div>
+    </div>
+  </div>
+  <div class="chart-wrap">
+    <canvas id="growthChart"></canvas>
+  </div>
+</div>
+
+<script>
+const gridColor = 'rgba(26,26,26,0.06)';
+const labelColor = '#ABABAB';
+const tickColor = '#6B6B6B';
+
+new Chart(document.getElementById('growthChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Year 1', 'Year 2', 'Year 3'],
+    datasets: [{
+      label: 'Annual users',
+      data: [13000, 102000, 200000],
+      backgroundColor: ['#E8E8E4', '#C5D0FA', '#3B5BDB'],
+      borderRadius: 6,
+      borderSkipped: false,
+      barThickness: 64,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1A1A1A',
+        borderColor: '#E8E8E4',
+        borderWidth: 1,
+        titleColor: '#FDFDFD',
+        bodyColor: '#ABABAB',
+        padding: 12,
+        callbacks: {
+          label: ctx => '  ' + ctx.raw.toLocaleString() + ' users'
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        ticks: { color: labelColor, font: { family: 'DM Sans', size: 12 } }
+      },
+      y: {
+        grid: { color: gridColor },
+        border: { display: false },
+        ticks: {
+          color: tickColor,
+          font: { family: 'DM Sans', size: 11 },
+          callback: v => v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
