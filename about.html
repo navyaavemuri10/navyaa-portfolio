@@ -61,6 +61,43 @@ html,body{min-height:100%;font-family:'DM Sans',sans-serif;-webkit-font-smoothin
 .g4{grid-column:1;grid-row:2;}
 .g5{grid-column:2;grid-row:2;}
 
+.site-footer{
+  width: 100%;
+  padding: 80px 64px;
+}
+
+.footer-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-left p{
+  font-size: 24px;
+  line-height: 1.4;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+.footer-right{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-right a{
+  font-size: 18px;
+  color: #444;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-right a:hover{
+  color: #111;
+}
+
 /* MOBILE */
 /* MOBILE TOPBAR */
 .mobile-topbar{display:none;position:sticky;top:0;z-index:50;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:16px 20px;align-items:center;justify-content:space-between;}
@@ -88,6 +125,22 @@ html,body{min-height:100%;font-family:'DM Sans',sans-serif;-webkit-font-smoothin
   .g3{grid-column:2;grid-row:2 / 4;}
   .g4{grid-column:1;grid-row:3;}
   .g5{grid-column:1;grid-row:4;}
+  .site-footer{
+    padding: 64px 24px;
+  }
+
+  .footer-inner{
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-left p{
+    font-size: 22px;
+  }
+
+  .footer-right a{
+    font-size: 18px;
+  }
 }
 @media(max-width:560px){
   .exp-row{grid-template-columns:1fr auto;gap:8px;}
@@ -124,11 +177,6 @@ onerror="this.style.display='none'">    </a>
     <div class="sidebar-mid">
       <a href="portfolio.html" class="sidebar-link">Work</a>
       <a href="about.html" class="sidebar-link active">About</a>
-    </div>
-    <div class="sidebar-bottom">
-      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="sidebar-link" target="_blank">Resume ↗</a>
-      <a href="https://linkedin.com/in/navyaavemuri" class="sidebar-link" target="_blank">LinkedIn ↗</a>
-      <a href="mailto:navyaa.vemuri@gmail.com" class="sidebar-link">Mail ↗</a>
     </div>
   </aside>
 
@@ -195,6 +243,22 @@ onerror="this.style.display='none'">    </a>
     </div>
   </main>
 </div>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p>
+        made through a collab between<br>
+        my brain, figma, claude, and gpt
+      </p>
+    </div>
+
+    <div class="footer-right">
+      <a href="mailto:navyaa.vemuri@gmail.com">let’s chat ↗</a>
+      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">resume ↗</a>
+      <a href="https://linkedin.com/in/navyaavemuri" target="_blank">linkedin ↗</a>
+    </div>
+  </div>
+</footer>
 
 <script>
 function toggleMobileMenu(){
