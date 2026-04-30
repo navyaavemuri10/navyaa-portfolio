@@ -1,44 +1,1008 @@
+chw
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work in Progress — Navyaa Vemuri</title>
+<title>Cal Poly Health Portal — Navyaa Vemuri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{
-  background:#FDFDFD;
-  font-family:'DM Sans',sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
+:root{
+  --bg:#FDFDFD;
+  --surface:#F4F3F0;
+  --border:#E8E8E4;
+  --text:#1A1A1A;
+  --muted:#6B6B6B;
+  --dim:#ABABAB;
+  --accent:#3B5BDB;
+  --accent-bg:#EEF2FF;
+  --accent-border:#C5D0FA;
+  --conflict:#C4745A;
+  --conflict-bg:#FDF0EC;
+  --conflict-border:#F0C8B8;
+  --shadow:0 12px 32px rgba(26,26,26,.06);
+  /* Cal Poly green — for meta card */
+  --green:#2E7D5E;
+  --green-bg:#EBF5F0;
+  --green-border:#B8DDD0;
+  --green-text:#1A4D3A;
+  --green-muted:#3B7A60;
 }
-.wip{
-  text-align:center;
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── PAGE LAYOUT — flex like Splunk reference ─── */
+.page{display:flex;min-height:100vh;}
+
+/* ─── LEFT SIDEBAR ─── */
+.sidebar{
+  width:320px;
+  flex-shrink:0;
+  position:sticky;
+  top:0;
+  height:100vh;
+  border-right:.5px solid var(--border);
+  background:var(--bg);
   display:flex;
   flex-direction:column;
-  gap:10px;
+  padding:48px;
+  overflow-y:auto;
 }
-.wip-main{
-  font-size:14px;
-  color:#ABABAB;
+
+/* stamp */
+.sidebar-stamp{
+  display:block;
+  width:160px;
+  margin-bottom:20px;
+  flex-shrink:0;
+  cursor:pointer;
 }
-.wip-sub{
+.sidebar-stamp img{width:100%;display:block;}
+@keyframes stamp-float{
+  0%{transform:translateY(0) rotate(-.5deg);}
+  33%{transform:translateY(-6px) rotate(.3deg);}
+  66%{transform:translateY(-3px) rotate(-.2deg);}
+  100%{transform:translateY(0) rotate(-.5deg);}
+}
+.sidebar-stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
+.sidebar-stamp:hover img{animation-play-state:paused;}
+
+/* back to work */
+.sidebar-back{
   font-size:13px;
-  color:#ABABAB;
+  color:var(--muted);
+  text-decoration:none;
+  letter-spacing:.01em;
+  transition:color .2s;
+  margin-bottom:18px;
 }
-.wip-sub a{
-  color:#ABABAB;
-  text-decoration:underline;
-  text-underline-offset:3px;
+.sidebar-back:hover{color:var(--text);}
+
+/* on this page label */
+.sidebar-section-label{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:var(--dim);
+  margin-bottom:6px;
+  margin-top:6px;
+}
+
+/* toc links */
+.sidebar-toc{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  flex:1;
+}
+.sidebar-toc a{
+  font-size:13px;
+  color:var(--dim);
+  text-decoration:none;
+  display:block;
+  padding:6px 0 6px 12px;
+  border-left:1.5px solid var(--border);
+  transition:color .2s, border-color .2s, padding-left .18s;
+  line-height:1.4;
+}
+.sidebar-toc a:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
+.sidebar-toc a.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
+
+/* bottom links */
+.sidebar-footer{
+  margin-top:auto;
+  padding-top:28px;
+  border-top:.5px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.sidebar-footer a{
+  font-size:13px;
+  color:var(--muted);
+  text-decoration:none;
+  letter-spacing:.01em;
+  transition:color .2s;
+}
+.sidebar-footer a:hover{color:var(--text);}
+
+/* ─── RIGHT COLUMN ─── */
+.right-col{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ─── MAIN CONTENT ─── */
+.main{
+  padding:52px 64px 96px;
+  max-width:1040px;
+}
+
+/* ─── HERO ─── */
+.hero{padding:72px 0 0 0;}
+.eyebrow{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;
+  opacity:0;animation:up .5s .05s forwards;
+}
+.hero h1{
+  font-family:'Lora',serif;
+  font-size:38px;font-weight:400;line-height:1.18;
+  letter-spacing:-.01em;color:var(--text);max-width:560px;
+  opacity:0;animation:up .6s .15s forwards;
+}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{
+  font-size:15px;color:var(--muted);margin-top:16px;
+  max-width:480px;line-height:1.7;
+  opacity:0;animation:up .6s .25s forwards;
+}
+
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;opacity:0;animation:up .6s .35s forwards;}
+.pill{font-size:12px;color:#2A2A2A;background:var(--bg);border:.5px solid var(--border);border-radius:999px;padding:5px 12px;letter-spacing:.01em;}
+.metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:40px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  opacity:0;animation:up .6s .35s forwards;
+}
+.metric{
+  padding:20px 24px;
+  border-right:1px solid var(--border);
+  background:var(--bg);
+}
+.metric:last-child{border-right:none;}
+.metric-num{
+  font-size:28px;font-weight:300;
+  color:var(--accent);letter-spacing:-.03em;line-height:1;
+}
+.metric-label{font-size:11px;color:var(--dim);margin-top:4px;text-transform:uppercase;letter-spacing:.07em;}
+
+/* ─── META CARD (green) ─── */
+.meta{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  margin-top:24px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#1A4D3A;
+  opacity:0;animation:up .5s .45s forwards;
+}
+.meta-group{
+  padding:28px 28px;
+}
+.meta-label{
+  font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.45);margin-bottom:10px;font-weight:500;
+}
+.meta-val{font-size:15px;color:#fff;line-height:1.75;}
+
+/* ─── SECTIONS ─── */
+section{padding:60px 0;border-top:1px solid var(--border);}
+section.hero{border-top:none;}
+.section-tag{
+  font-size:10px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--dim);margin-bottom:12px;
+}
+.section-hed{
+  font-family:'Lora',serif;font-size:24px;font-weight:400;
+  color:var(--text);line-height:1.3;margin-bottom:16px;
+}
+.section-hed em{font-style:italic;color:var(--accent);}
+p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:12px;}
+p:last-child{margin-bottom:0;}
+
+/* ─── TWO COL ─── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;}
+.split-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:5px;}
+.split-text{font-size:13px;color:var(--muted);line-height:1.75;}
+
+/* ─── PAIN ROWS (image left, text right) ─── */
+.pain-rows{display:flex;flex-direction:column;gap:40px;margin-top:28px;}
+.pain-row{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;}
+.pain-row-img{
+  width:100%;aspect-ratio:4/3;
+  background:var(--surface);
+  border:1px dashed var(--border);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.pain-row-img span{font-size:11px;color:var(--dim);}
+.pain-row-content{}
+.pain-row-hed{font-size:14px;font-weight:500;color:var(--text);margin-bottom:12px;}
+.pain-row-list{list-style:none;padding:0;}
+.pain-row-list li{
+  font-size:13px;color:var(--muted);
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:8px;
+}
+.pain-row-list li:last-child{border-bottom:none;}
+.pain-row-list li::before{content:"·";color:var(--dim);flex-shrink:0;}
+
+/* ─── CAROUSEL (solution) ─── */
+.carousel{margin-top:24px;position:relative;}
+.carousel-track{
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--surface);
+}
+.carousel-slides{display:flex;transition:transform .35s ease;}
+.carousel-slide{
+  min-width:100%;
+  aspect-ratio:16/9;
+  background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.carousel-slide span{font-size:12px;color:var(--dim);}
+.carousel-controls{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;
+}
+.carousel-btns{display:flex;gap:8px;}
+.carousel-btn{
+  width:32px;height:32px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:var(--bg);
+  color:var(--muted);
+  font-size:14px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,color .15s;
+}
+.carousel-btn:hover{background:var(--surface);color:var(--text);}
+.carousel-counter{font-size:12px;color:var(--dim);}
+
+/* ─── ANALYTICS NOTE ─── */
+.analytics-note{
+  margin-top:24px;padding:16px 20px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);
+}
+.analytics-note p{font-size:13px;}
+
+/* ─── PLACEHOLDER ─── */
+.ph{
+  margin-top:16px;
+  border:1px dashed var(--border);border-radius:8px;
+  background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+}
+.ph.tall{height:220px;}
+.ph.short{height:140px;}
+.ph span{font-size:11px;color:var(--dim);}
+
+/* ─── CONSTRAINTS TABLE ─── */
+.c-rows{
+  margin-top:22px;
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;
+}
+.c-row{display:grid;grid-template-columns:1fr 1fr;}
+.c-row+.c-row{border-top:1px solid var(--border);}
+.c-cell{padding:13px 16px;font-size:13px;}
+.c-cell:first-child{color:var(--text);font-weight:500;border-right:1px solid var(--border);background:var(--bg);}
+.c-cell:last-child{color:var(--muted);background:var(--surface);}
+
+/* ─── IA DIAGRAM ─── */
+.ia-diagram{
+  margin-top:22px;
+  display:grid;grid-template-columns:1fr 36px 1fr;align-items:start;
+}
+.ia-col{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.ia-col-hed{
+  padding:9px 13px;font-size:10px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--dim);
+  border-bottom:1px solid var(--border);background:var(--surface);
+}
+.ia-item{padding:8px 13px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--border);}
+.ia-item:last-child{border-bottom:none;}
+.ia-item.nested{padding-left:24px;}
+.ia-item.bad{color:var(--conflict);}
+.ia-arrow{display:flex;align-items:center;justify-content:center;color:var(--dim);padding-top:44px;font-size:14px;}
+
+/* ─── CALLOUT (stakeholder) ─── */
+.callout{
+  margin-top:24px;padding:16px 20px;
+  border-left:3px solid var(--conflict);
+  border-radius:0 6px 6px 0;
+  background:var(--conflict-bg);
+}
+.callout p{font-size:13px;color:var(--conflict);}
+
+/* ─── DECISIONS ─── */
+.decisions{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:24px;
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;
+}
+.decision{padding:18px 16px;background:var(--bg);}
+.decision+.decision{border-left:1px solid var(--border);}
+.decision-hed{font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px;}
+.decision ul{list-style:none;}
+.decision ul li{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);}
+.decision ul li:last-child{border-bottom:none;}
+
+/* ─── RESULTS ─── */
+.result-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-top:22px;
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;
+}
+.result-stat{padding:24px;background:var(--bg);}
+.result-stat+.result-stat{border-left:1px solid var(--border);}
+.result-stat-num{font-size:36px;font-weight:300;color:var(--accent);letter-spacing:-.04em;line-height:1;}
+.result-stat-label{font-size:11px;color:var(--dim);margin-top:4px;}
+
+/* ─── LEARNINGS ─── */
+.learnings{margin-top:24px;}
+.learning{padding:18px 0;border-bottom:1px solid var(--border);}
+.learning:first-child{border-top:1px solid var(--border);}
+.learning-num{font-size:10px;color:var(--dim);letter-spacing:.08em;margin-bottom:4px;}
+.learning-hed{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.learning-body{font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--border);
+  padding:32px 0;margin-top:24px;
+}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;}
+.footer-note{font-size:11px;color:var(--dim);}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:var(--muted);}
+
+/* ─── TWO IMG + CAPTION ─── */
+.two-img{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px;}
+.img-cap{}
+.img-cap-ph{
+  width:100%;aspect-ratio:4/3;
+  background:var(--surface);
+  border:1px dashed var(--border);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.img-cap-ph span{font-size:11px;color:var(--dim);}
+.img-cap-label{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5;}
+
+/* ─── TRADEOFF CALLOUT ─── */
+.tradeoff{
+  margin-top:28px;padding:24px 28px;
+  background:var(--surface);
+  border-radius:8px;
+}
+.tradeoff p{font-size:14px;color:var(--muted);}
+
+/* ─── CAROUSEL CAPTION ─── */
+.carousel-caption{
+  font-size:13px;color:var(--muted);
+  margin-top:10px;min-height:20px;
+  transition:opacity .2s;
+}
+
+/* ─── HERO VIDEO ─── */
+.hero-video{
+  width:100%;
+  min-height:500px;
+  max-height:560px;
+  overflow:hidden;
+  background:var(--surface);
+  border-bottom:.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.hero-video span{font-size:12px;color:var(--dim);}
+
+/* ─── ANIMATIONS ─── */
+@keyframes up{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ─── MOBILE TOPBAR (hidden on desktop) ─── */
+.mobile-topbar{display:none;}
+.mobile-drawer{display:none;}
+.drawer-overlay{display:none;}
+
+/* ══════════════════════════════════════
+   TABLET  ≤ 1024px
+══════════════════════════════════════ */
+@media(max-width:1024px){
+  .sidebar{width:240px;padding:36px;}
+  .main{padding:40px 40px 80px;}
+  .meta{grid-template-columns:1fr 1fr;}
+  .meta-group:nth-child(2){border-right:none;}
+  .meta-group:nth-child(3){border-top:none;}
+}
+
+/* ══════════════════════════════════════
+   MOBILE  ≤ 900px  (matches Splunk)
+══════════════════════════════════════ */
+@media(max-width:900px){
+
+  /* switch to block so sidebar disappears cleanly */
+  .page{display:block;}
+  .right-col{width:100%;}
+
+  /* hide desktop sidebar */
+  .sidebar{display:none;}
+
+  /* show mobile topbar */
+  .mobile-topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;top:0;z-index:200;
+    background:rgba(253,253,253,.95);
+    backdrop-filter:blur(12px);
+    border-bottom:.5px solid var(--border);
+    padding:14px 20px;
+    height:56px;
+  }
+  .mobile-topbar-left{display:flex;align-items:center;gap:12px;}
+  .mobile-topbar-stamp img{width:36px;height:36px;display:block;}
+  .mobile-topbar-back{font-size:13px;color:var(--muted);text-decoration:none;}
+  .mobile-hamburger{
+    background:none;border:none;cursor:pointer;
+    display:flex;flex-direction:column;gap:5px;padding:4px;
+  }
+  .mobile-hamburger span{
+    display:block;width:22px;height:1.5px;
+    background:var(--text);border-radius:2px;
+    transition:transform .25s,opacity .25s;
+  }
+  .mobile-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .mobile-hamburger.open span:nth-child(2){opacity:0;}
+  .mobile-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  .drawer-overlay{
+    display:block;
+    position:fixed;inset:0;
+    background:rgba(26,26,26,.4);
+    z-index:190;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s;
+  }
+  .drawer-overlay.open{opacity:1;pointer-events:all;}
+
+  .mobile-drawer{
+    display:flex;flex-direction:column;
+    position:fixed;top:0;right:0;
+    width:260px;height:100vh;
+    background:var(--bg);
+    border-left:.5px solid var(--border);
+    z-index:195;
+    padding:20px 0;
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    overflow-y:auto;
+  }
+  .mobile-drawer.open{transform:translateX(0);}
+  .mobile-drawer-label{
+    font-size:9px;text-transform:uppercase;letter-spacing:.16em;
+    color:var(--dim);padding:0 24px 10px 24px;
+  }
+  .mobile-drawer-toc{display:flex;flex-direction:column;}
+  .mobile-drawer-toc a{
+    font-size:14px;color:var(--muted);text-decoration:none;
+    padding:10px 24px;border-left:2px solid transparent;
+    transition:color .15s,border-color .15s,background .15s;
+  }
+  .mobile-drawer-toc a:hover{color:var(--text);background:var(--surface);}
+  .mobile-drawer-toc a.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);}
+  .mobile-drawer-footer{
+    border-top:.5px solid var(--border);
+    padding:20px 24px 0;margin-top:auto;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .mobile-drawer-footer a{font-size:14px;color:var(--muted);text-decoration:none;}
+
+  /* main */
+  .main{padding:32px 24px 64px;}
+
+  /* hero */
+  .hero{padding:32px 0 0;}
+  .hero h1{font-size:28px;}
+  .hero-sub{font-size:14px;}
+
+  /* grids */
+  .metrics{grid-template-columns:1fr 1fr;}
+  .metric:nth-child(2){border-right:none;}
+  .metric:nth-child(3){grid-column:1/-1;border-top:1px solid var(--border);}
+  .meta{grid-template-columns:1fr 1fr;}
+  .meta-group{border-right:none!important;}
+  .meta-group:nth-child(odd){border-right:none!important;}
+  .two-col{grid-template-columns:1fr;}
+  .pain-row{grid-template-columns:1fr;gap:16px;}
+  .pain-row-img{aspect-ratio:16/9;}
+  .two-img{grid-template-columns:1fr;}
+  .ia-diagram{grid-template-columns:1fr;}
+  .ia-arrow{padding:12px 0 12px 13px;}
+  .ia-col:first-child{border-radius:6px 6px 0 0;}
+  .ia-col:last-child{border-radius:0 0 6px 6px;border-top:none;}
+  .result-stats{grid-template-columns:1fr;}
+  .result-stat+.result-stat{border-left:none;border-top:1px solid var(--border);}
+  .section-hed{font-size:20px;}
+  .footer-inner{flex-direction:column;gap:12px;align-items:flex-start;}
+}
+
+/* ══════════════════════════════════════
+   SMALL MOBILE  ≤ 480px
+══════════════════════════════════════ */
+@media(max-width:480px){
+  .main{padding:24px 16px 64px;}
+  .hero h1{font-size:24px;}
+  .metrics{grid-template-columns:1fr;}
+  .metric{border-right:none!important;}
+  .metric+.metric{border-top:1px solid var(--border);}
 }
 </style>
 </head>
 <body>
-<div class="wip">
-  <p class="wip-main">Work in progress.</p>
-  <p class="wip-sub">Reach out to <a href="mailto:navyaa.vemuri@gmail.com">navyaa.vemuri@gmail.com</a> if you have specific questions.</p>
+
+<!-- ═══ MOBILE TOPBAR ═══ -->
+<div class="mobile-topbar">
+  <div class="mobile-topbar-left">
+    <a class="mobile-topbar-stamp" href="https://navyaavemuri.com/portfolio.html">
+      <img src="https://navyaavemuri.com/stamp.png" alt="Navyaa Vemuri">
+    </a>
+    <a class="mobile-topbar-back" href="https://navyaavemuri.com/portfolio.html">← Back to work</a>
+  </div>
+  <button class="mobile-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </div>
+
+<!-- drawer overlay -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+
+<!-- slide-in drawer -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-label">on this page</div>
+  <nav class="mobile-drawer-toc">
+    <a href="#overview">Overview</a>
+    <a href="#context">Context</a>
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#pain-points">Pain Points</a>
+    <a href="#constraints">Constraints</a>
+    <a href="#design-system">Design System</a>
+    <a href="#putting-together">Putting It Together</a>
+    <a href="#results">Results</a>
+    <a href="#learnings">Learnings</a>
+  </nav>
+</div>
+
+<div class="page">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <a class="sidebar-stamp" href="https://navyaavemuri.com/portfolio.html">
+      <img src="https://navyaavemuri.com/stamp.png" alt="Navyaa Vemuri">
+    </a>
+    <a class="sidebar-back" href="https://navyaavemuri.com/portfolio.html">← Back to work</a>
+    <div class="sidebar-section-label">on this page</div>
+    <nav class="sidebar-toc">
+      <a href="#overview">Overview</a>
+      <a href="#context">Context</a>
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#pain-points">Pain Points</a>
+      <a href="#constraints">Constraints</a>
+      <a href="#design-system">Design System</a>
+      <a href="#putting-together">Putting It Together</a>
+      <a href="#results">Results</a>
+      <a href="#learnings">Learnings</a>
+    </nav>
+  </aside>
+
+  <!-- ═══ RIGHT COL ═══ -->
+  <div class="right-col">
+
+    <!-- hero video — full width of right col, above main -->
+    <div class="hero-video"><video autoplay muted loop playsinline preload="auto">
+        <source src="chw.mp4" type="video/mp4">
+      </video>
+    </div>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero" id="overview">
+      <p class="eyebrow">Cal Poly · UX Lead · Sept 2023–Dec 2025</p>
+      <h1>Rebuilt a health portal students actually <em>trusted</em></h1>
+      <p class="hero-sub">690% more engaged sessions. 60% less drop-off. A platform 23,000 students finally relied on.</p>
+
+      <div class="hero-pills">
+        <span class="pill">Solo owner</span>
+        <span class="pill">100% shipped</span>
+        <span class="pill">Legacy systems</span>
+        <span class="pill">Trust design</span>
+        <span class="pill">Data-informed</span>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-num">690%</div>
+          <div class="metric-label">engaged sessions</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">60%</div>
+          <div class="metric-label">less abandonment</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">23K+</div>
+          <div class="metric-label">students served</div>
+        </div>
+      </div>
+
+      <!-- green meta card -->
+      <div class="meta">
+        <div class="meta-group">
+          <div class="meta-label">Role</div>
+          <div class="meta-val">Sole UX Designer</div>
+        </div>
+        <div class="meta-group">
+          <div class="meta-label">Team</div>
+          <div class="meta-val">2 Managers<br>2 Graphic Designers<br>1 Front End-Dev (me!)<br>1 Designer (me!)</div>
+        </div>
+        <div class="meta-group">
+          <div class="meta-label">Timeline</div>
+          <div class="meta-val">September 2023–<br>December 2025</div>
+        </div>
+        <div class="meta-group">
+          <div class="meta-label">Skills</div>
+          <div class="meta-val">Web Design<br>UX Research<br>Front End-Dev<br>Content Design<br>Product Strategy</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="reveal" id="context">
+      <p class="section-tag">Context</p>
+      <p>I was Cal Poly's first dedicated UX designer — brought in to fix a health portal students had quietly stopped trusting.</p>
+      <p>The site existed. Students just weren't using it. They'd walk in and ask staff for things the website should have answered — hours, forms, how to book an appointment.</p>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="reveal" id="problem">
+      <p class="section-tag">User &amp; Org Problem</p>
+      <h2 class="section-hed">Students didn't trust the site, so they <em>avoided it entirely.</em></h2>
+      <div class="two-col">
+        <div>
+          <div class="split-label">For students</div>
+          <div class="split-text">Finding basic health info felt unreliable. Students couldn't trust what they found, so they gave up.</div>
+        </div>
+        <div>
+          <div class="split-label">For the org</div>
+          <div class="split-text">Staff spent time answering questions the site should handle. A health resource no one uses isn't just a UX problem — it's a care gap.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="reveal" id="solution">
+      <p class="section-tag">Solution</p>
+      <h2 class="section-hed">Rebuild trust through <em>clarity.</em></h2>
+      <p>Not a redesign for aesthetics — a redesign for credibility.</p>
+      <p>I audited the existing site, identified the specific points of failure, and systematically rebuilt the IA, visual hierarchy, and content structure from inside a deeply constrained CMS.</p>
+
+      <div class="carousel">
+        <div class="carousel-track">
+          <div class="carousel-slides" id="carousel-slides">
+            <div class="carousel-slide"><span>[ Solution slide 1 ]</span></div>
+            <div class="carousel-slide"><span>[ Solution slide 2 ]</span></div>
+            <div class="carousel-slide"><span>[ Solution slide 3 ]</span></div>
+          </div>
+        </div>
+        <div class="carousel-caption" id="carousel-caption">[ Caption for slide 1 — describe what this shows ]</div>
+        <div class="carousel-controls">
+          <span class="carousel-counter" id="carousel-counter">1 / 3</span>
+          <div class="carousel-btns">
+            <button class="carousel-btn" id="carousel-prev" aria-label="Previous">←</button>
+            <button class="carousel-btn" id="carousel-next" aria-label="Next">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAIN POINTS -->
+    <section class="reveal" id="pain-points">
+      <p class="section-tag">Identifying Pain Points</p>
+      <h2 class="section-hed">I combed through every page before touching a single design.</h2>
+      <p>Dead links, redundant content, buried actions — I catalogued everything costing students their trust. Three buckets kept coming up:</p>
+
+      <div class="pain-rows">
+        <div class="pain-row">
+          <div class="pain-row-img"><span>[ Content overload screenshot ]</span></div>
+          <div class="pain-row-content">
+            <div class="pain-row-hed">Content overload</div>
+            <ul class="pain-row-list">
+              <li>Walls of text on every page</li>
+              <li>No clear entry points</li>
+              <li>Students scanned and left</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pain-row">
+          <div class="pain-row-img"><span>[ Dead content screenshot ]</span></div>
+          <div class="pain-row-content">
+            <div class="pain-row-hed">Dead &amp; broken content</div>
+            <ul class="pain-row-list">
+              <li>Forms linked to 404s</li>
+              <li>Outdated hours and info</li>
+              <li>Broke trust on first click</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pain-row">
+          <div class="pain-row-img"><span>[ Buried actions screenshot ]</span></div>
+          <div class="pain-row-content">
+            <div class="pain-row-hed">Buried critical actions</div>
+            <ul class="pain-row-list">
+              <li>Booking 4+ clicks deep</li>
+              <li>Duplicate nav paths</li>
+              <li>No obvious next step</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:32px;">I cross-referenced my audit against Google Analytics — session data, drop-off rates, bounce by page — to confirm the issues I was seeing in the UI showed up in the numbers too. They did.</p>
+
+      <div class="ph tall"><span>[ Analytics graph — engaged sessions vs. total views ]</span></div>
+
+      <div class="ph tall" style="margin-top:16px;"><span>[ Guerrilla research / in-person booth photos ]</span></div>
+
+      <p style="margin-top:20px;">I also went off-screen: ran in-person booths and collaborated with student-run org Pulse on surveys around STI resources and sexual health — the pages students were least likely to navigate to alone.</p>
+    </section>
+
+    <!-- CONSTRAINTS -->
+    <section class="reveal" id="constraints">
+      <p class="section-tag">Constraints</p>
+      <h2 class="section-hed">Modern UX inside a 2011 CMS <code style="font-size:16px;color:var(--dim);font-family:monospace;font-weight:400;">#drupal7</code></h2>
+      <p>Drupal 7 was limiting in ways that made every design decision harder. No component system. Limited layout control. I couldn't wait for a rebuild — I had to make the existing system better.</p>
+
+      <div class="two-img">
+        <div class="img-cap">
+          <div class="img-cap-ph"><span>[ Figma design file ]</span></div>
+          <p class="img-cap-label">Designed and maintained everything in Figma first to keep visual consistency the CMS couldn't enforce on its own.</p>
+        </div>
+        <div class="img-cap">
+          <div class="img-cap-ph"><span>[ Drupal implementation ]</span></div>
+          <p class="img-cap-label">Implemented directly in Drupal with proper alt text to maintain SEO without relying on modern tooling.</p>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <p>Key tradeoff: I designed with desktop responsiveness but not mobile — 82% of users were on desktop, so mobile was deprioritized by data, not by default.</p>
+      </div>
+    </section>
+
+    <!-- DESIGN SYSTEM -->
+    <section class="reveal" id="design-system">
+      <p class="section-tag">Design System</p>
+      <h2 class="section-hed">How to build trust</h2>
+      <p>Started with IA. Before screens, I mapped the full site — what existed, what was duplicated, what was missing. The biggest shift: department-based → task-based.</p>
+
+      <div class="ia-diagram">
+        <div class="ia-col">
+          <div class="ia-col-hed">Before — department-based</div>
+          <div class="ia-item">Campus Health &amp; Wellbeing</div>
+          <div class="ia-item nested bad">Health Services</div>
+          <div class="ia-item nested bad">↳ Book Appt. (buried)</div>
+          <div class="ia-item nested bad">↳ Forms (dead link)</div>
+          <div class="ia-item nested bad">Counseling Services</div>
+          <div class="ia-item nested bad">↳ Book Appt. (duplicate)</div>
+          <div class="ia-item nested bad">↳ Sexual Health (buried)</div>
+        </div>
+        <div class="ia-arrow">→</div>
+        <div class="ia-col">
+          <div class="ia-col-hed">After — task-based</div>
+          <div class="ia-item">Campus Health &amp; Wellbeing</div>
+          <div class="ia-item nested">↳ Book an Appointment</div>
+          <div class="ia-item nested">↳ Mental Health &amp; Counseling</div>
+          <div class="ia-item nested">↳ Sexual Health &amp; Safety</div>
+          <div class="ia-item nested">↳ Basic Needs</div>
+          <div class="ia-item nested">↳ Resources &amp; Forms</div>
+        </div>
+      </div>
+
+      <p style="margin-top:22px;">Then I built a design system to hold it together — reusable modules, consistent type scale, color tokens — so a CMS with no component support could still feel coherent.</p>
+      <div class="ph tall"><span>[ Figma component library ]</span></div>
+    </section>
+
+    <!-- PUTTING IT TOGETHER -->
+    <section class="reveal" id="putting-together">
+      <p class="section-tag">Putting It Together</p>
+      <h2 class="section-hed">Designing the pages</h2>
+      <p>Three principles guided every page: make actions obvious, keep content scannable, make the site feel human enough to trust.</p>
+
+      <div class="callout">
+        <p>Some stakeholders pushed for denser pages — "the information feels important." Analytics showed the opposite: dense pages had the highest drop-off. I used session data and prototypes to move the conversation from opinion to outcomes.</p>
+      </div>
+
+      <div class="pain-rows" style="margin-top:32px;">
+        <div class="pain-row">
+          <div class="pain-row-img"><span>[ Page hierarchy screenshot ]</span></div>
+          <div class="pain-row-content">
+            <div class="pain-row-hed">Page hierarchy</div>
+            <ul class="pain-row-list">
+              <li>One clear action per page</li>
+              <li>Critical info above the fold</li>
+              <li>Solves: students scanning and leaving</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pain-row">
+          <div class="pain-row-img"><span>[ IA restructure screenshot ]</span></div>
+          <div class="pain-row-content">
+            <div class="pain-row-hed">IA restructure</div>
+            <ul class="pain-row-list">
+              <li>Task-based over dept-based</li>
+              <li>Flatter, fewer dead ends</li>
+              <li>Solves: buried actions &amp; duplicates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pain-row">
+          <div class="pain-row-img"><span>[ Trust-building content screenshot ]</span></div>
+          <div class="pain-row-content">
+            <div class="pain-row-hed">Trust-building content</div>
+            <ul class="pain-row-list">
+              <li>Warmer, direct language</li>
+              <li>Accurate, maintained info</li>
+              <li>Solves: students not believing what they read</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="reveal" id="results">
+      <p class="section-tag">Results</p>
+      <h2 class="section-hed">The site started acting like a real source of truth.</h2>
+      <p>In year one, engaged sessions grew from 13,003 to 102,652. By year three, they'd passed 200,000. It wasn't a spike — it kept compounding.</p>
+
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-num">690%</div>
+          <div class="result-stat-label">increase in engaged sessions — year one</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">60%</div>
+          <div class="result-stat-label">drop in abandonment across redesigned pages</div>
+        </div>
+      </div>
+
+      <div class="ph tall" style="margin-top:18px;"><span>[ Engagement over 3 years — 13K → 102K → 200K+ ]</span></div>
+    </section>
+
+    <!-- LEARNINGS -->
+    <section class="reveal" id="learnings">
+      <p class="section-tag">Learnings</p>
+      <div class="learnings">
+        <div class="learning">
+          <div class="learning-num">01</div>
+          <div class="learning-hed">Messy systems are a design problem too.</div>
+          <div class="learning-body">Half the work was untangling broken structure before I touched a screen. Clarity at the system level made everything downstream easier.</div>
+        </div>
+        <div class="learning">
+          <div class="learning-num">02</div>
+          <div class="learning-hed">Data and empathy aren't opposites.</div>
+          <div class="learning-body">Metrics told me where things were failing. Student behavior told me why it mattered. I needed both to make a case and make it stick.</div>
+        </div>
+        <div class="learning">
+          <div class="learning-num">03</div>
+          <div class="learning-hed">Constraints sharpen decisions.</div>
+          <div class="learning-body">Drupal 7 forced me to be deliberate about every choice. The limitation wasn't the problem — it was the design brief.</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-note">last updated march 2026 · navyaa vemuri</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
+          <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">Resume ↗</a>
+          <a href="mailto:navyaa.vemuri@gmail.com">Say hi ↗</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+  </div><!-- /right-col -->
+</div>
+
+<script>
+// carousel
+const slides = document.getElementById('carousel-slides');
+const counter = document.getElementById('carousel-counter');
+const caption = document.getElementById('carousel-caption');
+const captions = [
+  '[ Caption for slide 1 — describe what this shows ]',
+  '[ Caption for slide 2 — describe what this shows ]',
+  '[ Caption for slide 3 — describe what this shows ]',
+];
+const total = slides ? slides.children.length : 0;
+let cur = 0;
+function goTo(n){
+  cur = (n + total) % total;
+  slides.style.transform = `translateX(-${cur * 100}%)`;
+  counter.textContent = `${cur + 1} / ${total}`;
+  if(caption){ caption.style.opacity='0'; setTimeout(()=>{ caption.textContent=captions[cur]; caption.style.opacity='1'; },150); }
+}
+document.getElementById('carousel-prev')?.addEventListener('click',()=>goTo(cur-1));
+document.getElementById('carousel-next')?.addEventListener('click',()=>goTo(cur+1));
+
+// scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver(e=>{
+  e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');revObs.unobserve(el.target);}});
+},{threshold:.06});
+reveals.forEach(el=>revObs.observe(el));
+
+// active side nav — highlights both sidebar and drawer links
+const navLinks = document.querySelectorAll('.sidebar-toc a, .mobile-drawer-toc a');
+const targets = document.querySelectorAll('section[id]');
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      document.querySelectorAll(`.sidebar-toc a[href="#${e.target.id}"], .mobile-drawer-toc a[href="#${e.target.id}"]`).forEach(a=>a.classList.add('active'));
+    }
+  });
+},{rootMargin:'-10% 0px -80% 0px'});
+targets.forEach(t=>navObs.observe(t));
+
+// hamburger / drawer
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('mobile-drawer');
+const overlay = document.getElementById('drawer-overlay');
+function openDrawer(){drawer.classList.add('open');overlay.classList.add('open');hamburger.classList.add('open');document.body.style.overflow='hidden';}
+function closeDrawer(){drawer.classList.remove('open');overlay.classList.remove('open');hamburger.classList.remove('open');document.body.style.overflow='';}
+hamburger?.addEventListener('click',()=>drawer.classList.contains('open')?closeDrawer():openDrawer());
+overlay?.addEventListener('click',closeDrawer);
+// close drawer when a TOC link is tapped
+document.querySelectorAll('.mobile-drawer-toc a').forEach(a=>a.addEventListener('click',closeDrawer));
+</script>
 </body>
 </html>
