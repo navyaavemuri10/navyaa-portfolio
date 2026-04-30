@@ -239,19 +239,24 @@ p:last-child{margin-bottom:0;}
 }
 .pain-row-img span{font-size:11px;color:var(--dim);}
 
+/* ─── MEDIA SIZING FIXES ─── */
 .carousel-slide video,
 .carousel-slide img,
-.hero-video video,
-.ph iframe {
+.ph video,
+.ph img,
+.ph iframe,
+.hero-video video {
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center;
   display: block;
 }
 
-video {
-  width: 100%;
-  height: auto;
+.hero-video video {
+  object-fit: cover;
 }
 
 .pain-row-img img{
@@ -280,12 +285,14 @@ video {
   border:1px solid var(--border);
   border-radius:8px;
   background:var(--surface);
+  aspect-ratio:16/9;
 }
-.carousel-slides{display:flex;transition:transform .35s ease;}
+.carousel-slides{display:flex;transition:transform .35s ease;height:100%;}
 .carousel-slide{
   min-width:100%;
+  height:100%;
   aspect-ratio:16/9;
-  object-fit:cover;
+  overflow:hidden;
   background:var(--surface);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
@@ -325,11 +332,23 @@ video {
   border:1px dashed var(--border);border-radius:8px;
   background:var(--surface);
   display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
 }
-.ph.tall{height:220px;}
+.ph.tall{height:320px;}
+.ph.media-contain{height:360px;padding:16px;}
+.ph.media-short{height:260px;padding:16px;}
 .chart-frame{height:360px;overflow:hidden;}
 .ph.short{height:140px;}
 .ph span{font-size:11px;color:var(--dim);}
+
+.main > iframe{
+  width:100%;
+  height:360px;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  background:var(--surface);
+  margin-top:16px;
+}
 
 /* ─── CONSTRAINTS TABLE ─── */
 .c-rows{
@@ -422,6 +441,13 @@ footer{
   display:flex;align-items:center;justify-content:center;
 }
 .img-cap-ph span{font-size:11px;color:var(--dim);}
+.img-cap-ph img,
+.img-cap-ph video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
 .img-cap-label{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5;}
 
 /* ─── TRADEOFF CALLOUT ─── */
@@ -573,6 +599,7 @@ footer{
   .two-col{grid-template-columns:1fr;}
   .pain-row{grid-template-columns:1fr;gap:16px;}
   .pain-row-img{aspect-ratio:16/9;}
+  .ph.tall,.ph.media-contain{height:260px;}
   .two-img{grid-template-columns:1fr;}
   .ia-diagram{grid-template-columns:1fr;}
   .ia-arrow{padding:12px 0 12px 13px;}
@@ -825,7 +852,7 @@ footer{
 
   <iframe src="chw-chart-dropoff.html" title="Drop-off chart"></iframe>
 
-  <div class="ph tall" style="margin-top:16px;"><img src="survey.jpeg" alt="Booth outside of health center, giving away STI plushies for filling out survey!"></div>
+  <div class="ph media-contain" style="margin-top:16px;"><img src="survey.jpeg" alt="Booth outside of health center, giving away STI plushies for filling out survey!"></div>
 
   <p style="margin-top:20px;">I also went off-screen through in-person booths and surveys with Pulse, a student-run organization, to better understand how students navigated sensitive resources like STI testing and sexual health information.</p>
 </section>
@@ -882,7 +909,7 @@ footer{
       </div>
 
       <p style="margin-top:22px;">From there, I defined reusable modules, a consistent type scale, and color tokens to help the site feel more cohesive across pages.</p>
-      <div class="ph tall"><video autoplay muted loop playsinline preload="auto">
+      <div class="ph media-contain"><video autoplay muted loop playsinline preload="auto">
         <source src="component-library.mp4" type="video/mp4">
       </video></div>
     </section>
@@ -996,6 +1023,11 @@ footer{
 const slides = document.getElementById('carousel-slides');
 const counter = document.getElementById('carousel-counter');
 const caption = document.getElementById('carousel-caption');
+const captions = [
+  'A closer look at the redesigned pages and interaction patterns.',
+  'A closer look at the redesigned pages and interaction patterns.',
+  'A closer look at the redesigned pages and interaction patterns.'
+];
 const total = slides ? slides.children.length : 0;
 let cur = 0;
 function goTo(n){
