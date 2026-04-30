@@ -239,6 +239,25 @@ p:last-child{margin-bottom:0;}
   display:flex;align-items:center;justify-content:center;
 }
 .pain-row-img span{font-size:11px;color:var(--dim);}
+
+.carousel-slide video,
+.ph video,
+.hero-video video,
+.ph iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  border:0;
+}
+
+.pain-row-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
 .pain-row-content{}
 .pain-row-hed{font-size:14px;font-weight:500;color:var(--text);margin-bottom:12px;}
 .pain-row-list{list-style:none;padding:0;}
@@ -262,7 +281,7 @@ p:last-child{margin-bottom:0;}
 .carousel-slides{display:flex;transition:transform .35s ease;}
 .carousel-slide{
   min-width:100%;
-  aspect-ratio:16/;
+  aspect-ratio:16/9;
   background:var(--surface);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
@@ -303,6 +322,7 @@ p:last-child{margin-bottom:0;}
   display:flex;align-items:center;justify-content:center;
 }
 .ph.tall{height:220px;}
+.chart-frame{height:360px;overflow:hidden;}
 .ph.short{height:140px;}
 .ph span{font-size:11px;color:var(--dim);}
 
@@ -634,7 +654,7 @@ footer{
 
     <!-- hero video — full width of right col, above main -->
     <div class="hero-video"><video autoplay muted loop playsinline preload="auto">
-        <source src="chw.mp4" type="video/mp4">
+        <source src="chw-main.mp4" type="video/mp4">
       </video>
     </div>
 
@@ -694,8 +714,8 @@ footer{
     <!-- CONTEXT -->
     <section class="reveal" id="context">
       <p class="section-tag">Context</p>
-      <p>I was Cal Poly's first dedicated UX designer brought in to fix a health portal students had quietly stopped trusting.</p>
-      <p>Despite a student population of 23,000, the school website averages fewer than one engagement per student annually, indicating low adoption or limited perceived value. cards with key stats</p>
+      <p>I was Cal Poly's first dedicated UX designer, brought in to help improve a health portal students had quietly stopped trusting.</p>
+      <p>Despite serving a student population of 23,000, the portal was averaging fewer than one engagement per student annually — a sign that students weren’t seeing it as a reliable place to start.</p>
     </section>
 
     <!-- PROBLEM -->
@@ -718,7 +738,7 @@ footer{
     <section class="reveal" id="solution">
       <p class="section-tag">Solution</p>
       <h2 class="section-hed">Rebuilt trust through <em>clarity.</em></h2>
-      <p>Redesigned from credibility</p>
+      <p>A redesign focused on rebuilding credibility.</p>
       <p>I audited the existing site, identified the specific points of failure, and systematically rebuilt the IA, visual hierarchy, and content structure from inside a deeply constrained CMS.</p>
 
       <div class="carousel">
@@ -728,13 +748,14 @@ footer{
         <source src="solution-1.mp4" type="video/mp4">
       </video></div>
             <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto">
-        <source src="solution-2,mp4" type="video/mp4">
+        <source src="solution-2.mp4" type="video/mp4">
       </video></div>
             <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto">
         <source src="solution-3.mp4" type="video/mp4">
       </video></div>
           </div>
         </div>
+        <div class="carousel-caption" id="carousel-caption">A closer look at the redesigned pages and interaction patterns.</div>
         <div class="carousel-controls">
           <span class="carousel-counter" id="carousel-counter">1 / 3</span>
           <div class="carousel-btns">
@@ -797,7 +818,7 @@ footer{
 
   <p style="margin-top:32px;">I cross-referenced the audit against Google Analytics including session data, drop-off rates, and page-level behavior — to check whether the issues I saw in the UI also showed up in the numbers.</p>
 
-  <div class="ph tall"><iframe src="chw-chart-dropoff.html" width="100%" height="360" frameborder="0"></iframe></div>
+  <div class="ph tall chart-frame"><iframe src="chw-chart-dropoff.html" title="Drop-off chart"></iframe></div>
 
   <div class="ph tall" style="margin-top:16px;"><span>[ Guerrilla research / in-person booth photos ]</span></div>
 
@@ -808,7 +829,7 @@ footer{
     <section class="reveal" id="constraints">
       <p class="section-tag">Constraints</p>
       <h2 class="section-hed">Modern UX inside a 2011 CMS <code style="font-size:16px;color:var(--dim);font-family:monospace;font-weight:400;">#drupal7</code></h2>
-      <p>Drupal 7 was limiting so I worked outside the box by bringing in Figma visuals and pairing it with alt text for WCAG compliance.</p>
+      <p>Drupal 7 was limiting, so the work became about improving the existing system within its constraints — using Figma to design consistent layouts and pairing visuals with proper alt text for WCAG compliance.</p>
 
       <div class="two-img">
         <div class="img-cap">
@@ -855,10 +876,10 @@ footer{
         </div>
       </div>
 
-      <p style="margin-top:22px;">Then I built a design system to hold it together with reusable modules, consistent type scale, color tokens to ensure consistency.</p>
+      <p style="margin-top:22px;">From there, I defined reusable modules, a consistent type scale, and color tokens to help the site feel more cohesive across pages.</p>
       <div class="ph tall"><video autoplay muted loop playsinline preload="auto">
         <source src="component-library.mp4" type="video/mp4">
-      </video></div></div>
+      </video></div>
     </section>
 
     <!-- PUTTING IT TOGETHER -->
@@ -925,7 +946,7 @@ footer{
         </div>
       </div>
 
-      <div class="ph tall" style="margin-top:18px;"><iframe src="chw-chart-growth.html" width="100%" height="340" frameborder="0"></iframe></div>
+      <div class="ph tall chart-frame" style="margin-top:18px;"><iframe src="chw-chart-growth.html" title="Engagement growth chart"></iframe></div>
     </section>
 
     <!-- LEARNINGS -->
