@@ -109,9 +109,43 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
 .learning-text{font-size:13px;color:var(--muted);line-height:1.78;}
 .learning-text strong{display:block;font-size:14px;color:var(--text);font-weight:400;margin-bottom:4px;}
-.g-footer{border-top:.5px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
-.footer-left{font-size:12px;color:var(--dim);} .footer-left em{font-style:italic;color:var(--muted);} .footer-note{font-size:11px;color:var(--dim);margin-top:5px;}
-.footer-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}.footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s;}.footer-link:hover{color:var(--text);} .footer-cta{font-size:12px;color:var(--accent);text-decoration:none;border:.5px solid var(--accent-border);border-radius:4px;padding:7px 16px;transition:background .2s;}.footer-cta:hover{background:var(--accent-bg);}
+.site-footer{
+  width: 100%;
+  background:#FDFDFD;
+  padding: 80px 64px;
+}
+
+.footer-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-left p{
+  font-size: 24px;
+  line-height: 1.4;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+.footer-right{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-right a{
+  font-size: 18px;
+  color: #444;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-right a:hover{
+  color: #111;
+}
 
 @media(max-width:900px){
   .layout{display:block;}
@@ -121,7 +155,22 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .hero-media{min-height:220px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
   .metrics-grid,.two-col,.img-row,.mini-grid,.mini-grid.three,.proof-strip{grid-template-columns:1fr;}
-  .g-footer{padding:24px;flex-direction:column;gap:12px;text-align:center;}
+   .site-footer{
+    padding: 64px 24px;
+  }
+
+  .footer-inner{
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-left p{
+    font-size: 22px;
+  }
+
+  .footer-right a{
+    font-size: 18px;
+  }
 }
 @media(max-width:600px){.cs-title{font-size:34px;}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
@@ -335,17 +384,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       </section>
     </main>
 
-    <footer class="g-footer">
-      <div class="footer-left">
-        <em>complexity is easy. clarity takes work.</em>
-        <div class="footer-note">last updated april 2026 · made by navyaa vemuri</div>
-      </div>
-      <nav class="footer-links">
-        <a class="footer-link" href="https://linkedin.com/in/navyaavemuri" target="_blank">LinkedIn ↗</a>
-        <a class="footer-link" href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf">Resume ↗</a>
-        <a class="footer-cta" href="mailto:navyaa.vemuri@gmail.com">say hi ↗</a>
-      </nav>
-    </footer>
+   <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p>
+        made through a collab between<br>
+        my brain, figma, claude, and gpt
+      </p>
+    </div>
+
+    <div class="footer-right">
+      <a href="mailto:navyaa.vemuri@gmail.com">let’s chat ↗</a>
+      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">resume ↗</a>
+      <a href="https://linkedin.com/in/navyaavemuri" target="_blank">linkedin ↗</a>
+    </div>
+  </div>
+</footer>
+
   </div>
 </div>
 
