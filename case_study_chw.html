@@ -39,7 +39,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ─── PAGE LAYOUT — flex like Splunk reference ─── */
 .page{display:flex;min-height:100vh;}
 
 /* ─── LEFT SIDEBAR ─── */
@@ -241,14 +240,18 @@ p:last-child{margin-bottom:0;}
 .pain-row-img span{font-size:11px;color:var(--dim);}
 
 .carousel-slide video,
-.ph video,
+.carousel-slide img,
 .hero-video video,
-.ph iframe{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  border:0;
+.ph iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+video {
+  width: 100%;
+  height: auto;
 }
 
 .pain-row-img img{
@@ -287,6 +290,7 @@ p:last-child{margin-bottom:0;}
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
+
 .carousel-slide span{font-size:12px;color:var(--dim);}
 .carousel-controls{
   display:flex;align-items:center;justify-content:space-between;
@@ -819,9 +823,9 @@ footer{
 
   <p style="margin-top:32px;">I cross-referenced the audit against Google Analytics including session data, drop-off rates, and page-level behavior — to check whether the issues I saw in the UI also showed up in the numbers.</p>
 
-  <div class="ph tall chart-frame"><iframe src="chw-chart-dropoff.html" title="Drop-off chart"></iframe></div>
+  <iframe src="chw-chart-dropoff.html" title="Drop-off chart"></iframe>
 
-  <div class="ph tall" style="margin-top:16px;"><span>[ Guerrilla research / in-person booth photos ]</span></div>
+  <div class="ph tall" style="margin-top:16px;"><img src="survey.jpeg" alt="Booth outside of health center, giving away STI plushies for filling out survey!"></div>
 
   <p style="margin-top:20px;">I also went off-screen through in-person booths and surveys with Pulse, a student-run organization, to better understand how students navigated sensitive resources like STI testing and sexual health information.</p>
 </section>
@@ -947,7 +951,7 @@ footer{
         </div>
       </div>
 
-      <div class="ph tall chart-frame" style="margin-top:18px;"><iframe src="chw-chart-growth.html" title="Engagement growth chart"></iframe></div>
+      <iframe src="chw-chart-growth.html" title="Engagement growth chart"></iframe>
     </section>
 
     <!-- LEARNINGS -->
@@ -992,11 +996,6 @@ footer{
 const slides = document.getElementById('carousel-slides');
 const counter = document.getElementById('carousel-counter');
 const caption = document.getElementById('carousel-caption');
-const captions = [
-  '[ Caption for slide 1 — describe what this shows ]',
-  '[ Caption for slide 2 — describe what this shows ]',
-  '[ Caption for slide 3 — describe what this shows ]',
-];
 const total = slides ? slides.children.length : 0;
 let cur = 0;
 function goTo(n){
