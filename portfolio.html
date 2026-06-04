@@ -362,12 +362,14 @@ a{color:inherit;}
 
 /* footer */
 .site-footer{
-  width:min(100% - 48px, 1460px);
-  margin:0 auto 24px;
+  width:100%;
+  margin:0;
   background:#F2DCEB;
-  padding:72px 72px;
+  padding:72px 0;
 }
 .footer-inner{
+  width:min(1460px, calc(100vw - 128px));
+  margin:0 auto;
   display:grid;
   grid-template-columns:minmax(0,1fr) auto auto;
   align-items:flex-start;
@@ -449,23 +451,13 @@ a{color:inherit;}
   .collection-grid{grid-template-columns:1fr;gap:54px;padding-bottom:80px;}
   .cs-title{font-size:23px;}
   .cs-desc{font-size:16px;}
-  .play-intro{font-size:16px;margin:-10px 0 30px;}
-  .scrapbook-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:72px;gap:18px;}
-  .scrap-wide,.scrap-tall,.scrap-large,.scrap-small,.scrap-medium,.scrap-photo{grid-column:span 1;grid-row:span 4;}
-  .scrap-meta{position:static;opacity:1;transform:none;box-shadow:none;border:0;border-top:1px solid rgba(34,34,34,.09);background:#fff;}
-  .scrap-item{display:flex;flex-direction:column;overflow:visible;}
-  .scrap-item img,.scrap-item video,.scrap-fallback{height:100%;min-height:0;}
-  .site-footer{width:calc(100% - 40px);padding:48px 28px;margin-bottom:20px;}
-  .footer-inner{grid-template-columns:1fr;gap:32px;}
+  .site-footer{width:100%;padding:48px 0;margin:0;}
+  .footer-inner{width:calc(100vw - 40px);grid-template-columns:1fr;gap:32px;}
   .footer-left h2{font-size:26px;}
   .footer-left p{font-size:16px;}
   .footer-stamp{width:88px;}
 }
 
-@media(max-width:560px){
-  .scrapbook-grid{grid-template-columns:1fr;grid-auto-rows:260px;}
-  .scrap-wide,.scrap-tall,.scrap-large,.scrap-small,.scrap-medium,.scrap-photo{grid-column:span 1;grid-row:span 1;}
-}
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
@@ -477,7 +469,6 @@ a{color:inherit;}
 
 <nav class="site-nav" aria-label="Primary navigation">
   <a href="#collection">Collection</a>
-  <a href="#play">Play</a>
   <a href="about.html">About</a>
 </nav>
 
@@ -592,84 +583,6 @@ a{color:inherit;}
     </div>
   </section>
 
-  <section class="play-section" id="play" aria-labelledby="play-title">
-    <h2 class="section-heading" id="play-title">Play</h2>
-    <p class="play-intro">A scrapbook of side quests: product experiments, print pieces, food things, photos, and visual studies that keep me making outside of case studies.</p>
-
-    <div class="scrapbook-grid">
-      <a class="scrap-item scrap-large" href="https://proxy10.lovable.app/" target="_blank" aria-label="Open Spending Intervention App Concept">
-        <img src="proxy-thumb.png" alt="Mobile screens from a spending intervention app" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Spending intervention app</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Product Experiment · Lovable</span>
-          <h3 class="scrap-title">Spending Intervention App</h3>
-          <p class="scrap-caption">A financial bodyguard concept for people who love spending $$ on things.</p>
-        </div>
-      </a>
-
-      <div class="scrap-item scrap-wide" tabindex="0">
-        <img src="graphic-2.png" alt="Colorful birthday card illustration" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Birthday card visual</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Graphic Design · Print</span>
-          <h3 class="scrap-title">Birthday Card</h3>
-          <p class="scrap-caption">A card I printed and gifted to friends.</p>
-        </div>
-      </div>
-
-      <div class="scrap-item scrap-medium" tabindex="0">
-        <img src="play-4.png" alt="Cookbook spread featuring paneer biryani" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Cookbook design</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Editorial · Food</span>
-          <h3 class="scrap-title">Cookbook Design</h3>
-          <p class="scrap-caption">Yes, I put actual paneer biryani into a coconut for the photo.</p>
-        </div>
-      </div>
-
-      <a class="scrap-item scrap-wide" href="https://ai-ux-audit.lovable.app/" target="_blank" aria-label="Open Smart Audit Tool">
-        <img src="audit-thumb.png" alt="Landing page for an AI-powered UX audit tool" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>AI UX audit tool</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">AI Experiment · UX</span>
-          <h3 class="scrap-title">Smart Audit</h3>
-          <p class="scrap-caption">A heuristic audit tool made with Lovable, Figma, and Nielsen Norman’s 10 usability heuristics.</p>
-        </div>
-      </a>
-
-      <div class="scrap-item scrap-tall" tabindex="0">
-        <img src="magazine-thumb.png" alt="Magazine design spread" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Magazine design / replace with your asset</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Magazine · Layout</span>
-          <h3 class="scrap-title">Magazine Design</h3>
-          <p class="scrap-caption">Editorial layouts, type experiments, and print systems.</p>
-        </div>
-      </div>
-
-      <div class="scrap-item scrap-photo" tabindex="0">
-        <img src="photo-1.jpg" alt="Personal photography collection image" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Photography / replace with your asset</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Photography · Observed</span>
-          <h3 class="scrap-title">Things I Notice</h3>
-          <p class="scrap-caption">Light, color, signs, food, places, and little compositions I keep collecting.</p>
-        </div>
-      </div>
-
-      <div class="scrap-item scrap-medium" tabindex="0">
-        <img src="sketchbook-thumb.jpg" alt="Sketchbook or portrait drawing" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Sketchbook / replace with your asset</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Sketchbook · Study</span>
-          <h3 class="scrap-title">Figure & Form Studies</h3>
-          <p class="scrap-caption">A place for practicing observation without overthinking the outcome.</p>
-        </div>
-      </div>
-
-      <div class="scrap-item scrap-small" tabindex="0">
-        <img src="poster-thumb.jpg" alt="Poster or event graphic" onerror="this.outerHTML='<div class=&quot;scrap-fallback&quot;>Poster / replace with your asset</div>'">
-        <div class="scrap-meta">
-          <span class="scrap-kicker">Poster · Visual</span>
-          <h3 class="scrap-title">Event Graphics</h3>
-          <p class="scrap-caption">Small visual systems for moments that needed a little more personality.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="site-footer" aria-label="Contact footer">
