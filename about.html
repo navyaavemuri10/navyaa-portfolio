@@ -8,255 +8,541 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--bg:#FDFDFD;--text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;--border:#E8E8E4;--surface:#F4F3F0;}
-html,body{min-height:100%;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);}
-.layout{display:flex;min-height:100vh;}
+:root{
+  --bg:#FDFDFD;
+  --text:#2B2B2B;
+  --muted:#5F5F5F;
+  --dim:#767676;
+  --border:#E3E1DC;
+  --surface:#F4F3F0;
+  --pink:#EBDDE5;
+  --pink-text:#2A2028;
+  --pink-muted:#4B3B46;
+}
+html,body{
+  min-height:100%;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:var(--bg);
+  color:var(--text);
+}
+a{color:inherit;}
 
-/* SIDEBAR */
-.cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
-.stamp{width:160px;margin-bottom:20px;}
-.stamp img{width:100%;display:block;}
-@keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
-.stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
-.stamp:hover img{animation-play-state:paused;}
-.sidebar-mid{display:flex;flex-direction:column;gap:18px;}
-.sidebar-link{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
-.sidebar-link:hover{color:var(--text);}
-.sidebar-link.active{color:var(--text);}
-.sidebar-bottom{margin-top:auto;padding-top:28px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:18px;}
+/* ─── TOP NAV ─── */
+.top-nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:20;
+  display:flex;
+  justify-content:flex-end;
+  gap:56px;
+  padding:34px 72px;
+  background:linear-gradient(to bottom, rgba(253,253,253,.94), rgba(253,253,253,0));
+  pointer-events:none;
+}
+.top-nav a{
+  pointer-events:auto;
+  font-size:15px;
+  color:var(--dim);
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  transition:color .2s ease;
+}
+.top-nav a:hover,
+.top-nav a.active{color:var(--text);}
 
-/* MAIN */
-.main{flex:1;padding:52px 72px 96px;max-width:860px;}
+/* ─── PAGE ─── */
+.page{
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  padding:140px 72px 96px;
+}
 
-/* BIO */
-.bio-heading{font-size:22px;font-weight:500;color:var(--text);margin-bottom:24px;letter-spacing:-.01em;}
-.bio-p{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:14px;}
-.bio-p:last-of-type{margin-bottom:0;}
+/* ─── HERO / NOTE ─── */
+.about-hero{
+  display:grid;
+  grid-template-columns:minmax(0, .95fr) minmax(360px, .75fr);
+  gap:96px;
+  align-items:start;
+  margin-bottom:112px;
+}
+.about-copy{
+  max-width:640px;
+}
+.note-label{
+  font-size:34px;
+  line-height:1.1;
+  letter-spacing:-.035em;
+  font-weight:400;
+  color:var(--text);
+  margin-bottom:34px;
+}
+.about-p{
+  font-size:22px;
+  line-height:1.62;
+  letter-spacing:-.025em;
+  color:var(--dim);
+  margin-bottom:30px;
+}
+.about-p strong{
+  color:var(--text);
+  font-weight:400;
+}
+.signature-block{
+  margin-top:64px;
+}
+.signature-best{
+  font-size:24px;
+  color:var(--text);
+  margin-bottom:20px;
+}
+.signature-img{
+  width:190px;
+  opacity:.62;
+}
 
-/* EXPERIENCE TABLE */
-.section-label{font-size:12px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;margin-top:44px;}
-.exp-row{display:grid;grid-template-columns:1fr 1fr auto;gap:16px;padding:12px 0;border-bottom:.5px solid var(--border);align-items:baseline;}
-.exp-row:first-child{border-top:.5px solid var(--border);}
-.exp-role{font-size:16px;color:var(--text);}
-.exp-company{font-size:16px;color:var(--text);text-align:right;}
-.exp-date{font-size:14px;color:var(--dim);white-space:nowrap;text-align:right;}
+/* ─── IMAGE COLLECTION ─── */
+.visual-collection{
+  width:100%;
+  padding-top:8px;
+}
+.image-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.collect-item{
+  position:relative;
+  display:block;
+  text-decoration:none;
+}
+.collect-img{
+  width:100%;
+  aspect-ratio:1/1;
+  background:#D9D9D9;
+  overflow:hidden;
+}
+.collect-item.tall .collect-img{aspect-ratio:3/4;}
+.collect-item.wide{
+  grid-column:1 / -1;
+}
+.collect-item.wide .collect-img{aspect-ratio:16/9;}
+.collect-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.92);
+  transition:transform .35s ease, filter .35s ease;
+}
+.collect-item:hover .collect-img img{
+  transform:scale(1.025);
+  filter:saturate(1);
+}
+.collect-caption{
+  margin-top:10px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--dim);
+  opacity:.78;
+  transition:opacity .2s ease, color .2s ease;
+}
+.collect-item:hover .collect-caption{
+  opacity:1;
+  color:var(--text);
+}
+.caption-kicker{
+  display:block;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin-bottom:2px;
+}
 
-/* COLLAGE */
-.collage-heading{font-size:22px;font-weight:500;color:var(--text);margin-top:56px;margin-bottom:28px;letter-spacing:-.01em;}
-.collage-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:200px 200px;gap:10px;}
+/* ─── RESUME STYLE SECTIONS ─── */
+.about-section{
+  margin-top:66px;
+}
+.section-heading{
+  font-size:30px;
+  font-weight:400;
+  letter-spacing:-.03em;
+  color:var(--text);
+  margin-bottom:18px;
+}
+.info-list{
+  border-top:.5px solid var(--border);
+}
+.info-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:32px;
+  padding:18px 0;
+  border-bottom:.5px solid var(--border);
+  align-items:baseline;
+}
+.info-main{
+  font-size:24px;
+  line-height:1.35;
+  letter-spacing:-.025em;
+  color:var(--text);
+}
+.info-main span{
+  color:var(--dim);
+}
+.info-date{
+  font-size:20px;
+  line-height:1.35;
+  color:var(--dim);
+  white-space:nowrap;
+}
+.info-sub{
+  font-size:16px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-top:6px;
+  max-width:680px;
+}
 
-/* FLIP CARD */
-.flip-card{cursor:pointer;position:relative;}
-.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;}
-.flip-card:hover .flip-card-inner,.flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;overflow:hidden;}
-.flip-front img{width:100%;height:100%;object-fit:cover;display:block;}
-.flip-back{backface-visibility:hidden;transform:rotateY(180deg);background:#1A1A1A;display:flex;align-items:center;justify-content:center;padding:18px;}
-.flip-back-text{font-size:13px;color:#F0EDE8;line-height:1.65;text-align:center;}
-
-/* grid positions */
-.g1{grid-column:1;grid-row:1;}
-.g2{grid-column:2;grid-row:1;}
-.g3{grid-column:3;grid-row:1 / 3;}
-.g4{grid-column:1;grid-row:2;}
-.g5{grid-column:2;grid-row:2;}
-
+/* ─── FOOTER ─── */
 .site-footer{
-  width: 100%;
-  padding: 80px 64px;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  background:var(--pink);
+  padding:88px 72px;
+  margin-top:112px;
 }
-
 .footer-inner{
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.2fr .8fr auto;
+  align-items:center;
+  gap:48px;
 }
-
-.footer-left p{
-  font-size: 24px;
-  line-height: 1.4;
-  color: #111;
-  letter-spacing: -0.01em;
+.footer-heading{
+  font-size:34px;
+  line-height:1.15;
+  color:var(--pink-text);
+  letter-spacing:-.025em;
+  margin-bottom:24px;
 }
-
+.footer-collected{
+  font-size:16px;
+  line-height:1.75;
+  color:var(--pink-muted);
+}
+.footer-links-title{
+  font-size:14px;
+  color:#5A4A55;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
 .footer-right{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
-
 .footer-right a{
-  font-size: 18px;
-  color: #444;
-  text-decoration: none;
-  transition: color 0.2s ease;
+  font-size:18px;
+  color:var(--pink-text);
+  text-decoration:none;
+  transition:opacity .2s ease;
+}
+.footer-right a:hover{opacity:.62;}
+.footer-stamp{
+  width:132px;
+  justify-self:end;
+  transform:rotate(2deg);
+}
+.footer-stamp img{
+  width:100%;
+  display:block;
 }
 
-.footer-right a:hover{
-  color: #111;
+/* ─── MOBILE ─── */
+.mobile-topbar{
+  display:none;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(253,253,253,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:.5px solid var(--border);
+  padding:16px 20px;
+  align-items:center;
+  justify-content:space-between;
 }
-
-/* MOBILE */
-/* MOBILE TOPBAR */
-.mobile-topbar{display:none;position:sticky;top:0;z-index:50;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:16px 20px;align-items:center;justify-content:space-between;}
-.mobile-brand{display:block;text-decoration:none;}
-.mobile-brand img{width:60px;display:block;}
-.mobile-menu-btn{border:none;background:transparent;display:flex;flex-direction:column;gap:5px;padding:4px;cursor:pointer;}
-.mobile-menu-btn span{width:18px;height:1.5px;background:var(--text);display:block;transition:transform .25s,opacity .25s;}
+.mobile-brand{
+  display:block;
+  text-decoration:none;
+  font-size:15px;
+  color:var(--text);
+}
+.mobile-menu-btn{
+  border:none;
+  background:transparent;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  padding:4px;
+  cursor:pointer;
+}
+.mobile-menu-btn span{
+  width:18px;
+  height:1.5px;
+  background:var(--text);
+  display:block;
+  transition:transform .25s,opacity .25s;
+}
 .mobile-menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .mobile-menu-btn.open span:nth-child(2){opacity:0;}
 .mobile-menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-.mobile-menu{display:none;position:fixed;inset:53px 0 auto 0;z-index:45;background:rgba(253,253,253,.98);border-bottom:.5px solid var(--border);padding:20px;box-shadow:0 8px 24px rgba(26,26,26,.06);}
+.mobile-menu{
+  display:none;
+  position:fixed;
+  inset:57px 0 auto 0;
+  z-index:45;
+  background:rgba(253,253,253,.98);
+  border-bottom:.5px solid var(--border);
+  padding:20px;
+  box-shadow:0 8px 24px rgba(26,26,26,.06);
+}
 .mobile-menu.open{display:block;}
-.mobile-menu-links{display:flex;flex-direction:column;gap:18px;}
-.mobile-menu-link{font-size:15px;color:var(--muted);text-decoration:none;transition:color .2s;}
-.mobile-menu-link:hover,.mobile-menu-link.active{color:var(--text);}
+.mobile-menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.mobile-menu-link{
+  font-size:15px;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color .2s;
+}
+.mobile-menu-link:hover,
+.mobile-menu-link.active{color:var(--text);}
 
-@media(max-width:900px){
-  .layout{flex-direction:column;}
-  .cs-sidebar{display:none;}
+@media(max-width:980px){
+  .top-nav{display:none;}
   .mobile-topbar{display:flex;}
-  .main{padding:32px 24px 64px;max-width:100%;}
-  .collage-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px 160px;}
-  .g1{grid-column:1 / 3;grid-row:1;}
-  .g2{grid-column:1;grid-row:2;}
-  .g3{grid-column:2;grid-row:2 / 4;}
-  .g4{grid-column:1;grid-row:3;}
-  .g5{grid-column:1;grid-row:4;}
+  .page{
+    padding:64px 24px 72px;
+  }
+  .about-hero{
+    grid-template-columns:1fr;
+    gap:48px;
+    margin-bottom:72px;
+  }
+  .note-label{font-size:30px;}
+  .about-p{
+    font-size:19px;
+    line-height:1.68;
+  }
+  .image-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+  }
+  .info-main{font-size:20px;}
+  .info-date{font-size:17px;}
   .site-footer{
-    padding: 64px 24px;
+    padding:64px 24px;
   }
-
   .footer-inner{
-    flex-direction: column;
-    gap: 32px;
+    grid-template-columns:1fr;
+    gap:32px;
+    align-items:start;
   }
-
-  .footer-left p{
-    font-size: 22px;
-  }
-
-  .footer-right a{
-    font-size: 18px;
+  .footer-heading{font-size:28px;}
+  .footer-stamp{
+    width:112px;
+    justify-self:start;
   }
 }
 @media(max-width:560px){
-  .exp-row{grid-template-columns:1fr auto;gap:8px;}
-  .exp-company{text-align:left;}
+  .image-grid{grid-template-columns:1fr;}
+  .collect-item.wide{grid-column:auto;}
+  .collect-item.wide .collect-img,
+  .collect-img,
+  .collect-item.tall .collect-img{aspect-ratio:4/3;}
+  .info-row{
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .signature-img{width:150px;}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
+}
 </style>
 </head>
 <body>
+<nav class="top-nav" aria-label="Primary navigation">
+  <a href="portfolio.html">Collection</a>
+  <a href="about.html" class="active">About</a>
+</nav>
+
 <div class="mobile-topbar">
-  <a href="portfolio.html" class="mobile-brand">
-    <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.display='none'">
-  </a>
-  <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+  <a href="portfolio.html" class="mobile-brand">navyaa vemuri</a>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open navigation">
     <span></span><span></span><span></span>
   </button>
 </div>
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-links">
-    <a href="portfolio.html" class="mobile-menu-link">Work</a>
+    <a href="portfolio.html" class="mobile-menu-link">Collection</a>
     <a href="about.html" class="mobile-menu-link active">About</a>
-    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank">Resume ↗</a>
-    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank">LinkedIn ↗</a>
+    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank" rel="noopener">Resume ↗</a>
+    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank" rel="noopener">LinkedIn ↗</a>
     <a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
   </div>
 </div>
 
-<div class="layout">
+<main class="page">
+  <section class="about-hero">
+    <div class="about-copy">
+      <h1 class="note-label">To: Visitor</h1>
 
-  <aside class="cs-sidebar">
-    <a href="portfolio.html" class="stamp">
-<img src="stamp.png" alt="Navyaa stamp"
-onerror="this.style.display='none'">    </a>
-    <div class="sidebar-mid">
-      <a href="portfolio.html" class="sidebar-link">Work</a>
-      <a href="about.html" class="sidebar-link active">About</a>
-    </div>
-  </aside>
+      <p class="about-p">I'm Navyaa, a designer interested in how people discover information, build trust, and make decisions.</p>
 
-  <main class="main">
+      <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that continue to shape how I design.</p>
 
-    <div class="bio-heading">About Me :)</div>
-    <p class="bio-p">To me, design is making experiences clearer and easier to use.</p>
-    <p class="bio-p">Sometimes that means simplifying flows, sometimes refining content, and more recently, its using AI to quickly bring ideas to life.</p>
-    <p class="bio-p">I care about making experiences clear, useful, and trustworthy.</p>
+      <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just for fun.</p>
 
-    <div class="section-label">experience</div>
-    <div>
-      <div class="exp-row"><span class="exp-role">UX Consultant</span><span class="exp-company">Tesla</span><span class="exp-date">2025–2026</span></div>
-      <div class="exp-row"><span class="exp-role">UX Designer</span><span class="exp-company">Cal Poly</span><span class="exp-date">2023–2025</span></div>
-      <div class="exp-row"><span class="exp-role">UX Design Intern</span><span class="exp-company">Cisco Splunk</span><span class="exp-date">Summer 2025</span></div>
-      <div class="exp-row"><span class="exp-role">Content Design Intern</span><span class="exp-company">CNN</span><span class="exp-date">Summer 2024</span></div>
+      <div class="signature-block">
+        <div class="signature-best">Best,</div>
+        <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
+      </div>
     </div>
 
-    <div class="section-label">leadership</div>
-    <div>
-      <div class="exp-row"><span class="exp-role">President</span><span class="exp-company">Cal Poly iter8</span><span class="exp-date">2024–2025</span></div>
-      <div class="exp-row"><span class="exp-role">Consulting Director</span><span class="exp-company">Cal Poly iter8</span><span class="exp-date">2023–2024</span></div>
-      <div class="exp-row"><span class="exp-role">Events & Experience Director</span><span class="exp-company">UX Fest SLO</span><span class="exp-date">2023–2024</span></div>
+    <div class="visual-collection" aria-label="Things I've collected outside of work">
+      <div class="image-grid">
+        <div class="collect-item wide">
+          <div class="collect-img"><img src="leadership-1.png" alt="Iter8 design community" onerror="this.style.display='none'"></div>
+          <div class="collect-caption"><span class="caption-kicker">Leadership</span>Led Cal Poly iter8, a community of 140+ student designers.</div>
+        </div>
+
+        <div class="collect-item">
+          <div class="collect-img"><img src="about-4.jpg" alt="DJ setup" onerror="this.style.display='none'"></div>
+          <div class="collect-caption"><span class="caption-kicker">Experiment</span>My short-lived DJ era. Still love playing with rhythm and sound.</div>
+        </div>
+
+        <div class="collect-item tall">
+          <div class="collect-img"><img src="about-5.png" alt="New York City view" onerror="this.style.display='none'"></div>
+          <div class="collect-caption"><span class="caption-kicker">Photo</span>Sunrise yoga at The Edge in NYC, worth the 5am wake-up.</div>
+        </div>
+
+        <div class="collect-item">
+          <div class="collect-img"><img src="hobby-5.jpg" alt="Singing performance" onerror="this.style.display='none'"></div>
+          <div class="collect-caption"><span class="caption-kicker">Music</span>Singing since I was four. Still one of my favorite ways to express myself.</div>
+        </div>
+
+        <div class="collect-item">
+          <div class="collect-img"><img src="about-3.jpeg" alt="Banh mi" onerror="this.style.display='none'"></div>
+          <div class="collect-caption"><span class="caption-kicker">Food</span>Deeply committed to good vegetarian food and flavor combinations.</div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="collage-heading">me when i'm not working</div>
-    <div class="collage-grid">
-
-      <div class="flip-card g1" onclick="toggleFlip(this)">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="leadership-1.png" alt="iter8 group"></div>
-          <div class="flip-back"><p class="flip-back-text">led cal poly iter8 of 140+ designers. most fulfilling thing i did in college</p></div>
+  <section class="about-section">
+    <h2 class="section-heading">Experience</h2>
+    <div class="info-list">
+      <div class="info-row">
+        <div>
+          <div class="info-main">Tesla <span>/ UX Consultant</span></div>
+          <div class="info-sub">Designed operational workflows across mobility, parking, and employee commute experiences.</div>
         </div>
+        <div class="info-date">2025</div>
       </div>
-
-      <div class="flip-card g2" onclick="toggleFlip(this)">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="about-4.jpg" alt="dj era"></div>
-          <div class="flip-back"><p class="flip-back-text">my dj era lol, i love experimenting with beats and sounds</p></div>
+      <div class="info-row">
+        <div>
+          <div class="info-main">Cisco Splunk <span>/ UX Design Intern</span></div>
+          <div class="info-sub">Worked across demo discovery, ecosystem audits, and AI-powered interaction concepts.</div>
         </div>
+        <div class="info-date">2025</div>
       </div>
-
-      <div class="flip-card g3" onclick="toggleFlip(this)">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="about-5.png" alt="edge nyc"></div>
-          <div class="flip-back"><p class="flip-back-text">sunrise yoga on top of the edge in nyc — made me fall in love with the city and experiencing new things, even if it meant waking up at 5am</p></div>
+      <div class="info-row">
+        <div>
+          <div class="info-main">CNN <span>/ Content Design Intern</span></div>
+          <div class="info-sub">Designed and documented content experiences across news, election, and platform surfaces.</div>
         </div>
+        <div class="info-date">2024</div>
       </div>
-
-      <div class="flip-card g4" onclick="toggleFlip(this)">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="hobby-5.jpg" alt="singing"></div>
-          <div class="flip-back"><p class="flip-back-text">been singing since i was 4. it taught me discipline and how to express myself</p></div>
+      <div class="info-row">
+        <div>
+          <div class="info-main">Cal Poly Health & Wellbeing <span>/ UX Designer</span></div>
+          <div class="info-sub">Redesigned student health information systems serving 23,000+ students.</div>
         </div>
+        <div class="info-date">2023–2025</div>
       </div>
-
-      <div class="flip-card g5" onclick="toggleFlip(this)">
-        <div class="flip-card-inner">
-          <div class="flip-front"><img src="about-3.jpeg" alt="banh mi"></div>
-          <div class="flip-back"><p class="flip-back-text">bahn mi chay from mommy's banh mi in san jose. deeply passionate about food and flavor combinations</p></div>
-        </div>
-      </div>
-
     </div>
-  </main>
-</div>
-  <footer class="site-footer">
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">Leadership</h2>
+    <div class="info-list">
+      <div class="info-row">
+        <div>
+          <div class="info-main">Cal Poly iter8 <span>/ President</span></div>
+          <div class="info-sub">Led a student design agency and community focused on professional design practice.</div>
+        </div>
+        <div class="info-date">2024–2025</div>
+      </div>
+      <div class="info-row">
+        <div>
+          <div class="info-main">Cal Poly iter8 <span>/ Consulting Director</span></div>
+          <div class="info-sub">Managed client-facing design work, project teams, and student mentorship.</div>
+        </div>
+        <div class="info-date">2023–2024</div>
+      </div>
+      <div class="info-row">
+        <div>
+          <div class="info-main">UX Fest SLO <span>/ Events & Experience Director</span></div>
+          <div class="info-sub">Created community events, workshops, and design experiences for students.</div>
+        </div>
+        <div class="info-date">2023–2024</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">Education</h2>
+    <div class="info-list">
+      <div class="info-row">
+        <div>
+          <div class="info-main">California Polytechnic State University <span>/ Graphic Communication</span></div>
+          <div class="info-sub">B.S. Graphic Communication, Minor in Computer Science.</div>
+        </div>
+        <div class="info-date">2025</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-left">
-      <p>
-        made through a collab between<br>
-        my brain, figma, claude, and gpt
-      </p>
+      <div class="footer-heading">The collection is still growing.</div>
+      <div class="footer-collected">Collected so far:<br>Tesla · Splunk · CNN · Cal Poly</div>
     </div>
 
     <div class="footer-right">
-      <a href="mailto:navyaa.vemuri@gmail.com">let’s chat ↗</a>
-      <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">resume ↗</a>
-      <a href="https://linkedin.com/in/navyaavemuri" target="_blank">linkedin ↗</a>
+      <div class="footer-links-title">Contact me</div>
+      <a href="mailto:navyaa.vemuri@gmail.com">Mail ↗</a>
+      <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
+
+    <a class="footer-stamp" href="portfolio.html" aria-label="Back to portfolio">
+      <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
+    </a>
   </div>
 </footer>
 
@@ -268,10 +554,6 @@ function toggleMobileMenu(){
   menu.classList.toggle('open');
   document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
 }
-function toggleFlip(card){card.classList.toggle('flipped');}
-document.querySelectorAll('.flip-card').forEach(card=>{
-  card.addEventListener('mouseleave',()=>card.classList.remove('flipped'));
-});
 </script>
 </body>
 </html>
