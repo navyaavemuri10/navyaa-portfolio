@@ -4,66 +4,239 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Navyaa Vemuri — Product Designer</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✿</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#FDFDFD;--text:#1A1A1A;--muted:#6B6B6B;--dim:#ABABAB;
-  --border:#E8E8E4;--surface:#F4F3F0;--accent:#3B5BDB;
-  --nav-w:320px;--modal-overlay:rgba(26,26,26,.35);
+  --bg:#FDFDFD;
+  --text:#222222;
+  --muted:#8E8E8E;
+  --dim:#A8A8A8;
+  --border:#DADADA;
+  --note-line:#E8EBF4;
+  --accent:#3B5BDB;
+  --surface:#F4F3F0;
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+body{overflow-x:hidden;}
+a{color:inherit;}
 
-/* layout */
-.layout{display:flex;min-height:100vh;}
+/* top nav */
+.site-nav{
+  position:fixed;
+  top:28px;
+  right:64px;
+  z-index:20;
+  display:flex;
+  gap:64px;
+  font-size:18px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.02em;
+}
+.site-nav a{text-decoration:none;transition:color .2s ease;}
+.site-nav a:hover{color:var(--text);}
 
-/* SIDEBAR */
-.cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
-.stamp{width:160px;margin-bottom:20px;display:block;text-decoration:none;}
-.stamp img{width:100%;display:block;}
-@keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
-.stamp img{animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
-.stamp:hover img{animation-play-state:paused;}
-.sidebar-mid{display:flex;flex-direction:column;gap:18px;}
-.sidebar-link{font-size:13px;font-weight:400;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
-.sidebar-link:hover{color:var(--text);}
-.sidebar-link.active{color:var(--text);}
-.sidebar-bottom{margin-top:auto;padding-top:28px;border-top:.5px solid var(--border);display:flex;flex-direction:column;gap:18px;}
-.main{flex:1;overflow-y:auto;padding:48px 72px 96px;}
+/* hero */
+.hero{
+  min-height:78vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:120px 40px 80px;
+  overflow:hidden;
+}
+.hero-inner{
+  text-align:center;
+  max-width:760px;
+  position:relative;
+  z-index:2;
+  animation:fadeUp .55s ease both;
+}
+.hero h1{
+  font-size:48px;
+  line-height:1.1;
+  letter-spacing:-.045em;
+  font-weight:500;
+  margin-bottom:26px;
+}
+.hero-kicker{
+  font-size:30px;
+  line-height:1.55;
+  color:var(--muted);
+  font-weight:400;
+  letter-spacing:-.035em;
+}
+.curiosity-trigger{
+  color:var(--text);
+  cursor:help;
+  position:relative;
+  display:inline-block;
+}
+.curiosity-trigger::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:.14em;
+  height:1px;
+  background:currentColor;
+  opacity:.22;
+  transform:scaleX(.2);
+  transform-origin:left;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.curiosity-trigger:hover::after,
+.curiosity-trigger:focus-visible::after{
+  transform:scaleX(1);
+  opacity:.45;
+}
 
-/* bio */
-.bio{max-width:640px;margin-bottom:48px;}
-.bio-headline{font-size:28px;font-weight:400;line-height:1.4;color:var(--text);letter-spacing:-.02em;margin-bottom:16px;animation:fadeUp .55s .1s both;}
-.bio-headline a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);}
-.bio-headline a:hover{text-decoration-color:var(--muted);}
-.bio-sub{font-size:16px;color:var(--muted);line-height:1.75;animation:fadeUp .55s .25s both;}
-.bio-sub a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);transition:text-decoration-color .2s;}
-.bio-sub a:hover{text-decoration-color:var(--text);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+/* floating notes */
+.hero-notes{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+.note{
+  position:absolute;
+  width:300px;
+  min-height:86px;
+  padding:17px 20px 14px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(253,253,253,.96) 0,
+      rgba(253,253,253,.96) 23px,
+      var(--note-line) 24px
+    );
+  border:1px solid rgba(26,26,26,.09);
+  box-shadow:0 10px 24px rgba(26,26,26,.035);
+  color:var(--muted);
+  opacity:0;
+  filter:blur(1px);
+  transform:translateY(14px) rotate(var(--r,0deg)) scale(.98);
+  transition:
+    opacity .5s ease,
+    transform .65s cubic-bezier(.16,1,.3,1),
+    filter .5s ease;
+}
+.hero.notes-visible .note{
+  opacity:.82;
+  filter:blur(0);
+  transform:translateY(0) rotate(var(--r,0deg)) scale(1);
+}
+.note span{
+  display:block;
+  font-size:14px;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  color:#8A8A8A;
+}
+.note p{
+  font-size:13px;
+  line-height:1.45;
+  color:#777;
+}
+.note-1{left:4vw;top:19vh;--r:-7deg;transition-delay:.02s;}
+.note-2{right:5vw;top:23vh;--r:-6deg;transition-delay:.09s;}
+.note-3{right:8vw;top:47vh;--r:6deg;transition-delay:.17s;}
+.note-4{left:13vw;top:53vh;--r:4deg;transition-delay:.24s;}
+.note-5{left:7vw;top:39vh;--r:5deg;transition-delay:.14s;}
+.note-6{right:18vw;top:61vh;--r:-4deg;transition-delay:.28s;}
 
-/* trust word bounce */
-.word-trust{display:inline-block;animation:trust-bounce 3.5s ease-in-out infinite;}
-@keyframes trust-bounce{0%,100%{transform:translateY(0);}40%{transform:translateY(-5px);}60%{transform:translateY(-3px);}75%{transform:translateY(-5px);}90%{transform:translateY(-1px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* tabs + cards */
-.tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:32px;max-width:640px;}
-.tab{font-size:14px;font-weight:400;color:var(--dim);padding:10px 0;margin-right:32px;cursor:pointer;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase;letter-spacing:.04em;}
-.tab.active{color:var(--text);border-bottom-color:var(--text);}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
- .cards{display:flex;flex-direction:column;gap:48px;}
-.coming-soon-grid{
+/* sections */
+.page-wrap{
+  width:min(1460px, calc(100vw - 128px));
+  margin:0 auto;
+}
+.section-heading{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  margin-bottom:52px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  font-size:22px;
+  font-weight:400;
+}
+.section-heading::after{
+  content:"";
+  height:1px;
+  background:var(--border);
+  flex:1;
+}
+
+/* two column case study layout */
+.collection-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:24px;
-  max-width:748px;
+  gap:86px 64px;
+  padding-bottom:120px;
 }
-.coming-soon-grid .cs-card{min-width:0;}
-.coming-soon-grid .cs-thumb{width:100%;aspect-ratio:4/3;}
-.cs-card{text-decoration:none;display:block;}
+.cs-card{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  min-width:0;
+}
+.cs-meta{
+  font-size:14px;
+  line-height:1.2;
+  letter-spacing:.015em;
+  color:var(--text);
+  margin-bottom:12px;
+}
+.cs-thumb{
+  position:relative;
+  width:100%;
+  aspect-ratio:1.22/1;
+  background:var(--surface);
+  overflow:hidden;
+  margin-bottom:22px;
+}
+.cs-thumb img,.cs-thumb video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .55s ease,opacity .3s ease;
+}
+.cs-card:hover .cs-thumb img,
+.cs-card:hover .cs-thumb video{transform:scale(1.018);}
+.cs-title{
+  font-size:28px;
+  line-height:1.15;
+  letter-spacing:-.035em;
+  font-weight:400;
+  margin-bottom:14px;
+}
+.cs-desc{
+  font-size:18px;
+  line-height:1.55;
+  color:var(--text);
+  max-width:660px;
+  margin-bottom:24px;
+}
+.cs-pills{display:flex;gap:12px;flex-wrap:wrap;}
+.cs-pill{
+  font-size:14px;
+  border:1px solid #2A2A2A;
+  border-radius:8px;
+  padding:4px 12px;
+  color:#222;
+  background:#fff;
+}
 .cs-card.coming-soon{cursor:default;}
-.cs-card.coming-soon:hover .cs-title{color:var(--text);}
 .cs-card.coming-soon .cs-thumb::after{
   content:"Coming soon";
   position:absolute;
@@ -71,281 +244,244 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(26,26,26,.45);
+  background:rgba(26,26,26,.38);
   color:#fff;
-  font-size:13px;
-  letter-spacing:.08em;
   text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:13px;
   opacity:0;
-  transition:opacity .25s ease;
   z-index:3;
+  transition:opacity .25s ease;
 }
 .cs-card.coming-soon:hover .cs-thumb::after{opacity:1;}
-.cs-card.coming-soon:hover .cs-thumb img,
-.cs-card.coming-soon:hover .cs-thumb video{transform:none;}
-.cs-thumb{width:748px;max-width:100%;height:auto;aspect-ratio:748/619;background:var(--surface);border-radius:12px;overflow:hidden;margin-bottom:20px;display:block;}
-.cs-thumb img,.cs-thumb video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
-.cs-card:hover .cs-thumb img,.cs-card:hover .cs-thumb video{transform:scale(1.02);}
-.cs-eyebrow{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
-.cs-title{font-size:20px;font-weight:400;color:var(--text);letter-spacing:-.015em;line-height:1.3;margin-bottom:8px;transition:color .2s;}
-.cs-card:hover .cs-title{color:var(--accent);}
-.cs-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;max-width:600px;}
-.cs-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.cs-pill{font-size:12px;font-weight:400;color:#2A2A2A;background:#FDFDFD;border:.5px solid #D8D6D2;border-radius:100px;padding:4px 12px;letter-spacing:.01em;}
 
-/* hover-to-play */
-.htp{position:relative;}
-.htp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s;z-index:1;}
-.htp-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s;z-index:2;}
-
-/* play grid */
-.play-tight-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:100%;max-width:748px;padding-bottom:80px;}
-.pg-item{display:block;text-decoration:none;cursor:default;}
-a.pg-item{cursor:pointer;}
-.pg-wide{grid-column:span 4;}
-.pg-narrow{grid-column:span 2;}
-.pg-half{grid-column:span 3;}
-.pg-third{grid-column:span 2;}
-.pg-media{width:100%;border-radius:8px;background:var(--surface);overflow:hidden;margin-bottom:7px;}
-.pg-narrow .pg-media,.pg-third .pg-media{aspect-ratio:3/4;}
-.pg-wide .pg-media{aspect-ratio:16/9;}
-.pg-half .pg-media{aspect-ratio:4/3;}
+/* play */
+.play-section{padding:20px 0 120px;}
+.play-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:28px;
+}
+.pg-item{text-decoration:none;color:var(--text);}
+.pg-media{width:100%;aspect-ratio:4/3;background:var(--surface);overflow:hidden;margin-bottom:10px;}
 .pg-media img,.pg-media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
-a.pg-item:hover .pg-media img,a.pg-item:hover .pg-media video{transform:scale(1.03);}
-.pg-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.35;}
-.pg-title.linked{text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--border);transition:text-decoration-color .15s;}
-a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
-.pg-caption{font-size:11px;color:var(--muted);line-height:1.5;}
+.pg-item:hover .pg-media img,.pg-item:hover .pg-media video{transform:scale(1.025);}
+.pg-title{font-size:15px;font-weight:500;line-height:1.35;}
+.pg-caption{font-size:13px;color:var(--muted);line-height:1.45;margin-top:3px;}
 
-/* footer */
+/* footer - keeping for now */
 .site-footer{
-  width: 100%;
+  width:100%;
   background:#FDFDFD;
-  padding: 80px 64px;
+  padding:80px 64px;
 }
-
 .footer-inner{
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  max-width:1460px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
 }
-
 .footer-left p{
-  font-size: 24px;
-  line-height: 1.4;
-  color: #111;
-  letter-spacing: -0.01em;
+  font-size:24px;
+  line-height:1.4;
+  color:#111;
+  letter-spacing:-0.01em;
 }
-
 .footer-right{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
 }
-
 .footer-right a{
-  font-size: 18px;
-  color: #444;
-  text-decoration: none;
-  transition: color 0.2s ease;
+  font-size:18px;
+  color:#444;
+  text-decoration:none;
+  transition:color .2s ease;
 }
+.footer-right a:hover{color:#111;}
 
-.footer-right a:hover{
-  color: #111;
-}
-
-/* MOBILE TOPBAR */
-.mobile-topbar{display:none;position:sticky;top:0;z-index:50;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:16px 20px;align-items:center;justify-content:space-between;}
-.mobile-brand{display:block;text-decoration:none;}
-.mobile-brand img{width:60px;display:block;}
-.mobile-menu-btn{border:none;background:transparent;display:flex;flex-direction:column;gap:5px;padding:4px;cursor:pointer;}
-.mobile-menu-btn span{width:18px;height:1.5px;background:var(--text);display:block;transition:transform .25s,opacity .25s;}
-.mobile-menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.mobile-menu-btn.open span:nth-child(2){opacity:0;}
-.mobile-menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-.mobile-menu{display:none;position:fixed;inset:53px 0 auto 0;z-index:45;background:rgba(253,253,253,.98);border-bottom:.5px solid var(--border);padding:20px;box-shadow:0 8px 24px rgba(26,26,26,.06);}
-.mobile-menu.open{display:block;}
-.mobile-menu-links{display:flex;flex-direction:column;gap:18px;}
-.mobile-menu-link{font-size:15px;color:var(--muted);text-decoration:none;transition:color .2s;}
-.mobile-menu-link:hover,.mobile-menu-link.active{color:var(--text);}
+/* mobile */
+.mobile-topbar{display:none;}
+.mobile-menu{display:none;}
 
 @media(max-width:900px){
-  .layout{flex-direction:column;}
-  .cs-sidebar{display:none;}
-  .mobile-topbar{display:flex;}
-  .main{padding:32px 24px 64px;max-width:100%;}
-  .site-footer{
-    padding: 64px 24px;
+  .site-nav{
+    position:static;
+    justify-content:center;
+    gap:28px;
+    padding:22px 20px 0;
+    font-size:14px;
   }
-
-  .footer-inner{
-    flex-direction: column;
-    gap: 32px;
+  .hero{
+    min-height:62vh;
+    padding:78px 24px 70px;
   }
-
-  .footer-left p{
-    font-size: 22px;
-  }
-
-  .footer-right a{
-    font-size: 18px;
-  }
-  .play-tight-grid{grid-template-columns:1fr 1fr;max-width:100%;}
-  .coming-soon-grid{grid-template-columns:1fr;max-width:100%;gap:40px;}
-  .coming-soon-grid .cs-thumb{aspect-ratio:748/619;}
-  .pg-wide{grid-column:span 2;}
-  .pg-narrow{grid-column:span 1;}
+  .hero h1{font-size:34px;margin-bottom:18px;}
+  .hero-kicker{font-size:21px;line-height:1.5;}
+  .hero-notes{display:none;}
+  .page-wrap{width:calc(100vw - 40px);}
+  .section-heading{font-size:16px;margin-bottom:28px;gap:18px;}
+  .collection-grid{grid-template-columns:1fr;gap:54px;padding-bottom:80px;}
+  .cs-title{font-size:23px;}
+  .cs-desc{font-size:16px;}
+  .play-grid{grid-template-columns:1fr 1fr;gap:18px;}
+  .site-footer{padding:56px 24px;}
+  .footer-inner{flex-direction:column;}
+  .footer-left p{font-size:20px;}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  .hero-notes{display:none;}
+}
 </style>
 </head>
 <body>
 
-<div class="mobile-topbar">
-  <a href="portfolio.html" class="mobile-brand">
-    <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.display='none'">
-  </a>
-  <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open navigation">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-links">
-    <a href="portfolio.html" class="mobile-menu-link active">Work</a>
-    <a href="about.html" class="mobile-menu-link">About</a>
-    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank">Resume ↗</a>
-    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank">LinkedIn ↗</a>
-    <a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a href="#collection">Collection</a>
+  <a href="#play">Play</a>
+  <a href="about.html">About</a>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="hero-notes" aria-hidden="true">
+    <div class="note note-1">
+      <span>FIELD NOTE #017</span>
+      <p>Trust is earned one interaction at a time.</p>
+    </div>
+    <div class="note note-2">
+      <span>QUESTION #018</span>
+      <p>What makes someone trust an AI result?</p>
+    </div>
+    <div class="note note-3">
+      <span>FIELD NOTE #021</span>
+      <p>The best interfaces make difficult decisions feel obvious.</p>
+    </div>
+    <div class="note note-4">
+      <span>REMINDER #004</span>
+      <p>Try that matcha place down the street that just opened.</p>
+    </div>
+    <div class="note note-5">
+      <span>QUESTION #024</span>
+      <p>What makes information feel credible?</p>
+    </div>
+    <div class="note note-6">
+      <span>OBSERVATION #012</span>
+      <p>Every project starts with a question worth chasing.</p>
+    </div>
   </div>
-</div>
 
-<div class="layout">
-  <aside class="cs-sidebar">
-    <a href="portfolio.html" class="stamp">
-      <img src="stamp.png" alt="Navyaa stamp" onerror="this.style.background='#E8EAF0';this.style.minHeight='130px'">
-    </a>
-    <div class="sidebar-mid">
-      <a href="portfolio.html" class="sidebar-link active">Work</a>
-      <a href="about.html" class="sidebar-link">About</a>
-    </div>
-  </aside>
+  <div class="hero-inner">
+    <h1>I’m Navyaa Vemuri</h1>
+    <p class="hero-kicker">
+      A designer &amp; collector.<br>
+      Always <span class="curiosity-trigger" tabindex="0">curious</span> about how people discover<br>
+      information, build trust, and make decisions.
+    </p>
+  </div>
+</header>
 
-  <main class="main">
-    <div class="bio">
-      <p class="bio-headline">Designing for the moments between uncertainty and action </p>
-      <p class="bio-sub">From AI-powered tools to everyday digital experiences, I help people discover information, make decisions, and move forward with confidence. Previously at <a href="https://tesla.com">Tesla</a>, <a href="https://splunk.com">Splunk</a>, <a href="https://cnn.com">CNN</a>, <a href="https://chw.calpoly.edu">Cal Poly</a>.</p>
-    </div>
+<main class="page-wrap">
+  <section id="collection" aria-labelledby="collection-title">
+    <h2 class="section-heading" id="collection-title">The Collection</h2>
 
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('work')">Work</div>
-      <div class="tab" onclick="switchTab('play')">Play</div>
-    </div>
-
-    <div class="tab-panel active" id="tab-work">
-      <div class="cards">
-
-        <a class="cs-card" href="case_study_cisco.html">
-          <div class="cs-thumb htp" style="background:#EDF0F5;">
-            <img src="cisco-thumb.png" class="htp-img" alt="Cisco Splunk" onerror="this.style.opacity=0">
-            <video src="cisco.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
-          </div>
-          <div class="cs-eyebrow">Cisco Splunk · UX Design Intern · Summer 2025</div>
-          <div class="cs-title">Bringing clarity to a fragmented enterprise ecosystem</div>
-          <div class="cs-desc">Audited 8+ domains, redesigned demo discovery, and introduced an AI-powered interaction pattern to help developers navigate workflows with confidence.</div>
-          <div class="cs-pills"><span class="cs-pill">Enterprise UX</span><span class="cs-pill">Systems Design</span><span class="cs-pill">AI Interaction</span><span class="cs-pill">UX Research</span></div>
-        </a>
-
-        <a class="cs-card" href="case_study_chw.html">
-          <div class="cs-thumb htp" style="background:#EDF3EE;">
-            <img src="chw-thumb.png" class="htp-img" alt="Cal Poly CHW" onerror="this.style.opacity=0">
-            <video src="chw.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
-          </div>
-          <div class="cs-eyebrow">Cal Poly · UX Lead · 2023–2025</div>
-          <div class="cs-title">Turning a low-trust health portal into something students could confidently use</div>
-          <div class="cs-desc">Restructured navigation and interaction patterns for 23,000+ students, increasing engagement by 690% and reducing drop-off by 60%.</div>
-          <div class="cs-pills"><span class="cs-pill">Healthcare UX</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">WCAG / Accessibility</span><span class="cs-pill">Systems Design</span></div>
-        </a>
-
-        <div class="coming-soon-grid" aria-label="Coming soon case studies">
-          <div class="cs-card coming-soon" aria-disabled="true">
-            <div class="cs-thumb htp" style="background:#F0EDED;">
-              <img src="research-thumb.png" class="htp-img" alt="Research" onerror="this.style.opacity=0">
-              <video src="research.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
-            </div>
-            <div class="cs-eyebrow">SENIOR PROJECT · AI UX · 2026</div>
-            <div class="cs-title">When AI Becomes a Trusted Teammate</div>
-            <div class="cs-desc">How I applied UX thinking to one of AI's biggest challenges: helping people trust autonomous systems appropriately.</div>
-            <div class="cs-pills"><span class="cs-pill">Agentic AI</span><span class="cs-pill">UX Research</span><span class="cs-pill">Design Strategy</span><span class="cs-pill">Trust System</span></div>
-          </div>
-
-          <div class="cs-card coming-soon" aria-disabled="true">
-            <div class="cs-thumb htp" style="background:#F0EDED;">
-              <img src="tesla-thumb.png" class="htp-img" alt="Tesla" onerror="this.style.opacity=0">
-              <video src="tesla.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
-            </div>
-            <div class="cs-eyebrow">Tesla · UX Consultant · 2025</div>
-            <div class="cs-title">Shipped a commute experience Tesla staff could actually rely on</div>
-            <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience.</div>
-            <div class="cs-pills"><span class="cs-pill">Enterprise UX</span><span class="cs-pill">Product Design</span><span class="cs-pill">Mobile</span><span class="cs-pill">Systems Design</span></div>
-          </div>
+    <div class="collection-grid">
+      <a class="cs-card" href="case_study_cisco.html">
+        <div class="cs-meta">001 · Splunk · Summer 2025</div>
+        <div class="cs-thumb" style="background:#8FAEF8;">
+          <img src="cisco-thumb.png" alt="Cisco Splunk" onerror="this.style.opacity=0">
+          <video src="cisco.mp4" loop muted playsinline preload="auto"></video>
         </div>
+        <div class="cs-title">Heuristics &amp; AI &amp; Growth Design at Splunk</div>
+        <div class="cs-desc">Audited 8+ product domains, innovated an AI code snippet feature, and shipped a growth-focused demo center.</div>
+        <div class="cs-pills"><span class="cs-pill">Enterprise UX</span><span class="cs-pill">Systems Design</span><span class="cs-pill">AI Interaction</span></div>
+      </a>
 
-        <a class="cs-card" href="case_study_cnn.html">
-          <div class="cs-thumb htp" style="background:#F5EDED;">
-            <img src="cnn-thumb.png" class="htp-img" alt="CNN" onerror="this.style.opacity=0">
-            <video src="cnn.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
-          </div>
-          <div class="cs-eyebrow">CNN · Content Design Intern · Summer 2024</div>
-          <div class="cs-title">Designing consistent, mobile-first news experiences at scale</div>
-          <div class="cs-desc">Built CNN's first content design system and shipped election coverage experiences used by millions in 11 weeks.</div>
-          <div class="cs-pills"><span class="cs-pill">Content Design</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">Design Strategy</span></div>
-        </a>
+      <a class="cs-card" href="case_study_chw.html">
+        <div class="cs-meta">002 · Cal Poly · 2023 to 2025</div>
+        <div class="cs-thumb" style="background:#EDF3EE;">
+          <img src="chw-thumb.png" alt="Cal Poly CHW" onerror="this.style.opacity=0">
+          <video src="chw.mp4" loop muted playsinline preload="auto"></video>
+        </div>
+        <div class="cs-title">Cal Poly Health &amp; Wellbeing Portal Redesign</div>
+        <div class="cs-desc">A solo 2-year redesign — WCAG-compliant, CMS-built, and serving 23,000 students.</div>
+        <div class="cs-pills"><span class="cs-pill">Healthcare UX</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">Accessibility</span></div>
+      </a>
 
-        <a class="cs-card" href="case_study_navi.html">
-          <div class="cs-thumb htp" style="background:#EDEEF5;">
-            <img src="navi-thumb.png" class="htp-img" alt="Navi" onerror="this.style.opacity=0">
-            <video src="navi.mp4" class="htp-vid" loop muted playsinline preload="auto"></video>
-          </div>
-          <div class="cs-eyebrow">UX Hackathon · 1st Place</div>
-          <div class="cs-title">Designing a real-time safety system for everyday travel</div>
-          <div class="cs-desc">0 to 1 mobile app with AI companion, safe route navigation, and location sharing. Research to prototype in 24 hours.</div>
-          <div class="cs-pills"><span class="cs-pill">Product Design</span><span class="cs-pill">AI Interaction</span><span class="cs-pill">UX Research</span></div>
-        </a>
-
+      <div class="cs-card coming-soon" aria-disabled="true">
+        <div class="cs-meta">003 · Senior Project · 2026</div>
+        <div class="cs-thumb" style="background:#F0EDED;">
+          <img src="research-thumb.png" alt="Research" onerror="this.style.opacity=0">
+          <video src="research.mp4" loop muted playsinline preload="auto"></video>
+        </div>
+        <div class="cs-title">When AI Becomes a Trusted Teammate</div>
+        <div class="cs-desc">How I applied UX thinking to one of AI’s biggest challenges: helping people trust autonomous systems appropriately.</div>
+        <div class="cs-pills"><span class="cs-pill">Agentic AI</span><span class="cs-pill">UX Research</span><span class="cs-pill">Trust Systems</span></div>
       </div>
-    </div>
 
-    <div class="tab-panel" id="tab-play">
-      <div class="play-tight-grid">
-
-        <a class="pg-item pg-wide" href="https://proxy10.lovable.app/" target="_blank">
-          <div class="pg-media" style="background:#F0EFEC;"><img src="proxy-thumb.png" alt="Spending app" onerror="this.style.display='none'"></div>
-          <div class="pg-title linked">Spending Intervention App Concept</div>
-          <div class="pg-caption">Financial bodyguard app concept made for people like me who love spending $$ on things</div>
-        </a>
-        <div class="pg-item pg-narrow">
-          <div class="pg-media" style="background:#EDEEF5;"><img src="graphic-2.png" alt="Birthday card" onerror="this.style.display='none'"></div>
-          <div class="pg-title">Birthday Card Visual Design</div>
-          <div class="pg-caption">Printed this card and gifted it to my dear friends :)</div>
+      <div class="cs-card coming-soon" aria-disabled="true">
+        <div class="cs-meta">004 · Tesla · 2025</div>
+        <div class="cs-thumb" style="background:#F0EDED;">
+          <img src="tesla-thumb.png" alt="Tesla" onerror="this.style.opacity=0">
+          <video src="tesla.mp4" loop muted playsinline preload="auto"></video>
         </div>
-
-        <div class="pg-item pg-narrow">
-          <div class="pg-media" style="background:#EEF0EC;"><img src="play-4.png" alt="Cookbook" onerror="this.style.display='none'"></div>
-          <div class="pg-title">Cookbook Design</div>
-          <div class="pg-caption">Yes, I did put actual paneer biryani into a coconut for a picture.</div>
-        </div>
-        <a class="pg-item pg-wide" href="https://ai-ux-audit.lovable.app/" target="_blank">
-          <div class="pg-media" style="background:#EEF0EC;"><img src="audit-thumb.png" alt="Smart Audit" onerror="this.style.display='none'"></div>
-          <div class="pg-title linked">An AI-powered UX Audit Tool</div>
-          <div class="pg-caption">Made with Lovable & Figma, rooted in Nielsen Norman's 10 usability heuristics</div>
-        </a>
-
+        <div class="cs-title">A Commute Experience Tesla Staff Could Rely On</div>
+        <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience.</div>
+        <div class="cs-pills"><span class="cs-pill">Mobile UX</span><span class="cs-pill">Product Design</span><span class="cs-pill">Systems</span></div>
       </div>
+
+      <a class="cs-card" href="case_study_cnn.html">
+        <div class="cs-meta">005 · CNN · Summer 2024</div>
+        <div class="cs-thumb" style="background:#F5EDED;">
+          <img src="cnn-thumb.png" alt="CNN" onerror="this.style.opacity=0">
+          <video src="cnn.mp4" loop muted playsinline preload="auto"></video>
+        </div>
+        <div class="cs-title">Consistent, Mobile-First News Experiences at Scale</div>
+        <div class="cs-desc">Built content design guidance and shipped election coverage experiences for high-traffic moments.</div>
+        <div class="cs-pills"><span class="cs-pill">Content Design</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">Design Strategy</span></div>
+      </a>
+
+      <a class="cs-card" href="case_study_navi.html">
+        <div class="cs-meta">006 · UX Hackathon · 1st Place</div>
+        <div class="cs-thumb" style="background:#EDEEF5;">
+          <img src="navi-thumb.png" alt="Navi" onerror="this.style.opacity=0">
+          <video src="navi.mp4" loop muted playsinline preload="auto"></video>
+        </div>
+        <div class="cs-title">A Real-Time Safety System for Everyday Travel</div>
+        <div class="cs-desc">0 to 1 mobile app with AI companion, safe route navigation, and location sharing. Research to prototype in 24 hours.</div>
+        <div class="cs-pills"><span class="cs-pill">Product Design</span><span class="cs-pill">AI Interaction</span><span class="cs-pill">UX Research</span></div>
+      </a>
     </div>
-  </main>
-</div>
+  </section>
+
+  <section class="play-section" id="play" aria-labelledby="play-title">
+    <h2 class="section-heading" id="play-title">Play</h2>
+    <div class="play-grid">
+      <a class="pg-item" href="https://proxy10.lovable.app/" target="_blank">
+        <div class="pg-media"><img src="proxy-thumb.png" alt="Spending app" onerror="this.style.display='none'"></div>
+        <div class="pg-title">Spending Intervention App Concept</div>
+        <div class="pg-caption">Financial bodyguard app concept made for people like me who love spending $$ on things.</div>
+      </a>
+      <div class="pg-item">
+        <div class="pg-media"><img src="graphic-2.png" alt="Birthday card" onerror="this.style.display='none'"></div>
+        <div class="pg-title">Birthday Card Visual Design</div>
+        <div class="pg-caption">Printed this card and gifted it to my dear friends :)</div>
+      </div>
+      <div class="pg-item">
+        <div class="pg-media"><img src="play-4.png" alt="Cookbook" onerror="this.style.display='none'"></div>
+        <div class="pg-title">Cookbook Design</div>
+        <div class="pg-caption">Yes, I did put actual paneer biryani into a coconut for a picture.</div>
+      </div>
+      <a class="pg-item" href="https://ai-ux-audit.lovable.app/" target="_blank">
+        <div class="pg-media"><img src="audit-thumb.png" alt="Smart Audit" onerror="this.style.display='none'"></div>
+        <div class="pg-title">An AI-powered UX Audit Tool</div>
+        <div class="pg-caption">Made with Lovable & Figma, rooted in Nielsen Norman's 10 usability heuristics.</div>
+      </a>
+    </div>
+  </section>
+</main>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -355,7 +491,6 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
         my brain, figma, claude, and gpt
       </p>
     </div>
-
     <div class="footer-right">
       <a href="mailto:navyaa.vemuri@gmail.com">let’s chat ↗</a>
       <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" target="_blank">resume ↗</a>
@@ -365,36 +500,41 @@ a.pg-item:hover .pg-title.linked{text-decoration-color:var(--text);}
 </footer>
 
 <script>
-function toggleMobileMenu(){
-  const btn=document.getElementById('mobileMenuBtn');
-  const menu=document.getElementById('mobileMenu');
-  btn.classList.toggle('open');
-  menu.classList.toggle('open');
-  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+const hero = document.getElementById('hero');
+const trigger = document.querySelector('.curiosity-trigger');
+
+function showNotes(){ hero.classList.add('notes-visible'); }
+function hideNotes(){ hero.classList.remove('notes-visible'); }
+
+if(trigger){
+  trigger.addEventListener('mouseenter', showNotes);
+  trigger.addEventListener('mouseleave', hideNotes);
+  trigger.addEventListener('focus', showNotes);
+  trigger.addEventListener('blur', hideNotes);
 }
 
-function switchTab(name){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector('.tab[onclick*="'+name+'"]').classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
-}
-
-const vidObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    const vid=e.target.querySelector('.htp-vid');
-    const img=e.target.querySelector('.htp-img');
-    if(!vid)return;
-    if(e.isIntersecting){
-      vid.currentTime=0;vid.play().catch(()=>{});
-      vid.style.opacity='1';if(img)img.style.opacity='0';
-    }else{
-      vid.pause();vid.currentTime=0;
-      vid.style.opacity='0';if(img)img.style.opacity='1';
-    }
+// Video hover / scroll behavior for project thumbnails
+const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(motionOK){
+  document.querySelectorAll('.cs-thumb').forEach(thumb=>{
+    const vid = thumb.querySelector('video');
+    const img = thumb.querySelector('img');
+    if(!vid) return;
+    vid.style.opacity = '0';
+    thumb.addEventListener('mouseenter', ()=>{
+      vid.currentTime = 0;
+      vid.play().catch(()=>{});
+      vid.style.opacity = '1';
+      if(img) img.style.opacity = '0';
+    });
+    thumb.addEventListener('mouseleave', ()=>{
+      vid.pause();
+      vid.currentTime = 0;
+      vid.style.opacity = '0';
+      if(img) img.style.opacity = '1';
+    });
   });
-},{threshold:.15});
-document.querySelectorAll('.htp').forEach(el=>vidObserver.observe(el));
+}
 </script>
 </body>
 </html>
