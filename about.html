@@ -11,13 +11,9 @@
 :root{
   --bg:#FDFDFD;
   --text:#2B2B2B;
-  --muted:#5F5F5F;
-  --dim:#767676;
+  --muted:#6A6A6A;
+  --dim:#8A8A8A;
   --border:#E3E1DC;
-  --surface:#F4F3F0;
-  --pink:#EBDDE5;
-  --pink-text:#2A2028;
-  --pink-muted:#4B3B46;
 }
 html,body{
   min-height:100%;
@@ -28,7 +24,7 @@ html,body{
 }
 a{color:inherit;}
 
-/* ─── TOP NAV ─── */
+/* TOP NAV */
 .top-nav{
   position:fixed;
   top:0;
@@ -37,143 +33,86 @@ a{color:inherit;}
   z-index:20;
   display:flex;
   justify-content:flex-end;
-  gap:56px;
-  padding:34px 72px;
-  background:linear-gradient(to bottom, rgba(253,253,253,.94), rgba(253,253,253,0));
-  pointer-events:none;
+  gap:48px;
+  padding:32px 64px;
+  background:linear-gradient(to bottom, rgba(253,253,253,.95), rgba(253,253,253,0));
 }
 .top-nav a{
-  pointer-events:auto;
-  font-size:15px;
+  font-size:14px;
   color:var(--dim);
   text-decoration:none;
   text-transform:uppercase;
-  letter-spacing:.04em;
+  letter-spacing:.05em;
   transition:color .2s ease;
 }
 .top-nav a:hover,
 .top-nav a.active{color:var(--text);}
 
-/* ─── PAGE ─── */
+/* PAGE */
 .page{
   width:100%;
-  max-width:1280px;
+  max-width:1440px;
   margin:0 auto;
-  padding:140px 72px 96px;
+  padding:118px 48px 96px;
 }
 
-/* ─── HERO / NOTE ─── */
-.about-hero{
+/* MAIN ABOUT GRID */
+.about-grid{
   display:grid;
-  grid-template-columns:minmax(0, .95fr) minmax(360px, .75fr);
-  gap:96px;
+  grid-template-columns:420px minmax(0,1fr);
+  gap:48px;
   align-items:start;
-  margin-bottom:112px;
 }
-.about-copy{
-  max-width:640px;
+
+/* LEFT COLUMN */
+.about-left{
+  max-width:420px;
+  position:sticky;
+  top:118px;
+  align-self:start;
 }
 .note-label{
-  font-size:24px;
-  line-height:1.1;
-  letter-spacing:-.035em;
+  font-size:22px;
+  line-height:1.2;
+  letter-spacing:-.03em;
   font-weight:400;
   color:var(--text);
-  margin-bottom:34px;
+  margin-bottom:26px;
 }
 .about-p{
-  font-size:22px;
-  line-height:1.62;
-  letter-spacing:-.025em;
-  color:var(--dim);
-  margin-bottom:30px;
-}
-.about-p strong{
-  color:var(--text);
-  font-weight:400;
+  font-size:15px;
+  line-height:1.75;
+  letter-spacing:-.01em;
+  color:var(--muted);
+  margin-bottom:20px;
+  max-width:38ch;
 }
 .signature-block{
-  margin-top:64px;
+  margin-top:40px;
+  margin-bottom:52px;
 }
 .signature-best{
-  font-size:24px;
+  font-size:20px;
   color:var(--text);
-  margin-bottom:20px;
+  margin-bottom:14px;
 }
 .signature-img{
-  width:190px;
-  opacity:.62;
+  width:140px;
+  opacity:.72;
 }
 
-/* ─── IMAGE COLLECTION ─── */
-.visual-collection{
-  width:100%;
-  padding-top:8px;
-}
-.image-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:18px;
-}
-.collect-item{
-  position:relative;
-  display:block;
-  text-decoration:none;
-}
-.collect-img{
-  width:100%;
-  aspect-ratio:1/1;
-  background:#D9D9D9;
-  overflow:hidden;
-}
-.collect-item.tall .collect-img{aspect-ratio:3/4;}
-.collect-item.wide{
-  grid-column:1 / -1;
-}
-.collect-item.wide .collect-img{aspect-ratio:16/9;}
-.collect-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  filter:saturate(.92);
-  transition:transform .35s ease, filter .35s ease;
-}
-.collect-item:hover .collect-img img{
-  transform:scale(1.025);
-  filter:saturate(1);
-}
-.collect-caption{
-  margin-top:10px;
-  font-size:13px;
-  line-height:1.55;
-  color:var(--dim);
-  opacity:.78;
-  transition:opacity .2s ease, color .2s ease;
-}
-.collect-item:hover .collect-caption{
-  opacity:1;
-  color:var(--text);
-}
-.caption-kicker{
-  display:block;
-  font-size:11px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--dim);
-  margin-bottom:2px;
-}
-
-/* ─── RESUME STYLE SECTIONS ─── */
-.about-section{
-  margin-top:66px;
+/* LISTS */
+.about-lists{
+  display:flex;
+  flex-direction:column;
+  gap:34px;
 }
 .section-heading{
-  font-size:30px;
+  font-size:20px;
   font-weight:400;
-  letter-spacing:-.03em;
+  letter-spacing:-.02em;
   color:var(--text);
-  margin-bottom:18px;
+  margin-bottom:10px;
 }
 .info-list{
   border-top:.5px solid var(--border);
@@ -181,93 +120,172 @@ a{color:inherit;}
 .info-row{
   display:grid;
   grid-template-columns:1fr auto;
-  gap:32px;
-  padding:18px 0;
+  gap:16px;
+  padding:10px 0;
   border-bottom:.5px solid var(--border);
   align-items:baseline;
 }
 .info-main{
-  font-size:24px;
+  font-size:14px;
   line-height:1.35;
-  letter-spacing:-.025em;
+  letter-spacing:-.01em;
   color:var(--text);
 }
 .info-main span{
   color:var(--dim);
 }
 .info-date{
-  font-size:20px;
-  line-height:1.35;
+  font-size:13px;
   color:var(--dim);
   white-space:nowrap;
 }
 .info-sub{
-  font-size:16px;
+  font-size:11px;
   color:var(--muted);
-  line-height:1.6;
-  margin-top:6px;
-  max-width:680px;
+  line-height:1.5;
+  margin-top:4px;
 }
 
-/* ─── FOOTER ─── */
+/* RIGHT PHOTO COLLAGE */
+.photo-collage{
+  display:grid;
+  grid-template-columns:1.12fr 1fr;
+  grid-template-rows:auto auto auto;
+  gap:18px;
+}
+.photo-card{
+  position:relative;
+  overflow:hidden;
+}
+.photo-frame{
+  width:100%;
+  overflow:hidden;
+  background:#D9D9D9;
+}
+.photo-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.95);
+  transition:transform .35s ease, filter .35s ease;
+}
+.photo-card:hover img{
+  transform:scale(1.018);
+  filter:saturate(1.02);
+}
+.photo-card.feature{
+  grid-row:1 / span 2;
+}
+.photo-card.feature .photo-frame{
+  aspect-ratio:4/5;
+}
+.photo-card.medium .photo-frame{
+  aspect-ratio:4/3;
+}
+.photo-card.square .photo-frame{
+  aspect-ratio:1/1;
+}
+.photo-card.tall-food .photo-frame{
+  aspect-ratio:4/5;
+}
+.photo-card.wide{
+  grid-column:1 / -1;
+}
+.photo-card.wide .photo-frame{
+  aspect-ratio:16/7;
+}
+.photo-caption{
+  position:absolute;
+  left:18px;
+  top:18px;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  max-width:70%;
+  padding:9px 14px;
+  border-radius:999px;
+  background:#F0D8E7;
+  color:#FFFFFF;
+  font-size:13px;
+  line-height:1;
+  font-weight:500;
+  letter-spacing:-.01em;
+  opacity:0;
+  transform:translateY(6px) scale(.98);
+  transition:opacity .2s ease, transform .2s ease;
+  pointer-events:none;
+}
+.photo-card:hover .photo-caption{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.caption-kicker{
+  display:none;
+}
+
+/* FOOTER - MATCHES OTHER PAGES */
 .site-footer{
   width:100vw;
   margin-left:calc(50% - 50vw);
-  background:var(--pink);
-  padding:88px 72px;
+  background:#F0D8E7;
+  padding:80px clamp(32px,6vw,96px);
   margin-top:112px;
 }
 .footer-inner{
   width:100%;
-  max-width:1280px;
+  max-width:1440px;
   margin:0 auto;
   display:grid;
-  grid-template-columns:1.2fr .8fr auto;
-  align-items:center;
-  gap:48px;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:clamp(36px,7vw,96px);
+  align-items:start;
 }
-.footer-heading{
-  font-size:34px;
+.footer-title{
+  font-size:clamp(30px,3vw,44px);
   line-height:1.15;
-  color:var(--pink-text);
-  letter-spacing:-.025em;
+  letter-spacing:-.035em;
+  color:#2F2F2F;
+  font-weight:500;
   margin-bottom:24px;
 }
-.footer-collected{
-  font-size:16px;
-  line-height:1.75;
-  color:var(--pink-muted);
+.footer-meta{
+  font-size:18px;
+  line-height:1.5;
+  color:#6E3D62;
+  font-weight:500;
 }
-.footer-links-title{
-  font-size:14px;
-  color:#5A4A55;
+.footer-contact-title{
+  font-size:13px;
   letter-spacing:.08em;
   text-transform:uppercase;
-  margin-bottom:18px;
+  color:#2F2F2F;
+  margin-bottom:20px;
+  font-weight:500;
 }
-.footer-right{
+.footer-links{
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:18px;
 }
-.footer-right a{
+.footer-links a{
   font-size:18px;
-  color:var(--pink-text);
+  color:#6E3D62;
   text-decoration:none;
-  transition:opacity .2s ease;
+  transition:color .2s ease, transform .2s ease;
 }
-.footer-right a:hover{opacity:.62;}
-.footer-stamp{
-  width:132px;
-  justify-self:end;
-  transform:rotate(2deg);
+.footer-links a:hover{
+  color:#2F2F2F;
+  transform:translateX(3px);
 }
 .footer-stamp img{
-  width:100%;
+  width:130px;
+  height:auto;
   display:block;
 }
 
-/* ─── MOBILE ─── */
+/* MOBILE */
 .mobile-topbar{
   display:none;
   position:sticky;
@@ -325,58 +343,69 @@ a{color:inherit;}
   font-size:15px;
   color:var(--muted);
   text-decoration:none;
-  transition:color .2s;
 }
-.mobile-menu-link:hover,
-.mobile-menu-link.active{color:var(--text);}
 
-@media(max-width:980px){
+@media(max-width:1080px){
+  .about-grid{
+    grid-template-columns:360px minmax(0,1fr);
+    gap:36px;
+  }
+  .about-left{max-width:360px;}
+}
+@media(max-width:900px){
   .top-nav{display:none;}
   .mobile-topbar{display:flex;}
   .page{
     padding:64px 24px 72px;
   }
-  .about-hero{
+  .about-grid{
     grid-template-columns:1fr;
     gap:48px;
-    margin-bottom:72px;
   }
-  .note-label{font-size:30px;}
-  .about-p{
-    font-size:19px;
-    line-height:1.68;
+  .about-left{
+    position:static;
+    max-width:100%;
   }
-  .image-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:14px;
+  .about-p{max-width:46ch;}
+  .photo-collage{
+    grid-template-columns:1fr 1fr;
+    gap:16px;
   }
-  .info-main{font-size:20px;}
-  .info-date{font-size:17px;}
+  .photo-card.feature{
+    grid-row:auto;
+    grid-column:1 / -1;
+  }
+  .photo-card.feature .photo-frame{
+    aspect-ratio:16/10;
+  }
+  .photo-card.wide .photo-frame{
+    aspect-ratio:16/9;
+  }
   .site-footer{
-    padding:64px 24px;
+    padding:56px 24px;
   }
   .footer-inner{
     grid-template-columns:1fr;
     gap:32px;
-    align-items:start;
   }
-  .footer-heading{font-size:28px;}
-  .footer-stamp{
-    width:112px;
-    justify-self:start;
-  }
+  .footer-title{font-size:30px;}
+  .footer-meta,.footer-links a{font-size:18px;}
+  .footer-stamp img{width:96px;}
 }
 @media(max-width:560px){
-  .image-grid{grid-template-columns:1fr;}
-  .collect-item.wide{grid-column:auto;}
-  .collect-item.wide .collect-img,
-  .collect-img,
-  .collect-item.tall .collect-img{aspect-ratio:4/3;}
+  .photo-collage{grid-template-columns:1fr;}
+  .photo-card.wide{grid-column:auto;}
+  .photo-card.feature .photo-frame,
+  .photo-card.medium .photo-frame,
+  .photo-card.square .photo-frame,
+  .photo-card.tall-food .photo-frame,
+  .photo-card.wide .photo-frame{
+    aspect-ratio:4/3;
+  }
   .info-row{
     grid-template-columns:1fr;
-    gap:4px;
+    gap:3px;
   }
-  .signature-img{width:150px;}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
@@ -406,122 +435,117 @@ a{color:inherit;}
 </div>
 
 <main class="page">
-  <section class="about-hero">
-    <div class="about-copy">
-      <h1 class="note-label">To: Visitor</h1>
+  <section class="about-grid">
+    <div class="about-left">
+      <div class="about-copy">
+        <h1 class="note-label">To: Visitor</h1>
 
-      <p class="about-p">I'm Navyaa, a designer interested in how people discover information, build trust, and make decisions.</p>
+        <p class="about-p">I'm Navyaa, a designer interested in how people find information, decide what to trust, and move forward with confidence.</p>
 
-      <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that continue to shape how I design.</p>
+        <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
 
-      <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just for fun.</p>
+        <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just because.</p>
 
-      <div class="signature-block">
-        <div class="signature-best">Best,</div>
-        <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
+        <div class="signature-block">
+          <div class="signature-best">Best,</div>
+          <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <div class="about-lists">
+        <section class="about-section">
+          <h2 class="section-heading">Experience</h2>
+          <div class="info-list">
+            <div class="info-row">
+              <div>
+                <div class="info-main">Tesla <span>/ UX Consultant</span></div>
+                <div class="info-sub">Operational workflows across mobility, parking, and employee commute experiences.</div>
+              </div>
+              <div class="info-date">2025</div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-main">Cisco Splunk <span>/ UX Design Intern</span></div>
+                <div class="info-sub">Demo discovery, ecosystem audits, and AI-powered interaction concepts.</div>
+              </div>
+              <div class="info-date">2025</div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-main">CNN <span>/ Content Design Intern</span></div>
+                <div class="info-sub">Content experiences across news, election, and platform surfaces.</div>
+              </div>
+              <div class="info-date">2024</div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-main">Cal Poly Health & Wellbeing <span>/ UX Designer</span></div>
+                <div class="info-sub">Student health information systems serving 23,000+ students.</div>
+              </div>
+              <div class="info-date">2023–2025</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h2 class="section-heading">Leadership</h2>
+          <div class="info-list">
+            <div class="info-row">
+              <div>
+                <div class="info-main">Cal Poly iter8 <span>/ President</span></div>
+                <div class="info-sub">Led a student design agency and community of 140+ designers.</div>
+              </div>
+              <div class="info-date">2024–2025</div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-main">UX Fest SLO <span>/ Events & Experience Director</span></div>
+                <div class="info-sub">Created workshops, community events, and design experiences.</div>
+              </div>
+              <div class="info-date">2023–2024</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h2 class="section-heading">Education</h2>
+          <div class="info-list">
+            <div class="info-row">
+              <div>
+                <div class="info-main">Cal Poly SLO <span>/ Graphic Communication</span></div>
+                <div class="info-sub">B.S. Graphic Communication, Minor in Computer Science.</div>
+              </div>
+              <div class="info-date">2025</div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
 
-    <div class="visual-collection" aria-label="Things I've collected outside of work">
-      <div class="image-grid">
-        <div class="collect-item wide">
-          <div class="collect-img"><img src="leadership-1.png" alt="Iter8 design community" onerror="this.style.display='none'"></div>
-          <div class="collect-caption"><span class="caption-kicker">Leadership</span>Led Cal Poly iter8, a community of 140+ student designers.</div>
-        </div>
+    <div class="photo-collage" aria-label="Things I've collected outside of work">
+      <div class="photo-card feature">
+        <div class="photo-frame"><img src="leadership-1.png" alt="Iter8 design community" onerror="this.style.display='none'"></div>
+        <div class="photo-caption">Design community builder</div>
+      </div>
 
-        <div class="collect-item">
-          <div class="collect-img"><img src="about-4.jpg" alt="DJ setup" onerror="this.style.display='none'"></div>
-          <div class="collect-caption"><span class="caption-kicker">Experiment</span>My short-lived DJ era. Still love playing with rhythm and sound.</div>
-        </div>
+      <div class="photo-card medium">
+        <div class="photo-frame"><img src="about-4.jpg" alt="DJ setup" onerror="this.style.display='none'"></div>
+        <div class="photo-caption">Brief DJ era</div>
+      </div>
 
-        <div class="collect-item tall">
-          <div class="collect-img"><img src="about-5.png" alt="New York City view" onerror="this.style.display='none'"></div>
-          <div class="collect-caption"><span class="caption-kicker">Photo</span>Sunrise yoga at The Edge in NYC, worth the 5am wake-up.</div>
-        </div>
+      <div class="photo-card medium">
+        <div class="photo-frame"><img src="about-5.png" alt="New York City view" onerror="this.style.display='none'"></div>
+        <div class="photo-caption">Worth the 5am wake-up</div>
+      </div>
 
-        <div class="collect-item">
-          <div class="collect-img"><img src="hobby-5.jpg" alt="Singing performance" onerror="this.style.display='none'"></div>
-          <div class="collect-caption"><span class="caption-kicker">Music</span>Singing since I was four. Still one of my favorite ways to express myself.</div>
-        </div>
+      <div class="photo-card tall-food">
+        <div class="photo-frame"><img src="about-3.jpeg" alt="Vegetarian food" onerror="this.style.display='none'"></div>
+        <div class="photo-caption">Always planning my next meal</div>
+      </div>
 
-        <div class="collect-item">
-          <div class="collect-img"><img src="about-3.jpeg" alt="Banh mi" onerror="this.style.display='none'"></div>
-          <div class="collect-caption"><span class="caption-kicker">Food</span>Deeply committed to good vegetarian food and flavor combinations.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-section">
-    <h2 class="section-heading">Experience</h2>
-    <div class="info-list">
-      <div class="info-row">
-        <div>
-          <div class="info-main">Tesla <span>/ UX Consultant</span></div>
-          <div class="info-sub">Designed operational workflows across mobility, parking, and employee commute experiences.</div>
-        </div>
-        <div class="info-date">2025</div>
-      </div>
-      <div class="info-row">
-        <div>
-          <div class="info-main">Cisco Splunk <span>/ UX Design Intern</span></div>
-          <div class="info-sub">Worked across demo discovery, ecosystem audits, and AI-powered interaction concepts.</div>
-        </div>
-        <div class="info-date">2025</div>
-      </div>
-      <div class="info-row">
-        <div>
-          <div class="info-main">CNN <span>/ Content Design Intern</span></div>
-          <div class="info-sub">Designed and documented content experiences across news, election, and platform surfaces.</div>
-        </div>
-        <div class="info-date">2024</div>
-      </div>
-      <div class="info-row">
-        <div>
-          <div class="info-main">Cal Poly Health & Wellbeing <span>/ UX Designer</span></div>
-          <div class="info-sub">Redesigned student health information systems serving 23,000+ students.</div>
-        </div>
-        <div class="info-date">2023–2025</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-section">
-    <h2 class="section-heading">Leadership</h2>
-    <div class="info-list">
-      <div class="info-row">
-        <div>
-          <div class="info-main">Cal Poly iter8 <span>/ President</span></div>
-          <div class="info-sub">Led a student design agency and community focused on professional design practice.</div>
-        </div>
-        <div class="info-date">2024–2025</div>
-      </div>
-      <div class="info-row">
-        <div>
-          <div class="info-main">Cal Poly iter8 <span>/ Consulting Director</span></div>
-          <div class="info-sub">Managed client-facing design work, project teams, and student mentorship.</div>
-        </div>
-        <div class="info-date">2023–2024</div>
-      </div>
-      <div class="info-row">
-        <div>
-          <div class="info-main">UX Fest SLO <span>/ Events & Experience Director</span></div>
-          <div class="info-sub">Created community events, workshops, and design experiences for students.</div>
-        </div>
-        <div class="info-date">2023–2024</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-section">
-    <h2 class="section-heading">Education</h2>
-    <div class="info-list">
-      <div class="info-row">
-        <div>
-          <div class="info-main">California Polytechnic State University <span>/ Graphic Communication</span></div>
-          <div class="info-sub">B.S. Graphic Communication, Minor in Computer Science.</div>
-        </div>
-        <div class="info-date">2025</div>
+      <div class="photo-card square">
+        <div class="photo-frame"><img src="hobby-5.jpg" alt="Singing performance" onerror="this.style.display='none'"></div>
+        <div class="photo-caption">Singing since I was four</div>
       </div>
     </div>
   </section>
@@ -529,18 +553,20 @@ a{color:inherit;}
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-left">
-      <div class="footer-heading">The collection is still growing.</div>
-      <div class="footer-collected">Collected so far:<br>Tesla · Splunk · CNN · Cal Poly</div>
+    <div class="footer-copy">
+      <div class="footer-title">The collection is still growing.</div>
+      <div class="footer-meta">Collected so far: Tesla · Splunk · CNN · Cal Poly</div>
     </div>
 
-    <div class="footer-right">
-      <div class="footer-links-title">Contact me</div>
-      <a href="mailto:navyaa.vemuri@gmail.com">Mail ↗</a>
-      <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <div class="footer-contact">
+      <div class="footer-contact-title">Contact me</div>
+      <div class="footer-links">
+        <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:navyaa.vemuri@gmail.com">Mail</a>
+      </div>
     </div>
 
-    <a class="footer-stamp" href="portfolio.html" aria-label="Back to portfolio">
+    <a class="footer-stamp" href="portfolio.html" aria-label="Back to homepage">
       <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
     </a>
   </div>
