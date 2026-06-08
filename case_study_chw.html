@@ -9,17 +9,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#FDFDFD;--surface:#F4F3F0;--border:#E8E8E4;
+  --bg:#FDFDFD;--surface:#F4F3F0;--surface-2:#F8F7F4;--border:#E8E8E4;
   --text:#1A1A1A;--muted:#4F4F4F;--dim:#737373;
   --accent:#2E7D5E;--accent-bg:#EBF5F0;--accent-border:#B8DDD0;
-  --conflict:#C4745A;--conflict-bg:#FDF0EC;--conflict-border:#F0C8B8;
+  --warm:#F4EFE6;--conflict:#C4745A;--conflict-bg:#FDF0EC;--conflict-border:#F0C8B8;
   --shadow:0 12px 32px rgba(26,26,26,.06);
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
 .layout{display:flex;min-height:100vh;}
 
-/* sidebar */
+/* ─── SIDEBAR ─── */
 .cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
 .stamp{width:160px;margin-bottom:20px;cursor:pointer;flex-shrink:0;}
 .stamp img{width:100%;display:block;}
@@ -35,7 +35,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
 .toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
 
-/* mobile nav */
+/* ─── MOBILE NAV ─── */
 .mobile-topbar,.mobile-toc{display:none;}
 .mobile-topbar{position:sticky;top:0;z-index:50;background:rgba(253,253,253,.92);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:18px 20px;align-items:center;justify-content:space-between;}
 .mobile-brand{font-size:14px;color:var(--text);text-decoration:none;letter-spacing:-.01em;}
@@ -48,19 +48,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .mobile-menu.open{display:block;}
 .mobile-menu-links{display:flex;flex-direction:column;gap:18px;}
 .mobile-menu-link{font-size:15px;color:var(--muted);text-decoration:none;}
-.mobile-menu-link:hover{color:var(--text);}
 .mobile-toc{position:sticky;top:59px;z-index:40;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:10px 20px;overflow-x:auto;scrollbar-width:none;gap:12px;}
 .mobile-toc::-webkit-scrollbar{display:none;}
 .mobile-toc-link{white-space:nowrap;font-size:12px;color:var(--dim);text-decoration:none;padding:6px 10px;border:.5px solid var(--border);border-radius:999px;background:var(--bg);}
 .mobile-toc-link.active{color:var(--accent);border-color:var(--accent-border);background:var(--accent-bg);}
 
-/* right column */
+/* ─── CONTENT ─── */
 .right-col{flex:1;min-width:0;overflow-y:auto;display:flex;flex-direction:column;}
 .hero-media{width:100%;border-bottom:.5px solid var(--border);min-height:500px;max-height:560px;overflow:hidden;background:var(--surface);}
 .hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover;display:block;}
 .cs-main{padding:64px clamp(40px,6vw,96px) 112px;max-width:1240px;width:100%;}
-.cs-section{margin-bottom:92px;scroll-margin-top:110px;}
-.cs-eyebrow,.cs-section-label,.metric-label,.mini-label,.proof-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
+.cs-section{margin-bottom:96px;scroll-margin-top:110px;}
+.cs-eyebrow,.cs-section-label,.metric-label,.mini-label,.proof-label,.caption-kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
 .cs-eyebrow{color:var(--accent);margin-bottom:14px;}
 .cs-title{font-size:clamp(38px,4vw,52px);font-weight:300;line-height:1.08;max-width:980px;margin-bottom:20px;letter-spacing:-.035em;}
 .cs-tagline{font-size:18px;line-height:1.72;color:var(--text);max-width:900px;margin-bottom:34px;}
@@ -77,15 +76,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .cs-p{font-size:17px;color:var(--muted);line-height:1.85;max-width:860px;margin-bottom:14px;}
 .cs-p strong{color:var(--text);font-weight:400;}
 
-/* reusable blocks */
+/* ─── REUSABLE BLOCKS ─── */
 .two-col,.img-row,.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0;}
 .mini-grid.three{grid-template-columns:repeat(3,1fr);}
-.col-card,.mini-card,.annotation-card,.proof-card{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:24px 26px;}
-.col-label,.mini-label,.proof-label{font-size:12px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
+.col-card,.mini-card,.annotation-card,.proof-card,.created-card{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:24px 26px;}
+.col-label,.mini-label,.proof-label,.created-label{font-size:12px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
 .col-item{font-size:15px;color:var(--muted);line-height:1.65;padding:7px 0;border-bottom:.5px solid var(--border);}
 .col-item:last-child{border-bottom:none;}
-.mini-copy,.annotation-copy,.proof-copy{font-size:15px;color:var(--muted);line-height:1.75;}
-.annotation-title{font-size:16px;color:var(--text);font-weight:500;margin-bottom:8px;}
+.mini-copy,.annotation-copy,.proof-copy,.created-copy{font-size:15px;color:var(--muted);line-height:1.75;}
+.annotation-title,.created-title{font-size:17px;color:var(--text);font-weight:500;margin-bottom:8px;letter-spacing:-.01em;}
 .img-block{margin:28px 0;border-radius:12px;overflow:hidden;background:var(--bg);border:.5px solid var(--border);position:relative;}
 .img-block img,.img-block video{width:100%;display:block;}
 .img-caption-bar{padding:13px 18px;border-top:.5px solid var(--border);}
@@ -104,6 +103,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .learning-text strong{display:block;font-size:17px;color:var(--text);font-weight:400;margin-bottom:4px;}
 .chart-wrap{width:100%;height:min(82vh,860px);min-height:680px;margin:28px 0;border:.5px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;}
 .chart-wrap iframe{width:100%;height:100%;border:0;display:block;}
+
+/* ─── FINAL PRODUCT CAROUSEL ─── */
 .carousel{margin:28px 0;position:relative;}
 .carousel-track{overflow:hidden;border:.5px solid var(--border);border-radius:12px;background:var(--surface);aspect-ratio:16/9;min-height:520px;}
 .carousel-slides{display:flex;transition:transform .35s ease;height:100%;}
@@ -114,6 +115,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .carousel-btn{width:32px;height:32px;border:.5px solid var(--border);border-radius:50%;background:var(--bg);color:var(--muted);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
 .carousel-btn:hover{background:var(--surface);color:var(--text);}
 .carousel-counter,.carousel-caption{font-size:14px;color:var(--muted);line-height:1.6;}
+
+/* ─── IA ─── */
 .ia-diagram{margin:28px 0;display:grid;grid-template-columns:1fr 36px 1fr;align-items:start;}
 .ia-col{border:.5px solid var(--border);border-radius:10px;overflow:hidden;background:#fff;}
 .ia-col-hed{padding:12px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);border-bottom:.5px solid var(--border);background:var(--surface);}
@@ -123,7 +126,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .ia-item.bad{color:var(--conflict);}
 .ia-arrow{display:flex;align-items:center;justify-content:center;color:var(--dim);padding-top:44px;font-size:14px;}
 
-/* footer */
+/* ─── WHAT I CREATED ─── */
+.created-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-top:28px;}
+.created-card{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);gap:32px;align-items:center;padding:28px;}
+.created-card:nth-child(even){grid-template-columns:minmax(340px,.95fr) minmax(0,1.05fr);}
+.created-card:nth-child(even) .created-media{order:-1;}
+.created-media{border:.5px solid var(--border);border-radius:10px;overflow:hidden;background:#fff;min-height:320px;display:flex;align-items:center;justify-content:center;}
+.created-media img,.created-media video{width:100%;height:100%;object-fit:cover;display:block;}
+.created-media.contain img,.created-media.contain video{object-fit:contain;}
+.created-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+.created-pill{font-size:12px;color:#2A2A2A;background:#fff;border:.5px solid #D8D6D2;border-radius:999px;padding:5px 10px;}
+.created-list{list-style:none;margin-top:14px;}
+.created-list li{font-size:15px;color:var(--muted);line-height:1.6;padding:6px 0;border-bottom:.5px solid var(--border);}
+.created-list li:last-child{border-bottom:none;}
+
+/* ─── FOOTER ─── */
 .site-footer{width:100vw;margin-left:calc(50% - 50vw);background:#F0D8E7;padding:80px clamp(32px,6vw,96px);}
 .footer-inner{width:100%;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:clamp(36px,7vw,96px);align-items:start;}
 .footer-title{font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:-.035em;color:#2F2F2F;font-weight:500;margin-bottom:24px;}
@@ -142,8 +159,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .hero-media{min-height:220px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
   .metrics-grid,.two-col,.img-row,.mini-grid,.mini-grid.three,.proof-strip{grid-template-columns:1fr;}
+  .created-card,.created-card:nth-child(even){grid-template-columns:1fr;}
+  .created-card:nth-child(even) .created-media{order:0;}
   .ia-diagram{grid-template-columns:1fr;}
   .ia-arrow{padding:14px 0;}
+  .carousel-track{min-height:320px;}
   .site-footer{padding:56px 24px;}
   .footer-inner{grid-template-columns:1fr;gap:32px;}
   .footer-title{font-size:30px;}
@@ -181,6 +201,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <a href="#challenge" class="mobile-toc-link">Challenge</a>
   <a href="#research" class="mobile-toc-link">Research</a>
   <a href="#strategy" class="mobile-toc-link">Strategy</a>
+  <a href="#created" class="mobile-toc-link">Created</a>
   <a href="#execution" class="mobile-toc-link">Execution</a>
   <a href="#impact" class="mobile-toc-link">Impact</a>
   <a href="#reflection" class="mobile-toc-link">Reflection</a>
@@ -200,6 +221,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <li><a href="#challenge" class="toc-link">Challenge</a></li>
         <li><a href="#research" class="toc-link">Research</a></li>
         <li><a href="#strategy" class="toc-link">Strategy</a></li>
+        <li><a href="#created" class="toc-link">Created</a></li>
         <li><a href="#execution" class="toc-link">Execution</a></li>
         <li><a href="#impact" class="toc-link">Impact</a></li>
         <li><a href="#reflection" class="toc-link">Reflection</a></li>
@@ -258,7 +280,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         </div>
       </section>
 
-
       <section id="challenge" class="cs-section">
         <div class="cs-section-label">Challenge</div>
         <h2 class="cs-h2">Students weren't using the site when they needed it most.</h2>
@@ -288,7 +309,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
         <div class="img-block">
           <img src="survey.jpeg" alt="Booth outside the health center during STI self-testing survey research">
-          <div class="img-caption-bar"><div class="img-caption-text">Going off-screen through in-person booths and surveys with Pulse to better understand how students navigated sensitive resources like STI testing and sexual health information.</div></div>
+          <div class="img-caption-bar"><div class="img-caption-text">Going off-screen through in-person booths and surveys with Pulse to understand how students navigated sensitive resources like STI testing and sexual health information.</div></div>
         </div>
 
         <div class="mini-grid three">
@@ -347,6 +368,98 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         </div>
       </section>
 
+      <section id="created" class="cs-section">
+        <div class="cs-section-label">What I created</div>
+        <h2 class="cs-h2">The redesign became a system of pages, patterns, and content decisions.</h2>
+        <p class="cs-p">This project was not one screen. Across two years, I redesigned and implemented service pages, navigation patterns, content structures, icons, and accessibility improvements. This section shows the actual design work behind the transformation.</p>
+
+        <div class="created-grid">
+          <article class="created-card">
+            <div>
+              <div class="created-label">01 · Scannable health information</div>
+              <h3 class="created-title">Redesigned sensitive health pages so students could quickly understand options and next steps.</h3>
+              <p class="created-copy">For topics like STI testing, HIV testing, PrEP, and HPV prevention, dense clinical copy made the experience feel intimidating. I restructured pages around plain language, short sections, accordions, and clearer action pathways.</p>
+              <ul class="created-list">
+                <li>Rewrote and reorganized long-form content into student-facing questions</li>
+                <li>Added clearer hierarchy for prevention, testing, treatment, and follow-up</li>
+                <li>Used visual cues and iconography to make sensitive topics feel more approachable</li>
+              </ul>
+              <div class="created-meta">
+                <span class="created-pill">Content Design</span>
+                <span class="created-pill">Plain Language</span>
+                <span class="created-pill">Sensitive UX</span>
+              </div>
+            </div>
+            <div class="created-media">
+              <img src="sti-redesign.png" alt="STI page redesign" onerror="this.src='painpoint-1.png'">
+            </div>
+          </article>
+
+          <article class="created-card">
+            <div>
+              <div class="created-label">02 · Action-oriented service pages</div>
+              <h3 class="created-title">Made critical actions easier to find before students abandoned the page.</h3>
+              <p class="created-copy">Students often knew what they needed, but the site hid the next step. I redesigned key service pages around action-first hierarchy so booking, forms, eligibility, and support pathways were easier to identify.</p>
+              <ul class="created-list">
+                <li>Moved primary actions higher on the page</li>
+                <li>Reduced duplicate paths and unclear next steps</li>
+                <li>Created repeatable service page structures for future updates</li>
+              </ul>
+              <div class="created-meta">
+                <span class="created-pill">IA</span>
+                <span class="created-pill">Service Design</span>
+                <span class="created-pill">Conversion UX</span>
+              </div>
+            </div>
+            <div class="created-media contain">
+              <img src="action-pages.png" alt="Action-oriented health service pages" onerror="this.src='painpoint-3.png'">
+            </div>
+          </article>
+
+          <article class="created-card">
+            <div>
+              <div class="created-label">03 · Inclusive resource discovery</div>
+              <h3 class="created-title">Improved discoverability for resources students struggled to find.</h3>
+              <p class="created-copy">Some of the most important content lived in buried pages or fragmented sections. I worked with stakeholders to restructure information around student needs, especially for areas like gender-affirming care and name and gender change resources.</p>
+              <ul class="created-list">
+                <li>Created clearer page groupings for gender-affirming services</li>
+                <li>Structured resources around what students were trying to do</li>
+                <li>Balanced sensitivity, clarity, and stakeholder requirements</li>
+              </ul>
+              <div class="created-meta">
+                <span class="created-pill">Inclusive Design</span>
+                <span class="created-pill">Resource Discovery</span>
+                <span class="created-pill">Stakeholders</span>
+              </div>
+            </div>
+            <div class="created-media contain">
+              <img src="gender-affirming.png" alt="Gender affirming care page redesign" onerror="this.src='chw-main.png'">
+            </div>
+          </article>
+
+          <article class="created-card">
+            <div>
+              <div class="created-label">04 · Consistent portal patterns</div>
+              <h3 class="created-title">Created reusable page and component patterns inside a constrained CMS.</h3>
+              <p class="created-copy">Because the portal had grown over time, pages felt inconsistent and difficult to maintain. I designed reusable modules, icon patterns, content structures, and implementation guidelines that made the site feel more cohesive.</p>
+              <ul class="created-list">
+                <li>Designed reusable cards, accordions, section layouts, and icon treatments</li>
+                <li>Maintained accessibility through alt text and clearer content structure</li>
+                <li>Used Figma to align stakeholders before building in Drupal</li>
+              </ul>
+              <div class="created-meta">
+                <span class="created-pill">Systems Design</span>
+                <span class="created-pill">Drupal 7</span>
+                <span class="created-pill">Accessibility</span>
+              </div>
+            </div>
+            <div class="created-media contain">
+              <video autoplay muted loop playsinline preload="auto"><source src="component-library.mp4" type="video/mp4"></video>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section id="execution" class="cs-section">
         <div class="cs-section-label">Execution</div>
         <h2 class="cs-h2">Designing within the system we had.</h2>
@@ -367,13 +480,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
             <div class="col-item">Used Figma to align stakeholders before implementation</div>
             <div class="col-item">Implemented directly in Drupal with accessibility in mind</div>
           </div>
-        </div>
-
-        <div class="img-block">
-          <video autoplay muted loop playsinline preload="auto">
-            <source src="component-library.mp4" type="video/mp4">
-          </video>
-          <div class="img-caption-bar"><div class="img-caption-text">Reusable content patterns and page structures created to make the portal feel more consistent across services.</div></div>
         </div>
 
         <div class="tradeoff">
