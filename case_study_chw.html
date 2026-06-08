@@ -303,70 +303,77 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       </section>
 
       <section id="research" class="cs-section">
-        <div class="cs-section-label">Research</div>
-        <h2 class="cs-h2">Understanding why students stopped trusting the portal.</h2>
-        <p class="cs-p">Before redesigning pages, I audited the existing site, reviewed analytics, and talked to students directly. The patterns became clear: trust was breaking down through small moments of friction. A broken link, a wall of text, a buried action, or an outdated page was enough to make students leave.</p>
+  <div class="cs-section-label">Research</div>
+  <h2 class="cs-h2">Understanding why students stopped trusting the portal.</h2>
+  <p class="cs-p">Before redesigning anything, I wanted to understand why students weren't using a resource meant to support them during some of their most important health decisions.</p>
+  <p class="cs-p">I approached the problem from three angles: auditing the experience, analyzing behavior, and speaking directly with students.</p>
 
-        <div class="img-block">
-          <img src="survey.jpeg" alt="Booth outside the health center during STI self-testing survey research">
-          <div class="img-caption-bar"><div class="img-caption-text">Going off-screen through in-person booths and surveys with Pulse to understand how students navigated sensitive resources like STI testing and sexual health information.</div></div>
-        </div>
+  <div class="mini-grid three">
+    <div class="mini-card">
+      <div class="mini-label">01 · Audit</div>
+      <div class="mini-copy">Reviewed the existing portal through the lens of a student trying to complete a task.</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">02 · Analytics</div>
+      <div class="mini-copy">Checked whether the friction I saw in the interface also appeared in engagement and drop-off data.</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">03 · Student input</div>
+      <div class="mini-copy">Talked to students directly about how they searched for sensitive health information.</div>
+    </div>
+  </div>
 
-        <div class="mini-grid three">
-          <div class="mini-card"><div class="mini-label">Finding 01</div><div class="mini-copy">Students were looking for tasks, but the site was organized around departments.</div></div>
-          <div class="mini-card"><div class="mini-label">Finding 02</div><div class="mini-copy">Dense pages made important health information feel harder to evaluate and trust.</div></div>
-          <div class="mini-card"><div class="mini-label">Finding 03</div><div class="mini-copy">Outdated content and broken paths made students question whether the site was reliable.</div></div>
-        </div>
+  <div class="img-row">
+    <div class="img-block">
+      <img src="painpoint-1.png" alt="Example of content overload on the old health portal">
+      <div class="img-caption-bar">
+        <div class="img-caption-text">Audit finding: dense blocks of text and unclear entry points made pages hard to scan.</div>
+      </div>
+    </div>
 
-        <div class="img-row">
-          <div class="img-block">
-            <img src="painpoint-1.png" alt="Example of content overload on the old health portal">
-            <div class="img-caption-bar"><div class="img-caption-text">Content overload: walls of text and unclear entry points made pages hard to scan.</div></div>
-          </div>
-          <div class="img-block">
-            <img src="painpoint-3.png" alt="Example of buried actions on the old health portal">
-            <div class="img-caption-bar"><div class="img-caption-text">Buried actions: appointment booking and next steps were often several clicks deep.</div></div>
-          </div>
-        </div>
+    <div class="img-block">
+      <img src="painpoint-3.png" alt="Example of buried actions on the old health portal">
+      <div class="img-caption-bar">
+        <div class="img-caption-text">Audit finding: critical actions like booking and next steps were often buried several clicks deep.</div>
+      </div>
+    </div>
+  </div>
 
-        <div class="chart-wrap">
-          <iframe src="chw-chart-dropoff.html" title="Drop-off chart"></iframe>
-        </div>
-      </section>
+  <div class="chart-wrap">
+    <iframe src="chw-chart-dropoff.html" title="Drop-off chart"></iframe>
+  </div>
 
-      <section id="strategy" class="cs-section">
-        <div class="cs-section-label">Strategy</div>
-        <h2 class="cs-h2">Rebuilding trust through clarity, not more content.</h2>
-        <p class="cs-p">The answer was not to add more information. It was to make existing information easier to find, understand, and act on. I focused the redesign around three principles that could scale across pages and services.</p>
+  <div class="img-block">
+    <img src="survey.jpeg" alt="Booth outside the health center during STI self-testing survey research">
+    <div class="img-caption-bar">
+      <div class="img-caption-text">Going off-screen through in-person booths and surveys with Pulse to understand how students navigated sensitive resources like STI testing and sexual health information.</div>
+    </div>
+  </div>
 
-        <div class="mini-grid three">
-          <div class="mini-card"><div class="mini-label">01 · Scannability</div><div class="mini-copy">Break long clinical content into clearer sections, accordions, and action-oriented chunks.</div></div>
-          <div class="mini-card"><div class="mini-label">02 · Task-based IA</div><div class="mini-copy">Shift navigation away from internal departments and toward student goals.</div></div>
-          <div class="mini-card"><div class="mini-label">03 · Consistency</div><div class="mini-copy">Create repeatable page patterns so new content felt maintained and trustworthy.</div></div>
-        </div>
+  <div class="callout">
+    <div class="callout-title">What kept showing up</div>
+    <div class="callout-copy">
+      Students searched by task, not department. Dense content reduced trust. And a single broken path, outdated page, or buried action was often enough for students to abandon the experience entirely.
+    </div>
+  </div>
 
-        <div class="ia-diagram">
-          <div class="ia-col">
-            <div class="ia-col-hed">Before · Department-based</div>
-            <div class="ia-item">Campus Health & Wellbeing</div>
-            <div class="ia-item nested bad">Health Services</div>
-            <div class="ia-item nested bad">↳ Book appointment buried</div>
-            <div class="ia-item nested bad">↳ Forms and service pages scattered</div>
-            <div class="ia-item nested bad">Counseling Services</div>
-            <div class="ia-item nested bad">↳ Duplicate paths and buried resources</div>
-          </div>
-          <div class="ia-arrow">→</div>
-          <div class="ia-col">
-            <div class="ia-col-hed">After · Task-based</div>
-            <div class="ia-item">Campus Health & Wellbeing</div>
-            <div class="ia-item nested">↳ Book an Appointment</div>
-            <div class="ia-item nested">↳ Mental Health & Counseling</div>
-            <div class="ia-item nested">↳ Sexual Health & Safety</div>
-            <div class="ia-item nested">↳ Basic Needs</div>
-            <div class="ia-item nested">↳ Resources & Forms</div>
-          </div>
-        </div>
-      </section>
+  <div class="mini-grid three">
+    <div class="mini-card">
+      <div class="mini-label">Finding 01</div>
+      <div class="mini-copy">Students arrived with specific goals: book an appointment, find testing information, understand symptoms, or figure out what to do next.</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">Finding 02</div>
+      <div class="mini-copy">Long paragraphs, clinical language, and inconsistent formatting made health information feel harder to evaluate.</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-label">Finding 03</div>
+      <div class="mini-copy">Trust was breaking down through small moments of friction: broken links, outdated content, and unclear next steps.</div>
+    </div>
+  </div>
+
+  <p class="cs-p">These findings shifted the project away from simply adding more content. The challenge was helping students find, understand, and act on information with greater confidence.</p>
+</section>
 
       <section id="created" class="cs-section">
         <div class="cs-section-label">What I created</div>
