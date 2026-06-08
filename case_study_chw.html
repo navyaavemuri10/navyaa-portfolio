@@ -102,10 +102,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
 .learning-text{font-size:16px;color:var(--muted);line-height:1.78;}
 .learning-text strong{display:block;font-size:17px;color:var(--text);font-weight:400;margin-bottom:4px;}
-.chart-wrap{width:100%;height:min(72vh,760px);min-height:520px;margin:28px 0;border:.5px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;}
+.chart-wrap{width:100%;height:min(82vh,860px);min-height:680px;margin:28px 0;border:.5px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;}
 .chart-wrap iframe{width:100%;height:100%;border:0;display:block;}
 .carousel{margin:28px 0;position:relative;}
-.carousel-track{overflow:hidden;border:.5px solid var(--border);border-radius:12px;background:var(--surface);aspect-ratio:16/9;}
+.carousel-track{overflow:hidden;border:.5px solid var(--border);border-radius:12px;background:var(--surface);aspect-ratio:16/9;min-height:520px;}
 .carousel-slides{display:flex;transition:transform .35s ease;height:100%;}
 .carousel-slide{min-width:100%;height:100%;overflow:hidden;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .carousel-slide video,.carousel-slide img{width:100%;height:100%;object-fit:contain;display:block;}
@@ -177,6 +177,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </div>
 <div class="mobile-toc">
   <a href="#overview" class="mobile-toc-link active">Overview</a>
+  <a href="#final-product" class="mobile-toc-link">Final Product</a>
   <a href="#challenge" class="mobile-toc-link">Challenge</a>
   <a href="#research" class="mobile-toc-link">Research</a>
   <a href="#strategy" class="mobile-toc-link">Strategy</a>
@@ -195,6 +196,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       <div class="toc-label">on this page</div>
       <ul class="toc-list">
         <li><a href="#overview" class="toc-link active">Overview</a></li>
+        <li><a href="#final-product" class="toc-link">Final Product</a></li>
         <li><a href="#challenge" class="toc-link">Challenge</a></li>
         <li><a href="#research" class="toc-link">Research</a></li>
         <li><a href="#strategy" class="toc-link">Strategy</a></li>
@@ -231,6 +233,31 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
           <div class="metric-card"><div class="metric-label">Ownership</div><div class="metric-num">2 yrs</div><div class="metric-desc">of ongoing UX, content, and implementation work</div></div>
         </div>
       </section>
+
+      <section id="final-product" class="cs-section">
+        <div class="cs-section-label">Final Product</div>
+        <h2 class="cs-h2">A clearer, more trustworthy portal for student health information.</h2>
+        <p class="cs-p">Before going into the research and system constraints, here is the redesigned experience students ultimately interacted with: clearer page hierarchy, more scannable content, and stronger paths to critical actions.</p>
+
+        <div class="carousel">
+          <div class="carousel-track">
+            <div class="carousel-slides" id="carousel-slides">
+              <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto"><source src="solution-1.mp4" type="video/mp4"></video></div>
+              <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto"><source src="solution-2.mp4" type="video/mp4"></video></div>
+              <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto"><source src="solution-3.mp4" type="video/mp4"></video></div>
+            </div>
+          </div>
+          <div class="carousel-caption" id="carousel-caption">A closer look at the redesigned pages and interaction patterns.</div>
+          <div class="carousel-controls">
+            <span class="carousel-counter" id="carousel-counter">1 / 3</span>
+            <div class="carousel-btns">
+              <button class="carousel-btn" id="carousel-prev" aria-label="Previous">←</button>
+              <button class="carousel-btn" id="carousel-next" aria-label="Next">→</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section id="challenge" class="cs-section">
         <div class="cs-section-label">Challenge</div>
@@ -339,24 +366,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
             <div class="col-item">Introduced clearer hierarchy, page sections, and accordions</div>
             <div class="col-item">Used Figma to align stakeholders before implementation</div>
             <div class="col-item">Implemented directly in Drupal with accessibility in mind</div>
-          </div>
-        </div>
-
-        <div class="carousel">
-          <div class="carousel-track">
-            <div class="carousel-slides" id="carousel-slides">
-              <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto"><source src="solution-1.mp4" type="video/mp4"></video></div>
-              <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto"><source src="solution-2.mp4" type="video/mp4"></video></div>
-              <div class="carousel-slide"><video autoplay muted loop playsinline preload="auto"><source src="solution-3.mp4" type="video/mp4"></video></div>
-            </div>
-          </div>
-          <div class="carousel-caption" id="carousel-caption">A closer look at the redesigned pages and interaction patterns.</div>
-          <div class="carousel-controls">
-            <span class="carousel-counter" id="carousel-counter">1 / 3</span>
-            <div class="carousel-btns">
-              <button class="carousel-btn" id="carousel-prev" aria-label="Previous">←</button>
-              <button class="carousel-btn" id="carousel-next" aria-label="Next">→</button>
-            </div>
           </div>
         </div>
 
