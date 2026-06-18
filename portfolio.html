@@ -348,14 +348,6 @@ img,video{max-width:100%;display:block;}
   .postcard-footer {
   position: relative;
 }
-
-.postcard-footer .paper-plane-button {
-  width: clamp(150px, 12vw, 220px);
-}
-
-.postcard-footer .plane-label {
-  opacity: 1;
-}
 .postcard-message p{margin-bottom:18px;}
 .postcard-id{
   margin-top:30px;
@@ -613,6 +605,7 @@ img,video{max-width:100%;display:block;}
 </footer>
 
 <script>
+<script>
 const plane = document.getElementById("paperPlane");
 const footer = document.getElementById("footer");
 const postcard = document.querySelector(".postcard");
@@ -624,97 +617,80 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-function smoothstep(t) {
+function easeInOut(t) {
   return t * t * (3 - 2 * t);
 }
 
-function interpolateRoute(route, progress) {
-  const segmentCount = route.length - 1;
-  const scaled = progress * segmentCount;
-  const index = Math.min(Math.floor(scaled), segmentCount - 1);
-  const localT = smoothstep(scaled - index);
-
-  const current = route[index];
-  const next = route[index + 1];
-
-  return {
-    x: lerp(current.x, next.x, localT),
-    y: lerp(current.y, next.y, localT),
-    rotation: lerp(current.rotation, next.rotation, localT)
-  };
-}
-
-function buildRoute(startRect) {
+function getRoutePoint(progress, startRect) {
   const w = window.innerWidth;
   const h = window.innerHeight;
 
-  return [
-    {
-      x: startRect.left,
-      y: startRect.top,
-      rotation: 0
-    },
-    {
-      x: w * 0.72,
-      y: h * 0.24,
-      rotation: -8
-    },
-    {
-      x: w * 0.48,
-      y: h * 0.38,
-      rotation: 7
-    },
-    {
-      x: w * 0.64,
-      y: h * 0.52,
-      rotation: -5
-    },
-    {
-      x: w * 0.42,
-      y: h * 0.66,
-      rotation: 6
-    },
-    {
-      x: w * 0.58,
-      y: h * 0.80,
-      rotation: -4
-    },
-    {
-      x: w * 0.5 - startRect.width / 2,
-      y: h * 0.52 - startRect.height / 2,
-      rotation: 0
-    }
+  const startX = startRect.left;
+  const startY = startRect.top;
+
+  const endX = w * 0.5 - startRect.width / 2;
+  const endY = h * 0.56 - startRect.height / 2;
+
+  /*
+    IMPORTANT:
+    This keeps the plane on the right/center-right,
+    then gently brings it to center near the footer.
+    No dramatic left crossing.
+  */
+  const route = [
+    { x: startX,       y: startY,       r: 0 },
+    { x: w * 0.78,    y: h * 0.26,     r: 3 },
+    { x: w * 0.72,    y: h * 0.40,     r: -4 },
+    { x: w * 0.66,    y: h * 0.54,     r: 4 },
+    { x: w * 0.60,    y: h * 0.68,     r: -3 },
+    { x: endX,        y: endY,         r: 0 }
   ];
+
+  const segments = route.length - 1;
+  const scaled = progress * segments;
+  const i = Math.min(Math.floor(scaled), segments - 1);
+  const local = easeInOut(scaled - i);
+
+  const a = route[i];
+  const b = route[i + 1];
+
+  return {
+    x: lerp(a.x, b.x, local),
+    y: lerp(a.y, b.y, local),
+    r: lerp(a.r, b.r, local)
+  };
 }
 
-function animateGuidedRoute(duration = 6800) {
+function animateFlight(duration = 6800) {
   const startRect = plane.getBoundingClientRect();
-  const route = buildRoute(startRect);
 
-  const startScrollY = window.scrollY;
-  const targetScrollY =
+  const startScroll = window.scrollY;
+  const endScroll =
     footer.getBoundingClientRect().top +
     window.scrollY -
     window.innerHeight * 0.08;
 
-  const scrollDistance = targetScrollY - startScrollY;
   const startTime = performance.now();
 
   return new Promise((resolve) => {
     function frame(now) {
       const raw = Math.min((now - startTime) / duration, 1);
 
+      // Keep pace steady enough to feel like a guided tour.
+      const scrollProgress = raw;
+      const planeProgress = easeInOut(raw);
+
       window.scrollTo({
-        top: startScrollY + scrollDistance * raw,
+        top: lerp(startScroll, endScroll, scrollProgress),
         left: 0,
         behavior: "auto"
       });
 
-      const point = interpolateRoute(route, raw);
+      const point = getRoutePoint(planeProgress, startRect);
 
       plane.style.left = `${point.x}px`;
       plane.style.top = `${point.y}px`;
-      plane.style.transform = `rotate(${point.rotation}deg)`;
+      plane.style.transform = `rotate(${point.r}deg)`;
 
       if (raw < 1) {
         requestAnimationFrame(frame);
@@ -737,22 +713,14 @@ if (plane && footer) {
     }
 
     isFlying = true;
-
     document.documentElement.classList.add("flight-active");
     plane.classList.add("is-flying");
 
-    const label = plane.querySelector(".plane-label");
-    if (label) label.style.opacity = "0";
-
     const startRect = plane.getBoundingClientRect();
 
-    plane.style.position = "fixed";
     plane.style.left = `${startRect.left}px`;
     plane.style.top = `${startRect.top}px`;
-    plane.style.right = "auto";
-    plane.style.bottom = "auto";
     plane.style.width = `${startRect.width}px`;
-    plane.style.zIndex = "9999";
     plane.style.transform = "rotate(0deg)";
 
     if (postcard) {
@@ -760,7 +728,7 @@ if (plane && footer) {
       postcard.style.transform = "translateY(40px) scale(.96)";
     }
 
-    await animateGuidedRoute(6800);
+    await animateFlight(6800);
 
     await plane.animate(
       [
@@ -796,6 +764,7 @@ if (plane && footer) {
     document.documentElement.classList.remove("flight-active");
   });
 }
+</script>
 </script>
 
 </body>
