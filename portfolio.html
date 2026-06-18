@@ -572,8 +572,7 @@ let mouseY = window.innerHeight / 2;
 let currentAngle = 0;
 let isFlying = false;
 
-// Your SVG tip points LEFT at 0deg.
-const PLANE_TIP_OFFSET = 180;
+const PLANE_TIP_OFFSET = 180; // your SVG tip faces left
 
 window.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
@@ -609,37 +608,22 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-function pointOnFlightPath(t, startRect) {
+function getPointOnPath(t, startRect) {
   const w = window.innerWidth;
   const h = window.innerHeight;
 
   const points = [
-    {
-      x: startRect.left,
-      y: startRect.top
-    },
-    {
-      x: w * 0.72,
-      y: h * 0.28
-    },
-    {
-      x: w * 0.38,
-      y: h * 0.48
-    },
-    {
-      x: w * 0.62,
-      y: h * 0.68
-    },
-    {
-      x: w * 0.5 - startRect.width / 2,
-      y: h * 0.48 - startRect.height / 2
-    }
+    { x: startRect.left, y: startRect.top },
+    { x: w * 0.72, y: h * 0.26 },
+    { x: w * 0.34, y: h * 0.48 },
+    { x: w * 0.62, y: h * 0.66 },
+    { x: w * 0.5 - startRect.width / 2, y: h * 0.48 - startRect.height / 2 }
   ];
 
   const segmentCount = points.length - 1;
-  const scaledT = t * segmentCount;
-  const index = Math.min(Math.floor(scaledT), segmentCount - 1);
-  const localT = scaledT - index;
+  const scaled = t * segmentCount;
+  const index = Math.min(Math.floor(scaled), segmentCount - 1);
+  const localT = scaled - index;
 
   const p0 = points[index];
   const p1 = points[index + 1];
@@ -650,28 +634,26 @@ function pointOnFlightPath(t, startRect) {
   };
 }
 
-function animateFlightWithScroll({ duration = 7800, targetScrollY }) {
+function animateFlightAndScroll(startRect, targetScrollY, duration = 7600) {
   const startScrollY = window.scrollY;
   const scrollDistance = targetScrollY - startScrollY;
-  const startRect = plane.getBoundingClientRect();
   const startTime = performance.now();
 
   return new Promise((resolve) => {
     function step(now) {
       const progress = Math.min((now - startTime) / duration, 1);
 
-      // Linear progress = more consistent speed
       window.scrollTo(0, startScrollY + scrollDistance * progress);
 
-      const point = pointOnFlightPath(progress, startRect);
-      const nextPoint = pointOnFlightPath(Math.min(progress + 0.006, 1), startRect);
+      const point = getPointOnPath(progress, startRect);
+      const nextPoint = getPointOnPath(Math.min(progress + 0.006, 1), startRect);
 
       const angle = getPlaneAngle(point.x, point.y, nextPoint.x, nextPoint.y);
       const wobble = Math.sin(progress * Math.PI * 8) * 1.5;
 
       plane.style.left = `${point.x}px`;
       plane.style.top = `${point.y}px`;
-      plane.style.transform = `rotate(${angle + wobble}deg) scale(1)`;
+      plane.style.transform = `rotate(${angle + wobble}deg)`;
 
       if (progress < 1) {
         requestAnimationFrame(step);
@@ -684,81 +666,79 @@ function animateFlightWithScroll({ duration = 7800, targetScrollY }) {
   });
 }
 
-plane?.addEventListener("click", async () => {
-  if (isFlying) return;
+if (plane && footer) {
+  plane.addEventListener("click", async () => {
+    if (isFlying) return;
 
-  if (reduceMotion) {
-    footer.scrollIntoView({ behavior: "auto" });
-    return;
-  }
-
-  isFlying = true;
-
-  plane.classList.add("is-flying");
-
-  const label = plane.querySelector(".plane-label");
-  if (label) label.textContent = "Taking off...";
-
-  const startRect = plane.getBoundingClientRect();
-
-  plane.style.position = "fixed";
-  plane.style.left = `${startRect.left}px`;
-  plane.style.top = `${startRect.top}px`;
-  plane.style.right = "auto";
-  plane.style.bottom = "auto";
-  plane.style.width = `${startRect.width}px`;
-  plane.style.zIndex = "999";
-  plane.style.transform = `rotate(${currentAngle}deg)`;
-
-  if (postcard) {
-    postcard.style.opacity = "0";
-    postcard.style.transform = "translateY(42px) scale(.96)";
-  }
-
-  const targetScrollY =
-    footer.getBoundingClientRect().top +
-    window.scrollY -
-    window.innerHeight * 0.08;
-
-  await animateFlightWithScroll({
-    duration: 7800,
-    targetScrollY
-  });
-
-  if (label) label.style.opacity = "0";
-
-  await plane.animate(
-    [
-      { transform: plane.style.transform, opacity: 1 },
-      { transform: "rotate(0deg) scale(1.65)", opacity: 1, offset: 0.55 },
-      { transform: "rotate(0deg) scale(2.15)", opacity: 0 }
-    ],
-    {
-      duration: 1100,
-      easing: "cubic-bezier(.16, 1, .3, 1)",
-      fill: "forwards"
+    if (reduceMotion) {
+      footer.scrollIntoView({ behavior: "auto" });
+      return;
     }
-  ).finished;
 
-  if (postcard) {
-    postcard.style.opacity = "1";
-    postcard.style.transform = "translateY(0) scale(1)";
+    isFlying = true;
+    plane.classList.add("is-flying");
 
-    postcard.animate(
+    const label = plane.querySelector(".plane-label");
+    if (label) label.textContent = "Taking off...";
+
+    const startRect = plane.getBoundingClientRect();
+
+    plane.style.position = "fixed";
+    plane.style.left = `${startRect.left}px`;
+    plane.style.top = `${startRect.top}px`;
+    plane.style.right = "auto";
+    plane.style.bottom = "auto";
+    plane.style.width = `${startRect.width}px`;
+    plane.style.zIndex = "999";
+    plane.style.transform = `rotate(${currentAngle}deg)`;
+
+    if (postcard) {
+      postcard.style.opacity = "0";
+      postcard.style.transform = "translateY(42px) scale(.96)";
+    }
+
+    const targetScrollY =
+      footer.getBoundingClientRect().top +
+      window.scrollY -
+      window.innerHeight * 0.08;
+
+    await animateFlightAndScroll(startRect, targetScrollY, 7600);
+
+    if (label) label.style.opacity = "0";
+
+    await plane.animate(
       [
-        { opacity: 0, transform: "translateY(42px) scale(.96)" },
-        { opacity: 1, transform: "translateY(0) scale(1)" }
+        { transform: plane.style.transform, opacity: 1 },
+        { transform: "rotate(0deg) scale(1.65)", opacity: 1, offset: 0.55 },
+        { transform: "rotate(0deg) scale(2.15)", opacity: 0 }
       ],
       {
-        duration: 1000,
+        duration: 1100,
         easing: "cubic-bezier(.16, 1, .3, 1)",
         fill: "forwards"
       }
-    );
-  }
+    ).finished;
 
-  plane.style.display = "none";
-});
+    if (postcard) {
+      postcard.style.opacity = "1";
+      postcard.style.transform = "translateY(0) scale(1)";
+
+      postcard.animate(
+        [
+          { opacity: 0, transform: "translateY(42px) scale(.96)" },
+          { opacity: 1, transform: "translateY(0) scale(1)" }
+        ],
+        {
+          duration: 1000,
+          easing: "cubic-bezier(.16, 1, .3, 1)",
+          fill: "forwards"
+        }
+      );
+    }
+
+    plane.style.display = "none";
+  });
+}
 </script>
 
 </body>
