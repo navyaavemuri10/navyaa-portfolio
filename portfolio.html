@@ -1,645 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navyaa Vemuri — Product Designer</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#FDFDFD;
-  --text:#222222;
-  --muted:#5F5F5F;
-  --dim:#707070;
-  --border:#D6D6D6;
-  --note-line:#E8EBF4;
-  --accent:#3B5BDB;
-  --surface:#F4F3F0;
-}
-html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
-body{overflow-x:hidden;}
-a{color:inherit;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navyaa Vemuri — Product Designer</title>
 
-/* top nav */
-.site-nav{
-  position:fixed;
-  top:28px;
-  right:64px;
-  z-index:20;
-  display:flex;
-  gap:64px;
-  font-size:14px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.02em;
-}
-.site-nav a{text-decoration:none;transition:color .2s ease;}
-.site-nav a:hover{color:var(--text);}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
 
-/* hero */
-.hero{
-  min-height:78vh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:120px 40px 80px;
-  overflow:hidden;
-}
-.hero-inner{
-  text-align:center;
-  max-width:760px;
-  position:relative;
-  z-index:2;
-  animation:fadeUp .55s ease both;
-}
-.hero h1{
-  font-size:48px;
-  line-height:1.1;
-  letter-spacing:-.045em;
-  font-weight:500;
-  margin-bottom:26px;
-}
-.hero-kicker{
-  font-size:30px;
-  line-height:1.55;
-  color:var(--muted);
-  font-weight:400;
-  letter-spacing:-.035em;
-}
-.curiosity-trigger{
-  color:var(--text);
-  cursor:help;
-  position:relative;
-  display:inline-block;
-}
-.curiosity-trigger::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:.14em;
-  height:1px;
-  background:currentColor;
-  opacity:.22;
-  transform:scaleX(.2);
-  transform-origin:left;
-  transition:transform .25s ease, opacity .25s ease;
-}
-.curiosity-trigger:hover::after,
-.curiosity-trigger:focus-visible::after{
-  transform:scaleX(1);
-  opacity:.45;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* floating notes */
-.hero-notes{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
-}
-.note{
-  position:absolute;
-  width:300px;
-  min-height:86px;
-  padding:17px 20px 14px;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(253,253,253,.96) 0,
-      rgba(253,253,253,.96) 23px,
-      var(--note-line) 24px
-    );
-  border:1px solid rgba(26,26,26,.09);
-  box-shadow:0 10px 24px rgba(26,26,26,.035);
-  color:var(--muted);
-  opacity:0;
-  filter:blur(1px);
-  transform:translateY(14px) rotate(var(--r,0deg)) scale(.98);
-  transition:
-    opacity .5s ease,
-    transform .65s cubic-bezier(.16,1,.3,1),
-    filter .5s ease;
-}
-.hero.notes-visible .note{
-  opacity:.82;
-  filter:blur(0);
-  transform:translateY(0) rotate(var(--r,0deg)) scale(1);
-}
-.note span{
-  display:block;
-  font-size:14px;
-  letter-spacing:.03em;
-  text-transform:uppercase;
-  margin-bottom:8px;
-  color:#5F5F5F;
-}
-.note p{
-  font-size:13px;
-  line-height:1.45;
-  color:#555555;
-}
-.note-1{left:4vw;top:19vh;--r:-7deg;transition-delay:.02s;}
-.note-2{right:5vw;top:23vh;--r:-6deg;transition-delay:.09s;}
-.note-3{right:8vw;top:47vh;--r:6deg;transition-delay:.17s;}
-.note-4{left:13vw;top:53vh;--r:4deg;transition-delay:.24s;}
-.note-5{left:7vw;top:39vh;--r:5deg;transition-delay:.14s;}
-.note-6{right:18vw;top:61vh;--r:-4deg;transition-delay:.28s;}
+    :root {
+      --bg: #fdfdfb;
+      --text: #2b2b2b;
+      --muted: #545454;
+      --line: #1f1f1f;
+      --paper: #f8f1e4;
+      --paper-deep: #f3eadb;
+      --blue: #1f405c;
+      --cream: #faf7ef;
+    }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* sections */
-.page-wrap{
-  width:min(1460px, calc(100vw - 128px));
-  margin:0 auto;
-}
-.section-heading{
-  display:flex;
-  align-items:center;
-  gap:28px;
-  margin-bottom:52px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.02em;
-  font-size:22px;
-  font-weight:400;
-}
-.section-heading::after{
-  content:"";
-  height:1px;
-  background:var(--border);
-  flex:1;
-}
+    body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-/* two column case study layout */
-.collection-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:86px 64px;
-  padding-bottom:120px;
-}
-.cs-card{
-  display:block;
-  text-decoration:none;
-  color:var(--text);
-  min-width:0;
-}
-.cs-meta{
-  font-size:14px;
-  line-height:1.2;
-  letter-spacing:.015em;
-  color:var(--text);
-  margin-bottom:12px;
-}
-.cs-thumb{
-  position:relative;
-  width:100%;
-  aspect-ratio:1.22/1;
-  background:var(--surface);
-  overflow:hidden;
-  margin-bottom:22px;
-}
-.cs-thumb img,.cs-thumb video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform .55s ease,opacity .3s ease;
-}
-.cs-card:hover .cs-thumb img,
-.cs-card:hover .cs-thumb video{transform:scale(1.018);}
-.cs-title{
-  font-size:28px;
-  line-height:1.15;
-  letter-spacing:-.035em;
-  font-weight:400;
-  margin-bottom:14px;
-}
-.cs-desc{
-  font-size:18px;
-  line-height:1.55;
-  color:var(--text);
-  max-width:660px;
-  margin-bottom:24px;
-}
-.cs-pills{display:flex;gap:12px;flex-wrap:wrap;}
-.cs-pill{
-  font-size:14px;
-  border:1px solid #2A2A2A;
-  border-radius:8px;
-  padding:4px 12px;
-  color:#222;
-  background:#fff;
-}
-.cs-card.coming-soon{cursor:default;}
-.cs-card.coming-soon .cs-thumb::after{
-  content:"Coming soon";
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(26,26,26,.38);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.09em;
-  font-size:13px;
-  opacity:0;
-  z-index:3;
-  transition:opacity .25s ease;
-}
-.cs-card.coming-soon:hover .cs-thumb::after{opacity:1;}
+    a {
+      color: inherit;
+    }
 
-/* play / scrapbook */
-.play-section{padding:28px 0 140px;}
-.play-intro{
-  max-width:760px;
-  margin:-24px 0 48px;
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.6;
-  letter-spacing:-.015em;
-}
-.scrapbook-grid{
-  display:grid;
-  grid-template-columns:repeat(12,minmax(0,1fr));
-  grid-auto-rows:82px;
-  gap:28px;
-  align-items:stretch;
-}
-.scrap-item{
-  position:relative;
-  display:block;
-  color:var(--text);
-  text-decoration:none;
-  overflow:hidden;
-  background:#F4F3F0;
-  border:1px solid rgba(34,34,34,.08);
-  border-radius:2px;
-  min-width:0;
-  box-shadow:0 1px 0 rgba(34,34,34,.04);
-}
-.scrap-item img,.scrap-item video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform .55s ease, filter .55s ease;
-}
-.scrap-item:hover img,.scrap-item:focus-visible img,
-.scrap-item:hover video,.scrap-item:focus-visible video{
-  transform:scale(1.025);
-  filter:saturate(.95) contrast(.98);
-}
-.scrap-meta{
-  position:absolute;
-  left:14px;
-  right:14px;
-  bottom:14px;
-  padding:14px 14px 13px;
-  background:rgba(253,253,253,.94);
-  border:1px solid rgba(34,34,34,.10);
-  box-shadow:0 10px 24px rgba(34,34,34,.08);
-  opacity:0;
-  transform:translateY(8px);
-  transition:opacity .25s ease, transform .25s ease;
-  z-index:2;
-}
-.scrap-item:hover .scrap-meta,
-.scrap-item:focus-visible .scrap-meta{
-  opacity:1;
-  transform:translateY(0);
-}
-.scrap-kicker{
-  display:block;
-  margin-bottom:5px;
-  font-size:11px;
-  line-height:1.2;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:#555555;
-  font-weight:500;
-}
-.scrap-title{
-  margin:0 0 5px;
-  font-size:17px;
-  line-height:1.25;
-  letter-spacing:-.02em;
-  font-weight:500;
-  color:#222222;
-}
-.scrap-caption{
-  margin:0;
-  font-size:13px;
-  line-height:1.4;
-  color:#555555;
-}
-.scrap-wide{grid-column:span 4;grid-row:span 4;}
-.scrap-tall{grid-column:span 3;grid-row:span 6;}
-.scrap-large{grid-column:span 4;grid-row:span 6;}
-.scrap-small{grid-column:span 3;grid-row:span 3;}
-.scrap-medium{grid-column:span 4;grid-row:span 5;}
-.scrap-photo{grid-column:span 3;grid-row:span 4;}
-.scrap-item:focus-visible{
-  outline:2px solid var(--text);
-  outline-offset:4px;
-}
-.scrap-fallback{
-  height:100%;
-  display:flex;
-  align-items:flex-end;
-  padding:18px;
-  color:#555;
-  background:linear-gradient(135deg,#F5F1EA,#E8EEF7);
-  font-size:13px;
-  line-height:1.4;
-}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-/* footer */
-.site-footer{
-  width:100%;
-  margin:0;
-  background:#F2DCEB;
-  padding:72px 0;
-}
-.footer-inner{
-  width:min(1460px, calc(100vw - 128px));
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto auto;
-  align-items:flex-start;
-  gap:72px;
-}
-.footer-left h2{
-  font-size:32px;
-  font-weight:500;
-  line-height:1.2;
-  color:#333333;
-  letter-spacing:-0.025em;
-  margin-bottom:18px;
-}
-.footer-left p{
-  font-size:18px;
-  line-height:1.5;
-  color:#6F3D5F;
-  font-weight:500;
-  letter-spacing:-0.01em;
-}
-.footer-right{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  min-width:150px;
-}
-.footer-heading{
-  font-size:15px;
-  font-weight:500;
-  color:#333333;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-  margin-bottom:2px;
-}
-.footer-right a{
-  font-size:18px;
-  line-height:1.35;
-  color:#6F3D5F;
-  text-decoration:none;
-  transition:color .2s ease, transform .2s ease;
-}
-.footer-right a:hover,
-.footer-right a:focus-visible{
-  color:#2F2F2F;
-  transform:translateX(2px);
-  outline:none;
-}
-.footer-stamp{
-  width:110px;
-  display:block;
-  transform:rotate(.5deg);
-}
-.footer-stamp img{
-  width:100%;
-  display:block;
-}
+    /* NAV */
 
-/* mobile */
-.mobile-topbar{display:none;}
-.mobile-menu{display:none;}
+    .site-nav {
+      position: fixed;
+      top: 34px;
+      right: clamp(24px, 5vw, 90px);
+      z-index: 50;
+      display: flex;
+      gap: clamp(28px, 5vw, 76px);
+      font-size: clamp(14px, 1.2vw, 18px);
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+    }
 
-@media(max-width:900px){
-  .site-nav{
-    position:static;
-    justify-content:center;
-    gap:28px;
-    padding:22px 20px 0;
-    font-size:14px;
-  }
-  .hero{
-    min-height:62vh;
-    padding:78px 24px 70px;
-  }
-  .hero h1{font-size:34px;margin-bottom:18px;}
-  .hero-kicker{font-size:21px;line-height:1.5;}
-  .hero-notes{display:none;}
-  .page-wrap{width:calc(100vw - 40px);}
-  .section-heading{font-size:16px;margin-bottom:28px;gap:18px;}
-  .collection-grid{grid-template-columns:1fr;gap:54px;padding-bottom:80px;}
-  .cs-title{font-size:23px;}
-  .cs-desc{font-size:16px;}
-  .site-footer{width:100%;padding:48px 0;margin:0;}
-  .footer-inner{width:calc(100vw - 40px);grid-template-columns:1fr;gap:32px;}
-  .footer-left h2{font-size:26px;}
-  .footer-left p{font-size:16px;}
-  .footer-stamp{width:88px;}
-}
+    .site-nav a {
+      text-decoration: none;
+      color: #111;
+      transition: opacity 0.2s ease;
+    }
 
+    .site-nav a:hover {
+      opacity: 0.55;
+    }
 
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;}
-  .hero-notes{display:none;}
-}
-</style>
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 120px clamp(28px, 6vw, 128px) 90px;
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      max-width: 980px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1,
+    .hero-subtitle {
+      font-family: "Goudy Bookletter 1911", serif;
+      font-weight: 400;
+      color: #3b3b3b;
+      letter-spacing: -0.025em;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 5vw, 86px);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(40px, 4.7vw, 78px);
+      line-height: 1.22;
+      max-width: 980px;
+    }
+
+    .hero-meta {
+      margin-top: clamp(44px, 6vh, 72px);
+      font-size: clamp(21px, 2vw, 34px);
+      letter-spacing: -0.05em;
+      color: #333;
+    }
+
+    /* PAPER PLANE */
+
+    .paper-plane-button {
+      position: absolute;
+      right: clamp(44px, 8vw, 150px);
+      bottom: clamp(110px, 20vh, 210px);
+      width: clamp(120px, 11vw, 190px);
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      z-index: 10;
+      transform-origin: center;
+    }
+
+    .plane-img {
+      width: 100%;
+      filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.12));
+      animation: floatPlane 5s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .plane-label {
+      position: absolute;
+      left: 50%;
+      top: -34px;
+      transform: translateX(-50%) translateY(8px);
+      white-space: nowrap;
+      font-family: "Goudy Bookletter 1911", serif;
+      font-size: clamp(16px, 1.3vw, 22px);
+      color: #333;
+      opacity: 0;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+      pointer-events: none;
+    }
+
+    .paper-plane-button:hover .plane-label,
+    .paper-plane-button:focus-visible .plane-label {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .paper-plane-button:hover .plane-img {
+      animation-play-state: paused;
+    }
+
+    .paper-plane-button:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 8px;
+      border-radius: 999px;
+    }
+
+    @keyframes floatPlane {
+      0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+      50% {
+        transform: translateY(-7px) rotate(1.5deg);
+      }
+    }
+
+    .flight-path {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    .flight-path path {
+      fill: none;
+      stroke: var(--blue);
+      stroke-width: 2;
+      stroke-dasharray: 5 13;
+      stroke-linecap: round;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* COLLECTION */
+
+    .page-wrap {
+      width: min(1420px, calc(100vw - 96px));
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      font-size: clamp(22px, 2vw, 34px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      margin-bottom: 52px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 90px 64px;
+      padding-bottom: 140px;
+    }
+
+    .project-card {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .project-meta {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .project-thumb {
+      aspect-ratio: 1.22 / 1;
+      background: #f0efeb;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s ease;
+    }
+
+    .project-card:hover .project-thumb img {
+      transform: scale(1.025);
+    }
+
+    .project-title {
+      font-size: clamp(25px, 2.3vw, 34px);
+      font-weight: 400;
+      letter-spacing: -0.045em;
+      line-height: 1.12;
+      margin-bottom: 14px;
+    }
+
+    .project-desc {
+      font-size: clamp(16px, 1.3vw, 19px);
+      line-height: 1.55;
+      max-width: 640px;
+      color: #333;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .project-tags span {
+      border: 1px solid #222;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 13px;
+    }
+
+    /* POSTCARD FOOTER */
+
+    .postcard-footer {
+      min-height: 100vh;
+      padding: clamp(28px, 5vw, 70px);
+      background: #efe7d6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .postcard {
+      width: min(1280px, 100%);
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: clamp(36px, 5vw, 76px);
+      padding: clamp(36px, 5vw, 64px);
+      position: relative;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(0,0,0,0.045), transparent 18%),
+        radial-gradient(circle at 86% 72%, rgba(0,0,0,0.035), transparent 20%),
+        linear-gradient(90deg, rgba(255,255,255,0.24), rgba(255,255,255,0)),
+        var(--paper);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
+    }
+
+    .postcard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 6px,
+          rgba(0,0,0,0.04) 7px
+        );
+      mix-blend-mode: multiply;
+    }
+
+    .postcard::after {
+      content: "";
+      position: absolute;
+      top: 8%;
+      bottom: 8%;
+      left: 55%;
+      width: 1.5px;
+      background: var(--line);
+      opacity: 0.9;
+    }
+
+    .postcard-message {
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      font-family: "Goudy Bookletter 1911", serif;
+      font-size: clamp(19px, 1.7vw, 27px);
+      line-height: 1.72;
+      color: #111;
+    }
+
+    .postcard-message p {
+      margin-bottom: 20px;
+    }
+
+    .postcard-id {
+      margin-top: 36px;
+      font-family: "DM Sans", sans-serif;
+      font-size: clamp(13px, 1vw, 16px);
+      letter-spacing: 0.03em;
+    }
+
+    .postcard-address {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 24px;
+    }
+
+    .postcard-stamp {
+      width: clamp(120px, 13vw, 190px);
+      margin-bottom: clamp(52px, 7vw, 86px);
+    }
+
+    .postcard-links {
+      width: min(360px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .postcard-links a {
+      font-family: "Goudy Bookletter 1911", serif;
+      font-size: clamp(23px, 2.2vw, 34px);
+      font-style: italic;
+      text-decoration: none;
+      color: #111;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.68);
+      padding: 0 8px 8px;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .postcard-links a:hover {
+      color: var(--blue);
+      transform: translateX(5px);
+    }
+
+    /* TABLET */
+
+    @media (max-width: 1000px) {
+      .hero {
+        min-height: 92vh;
+        align-items: flex-start;
+        padding-top: 180px;
+      }
+
+      .paper-plane-button {
+        right: 8vw;
+        bottom: 11vh;
+        width: 130px;
+      }
+
+      .collection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .postcard {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .postcard::after {
+        display: none;
+      }
+
+      .postcard-address {
+        align-items: flex-start;
+        padding-left: 0;
+        border-top: 1px solid rgba(0,0,0,0.25);
+        padding-top: 36px;
+      }
+
+      .postcard-stamp {
+        margin-bottom: 36px;
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 640px) {
+      .site-nav {
+        top: 22px;
+        right: 24px;
+        gap: 24px;
+        font-size: 13px;
+      }
+
+      .hero {
+        min-height: 100vh;
+        padding: 130px 24px 80px;
+        align-items: flex-start;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+      }
+
+      .hero-subtitle {
+        font-size: 38px;
+        line-height: 1.18;
+      }
+
+      .hero-meta {
+        font-size: 20px;
+        margin-top: 38px;
+      }
+
+      .paper-plane-button {
+        width: 105px;
+        right: 26px;
+        bottom: 64px;
+      }
+
+      .plane-label {
+        font-size: 15px;
+        top: -28px;
+      }
+
+      .page-wrap {
+        width: calc(100vw - 40px);
+      }
+
+      .section-heading {
+        margin-bottom: 34px;
+      }
+
+      .collection-grid {
+        gap: 58px;
+        padding-bottom: 90px;
+      }
+
+      .project-tags span {
+        font-size: 12px;
+      }
+
+      .postcard-footer {
+        min-height: auto;
+        padding: 28px 16px;
+      }
+
+      .postcard {
+        padding: 32px 24px;
+        box-shadow: none;
+      }
+
+      .postcard-message {
+        font-size: 20px;
+        line-height: 1.6;
+      }
+
+      .postcard-message p {
+        margin-bottom: 18px;
+      }
+
+      .postcard-links {
+        gap: 18px;
+      }
+
+      .postcard-links a {
+        font-size: 26px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      .flight-path {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body id="top">
 
-<nav class="site-nav" aria-label="Primary navigation">
-  <a href="#collection">Collection</a>
-  <a href="about.html">About</a>
-</nav>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a href="#collection">Collection</a>
+    <a href="about.html">About</a>
+  </nav>
 
-<header class="hero" id="hero">
-  <div class="hero-notes" aria-hidden="true">
-    <div class="note note-1">
-      <span>FIELD NOTE #017</span>
-      <p>Trust is earned one interaction at a time.</p>
-    </div>
-    <div class="note note-2">
-      <span>QUESTION #018</span>
-      <p>What makes someone trust an AI result?</p>
-    </div>
-    <div class="note note-3">
-      <span>FIELD NOTE #021</span>
-      <p>The best interfaces make difficult decisions feel obvious.</p>
-    </div>
-    <div class="note note-4">
-      <span>REMINDER #004</span>
-      <p>Try that matcha place down the street that just opened.</p>
-    </div>
-    <div class="note note-5">
-      <span>QUESTION #024</span>
-      <p>What makes information feel credible?</p>
-    </div>
-    <div class="note note-6">
-      <span>OBSERVATION #012</span>
-      <p>Every project starts with a question worth chasing.</p>
-    </div>
-  </div>
+  <header class="hero">
+    <div class="hero-copy">
+      <h1>Hi! I’m Navyaa Vemuri</h1>
 
-  <div class="hero-inner">
-    <h1>I’m Navyaa Vemuri</h1>
-    <p class="hero-kicker">
-      A designer &amp; collector.<br>
-      Always <span class="curiosity-trigger" tabindex="0">curious</span> about how people discover<br>
-      information, build trust, and make decisions.
-    </p>
-  </div>
-</header>
+      <p class="hero-subtitle">
+        a product designer focused on trust,<br>
+        discovery, and decision-making.
+      </p>
 
-<main class="page-wrap">
-  <section id="collection" aria-labelledby="collection-title">
-    <h2 class="section-heading" id="collection-title">The Collection</h2>
+      <p class="hero-meta">
+        Previously @ Tesla, Splunk, CNN
+      </p>
+    </div>
 
-    <div class="collection-grid">
-      <a class="cs-card" href="case_study_cisco.html">
-        <div class="cs-meta">001 · Splunk · Summer 2025</div>
-        <div class="cs-thumb" style="background:#8FAEF8;">
-          <img src="cisco-thumb.png" alt="Cisco Splunk" onerror="this.style.opacity=0">
-          <video src="cisco.mp4" loop muted playsinline preload="auto"></video>
-        </div>
-        <div class="cs-title">Heuristics &amp; AI &amp; Growth Design at Splunk</div>
-        <div class="cs-desc">Audited 8+ product domains, innovated an AI code snippet feature, and shipped a growth-focused demo center.</div>
-        <div class="cs-pills"><span class="cs-pill">Enterprise UX</span><span class="cs-pill">Systems Design</span><span class="cs-pill">AI Interaction</span></div>
-      </a>
+    <button class="paper-plane-button" id="paperPlane" aria-label="Follow the flight">
+      <span class="plane-label">Follow the flight →</span>
+      <img src="paper-plane.png" alt="" class="plane-img">
+    </button>
 
-      <a class="cs-card" href="case_study_chw.html">
-        <div class="cs-meta">002 · Cal Poly · 2023 to 2025</div>
-        <div class="cs-thumb" style="background:#EDF3EE;">
-          <img src="chw-thumb.png" alt="Cal Poly CHW" onerror="this.style.opacity=0">
-          <video src="chw.mp4" loop muted playsinline preload="auto"></video>
-        </div>
-        <div class="cs-title">Cal Poly Health &amp; Wellbeing Portal Redesign</div>
-        <div class="cs-desc">A solo 2-year redesign — WCAG-compliant, CMS-built, and serving 23,000 students.</div>
-        <div class="cs-pills"><span class="cs-pill">Healthcare UX</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">Accessibility</span></div>
-      </a>
+    <svg class="flight-path" id="flightPath" aria-hidden="true">
+      <path id="flightLine" d="" />
+    </svg>
+  </header>
 
-      <div class="cs-card coming-soon" aria-disabled="true">
-        <div class="cs-meta">003 · Senior Project · 2026</div>
-        <div class="cs-thumb" style="background:#F0EDED;">
-          <img src="research-thumb.png" alt="Research" onerror="this.style.opacity=0">
-          <video src="research.mp4" loop muted playsinline preload="auto"></video>
-        </div>
-        <div class="cs-title">When AI Becomes a Trusted Teammate</div>
-        <div class="cs-desc">How I applied UX thinking to one of AI’s biggest challenges: helping people trust autonomous systems appropriately.</div>
-        <div class="cs-pills"><span class="cs-pill">Agentic AI</span><span class="cs-pill">UX Research</span><span class="cs-pill">Trust Systems</span></div>
+  <main class="page-wrap">
+    <section id="collection" aria-labelledby="collection-title">
+      <h2 class="section-heading" id="collection-title">Collection</h2>
+
+      <div class="collection-grid">
+
+        <a class="project-card" href="case_study_splunk.html">
+          <div class="project-meta">001 · Splunk · Summer 2025</div>
+          <div class="project-thumb">
+            <img src="splunk-thumb.png" alt="Splunk project preview">
+          </div>
+          <h3 class="project-title">Heuristics, AI, and Growth Design at Splunk</h3>
+          <p class="project-desc">
+            Audited enterprise product flows, explored AI interaction patterns, and designed growth-focused experiences.
+          </p>
+          <div class="project-tags">
+            <span>Enterprise UX</span>
+            <span>AI Interaction</span>
+            <span>Growth</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="case_study_chw.html">
+          <div class="project-meta">002 · Cal Poly · 2023–2025</div>
+          <div class="project-thumb">
+            <img src="chw-thumb.png" alt="Cal Poly Health and Wellbeing project preview">
+          </div>
+          <h3 class="project-title">Cal Poly Health &amp; Wellbeing Portal Redesign</h3>
+          <p class="project-desc">
+            Redesigned healthcare information flows to help students find, understand, and act on care resources.
+          </p>
+          <div class="project-tags">
+            <span>Healthcare UX</span>
+            <span>Information Architecture</span>
+            <span>Accessibility</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="case_study_ai_trust.html">
+          <div class="project-meta">003 · Research · 2026</div>
+          <div class="project-thumb">
+            <img src="research-thumb.png" alt="AI trust research preview">
+          </div>
+          <h3 class="project-title">When AI Becomes a Trusted Teammate</h3>
+          <p class="project-desc">
+            Researched how people build appropriate trust with autonomous systems and AI-assisted experiences.
+          </p>
+          <div class="project-tags">
+            <span>AI Trust</span>
+            <span>UX Research</span>
+            <span>Human-AI Teaming</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="case_study_tesla.html">
+          <div class="project-meta">004 · Tesla · 2025</div>
+          <div class="project-thumb">
+            <img src="tesla-thumb.png" alt="Tesla project preview">
+          </div>
+          <h3 class="project-title">A Commute Experience Tesla Staff Could Rely On</h3>
+          <p class="project-desc">
+            Brought shuttle tracking, parking, and trip planning into a more connected internal mobility experience.
+          </p>
+          <div class="project-tags">
+            <span>Mobile UX</span>
+            <span>Systems</span>
+            <span>Product Design</span>
+          </div>
+        </a>
+
       </div>
+    </section>
+  </main>
 
-      <div class="cs-card coming-soon" aria-disabled="true">
-        <div class="cs-meta">004 · Tesla · 2025</div>
-        <div class="cs-thumb" style="background:#F0EDED;">
-          <img src="tesla-thumb.png" alt="Tesla" onerror="this.style.opacity=0">
-          <video src="tesla.mp4" loop muted playsinline preload="auto"></video>
-        </div>
-        <div class="cs-title">A Commute Experience Tesla Staff Could Rely On</div>
-        <div class="cs-desc">Brought shuttle tracking, parking, and trip planning into one system, replacing a disconnected third-party experience.</div>
-        <div class="cs-pills"><span class="cs-pill">Mobile UX</span><span class="cs-pill">Product Design</span><span class="cs-pill">Systems</span></div>
-      </div>
+  <footer class="postcard-footer" id="footer">
+    <div class="postcard">
 
-      <a class="cs-card" href="case_study_cnn.html">
-        <div class="cs-meta">005 · CNN · Summer 2024</div>
-        <div class="cs-thumb" style="background:#F5EDED;">
-          <img src="cnn-thumb.png" alt="CNN" onerror="this.style.opacity=0">
-          <video src="cnn.mp4" loop muted playsinline preload="auto"></video>
-        </div>
-        <div class="cs-title">Consistent, Mobile-First News Experiences at Scale</div>
-        <div class="cs-desc">Built content design guidance and shipped election coverage experiences for high-traffic moments.</div>
-        <div class="cs-pills"><span class="cs-pill">Content Design</span><span class="cs-pill">Information Architecture</span><span class="cs-pill">Design Strategy</span></div>
-      </a>
+      <section class="postcard-message">
+        <p><em>Greetings!</em></p>
 
-      <a class="cs-card" href="case_study_navi.html">
-        <div class="cs-meta">006 · UX Hackathon · 1st Place</div>
-        <div class="cs-thumb" style="background:#EDEEF5;">
-          <img src="navi-thumb.png" alt="Navi" onerror="this.style.opacity=0">
-          <video src="navi.mp4" loop muted playsinline preload="auto"></video>
-        </div>
-        <div class="cs-title">A Real-Time Safety System for Everyday Travel</div>
-        <div class="cs-desc">0 to 1 mobile app with AI companion, safe route navigation, and location sharing. Research to prototype in 24 hours.</div>
-        <div class="cs-pills"><span class="cs-pill">Product Design</span><span class="cs-pill">AI Interaction</span><span class="cs-pill">UX Research</span></div>
-      </a>
+        <p>Looks like you’ve made it to the bottom of the page!</p>
+
+        <p>
+          This portfolio has been through more redesigns than I’d like to admit,
+          but somewhere between looking through countless inspiration sites,
+          late-night iterations, and a few existential design crises, I finally
+          found a style that feels like me.
+        </p>
+
+        <p>Thanks for taking the time to explore my work.</p>
+
+        <p>Built with Figma, Claude, curiosity, and my brain mostly.</p>
+
+        <p>— Navyaa</p>
+
+        <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
+      </section>
+
+      <section class="postcard-address">
+        <img src="stamp.png" alt="Navyaa hydrangea stamp" class="postcard-stamp">
+
+        <nav class="postcard-links" aria-label="Footer links">
+          <a href="#top">Navyaa Vemuri</a>
+          <a href="mailto:navyaa.vemuri@gmail.com">Send a note</a>
+          <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="resume.pdf" target="_blank">Resume</a>
+        </nav>
+      </section>
+
     </div>
-  </section>
+  </footer>
 
-</main>
+  <script>
+    const plane = document.getElementById("paperPlane");
+    const footer = document.getElementById("footer");
+    const flightLine = document.getElementById("flightLine");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-<footer class="site-footer" aria-label="Contact footer">
-  <div class="footer-inner">
-    <div class="footer-left">
-      <h2>The collection is still growing.</h2>
-      <p>Collected so far: Tesla · Splunk · CNN · Cal Poly</p>
-    </div>
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentRotate = 0;
+    let isFlying = false;
 
-    <div class="footer-right">
-      <div class="footer-heading">Contact Me</div>
-      <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:navyaa.vemuri@gmail.com">Mail</a>
-    </div>
-
-    <a href="#top" class="footer-stamp" aria-label="Back to top">
-      <img src="stamp.png" alt="Navyaa hydrangea stamp" onerror="this.style.display='none'">
-    </a>
-  </div>
-</footer>
-
-<script>
-const hero = document.getElementById('hero');
-const trigger = document.querySelector('.curiosity-trigger');
-
-function showNotes(){ hero.classList.add('notes-visible'); }
-function hideNotes(){ hero.classList.remove('notes-visible'); }
-
-if(trigger){
-  trigger.addEventListener('mouseenter', showNotes);
-  trigger.addEventListener('mouseleave', hideNotes);
-  trigger.addEventListener('focus', showNotes);
-  trigger.addEventListener('blur', hideNotes);
-}
-
-// Video hover / scroll behavior for project thumbnails
-const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(motionOK){
-  document.querySelectorAll('.cs-thumb').forEach(thumb=>{
-    const vid = thumb.querySelector('video');
-    const img = thumb.querySelector('img');
-    if(!vid) return;
-    vid.style.opacity = '0';
-    thumb.addEventListener('mouseenter', ()=>{
-      vid.currentTime = 0;
-      vid.play().catch(()=>{});
-      vid.style.opacity = '1';
-      if(img) img.style.opacity = '0';
+    window.addEventListener("mousemove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
     });
-    thumb.addEventListener('mouseleave', ()=>{
-      vid.pause();
-      vid.currentTime = 0;
-      vid.style.opacity = '0';
-      if(img) img.style.opacity = '1';
+
+    function animatePlaneTilt() {
+      if (!plane || isFlying || reduceMotion) return;
+
+      const rect = plane.getBoundingClientRect();
+      const planeX = rect.left + rect.width / 2;
+      const planeY = rect.top + rect.height / 2;
+
+      const angle = Math.atan2(mouseY - planeY, mouseX - planeX) * 180 / Math.PI;
+      const targetRotate = Math.max(-15, Math.min(15, angle / 6));
+
+      currentRotate += (targetRotate - currentRotate) * 0.08;
+      plane.style.transform = `rotate(${currentRotate}deg)`;
+
+      requestAnimationFrame(animatePlaneTilt);
+    }
+
+    animatePlaneTilt();
+
+    plane?.addEventListener("click", () => {
+      if (isFlying) return;
+
+      if (reduceMotion) {
+        footer.scrollIntoView({ behavior: "auto" });
+        return;
+      }
+
+      isFlying = true;
+
+      const rect = plane.getBoundingClientRect();
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+
+      flightLine.setAttribute(
+        "d",
+        `M ${startX} ${startY}
+         C ${window.innerWidth * 0.78} ${window.innerHeight * 0.32},
+           ${window.innerWidth * 0.32} ${window.innerHeight * 0.72},
+           ${window.innerWidth * 0.58} ${window.innerHeight * 0.9}`
+      );
+
+      flightLine.style.opacity = "1";
+
+      plane.animate(
+        [
+          { transform: `translate(0, 0) rotate(${currentRotate}deg)` },
+          { transform: `translate(-18px, -10px) rotate(-8deg)`, offset: 0.12 },
+          { transform: `translate(-32vw, 42vh) rotate(16deg)`, offset: 0.58 },
+          { transform: `translate(-24vw, 76vh) rotate(3deg)` }
+        ],
+        {
+          duration: 2600,
+          easing: "cubic-bezier(.2,.8,.2,1)",
+          fill: "forwards"
+        }
+      );
+
+      footer.scrollIntoView({ behavior: "smooth" });
+
+      setTimeout(() => {
+        flightLine.style.opacity = "0";
+      }, 2800);
     });
-  });
-}
-</script>
+  </script>
 </body>
 </html>
