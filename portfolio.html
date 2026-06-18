@@ -261,6 +261,13 @@ img,video{max-width:100%;display:block;}
   object-fit:cover;
   transition:transform .55s ease,opacity .3s ease;
 }
+.cs-thumb video{
+  opacity:0;
+}
+.cs-card:hover .cs-thumb video,
+.cs-card:focus-within .cs-thumb video{
+  opacity:1;
+}
 .cs-card:hover .cs-thumb img,
 .cs-card:hover .cs-thumb video{transform:scale(1.018);}
 .cs-title{
@@ -655,7 +662,67 @@ function pointPlaneToCursor() {
 
 pointPlaneToCursor();
 
-function animateFlight(duration = 6800) {
+/* ---------- Multi-waypoint flight path ---------- */
+
+// Catmull-Rom spline through a list of {x,y} points.
+// Returns an interpolated {x,y} for global progress t in [0,1].
+function catmullRomPoint(points, t) {
+  const n = points.length - 1;
+  if (n < 1) return points[0];
+
+  let segment = Math.floor(t * n);
+  if (segment >= n) segment = n - 1;
+  const localT = t * n - segment;
+
+  const p0 = points[Math.max(segment - 1, 0)];
+  const p1 = points[segment];
+  const p2 = points[Math.min(segment + 1, n)];
+  const p3 = points[Math.min(segment + 2, n)];
+
+  const t2 = localT * localT;
+  const t3 = t2 * localT;
+
+  const x = 0.5 * (
+    (2 * p1.x) +
+    (-p0.x + p2.x) * localT +
+    (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+    (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3
+  );
+
+  const y = 0.5 * (
+    (2 * p1.y) +
+    (-p0.y + p2.y) * localT +
+    (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+    (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3
+  );
+
+  return { x, y };
+}
+
+// The winding shape of the path, as fractions of the viewport. The real
+// pixel start (the button's position) and end (the postcard reveal spot)
+// get spliced onto the front/back of this list at click-time.
+const PATH_SHAPE = [
+  { x: 0.62, y: 0.32 },
+  { x: 0.40, y: 0.40 },
+  { x: 0.46, y: 0.52 },
+  { x: 0.74, y: 0.58 },
+  { x: 0.80, y: 0.70 },
+  { x: 0.52, y: 0.78 }
+];
+
+function buildFlightPath(startPx, endPx) {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  const points = [startPx];
+  PATH_SHAPE.forEach((p) => points.push({ x: p.x * w, y: p.y * h }));
+  points.push(endPx);
+
+  return points;
+}
+
+function animateFlight(duration = 7400) {
   const startRect = plane.getBoundingClientRect();
 
   const startScroll = window.scrollY;
@@ -664,13 +731,15 @@ function animateFlight(duration = 6800) {
     window.scrollY -
     window.innerHeight * 0.08;
 
-  const startX = startRect.left;
-  const startY = startRect.top;
+  const startPoint = { x: startRect.left, y: startRect.top };
+  const endPoint = {
+    x: window.innerWidth * 0.55 - startRect.width / 2,
+    y: window.innerHeight * 0.78 - startRect.height / 2
+  };
 
-  const endX = window.innerWidth * 0.58 - startRect.width / 2;
-  const endY = window.innerHeight * 0.68 - startRect.height / 2;
-
+  const path = buildFlightPath(startPoint, endPoint);
   const startTime = performance.now();
+  const TANGENT_EPS = 0.01;
 
   return new Promise((resolve) => {
     function frame(now) {
@@ -678,21 +747,21 @@ function animateFlight(duration = 6800) {
       const t = easeInOut(raw);
 
       window.scrollTo({
-        top: lerp(startScroll, endScroll, raw),
+        top: lerp(startScroll, endScroll, t),
         left: 0,
         behavior: "auto"
       });
 
-      const x =
-        lerp(startX, endX, t) +
-        Math.sin(t * Math.PI * 2) * 55;
+      const pos = catmullRomPoint(path, t);
 
-      const y = lerp(startY, endY, t);
-
-      const bank = Math.sin(t * Math.PI * 2) * 5;
+      // Sample slightly ahead on the curve to get a heading, so the
+      // plane actually banks into each turn instead of just wobbling.
+      const aheadT = Math.min(t + TANGENT_EPS, 1);
+      const ahead = catmullRomPoint(path, aheadT);
+      const heading = getPlaneAngle(pos.x, pos.y, ahead.x, ahead.y);
 
       plane.style.transform =
-        `translate3d(${x - startX}px, ${y - startY}px, 0) rotate(${bank}deg)`;
+        `translate3d(${pos.x - startPoint.x}px, ${pos.y - startPoint.y}px, 0) rotate(${heading}deg)`;
 
       if (raw < 1) {
         requestAnimationFrame(frame);
@@ -741,7 +810,7 @@ if (plane && footer) {
       postcard.style.transform = "translateY(40px) scale(.96)";
     }
 
-    await animateFlight(6800);
+    await animateFlight();
 
     await plane.animate(
       [
@@ -777,6 +846,32 @@ if (plane && footer) {
     document.documentElement.classList.remove("flight-active");
   });
 }
+
+/* ---------- Hover-to-play case study videos ---------- */
+
+document.querySelectorAll(".cs-card").forEach((card) => {
+  const video = card.querySelector(".cs-thumb video");
+  if (!video) return;
+
+  video.pause();
+  video.currentTime = 0;
+
+  const play = () => {
+    video.currentTime = 0;
+    const playPromise = video.play();
+    if (playPromise !== undefined) playPromise.catch(() => {});
+  };
+
+  const stop = () => {
+    video.pause();
+    video.currentTime = 0;
+  };
+
+  card.addEventListener("mouseenter", play);
+  card.addEventListener("mouseleave", stop);
+  card.addEventListener("focus", play);
+  card.addEventListener("blur", stop);
+});
 </script>
 
 </body>
