@@ -6,6 +6,7 @@
 <title>About — Navyaa Vemuri</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -24,29 +25,204 @@ html,body{
 }
 a{color:inherit;}
 
-/* TOP NAV */
-.top-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:20;
-  display:flex;
-  justify-content:flex-end;
-  gap:48px;
-  padding:32px 64px;
-  background:linear-gradient(to bottom, rgba(253,253,253,.95), rgba(253,253,253,0));
+/* NAV */
+
+.site-nav {
+  position: fixed;
+  top: 28px;
+  right: clamp(24px, 5vw, 80px);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+
+  padding: 12px 22px;
+  background: rgba(248, 241, 228, 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
 }
-.top-nav a{
-  font-size:14px;
-  color:var(--dim);
-  text-decoration:none;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-  transition:color .2s ease;
+
+.site-nav a {
+  display: block;
+  text-decoration: none;
+  color: #111;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
 }
-.top-nav a:hover,
-.top-nav a.active{color:var(--text);}
+
+.site-nav a:hover {
+  opacity: 0.55;
+}
+
+/* POSTCARD FOOTER */
+
+.postcard-footer {
+  padding: 56px clamp(32px, 5vw, 70px);
+  background: #efe7d6;
+  display: flex;
+  justify-content: center;
+}
+
+.postcard {
+  width: min(1200px, 100%);
+  min-height: 520px;
+
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+
+  padding: 48px 60px;
+  position: relative;
+
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0,0,0,.04), transparent 18%),
+    radial-gradient(circle at 86% 72%, rgba(0,0,0,.03), transparent 20%),
+    #f8f1e4;
+
+  box-shadow: 0 24px 54px rgba(0,0,0,.07);
+}
+
+.postcard::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: 55%;
+  width: 1.5px;
+  background: #1f1f1f;
+  opacity: 0.85;
+}
+
+.postcard-message {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+
+  font-family: "Goudy Bookletter 1911", serif;
+  font-size: 22px;
+  line-height: 1.72;
+  color: #111;
+}
+
+.postcard-message p {
+  margin-bottom: 18px;
+}
+
+.postcard-id {
+  margin-top: 30px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+.postcard-address {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-left: 24px;
+}
+
+.postcard-stamp {
+  width: 165px;
+  margin-bottom: 58px;
+}
+
+.postcard-links {
+  width: min(340px, 100%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.postcard-links a {
+  font-family: "Goudy Bookletter 1911", serif;
+  font-size: 28px;
+  font-style: italic;
+  text-decoration: none;
+  color: #111;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.68);
+  padding: 0 8px 7px;
+
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.postcard-links a:hover {
+  color: #1f405c;
+  transform: translateX(5px);
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .postcard {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 36px;
+  }
+
+  .postcard::after {
+    display: none;
+  }
+
+  .postcard-address {
+    align-items: flex-start;
+    padding-left: 0;
+    border-top: 1px solid rgba(0,0,0,.25);
+    padding-top: 34px;
+  }
+
+  .postcard-stamp {
+    margin-bottom: 34px;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    top: 18px;
+    right: 18px;
+    gap: 20px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .postcard-footer {
+    padding: 28px 16px;
+  }
+
+  .postcard {
+    padding: 32px 24px;
+    box-shadow: none;
+  }
+
+  .postcard-message {
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  .postcard-links a {
+    font-size: 25px;
+  }
+
+  .postcard-stamp {
+    width: 120px;
+  }
+}
 
 /* PAGE */
 .page{
@@ -419,9 +595,9 @@ a{color:inherit;}
 </style>
 </head>
 <body>
-<nav class="top-nav" aria-label="Primary navigation">
-  <a href="portfolio.html">Collection</a>
-  <a href="about.html" class="active">About</a>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a href="index.html#collection">Collection</a>
+  <a href="about.html">About</a>
 </nav>
 
 <div class="mobile-topbar">
@@ -557,27 +733,41 @@ a{color:inherit;}
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-copy">
-      <div class="footer-title">The collection is still growing.</div>
-      <div class="footer-meta">Collected so far: Tesla · Splunk · CNN · Cal Poly</div>
-    </div>
+<footer class="postcard-footer" id="footer">
+  <div class="postcard">
+    <section class="postcard-message">
+      <p><em>Greetings!</em></p>
 
-    <div class="footer-contact">
-      <div class="footer-contact-title">Contact me</div>
-      <div class="footer-links">
+      <p>Looks like you’ve made it to the bottom of the page!</p>
+
+      <p>
+        This portfolio has been through more redesigns than I’d like to admit,
+        but somewhere between looking through countless inspiration sites,
+        late-night iterations, and a few existential design crises, I finally
+        found a style that feels like me.
+      </p>
+
+      <p>Thanks for taking the time to explore my work.</p>
+
+      <p>Built with Figma, Claude, curiosity, and my brain mostly.</p>
+
+      <p>— Navyaa</p>
+
+      <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
+    </section>
+
+    <section class="postcard-address">
+      <img src="stamp.png" alt="Navyaa hydrangea stamp" class="postcard-stamp">
+
+      <nav class="postcard-links" aria-label="Footer links">
+        <a href="index.html">Navyaa Vemuri</a>
+        <a href="mailto:navyaa.vemuri@gmail.com">Send a note</a>
         <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:navyaa.vemuri@gmail.com">Mail</a>
-      </div>
-    </div>
-
-    <a class="footer-stamp" href="portfolio.html" aria-label="Back to homepage">
-      <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
-    </a>
+        <a href="resume.pdf" target="_blank">Resume</a>
+      </nav>
+    </section>
   </div>
 </footer>
-
 <script>
 function toggleMobileMenu(){
   const btn=document.getElementById('mobileMenuBtn');
