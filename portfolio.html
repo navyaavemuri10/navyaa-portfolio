@@ -569,8 +569,7 @@ function pointPlaneToCursor() {
   const targetAngle = Math.atan2(mouseY - planeY, mouseX - planeX) * 180 / Math.PI;
 
   currentAngle += (targetAngle - currentAngle) * 0.12;
-  plane.style.transform = `rotate(${currentAngle}deg)`;
-
+plane.style.transform = `rotate(${currentAngle + 180}deg)`;
   requestAnimationFrame(pointPlaneToCursor);
 }
 
