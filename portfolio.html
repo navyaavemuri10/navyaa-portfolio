@@ -173,7 +173,7 @@ img,video{max-width:100%;display:block;}
   pointer-events: none;
 }
 
-  html.flight-active {
+ html.flight-active {
   scroll-behavior: auto !important;
 }
 
@@ -182,17 +182,22 @@ img,video{max-width:100%;display:block;}
   z-index: 9999;
 }
 
+.paper-plane-button.is-flying {
+  position: fixed !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 9999;
+  pointer-events: none;
+}
+
 .paper-plane-button.is-flying .plane-label {
-  opacity: 0 !important;
+  display: none !important;
 }
 
 .paper-plane-button.is-flying .plane-img {
   animation: none !important;
 }
 
-.paper-plane-button.is-flying .plane-label {
-  opacity: 0 !important;
-}
 
 .postcard {
   transform-origin: center;
@@ -613,107 +618,70 @@ const footer = document.getElementById("footer");
 const postcard = document.querySelector(".postcard");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let currentAngle = 0;
 let isFlying = false;
 
-/*
-  Your SVG tip naturally points bottom-left.
-  For the idle cursor-following state, this offset is closer than 180.
-*/
-const PLANE_TIP_OFFSET = 135;
-
-window.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-function normalizeAngle(angle) {
-  return ((angle + 180) % 360 + 360) % 360 - 180;
+function lerp(start, end, progress) {
+  return start + (end - start) * progress;
 }
 
-function getPlaneAngle(fromX, fromY, toX, toY) {
-  const raw = Math.atan2(toY - fromY, toX - fromX) * 180 / Math.PI;
-  return normalizeAngle(raw - PLANE_TIP_OFFSET);
+function easeOutSoft(t) {
+  return 1 - Math.pow(1 - t, 2.2);
 }
 
-/* Idle only: plane points toward cursor */
-function pointPlaneToCursor() {
-  if (!plane || isFlying || reduceMotion) return;
+function animateGuidedFlight(duration = 7000) {
+  const startRect = plane.getBoundingClientRect();
 
-  const rect = plane.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-
-  const target = getPlaneAngle(cx, cy, mouseX, mouseY);
-  currentAngle += normalizeAngle(target - currentAngle) * 0.1;
-
-  plane.style.transform = `rotate(${currentAngle}deg)`;
-
-  requestAnimationFrame(pointPlaneToCursor);
-}
-
-pointPlaneToCursor();
-
-function lerp(a, b, t) {
-  return a + (b - a) * t;
-}
-
-function smoothstep(t) {
-  return t * t * (3 - 2 * t);
-}
-
-function animatePlaneAndScroll(duration = 6500) {
-  const rect = plane.getBoundingClientRect();
-
-  const startScroll = window.scrollY;
-
-  const endScroll =
+  const startScrollY = window.scrollY;
+  const endScrollY =
     footer.getBoundingClientRect().top +
     window.scrollY -
     window.innerHeight * 0.08;
 
-  const startX = rect.left;
-  const startY = rect.top;
+  const startX = startRect.left;
+  const startY = startRect.top;
 
-  const endX = window.innerWidth * 0.5 - rect.width / 2;
-  const endY = window.innerHeight * 0.62 - rect.height / 2;
+  const endX = window.innerWidth * 0.5 - startRect.width / 2;
+  const endY = window.innerHeight * 0.52 - startRect.height / 2;
 
   const startTime = performance.now();
 
   return new Promise((resolve) => {
     function frame(now) {
       const raw = Math.min((now - startTime) / duration, 1);
-      const t = smoothstep(raw);
+
+      // Linear-ish scroll so users can follow what is happening.
+      const scrollProgress = raw;
+
+      // Slightly softened plane movement.
+      const planeProgress = easeOutSoft(raw);
 
       window.scrollTo({
-        top: lerp(startScroll, endScroll, t),
+        top: lerp(startScrollY, endScrollY, scrollProgress),
         left: 0,
         behavior: "auto"
       });
 
       /*
-        Mostly downward motion:
-        - y moves steadily down the viewport
-        - x only curves slightly toward center
+        Plane path:
+        - moves mostly downward
+        - gently curves toward center
+        - never loops
+        - never flies off-screen
       */
       const x =
-        lerp(startX, endX, t) +
-        Math.sin(t * Math.PI) * -70;
+        lerp(startX, endX, planeProgress) +
+        Math.sin(planeProgress * Math.PI) * -80;
 
-      const y = lerp(startY, endY, t);
+      const y = lerp(startY, endY, planeProgress);
 
       /*
-        Keep plane visually consistent.
-        No path-following rotation.
-        Just a subtle bank so it feels alive.
+        Keep the plane visually consistent.
+        No dramatic rotation.
+        Just a tiny bank while it glides.
       */
-      const bank = Math.sin(t * Math.PI * 2) * 7;
+      const bank = Math.sin(planeProgress * Math.PI * 2) * 6;
 
-      plane.style.left = `${x}px`;
-      plane.style.top = `${y}px`;
-      plane.style.transform = `rotate(${bank}deg)`;
+      plane.style.transform = `translate3d(${x - startX}px, ${y - startY}px, 0) rotate(${bank}deg)`;
 
       if (raw < 1) {
         requestAnimationFrame(frame);
@@ -736,34 +704,39 @@ if (plane && footer) {
     }
 
     isFlying = true;
+
     document.documentElement.classList.add("flight-active");
     plane.classList.add("is-flying");
 
-    const label = plane.querySelector(".plane-label");
-    if (label) label.style.opacity = "0";
-
     const rect = plane.getBoundingClientRect();
 
-    plane.style.position = "fixed";
     plane.style.left = `${rect.left}px`;
     plane.style.top = `${rect.top}px`;
-    plane.style.right = "auto";
-    plane.style.bottom = "auto";
     plane.style.width = `${rect.width}px`;
-    plane.style.zIndex = "9999";
+    plane.style.transform = "translate3d(0, 0, 0) rotate(0deg)";
 
     if (postcard) {
       postcard.style.opacity = "0";
       postcard.style.transform = "translateY(40px) scale(.96)";
     }
 
-    await animatePlaneAndScroll(6500);
+    await animateGuidedFlight(7000);
 
     await plane.animate(
       [
-        { transform: plane.style.transform, opacity: 1 },
-        { transform: "rotate(0deg) scale(1.55)", opacity: 1 },
-        { transform: "rotate(0deg) scale(2)", opacity: 0 }
+        {
+          transform: plane.style.transform,
+          opacity: 1
+        },
+        {
+          transform: "translate3d(0, 0, 0) rotate(0deg) scale(1.55)",
+          opacity: 1,
+          offset: 0.55
+        },
+        {
+          transform: "translate3d(0, 0, 0) rotate(0deg) scale(2)",
+          opacity: 0
+        }
       ],
       {
         duration: 1000,
