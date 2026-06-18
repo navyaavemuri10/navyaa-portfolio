@@ -277,6 +277,17 @@ img,video{max-width:100%;display:block;}
   line-height:1.72;
   color:#111;
 }
+  .postcard-footer {
+  position: relative;
+}
+
+.postcard-footer .paper-plane-button {
+  width: clamp(150px, 12vw, 220px);
+}
+
+.postcard-footer .plane-label {
+  opacity: 1;
+}
 .postcard-message p{margin-bottom:18px;}
 .postcard-id{
   margin-top:30px;
@@ -540,108 +551,132 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
-let currentRotate = 0;
+let currentAngle = 0;
 let isFlying = false;
 
-window.addEventListener("mousemove", e => {
+window.addEventListener("mousemove", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 });
 
-function animatePlaneTilt(){
-  if(!plane || isFlying || reduceMotion) return;
+function pointPlaneToCursor() {
+  if (!plane || isFlying || reduceMotion) return;
 
   const rect = plane.getBoundingClientRect();
   const planeX = rect.left + rect.width / 2;
   const planeY = rect.top + rect.height / 2;
-  const angle = Math.atan2(mouseY - planeY, mouseX - planeX) * 180 / Math.PI;
-  const targetRotate = Math.max(-14, Math.min(14, angle / 6));
 
-  currentRotate += (targetRotate - currentRotate) * 0.07;
-  plane.style.transform = `rotate(${currentRotate}deg)`;
+  const targetAngle = Math.atan2(mouseY - planeY, mouseX - planeX) * 180 / Math.PI;
 
-  requestAnimationFrame(animatePlaneTilt);
+  currentAngle += (targetAngle - currentAngle) * 0.12;
+  plane.style.transform = `rotate(${currentAngle}deg)`;
+
+  requestAnimationFrame(pointPlaneToCursor);
 }
-animatePlaneTilt();
 
-function slowScrollTo(targetY, duration = 4200){
+pointPlaneToCursor();
+
+function slowScrollTo(targetY, duration = 5200) {
   const startY = window.scrollY;
   const distance = targetY - startY;
   const startTime = performance.now();
 
-  function easeInOutCubic(t){
-    return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  function step(now){
+  function step(now) {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
     const eased = easeInOutCubic(progress);
 
     window.scrollTo(0, startY + distance * eased);
 
-    if(progress < 1) requestAnimationFrame(step);
+    if (progress < 1) requestAnimationFrame(step);
   }
 
   requestAnimationFrame(step);
 }
 
 plane?.addEventListener("click", () => {
-  if(isFlying) return;
+  if (isFlying) return;
 
-  if(reduceMotion){
-    footer.scrollIntoView({behavior:"auto"});
+  if (reduceMotion) {
+    footer.scrollIntoView({ behavior: "auto" });
     return;
   }
 
   isFlying = true;
 
   const label = plane.querySelector(".plane-label");
-  if(label) label.textContent = "Taking off...";
+  if (label) label.textContent = "Taking off...";
+
+  const startRect = plane.getBoundingClientRect();
+  const startLeft = startRect.left;
+  const startTop = startRect.top;
+
+  plane.style.position = "fixed";
+  plane.style.left = `${startLeft}px`;
+  plane.style.top = `${startTop}px`;
+  plane.style.right = "auto";
+  plane.style.bottom = "auto";
+  plane.style.zIndex = "100";
+  plane.style.transform = `rotate(${currentAngle}deg)`;
+
+  const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+
+  const finalX = window.innerWidth * 0.72;
+  const finalY = window.innerHeight * 0.12;
 
   plane.animate(
     [
-      { transform:`translate(0,0) rotate(${currentRotate}deg)` },
-      { transform:`translate(-20px,-12px) rotate(-8deg)`, offset:.12 },
-      { transform:`translate(-34vw,38vh) rotate(18deg)`, offset:.52 },
-      { transform:`translate(-18vw,74vh) rotate(4deg)` }
+      {
+        left: `${startLeft}px`,
+        top: `${startTop}px`,
+        transform: `rotate(${currentAngle}deg) scale(1)`
+      },
+      {
+        left: `${startLeft - 24}px`,
+        top: `${startTop - 18}px`,
+        transform: `rotate(${currentAngle - 18}deg) scale(1.03)`,
+        offset: 0.12
+      },
+      {
+        left: `${window.innerWidth * 0.18}px`,
+        top: `${window.innerHeight * 0.38}px`,
+        transform: `rotate(145deg) scale(1.02)`,
+        offset: 0.52
+      },
+      {
+        left: `${finalX}px`,
+        top: `${finalY}px`,
+        transform: `rotate(18deg) scale(0.92)`
+      }
     ],
     {
-      duration:4200,
-      easing:"cubic-bezier(.22,.9,.28,1)",
-      fill:"forwards"
+      duration: 5200,
+      easing: "cubic-bezier(.22,.9,.28,1)",
+      fill: "forwards"
     }
   );
 
-  const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-  slowScrollTo(footerTop, 4600);
+  slowScrollTo(footerTop, 5400);
+
+  setTimeout(() => {
+    plane.style.position = "absolute";
+    plane.style.left = "auto";
+    plane.style.top = "-80px";
+    plane.style.right = "8vw";
+    plane.style.bottom = "auto";
+    plane.style.zIndex = "20";
+    plane.style.transform = "rotate(8deg) scale(0.92)";
+    footer.appendChild(plane);
+
+    if (label) label.textContent = "You made it ✈";
+  }, 5400);
 });
-
-// Project video hover behavior
-const motionOK = !reduceMotion;
-if(motionOK){
-  document.querySelectorAll(".cs-thumb").forEach(thumb => {
-    const vid = thumb.querySelector("video");
-    const img = thumb.querySelector("img");
-    if(!vid) return;
-
-    vid.style.opacity = "0";
-
-    thumb.addEventListener("mouseenter", () => {
-      vid.currentTime = 0;
-      vid.play().catch(() => {});
-      vid.style.opacity = "1";
-      if(img) img.style.opacity = "0";
-    });
-
-    thumb.addEventListener("mouseleave", () => {
-      vid.pause();
-      vid.currentTime = 0;
-      vid.style.opacity = "0";
-      if(img) img.style.opacity = "1";
-    });
-  });
-}
 </script>
 
 </body>
