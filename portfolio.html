@@ -42,19 +42,25 @@ a{color:inherit;}
 img,video{max-width:100%;display:block;}
 
 /* NAV */
-.site-nav{
-  position:fixed;
-  top:34px;
-  right:clamp(28px,5vw,92px);
-  z-index:50;
-  display:flex;
-  gap:clamp(34px,5vw,76px);
-  font-size:18px;
-  text-transform:uppercase;
-  letter-spacing:-.035em;
+.site-nav {
+  transition:
+    background .25s ease,
+    box-shadow .25s ease,
+    padding .25s ease;
 }
-.site-nav a{text-decoration:none;color:#111;transition:opacity .2s ease;}
-.site-nav a:hover{opacity:.55;}
+
+.site-nav.scrolled {
+  background: rgba(248,241,228,.9);
+
+  backdrop-filter: blur(12px);
+
+  border-radius: 999px;
+
+  padding: 14px 24px;
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.06);
+}
 
 /* HERO */
 .hero{
@@ -134,22 +140,20 @@ img,video{max-width:100%;display:block;}
   animation: floatPlane 5.5s ease-in-out infinite;
   transform-origin: center;
 }
-  .paper-plane-button.is-flying .plane-label {
+.paper-plane-button.is-flying {
+  position: absolute !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.paper-plane-button.is-flying .plane-label {
   opacity: 0 !important;
 }
 
-.plane-label {
-  position: absolute;
-  top: -36px;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  white-space: nowrap;
-  font-family: "Goudy Bookletter 1911", serif;
-  font-size: 22px;
-  color: #333;
-  opacity: 0;
-  transition: opacity .3s ease, transform .3s ease;
-  pointer-events: none;
+.postcard {
+  transform-origin: center;
 }
 
 /* COLLECTION */
@@ -562,6 +566,16 @@ img,video{max-width:100%;display:block;}
 </footer>
 
 <script>
+const nav = document.querySelector(".site-nav");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 100) {
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+});
+  
 const plane = document.getElementById("paperPlane");
 const footer = document.getElementById("footer");
 const postcard = document.querySelector(".postcard");
@@ -572,7 +586,7 @@ let mouseY = window.innerHeight / 2;
 let currentAngle = 0;
 let isFlying = false;
 
-// Your paper-plane.svg tip faces LEFT at 0deg.
+// Your paper-plane.svg points LEFT at 0deg.
 const PLANE_TIP_OFFSET = 180;
 
 window.addEventListener("mousemove", (event) => {
@@ -589,7 +603,7 @@ function getPlaneAngle(fromX, fromY, toX, toY) {
   return normalizeAngle(rawAngle - PLANE_TIP_OFFSET);
 }
 
-/* Idle only: tip follows cursor */
+/* Idle: plane points toward cursor */
 function pointPlaneToCursor() {
   if (!plane || isFlying || reduceMotion) return;
 
@@ -601,79 +615,86 @@ function pointPlaneToCursor() {
   currentAngle += normalizeAngle(targetAngle - currentAngle) * 0.12;
 
   plane.style.transform = `rotate(${currentAngle}deg)`;
+
   requestAnimationFrame(pointPlaneToCursor);
 }
 
 pointPlaneToCursor();
 
-function cubicBezier(t, p0, p1, p2, p3) {
-  const u = 1 - t;
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function easeInOutSine(t) {
+  return -(Math.cos(Math.PI * t) - 1) / 2;
+}
+
+/*
+  Document-based path:
+  y moves from hero position to footer position in page coordinates.
+  x makes a gentle S-curve across the document.
+*/
+function getDocumentFlightPoint(t, start, end) {
+  const y = lerp(start.y, end.y, t);
+
+  const baseX = lerp(start.x, end.x, t);
+
+  // S-curve amplitude. Larger = more dramatic curve.
+  const amplitude = Math.min(window.innerWidth * 0.22, 280);
+
+  // One full graceful drift: right, then left, then center.
+  const curve = Math.sin(t * Math.PI * 2) * amplitude;
 
   return {
-    x:
-      u * u * u * p0.x +
-      3 * u * u * t * p1.x +
-      3 * u * t * t * p2.x +
-      t * t * t * p3.x,
-
-    y:
-      u * u * u * p0.y +
-      3 * u * u * t * p1.y +
-      3 * u * t * t * p2.y +
-      t * t * t * p3.y
+    x: baseX + curve,
+    y
   };
 }
 
-function animatePlaneAndScroll(duration = 8500) {
+function animateFlight(duration = 8500) {
   const startRect = plane.getBoundingClientRect();
 
+  const start = {
+    x: startRect.left + window.scrollX,
+    y: startRect.top + window.scrollY
+  };
+
+  const footerRect = footer.getBoundingClientRect();
+
+  const end = {
+    x: window.innerWidth * 0.5 - startRect.width / 2 + window.scrollX,
+    y:
+      footerRect.top +
+      window.scrollY +
+      Math.min(footerRect.height * 0.36, 240)
+  };
+
   const startScrollY = window.scrollY;
-  const targetScrollY =
-    footer.getBoundingClientRect().top +
-    window.scrollY -
-    window.innerHeight * 0.08;
-
-  const scrollDistance = targetScrollY - startScrollY;
-
-  const p0 = {
-    x: startRect.left,
-    y: startRect.top
-  };
-
-  const p1 = {
-    x: window.innerWidth * 0.82,
-    y: window.innerHeight * 0.18
-  };
-
-  const p2 = {
-    x: window.innerWidth * 0.18,
-    y: window.innerHeight * 0.68
-  };
-
-  const p3 = {
-    x: window.innerWidth * 0.5 - startRect.width / 2,
-    y: window.innerHeight * 0.48 - startRect.height / 2
-  };
+  const endScrollY = footer.offsetTop - window.innerHeight * 0.12;
+  const scrollDistance = endScrollY - startScrollY;
 
   const startTime = performance.now();
 
   return new Promise((resolve) => {
     function frame(now) {
-      const t = Math.min((now - startTime) / duration, 1);
+      const rawProgress = Math.min((now - startTime) / duration, 1);
 
-      // Same t controls BOTH page scroll and plane path.
+      // Mostly consistent speed, but slightly softened at start/end.
+      const t = easeInOutSine(rawProgress);
+
+      const point = getDocumentFlightPoint(t, start, end);
+      const nextPoint = getDocumentFlightPoint(Math.min(t + 0.004, 1), start, end);
+
+      const angle = getPlaneAngle(point.x, point.y, nextPoint.x, nextPoint.y);
+
+      // Scroll follows same progress.
       window.scrollTo(0, startScrollY + scrollDistance * t);
-
-      const point = cubicBezier(t, p0, p1, p2, p3);
-      const next = cubicBezier(Math.min(t + 0.01, 1), p0, p1, p2, p3);
-
-      const angle = getPlaneAngle(point.x, point.y, next.x, next.y);
 
       plane.style.left = `${point.x}px`;
       plane.style.top = `${point.y}px`;
       plane.style.transform = `rotate(${angle}deg)`;
 
-      if (t < 1) {
+      if (rawProgress < 1) {
         requestAnimationFrame(frame);
       } else {
         resolve();
@@ -700,28 +721,29 @@ if (plane && footer) {
 
     const startRect = plane.getBoundingClientRect();
 
-    // Freeze plane in viewport so it stays visible while page scrolls.
-    plane.style.position = "fixed";
-    plane.style.left = `${startRect.left}px`;
-    plane.style.top = `${startRect.top}px`;
-    plane.style.right = "auto";
-    plane.style.bottom = "auto";
+    // Convert plane from hero absolute position to document absolute position.
+    plane.classList.add("is-flying");
+    plane.style.left = `${startRect.left + window.scrollX}px`;
+    plane.style.top = `${startRect.top + window.scrollY}px`;
     plane.style.width = `${startRect.width}px`;
-    plane.style.zIndex = "999";
     plane.style.transform = `rotate(${currentAngle}deg)`;
+
+    // Move the plane into body so it can travel through the whole document.
+    document.body.appendChild(plane);
 
     if (postcard) {
       postcard.style.opacity = "0";
       postcard.style.transform = "translateY(40px) scale(.96)";
     }
 
-    await animatePlaneAndScroll(8500);
+    await animateFlight(8500);
 
+    // Plane grows in the middle of the footer, then disappears.
     await plane.animate(
       [
         { transform: plane.style.transform, opacity: 1 },
-        { transform: "rotate(0deg) scale(1.6)", opacity: 1 },
-        { transform: "rotate(0deg) scale(2.1)", opacity: 0 }
+        { transform: "rotate(0deg) scale(1.65)", opacity: 1, offset: 0.55 },
+        { transform: "rotate(0deg) scale(2.15)", opacity: 0 }
       ],
       {
         duration: 1200,
