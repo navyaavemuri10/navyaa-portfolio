@@ -620,68 +620,101 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
 let isFlying = false;
 
-function lerp(start, end, progress) {
-  return start + (end - start) * progress;
+function lerp(a, b, t) {
+  return a + (b - a) * t;
 }
 
-function easeOutSoft(t) {
-  return 1 - Math.pow(1 - t, 2.2);
+function smoothstep(t) {
+  return t * t * (3 - 2 * t);
 }
 
-function animateGuidedFlight(duration = 7000) {
+function interpolateRoute(route, progress) {
+  const segmentCount = route.length - 1;
+  const scaled = progress * segmentCount;
+  const index = Math.min(Math.floor(scaled), segmentCount - 1);
+  const localT = smoothstep(scaled - index);
+
+  const current = route[index];
+  const next = route[index + 1];
+
+  return {
+    x: lerp(current.x, next.x, localT),
+    y: lerp(current.y, next.y, localT),
+    rotation: lerp(current.rotation, next.rotation, localT)
+  };
+}
+
+function buildRoute(startRect) {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  return [
+    {
+      x: startRect.left,
+      y: startRect.top,
+      rotation: 0
+    },
+    {
+      x: w * 0.72,
+      y: h * 0.24,
+      rotation: -8
+    },
+    {
+      x: w * 0.48,
+      y: h * 0.38,
+      rotation: 7
+    },
+    {
+      x: w * 0.64,
+      y: h * 0.52,
+      rotation: -5
+    },
+    {
+      x: w * 0.42,
+      y: h * 0.66,
+      rotation: 6
+    },
+    {
+      x: w * 0.58,
+      y: h * 0.80,
+      rotation: -4
+    },
+    {
+      x: w * 0.5 - startRect.width / 2,
+      y: h * 0.52 - startRect.height / 2,
+      rotation: 0
+    }
+  ];
+}
+
+function animateGuidedRoute(duration = 6800) {
   const startRect = plane.getBoundingClientRect();
+  const route = buildRoute(startRect);
 
   const startScrollY = window.scrollY;
-  const endScrollY =
+  const targetScrollY =
     footer.getBoundingClientRect().top +
     window.scrollY -
     window.innerHeight * 0.08;
 
-  const startX = startRect.left;
-  const startY = startRect.top;
-
-  const endX = window.innerWidth * 0.5 - startRect.width / 2;
-  const endY = window.innerHeight * 0.52 - startRect.height / 2;
-
+  const scrollDistance = targetScrollY - startScrollY;
   const startTime = performance.now();
 
   return new Promise((resolve) => {
     function frame(now) {
       const raw = Math.min((now - startTime) / duration, 1);
 
-      // Linear-ish scroll so users can follow what is happening.
-      const scrollProgress = raw;
-
-      // Slightly softened plane movement.
-      const planeProgress = easeOutSoft(raw);
-
       window.scrollTo({
-        top: lerp(startScrollY, endScrollY, scrollProgress),
+        top: startScrollY + scrollDistance * raw,
         left: 0,
         behavior: "auto"
       });
 
-      /*
-        Plane path:
-        - moves mostly downward
-        - gently curves toward center
-        - never loops
-        - never flies off-screen
-      */
-      const x =
-        lerp(startX, endX, planeProgress) +
-        Math.sin(planeProgress * Math.PI) * -80;
+      const point = interpolateRoute(route, raw);
 
-      const y = lerp(startY, endY, planeProgress);
-
-      /*
-        Keep the plane visually consistent.
-        No dramatic rotation.
-        Just a tiny bank while it glides.
-      */
-      const bank = Math.sin(planeProgress * Math.PI * 2) * 6;
-
-      plane.style.transform = `translate3d(${x - startX}px, ${y - startY}px, 0) rotate(${bank}deg)`;
+      plane.style.left = `${point.x}px`;
+      plane.style.top = `${point.y}px`;
+      plane.style.transform = `rotate(${point.rotation}deg)`;
 
       if (raw < 1) {
         requestAnimationFrame(frame);
@@ -708,38 +741,35 @@ if (plane && footer) {
     document.documentElement.classList.add("flight-active");
     plane.classList.add("is-flying");
 
-    const rect = plane.getBoundingClientRect();
+    const label = plane.querySelector(".plane-label");
+    if (label) label.style.opacity = "0";
 
-    plane.style.left = `${rect.left}px`;
-    plane.style.top = `${rect.top}px`;
-    plane.style.width = `${rect.width}px`;
-    plane.style.transform = "translate3d(0, 0, 0) rotate(0deg)";
+    const startRect = plane.getBoundingClientRect();
+
+    plane.style.position = "fixed";
+    plane.style.left = `${startRect.left}px`;
+    plane.style.top = `${startRect.top}px`;
+    plane.style.right = "auto";
+    plane.style.bottom = "auto";
+    plane.style.width = `${startRect.width}px`;
+    plane.style.zIndex = "9999";
+    plane.style.transform = "rotate(0deg)";
 
     if (postcard) {
       postcard.style.opacity = "0";
       postcard.style.transform = "translateY(40px) scale(.96)";
     }
 
-    await animateGuidedFlight(7000);
+    await animateGuidedRoute(6800);
 
     await plane.animate(
       [
-        {
-          transform: plane.style.transform,
-          opacity: 1
-        },
-        {
-          transform: "translate3d(0, 0, 0) rotate(0deg) scale(1.55)",
-          opacity: 1,
-          offset: 0.55
-        },
-        {
-          transform: "translate3d(0, 0, 0) rotate(0deg) scale(2)",
-          opacity: 0
-        }
+        { transform: plane.style.transform, opacity: 1 },
+        { transform: "rotate(0deg) scale(1.55)", opacity: 1 },
+        { transform: "rotate(0deg) scale(2)", opacity: 0 }
       ],
       {
-        duration: 1000,
+        duration: 950,
         easing: "cubic-bezier(.16, 1, .3, 1)",
         fill: "forwards"
       }
