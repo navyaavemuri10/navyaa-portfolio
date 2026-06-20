@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tesla Mobility Platform — Navyaa Vemuri</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#FDFDFD;--surface:#F4F3F0;--surface-2:#ECEBE7;--border:#E8E8E4;
+  --text:#1A1A1A;--muted:#4F4F4F;--dim:#737373;
+  --accent:#C43A31;--accent-bg:#FFF1EF;--accent-border:#F0C0B9;
+  --dark:#202020;--shadow:0 12px 32px rgba(26,26,26,.06);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+.layout{display:flex;min-height:100vh;}
+
+/* sidebar */
+.cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
+.stamp{width:160px;margin-bottom:20px;cursor:pointer;flex-shrink:0;}
+.stamp img{width:100%;display:block;animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
+@keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
+.stamp:hover img{animation-play-state:paused;}
+.sidebar-mid{display:flex;flex-direction:column;gap:18px;}
+.back-link{font-size:17px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
+.back-link:hover{color:var(--text);}
+.toc-label{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-top:6px;}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
+.toc-link{font-size:17px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
+.toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
+.toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
+
+/* mobile */
+.mobile-topbar,.mobile-toc{display:none;}
+.mobile-topbar{position:sticky;top:0;z-index:50;background:rgba(253,253,253,.92);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:18px 20px;align-items:center;justify-content:space-between;}
+.mobile-brand{font-size:17px;color:var(--text);text-decoration:none;letter-spacing:-.01em;}
+.mobile-menu-btn{border:none;background:transparent;display:flex;flex-direction:column;gap:5px;padding:4px;cursor:pointer;}
+.mobile-menu-btn span{width:18px;height:1.5px;background:var(--text);display:block;transition:transform .25s,opacity .25s;}
+.mobile-menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.mobile-menu-btn.open span:nth-child(2){opacity:0;}
+.mobile-menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:59px 0 auto 0;z-index:45;background:rgba(253,253,253,.98);border-bottom:.5px solid var(--border);padding:24px 20px 28px;box-shadow:var(--shadow);}
+.mobile-menu.open{display:block;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:18px;}
+.mobile-menu-link{font-size:17px;color:var(--muted);text-decoration:none;}
+.mobile-toc{position:sticky;top:59px;z-index:40;background:rgba(253,253,253,.95);backdrop-filter:blur(10px);border-bottom:.5px solid var(--border);padding:10px 20px;overflow-x:auto;scrollbar-width:none;gap:12px;}
+.mobile-toc::-webkit-scrollbar{display:none;}
+.mobile-toc-link{white-space:nowrap;font-size:17px;color:var(--dim);text-decoration:none;padding:6px 10px;border:.5px solid var(--border);border-radius:999px;background:var(--bg);}
+.mobile-toc-link.active{color:var(--accent);border-color:var(--accent-border);background:var(--accent-bg);}
+
+.right-col{flex:1;min-width:0;overflow-y:auto;display:flex;flex-direction:column;}
+.hero-media{width:100%;border-bottom:.5px solid var(--border);min-height:520px;max-height:620px;overflow:hidden;background:var(--surface);}
+.hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover;display:block;}
+.cs-main{padding:64px clamp(40px,6vw,96px) 112px;max-width:1240px;width:100%;}
+.cs-section{margin-bottom:92px;scroll-margin-top:110px;}
+.cs-eyebrow,.cs-section-label,.metric-label,.mini-label,.proof-label{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
+.cs-eyebrow{color:var(--accent);margin-bottom:14px;}
+.cs-title{font-size:clamp(42px,4.5vw,64px);font-weight:300;line-height:1.05;max-width:980px;margin-bottom:20px;}
+.cs-tagline{font-size:20px;line-height:1.7;color:var(--text);max-width:920px;margin-bottom:34px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.hero-badge,.pill{font-size:17px;font-weight:400;color:#2A2A2A;background:#FDFDFD;border:.5px solid #D8D6D2;border-radius:999px;padding:5px 12px;letter-spacing:.01em;}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px;}
+.metric-card{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:12px;padding:20px 22px;}
+.metric-num{font-size:36px;font-weight:300;color:var(--accent);line-height:1;letter-spacing:-.02em;}
+.metric-label{color:var(--accent);margin-bottom:14px;}
+.metric-desc{font-size:17px;color:var(--muted);line-height:1.5;margin-top:6px;}
+.cs-section-label{color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.cs-section-label::after{content:'';flex:1;height:.5px;background:var(--border);}
+.cs-h2{font-size:36px;font-weight:400;line-height:1.2;letter-spacing:-.025em;margin-bottom:14px;max-width:960px;}
+.cs-p{font-size:18px;color:var(--muted);line-height:1.8;max-width:900px;margin-bottom:14px;}
+.cs-p strong{color:var(--text);font-weight:400;}
+
+/* reusable blocks */
+.two-col,.img-row,.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:22px 0;}
+.mini-grid.three{grid-template-columns:repeat(3,1fr);}
+.col-card,.mini-card,.annotation-card,.proof-card{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:24px 26px;}
+.col-label,.mini-label,.proof-label{font-size:14px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:500;}
+.col-item{font-size:16px;color:var(--muted);line-height:1.6;padding:6px 0;border-bottom:.5px solid var(--border);}
+.col-item:last-child{border-bottom:none;}
+.mini-copy,.annotation-copy,.proof-copy{font-size:16px;color:var(--muted);line-height:1.7;}
+.annotation-title{font-size:16px;color:var(--text);font-weight:500;margin-bottom:8px;}
+.img-block{margin:22px 0;border-radius:12px;overflow:hidden;background:var(--bg);border:.5px solid var(--border);position:relative;}
+.img-block img,.img-block video{width:100%;display:block;}
+.img-caption-bar{padding:12px 18px;border-top:.5px solid var(--border);}
+.img-caption-text{font-size:17px;color:var(--muted);line-height:1.6;}
+.placeholder{min-height:280px;background:linear-gradient(135deg,#F4F3F0,#ECEBE7);border:.5px dashed #CFCBC4;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;color:var(--dim);font-size:14px;line-height:1.6;}
+.placeholder strong{display:block;color:var(--text);font-weight:400;margin-bottom:6px;}
+.proof-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:22px 0;}
+.tradeoff{background:var(--surface);border:.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:18px 0;}
+.tradeoff-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;color:var(--accent);}
+.tradeoff-body{font-size:16px;color:var(--muted);line-height:1.78;}
+.callout{background:var(--accent-bg);border:.5px solid var(--accent-border);border-radius:12px;padding:22px 24px;margin:22px 0;}
+.callout-title{font-size:16px;color:var(--accent);font-weight:500;margin-bottom:8px;}
+.callout-copy{font-size:17px;color:var(--text);line-height:1.7;}
+.learning-list{display:flex;flex-direction:column;gap:20px;margin-top:18px;}
+.learning{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;}
+.learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
+.learning-text{font-size:16px;color:var(--muted);line-height:1.78;}
+.learning-text strong{display:block;font-size:17px;color:var(--text);font-weight:400;margin-bottom:4px;}
+
+/* custom Tesla visuals */
+.phone-fragmentation{
+  margin:28px 0;
+  background:var(--surface);
+  border:.5px solid var(--border);
+  border-radius:16px;
+  padding:28px;
+  overflow:hidden;
+}
+.phone-stage{
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:32px;
+  align-items:center;
+}
+.phone-copy-kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:500;}
+.phone-copy-title{font-size:28px;line-height:1.15;letter-spacing:-.02em;margin-bottom:12px;}
+.phone-copy-body{font-size:16px;line-height:1.7;color:var(--muted);}
+.phone-stack{position:relative;min-height:430px;display:flex;align-items:center;justify-content:center;}
+.phone-shell{
+  width:210px;height:410px;border-radius:36px;background:#111;border:8px solid #111;
+  box-shadow:0 22px 50px rgba(0,0,0,.18);position:absolute;overflow:hidden;
+}
+.phone-screen{height:100%;background:#FAFAF8;border-radius:28px;padding:18px 16px;display:flex;flex-direction:column;gap:12px;}
+.phone-app-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
+.phone-app-title{font-size:22px;letter-spacing:-.03em;}
+.phone-status{height:58px;border-radius:14px;background:var(--accent-bg);border:.5px solid var(--accent-border);padding:12px;}
+.phone-status strong{display:block;font-size:18px;color:var(--accent);font-weight:400;}
+.phone-row{height:42px;border-radius:10px;background:#EDEBE6;}
+.phone-chip{display:inline-flex;padding:6px 9px;border:.5px solid var(--border);border-radius:999px;font-size:12px;color:var(--muted);margin-right:5px;background:#fff;}
+.phone-shell.one{transform:translateX(-120px) rotate(-8deg);animation:tool-one 6s ease-in-out infinite;}
+.phone-shell.two{transform:translateX(-40px) translateY(-10px) rotate(-2deg);animation:tool-two 6s ease-in-out infinite;}
+.phone-shell.three{transform:translateX(40px) translateY(12px) rotate(4deg);animation:tool-three 6s ease-in-out infinite;}
+.phone-shell.four{transform:translateX(120px) rotate(9deg);animation:tool-four 6s ease-in-out infinite;}
+@keyframes tool-one{0%,100%{transform:translateX(-120px) rotate(-8deg);opacity:.65;}45%,60%{transform:translateX(-18px) rotate(0);opacity:1;}}
+@keyframes tool-two{0%,100%{transform:translateX(-40px) translateY(-10px) rotate(-2deg);opacity:.65;}45%,60%{transform:translateX(-6px) translateY(0) rotate(0);opacity:1;}}
+@keyframes tool-three{0%,100%{transform:translateX(40px) translateY(12px) rotate(4deg);opacity:.65;}45%,60%{transform:translateX(6px) translateY(0) rotate(0);opacity:1;}}
+@keyframes tool-four{0%,100%{transform:translateX(120px) rotate(9deg);opacity:.65;}45%,60%{transform:translateX(18px) rotate(0);opacity:1;}}
+
+.prototype-gallery{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:20px;
+  margin:28px 0;
+}
+.prototype-tabs{
+  background:var(--surface);
+  border:.5px solid var(--border);
+  border-radius:12px;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.proto-tab{
+  border:none;
+  text-align:left;
+  background:transparent;
+  border-radius:9px;
+  padding:12px 14px;
+  color:var(--muted);
+  font-family:inherit;
+  cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.proto-tab:hover{background:#fff;color:var(--text);}
+.proto-tab.active{background:var(--accent-bg);color:var(--accent);}
+.proto-title{font-size:15px;font-weight:500;margin-bottom:4px;}
+.proto-desc{font-size:12px;line-height:1.45;color:inherit;opacity:.8;}
+.proto-panel{
+  border:.5px solid var(--border);
+  background:var(--bg);
+  border-radius:12px;
+  overflow:hidden;
+}
+.proto-visual{
+  min-height:480px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#F8F7F4,#ECEBE7);
+}
+.proto-visual video,.proto-visual img{width:100%;height:100%;object-fit:cover;display:none;}
+.proto-visual video.active,.proto-visual img.active{display:block;}
+.proto-placeholder{padding:32px;text-align:center;color:var(--dim);font-size:14px;line-height:1.7;}
+.proto-placeholder strong{display:block;color:var(--text);font-weight:400;margin-bottom:6px;}
+.proto-caption{padding:14px 18px;border-top:.5px solid var(--border);font-size:16px;line-height:1.6;color:var(--muted);}
+.mobile-principles{
+  margin:28px 0;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:20px;
+  align-items:stretch;
+}
+.principle-board{
+  border:.5px solid var(--border);
+  border-radius:14px;
+  background:var(--surface);
+  padding:24px;
+}
+.principle-row{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:18px;
+  padding:16px 0;
+  border-bottom:.5px solid var(--border);
+}
+.principle-row:last-child{border-bottom:none;}
+.principle-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500;}
+.principle-copy{font-size:16px;color:var(--muted);line-height:1.7;}
+.accessibility-card{
+  border:.5px solid var(--accent-border);
+  border-radius:14px;
+  background:var(--accent-bg);
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.accessibility-card h3{font-size:28px;line-height:1.1;font-weight:400;letter-spacing:-.02em;margin-bottom:14px;color:var(--accent);}
+.accessibility-card p{font-size:16px;line-height:1.75;color:var(--text);}
+.before-after{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin:28px 0;
+}
+.ba-card{
+  border:.5px solid var(--border);
+  border-radius:14px;
+  padding:24px;
+  background:var(--surface);
+}
+.ba-card.after{border-color:var(--accent-border);background:var(--accent-bg);}
+.ba-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:14px;}
+.ba-title{font-size:26px;letter-spacing:-.02em;margin-bottom:12px;}
+.ba-list{display:flex;flex-direction:column;gap:10px;}
+.ba-list span{font-size:16px;line-height:1.55;color:var(--muted);padding-bottom:10px;border-bottom:.5px solid var(--border);}
+.ba-card.after .ba-list span{color:var(--text);border-bottom-color:var(--accent-border);}
+
+/* footer: matches site footer, no stamp animation */
+.site-footer{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  background:#F0D8E7;
+  padding:80px clamp(32px,6vw,96px);
+}
+.footer-inner{
+  width:100%;
+  max-width:1440px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:clamp(36px,7vw,96px);
+  align-items:start;
+}
+.footer-title{
+  font-size:clamp(30px,3vw,44px);
+  line-height:1.15;
+  letter-spacing:-.035em;
+  color:#2F2F2F;
+  font-weight:500;
+  margin-bottom:24px;
+}
+.footer-meta{
+  font-size:20px;
+  line-height:1.5;
+  color:#6E3D62;
+  font-weight:500;
+}
+.footer-contact-title{
+  font-size:17px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#2F2F2F;
+  margin-bottom:20px;
+  font-weight:500;
+}
+.footer-links{display:flex;flex-direction:column;gap:18px;}
+.footer-links a{
+  font-size:20px;
+  color:#6E3D62;
+  text-decoration:none;
+  transition:color .2s ease, transform .2s ease;
+}
+.footer-links a:hover{color:#2F2F2F;transform:translateX(3px);}
+.footer-stamp img{
+  width:130px;
+  height:auto;
+  display:block;
+  animation:none!important;
+}
+
+@media(max-width:900px){
+  .layout{display:block;}
+  .cs-sidebar{display:none;}
+  .mobile-topbar,.mobile-toc{display:flex;}
+  .right-col{width:100%;}
+  .hero-media{min-height:220px;max-height:420px;}
+  .cs-main{padding:32px 24px 64px;}
+  .metrics-grid,.two-col,.img-row,.mini-grid,.mini-grid.three,.proof-strip,.phone-stage,.prototype-gallery,.mobile-principles,.before-after{grid-template-columns:1fr;}
+  .phone-stack{min-height:360px;transform:scale(.86);}
+  .prototype-gallery{gap:14px;}
+  .prototype-tabs{display:grid;grid-template-columns:1fr 1fr;}
+  .site-footer{padding:56px 24px;}
+  .footer-inner{grid-template-columns:1fr;gap:32px;}
+  .footer-title{font-size:30px;}
+  .footer-meta,.footer-links a{font-size:18px;}
+  .footer-stamp img{width:96px;}
+}
+@media(max-width:600px){
+  .cs-title{font-size:36px;}
+  .cs-h2{font-size:28px;}
+  .cs-p,.cs-tagline{font-size:17px;}
+  .prototype-tabs{grid-template-columns:1fr;}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+</style>
+</head>
+<body>
+<div class="mobile-topbar">
+  <a href="portfolio.html" class="mobile-brand">navyaa vemuri</a>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-links">
+    <a href="portfolio.html" class="mobile-menu-link">← Back to work</a>
+    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
+  </div>
+</div>
+<div class="mobile-toc">
+  <a href="#overview" class="mobile-toc-link active">Overview</a>
+  <a href="#context" class="mobile-toc-link">Context</a>
+  <a href="#challenge" class="mobile-toc-link">Challenge</a>
+  <a href="#exploration" class="mobile-toc-link">Exploration</a>
+  <a href="#constraints" class="mobile-toc-link">Mobile</a>
+  <a href="#solution" class="mobile-toc-link">Solution</a>
+  <a href="#impact" class="mobile-toc-link">Impact</a>
+</div>
+
+<div class="layout">
+  <aside class="cs-sidebar">
+    <a href="portfolio.html" class="stamp">
+      <img src="stamp.png" alt="Navyaa Vemuri" onerror="this.style.display='none'">
+    </a>
+    <div class="sidebar-mid">
+      <a href="portfolio.html" class="back-link">← Back to work</a>
+      <div class="toc-label">on this page</div>
+      <ul class="toc-list">
+        <li><a href="#overview" class="toc-link active">Overview</a></li>
+        <li><a href="#context" class="toc-link">Context</a></li>
+        <li><a href="#challenge" class="toc-link">Why it was hard</a></li>
+        <li><a href="#exploration" class="toc-link">Prototype gallery</a></li>
+        <li><a href="#constraints" class="toc-link">Mobile constraints</a></li>
+        <li><a href="#solution" class="toc-link">Final solution</a></li>
+        <li><a href="#impact" class="toc-link">Impact</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <div class="right-col">
+    <div class="hero-media">
+      <img src="tesla-mobility-hero.png" alt="Tesla mobility platform preview" onerror="this.parentElement.innerHTML='<div class=&quot;placeholder&quot;><strong>Hero visual placeholder</strong>Replace with a product mockup collage: employee mobile flow + manager reporting view.</div>'">
+    </div>
+
+    <main class="cs-main">
+      <section id="overview" class="cs-section">
+        <div class="cs-eyebrow">Tesla · UX Consultant · Enterprise Mobility · 2025–2026</div>
+        <h1 class="cs-title">Designing for commuting decisions before employees arrive.</h1>
+        <p class="cs-tagline">I designed a unified mobility experience inside Tesla One that consolidated fragmented parking, shuttle, navigation, and reporting workflows into one decision-support platform for 1,000+ employees and transportation managers.</p>
+
+        <div class="hero-badges">
+          <span class="hero-badge">Enterprise UX</span>
+          <span class="hero-badge">Mobile design</span>
+          <span class="hero-badge">Decision support</span>
+          <span class="hero-badge">Complex information</span>
+          <span class="hero-badge">Cross-functional product development</span>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card"><div class="metric-label">Consolidated</div><div class="metric-num">4→1</div><div class="metric-desc">Disconnected transportation tools into one platform</div></div>
+          <div class="metric-card"><div class="metric-label">Scale</div><div class="metric-num">1K+</div><div class="metric-desc">Employees supported through the mobility workflow</div></div>
+          <div class="metric-card"><div class="metric-label">Users</div><div class="metric-num">2</div><div class="metric-desc">Distinct groups: commuters and parking managers</div></div>
+          <div class="metric-card"><div class="metric-label">Scope</div><div class="metric-num">E2E</div><div class="metric-desc">Problem framing through high-fidelity handoff</div></div>
+        </div>
+      </section>
+
+      <section id="context" class="cs-section">
+        <div class="cs-section-label">Context</div>
+        <h2 class="cs-h2">Employees had transportation data, but not transportation confidence.</h2>
+        <p class="cs-p">Before the platform, a simple commute decision required employees to jump between Tesla One, parking availability, shuttle schedules, native maps, and transportation guidance. Even after checking availability, employees could arrive to find a lot full because the information changed before they got there.</p>
+
+        <div class="phone-fragmentation">
+          <div class="phone-stage">
+            <div>
+              <div class="phone-copy-kicker">Suggested visual · animated context</div>
+              <div class="phone-copy-title">From four disconnected tools to one commute decision flow.</div>
+              <div class="phone-copy-body">Use this section for a short animation: phones/apps fan out to show fragmentation, then collapse into one unified Tesla One experience.</div>
+            </div>
+            <div class="phone-stack" aria-label="Animated phone stack showing disconnected commute tools">
+              <div class="phone-shell one">
+                <div class="phone-screen">
+                  <div class="phone-app-label">Tool 01</div><div class="phone-app-title">Tesla One</div>
+                  <div class="phone-row"></div><div class="phone-row"></div><div class="phone-row"></div>
+                </div>
+              </div>
+              <div class="phone-shell two">
+                <div class="phone-screen">
+                  <div class="phone-app-label">Tool 02</div><div class="phone-app-title">Parking</div>
+                  <div class="phone-status"><strong>82%</strong><span>Lot occupancy</span></div>
+                  <div class="phone-row"></div><div class="phone-row"></div>
+                </div>
+              </div>
+              <div class="phone-shell three">
+                <div class="phone-screen">
+                  <div class="phone-app-label">Tool 03</div><div class="phone-app-title">Shuttle</div>
+                  <span class="phone-chip">7 min</span><span class="phone-chip">14 min</span>
+                  <div class="phone-row"></div><div class="phone-row"></div>
+                </div>
+              </div>
+              <div class="phone-shell four">
+                <div class="phone-screen">
+                  <div class="phone-app-label">Tool 04</div><div class="phone-app-title">Maps</div>
+                  <div class="phone-row"></div><div class="phone-row"></div><div class="phone-row"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Reframing the problem</div>
+          <div class="callout-copy">The product was not just about showing parking availability. It was about helping employees decide the best way to get to work before they were already in transit.</div>
+        </div>
+      </section>
+
+      <section id="challenge" class="cs-section">
+        <div class="cs-section-label">Why it was challenging</div>
+        <h2 class="cs-h2">The product sat at the intersection of changing data, ambitious stakeholders, and mobile constraints.</h2>
+
+        <div class="mini-grid three">
+          <div class="mini-card">
+            <div class="mini-label">01 · Complex information</div>
+            <div class="mini-copy">Employees needed to evaluate current availability, predicted occupancy, arrival time, shuttle options, and commute duration without feeling overwhelmed.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">02 · Stakeholder ambition</div>
+            <div class="mini-copy">Transportation stakeholders wanted predictive experiences and operational tooling, but the design had to stay feasible within engineering and data constraints.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">03 · Mobile-first decisions</div>
+            <div class="mini-copy">Commuters were checking information quickly and often on the go, which made hierarchy, glanceability, and next actions especially important.</div>
+          </div>
+        </div>
+
+        <div class="tradeoff">
+          <div class="tradeoff-label">Key tradeoff · Raw data vs decision confidence</div>
+          <div class="tradeoff-body">Early concepts focused on parking counts and real-time availability. But employees did not only need to know what was available now — they needed to know whether it would still be available by arrival. This pushed the design toward predictive occupancy signals and alternate route recommendations.</div>
+        </div>
+      </section>
+
+      <section id="exploration" class="cs-section">
+        <div class="cs-section-label">Exploration</div>
+        <h2 class="cs-h2">A prototype gallery shows how the system came together across employee and manager needs.</h2>
+        <p class="cs-p">Instead of making this a long scroll of every screen, use this tabbed gallery for short GIFs or MP4s of the key prototype moments. It keeps the case study concise while still showing interaction design depth.</p>
+
+        <div class="prototype-gallery">
+          <div class="prototype-tabs" role="tablist" aria-label="Prototype gallery">
+            <button class="proto-tab active" data-proto="availability">
+              <div class="proto-title">Parking availability</div>
+              <div class="proto-desc">Status, lot capacity, and decision hierarchy.</div>
+            </button>
+            <button class="proto-tab" data-proto="prediction">
+              <div class="proto-title">Predictive occupancy</div>
+              <div class="proto-desc">Will this still be available by arrival?</div>
+            </button>
+            <button class="proto-tab" data-proto="shuttle">
+              <div class="proto-title">Shuttle prompt</div>
+              <div class="proto-desc">Alternative when parking looks risky.</div>
+            </button>
+            <button class="proto-tab" data-proto="reporting">
+              <div class="proto-title">Manager reporting</div>
+              <div class="proto-desc">Operational visibility and utilization.</div>
+            </button>
+          </div>
+
+          <div class="proto-panel">
+            <div class="proto-visual">
+              <video class="proto-media active" data-proto="availability" src="tesla-parking-availability.mp4" autoplay muted loop playsinline></video>
+              <video class="proto-media" data-proto="prediction" src="tesla-predictive-occupancy.mp4" autoplay muted loop playsinline></video>
+              <video class="proto-media" data-proto="shuttle" src="tesla-shuttle-prompt.mp4" autoplay muted loop playsinline></video>
+              <video class="proto-media" data-proto="reporting" src="tesla-manager-reporting.mp4" autoplay muted loop playsinline></video>
+              <div class="proto-placeholder" id="protoFallback"><strong>Prototype placeholder</strong>Replace the MP4 filenames with your exported GIFs/videos. Tabs will switch between them.</div>
+            </div>
+            <div class="proto-caption" id="protoCaption">Parking availability prototype: employees can scan lot status and understand which option is most viable.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="constraints" class="cs-section">
+        <div class="cs-section-label">Mobile constraints</div>
+        <h2 class="cs-h2">Mobile design forced sharper choices about hierarchy, states, and accessibility.</h2>
+        <p class="cs-p">This project helped me understand that mobile enterprise design is not just about fitting desktop information into a smaller space. It requires deciding what a user needs first, what can wait, and what must be accessible at a glance.</p>
+
+        <div class="mobile-principles">
+          <div class="principle-board">
+            <div class="principle-row">
+              <div class="principle-label">Glanceable</div>
+              <div class="principle-copy">Lead with status and recommendation before exposing detailed lot or shuttle data.</div>
+            </div>
+            <div class="principle-row">
+              <div class="principle-label">Progressive</div>
+              <div class="principle-copy">Reveal comparisons, alternatives, and operational details only when they help the next decision.</div>
+            </div>
+            <div class="principle-row">
+              <div class="principle-label">Thumb-first</div>
+              <div class="principle-copy">Prioritize primary actions and route-switching patterns that are easy to trigger quickly.</div>
+            </div>
+            <div class="principle-row">
+              <div class="principle-label">State-aware</div>
+              <div class="principle-copy">Design for full, limited, unknown, loading, and error states so the system remains useful when data changes.</div>
+            </div>
+          </div>
+          <div class="accessibility-card">
+            <h3>Accessibility mattered because status could not rely on color alone.</h3>
+            <p>Parking availability and prediction states needed clear labels, contrast, and redundant cues so employees could understand urgency quickly and confidently.</p>
+          </div>
+        </div>
+
+        <div class="img-block">
+          <div class="placeholder"><strong>Suggested visual</strong>Add a mobile constraints board showing status labels, color/label pairings, empty states, and thumb-zone decisions.</div>
+          <div class="img-caption-bar"><div class="img-caption-text">Suggested visual: mobile accessibility and state system for transportation status.</div></div>
+        </div>
+      </section>
+
+      <section id="solution" class="cs-section">
+        <div class="cs-section-label">Final solution</div>
+        <h2 class="cs-h2">A unified mobility platform embedded in Tesla One.</h2>
+        <p class="cs-p">The final experience brought parking availability, predictive occupancy, shuttle planning, navigation, and manager reporting into one platform. The design reframed transportation from a set of disconnected tasks into one decision-making workflow.</p>
+
+        <div class="two-col">
+          <div class="col-card">
+            <div class="col-label">Employee experience</div>
+            <div class="col-item">View parking availability in one place</div>
+            <div class="col-item">Understand predicted occupancy before arrival</div>
+            <div class="col-item">Compare parking and shuttle alternatives</div>
+            <div class="col-item">Access navigation without switching tools</div>
+          </div>
+          <div class="col-card">
+            <div class="col-label">Manager experience</div>
+            <div class="col-item">Monitor parking availability and utilization</div>
+            <div class="col-item">Identify lots approaching capacity</div>
+            <div class="col-item">Generate operational reports</div>
+            <div class="col-item">Support transportation decisions at scale</div>
+          </div>
+        </div>
+
+        <div class="before-after">
+          <div class="ba-card">
+            <div class="ba-label">Before</div>
+            <div class="ba-title">Fragmented decisions</div>
+            <div class="ba-list">
+              <span>4 disconnected tools</span>
+              <span>Availability changed before arrival</span>
+              <span>Employees had to infer alternatives manually</span>
+              <span>Managers lacked centralized visibility</span>
+            </div>
+          </div>
+          <div class="ba-card after">
+            <div class="ba-label">After</div>
+            <div class="ba-title">Unified mobility flow</div>
+            <div class="ba-list">
+              <span>1 embedded Tesla One experience</span>
+              <span>Predictive occupancy before arrival</span>
+              <span>Shuttle and navigation surfaced at decision points</span>
+              <span>Manager reporting in the same platform</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="img-block">
+          <div class="placeholder"><strong>Final flow placeholder</strong>Add a horizontal journey: check availability → compare options → receive recommendation → navigate → manager monitors/reporting.</div>
+          <div class="img-caption-bar"><div class="img-caption-text">Suggested visual: final end-to-end flow across commuter and manager experiences.</div></div>
+        </div>
+      </section>
+
+      <section id="impact" class="cs-section">
+        <div class="cs-section-label">Impact & reflection</div>
+        <h2 class="cs-h2">This project taught me that enterprise UX is often about designing confidence, not just screens.</h2>
+        <p class="cs-p">The platform consolidated 4 disconnected transportation tools into one mobility workflow for 1,000+ employees, while giving parking managers clearer operational visibility. More importantly, it changed the product goal from exposing transportation data to supporting better decisions before employees arrived.</p>
+
+        <div class="learning-list">
+          <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>I learned to design for uncertainty.</strong> Real-time data alone was not enough. The most useful experience helped users understand what was likely to happen next.</div></div>
+          <div class="learning"><span class="learning-num">02</span><div class="learning-text"><strong>I learned to balance ambition with feasibility.</strong> Strong enterprise design meant translating stakeholder requests into experiences that were useful, buildable, and clear.</div></div>
+          <div class="learning"><span class="learning-num">03</span><div class="learning-text"><strong>I grew as a mobile designer.</strong> Designing for quick decisions on small screens forced me to be more disciplined with hierarchy, states, and next actions.</div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          <div class="footer-title">The collection is still growing.</div>
+          <div class="footer-meta">Collected so far: Tesla · Splunk · CNN · Cal Poly</div>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-contact-title">Contact me</div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:navyaa.vemuri@gmail.com">Mail</a>
+          </div>
+        </div>
+        <a class="footer-stamp" href="portfolio.html" aria-label="Back to homepage">
+          <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
+        </a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+function toggleMobileMenu(){
+  const btn=document.getElementById('mobileMenuBtn');
+  const menu=document.getElementById('mobileMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+
+(function(){
+  const desktopLinks=document.querySelectorAll('.toc-link');
+  const mobileLinks=document.querySelectorAll('.mobile-toc-link');
+  const sections=document.querySelectorAll('section[id]');
+  if(!sections.length)return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id=e.target.id;
+        desktopLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+id));
+        mobileLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+id));
+      }
+    });
+  },{rootMargin:'-18% 0px -70% 0px',threshold:0});
+  sections.forEach(s=>obs.observe(s));
+})();
+
+(function(){
+  const captions={
+    availability:'Parking availability prototype: employees can scan lot status and understand which option is most viable.',
+    prediction:'Predictive occupancy prototype: the experience shifts from raw counts to “will this still be available when I arrive?”',
+    shuttle:'Shuttle prompt prototype: alternate commute options appear when parking availability becomes risky.',
+    reporting:'Manager reporting prototype: parking managers can monitor utilization and export operational reports.'
+  };
+  const tabs=document.querySelectorAll('.proto-tab');
+  const media=document.querySelectorAll('.proto-media');
+  const caption=document.getElementById('protoCaption');
+  const fallback=document.getElementById('protoFallback');
+
+  function updateFallback(){
+    const active=document.querySelector('.proto-media.active');
+    if(!active || active.readyState === 0){
+      fallback.style.display='block';
+    }
+  }
+
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      const key=tab.dataset.proto;
+      tabs.forEach(t=>t.classList.toggle('active',t===tab));
+      media.forEach(m=>{
+        const isActive=m.dataset.proto===key;
+        m.classList.toggle('active',isActive);
+        if(isActive){m.play().catch(()=>{});}
+        else{m.pause();}
+      });
+      caption.textContent=captions[key];
+      updateFallback();
+    });
+  });
+
+  media.forEach(m=>{
+    m.addEventListener('loadeddata',()=>{ if(m.classList.contains('active')) fallback.style.display='none'; });
+    m.addEventListener('error',updateFallback);
+  });
+  updateFallback();
+})();
+</script>
+</body>
+</html>
