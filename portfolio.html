@@ -662,10 +662,9 @@ function pointPlaneToCursor() {
 
 pointPlaneToCursor();
 
-/* ---------- Multi-waypoint flight path ---------- */
+/* ---------- Scalable multi-waypoint flight path ---------- */
 
 // Catmull-Rom spline through a list of {x,y} points.
-// Returns an interpolated {x,y} for global progress t in [0,1].
 function catmullRomPoint(points, t) {
   const n = points.length - 1;
   if (n < 1) return points[0];
@@ -699,24 +698,74 @@ function catmullRomPoint(points, t) {
   return { x, y };
 }
 
-// The winding shape of the path, as fractions of the viewport. The real
-// pixel start (the button's position) and end (the postcard reveal spot)
-// get spliced onto the front/back of this list at click-time.
-const PATH_SHAPE = [
-  { x: 0.62, y: 0.32 },
-  { x: 0.40, y: 0.40 },
-  { x: 0.46, y: 0.52 },
-  { x: 0.74, y: 0.58 },
-  { x: 0.80, y: 0.70 },
-  { x: 0.52, y: 0.78 }
-];
-
+/**
+ * Build a flight path that scales with real page content instead of
+ * hardcoded viewport fractions.
+ *
+ * - Starts exactly at the plane's current position (no jump).
+ * - Sweeps through the vertical span between hero and footer, scaled
+ *   to however tall that span actually is.
+ * - Samples a handful of real card positions (first / middle / last)
+ *   so the wobble always touches actual content, no matter how many
+ *   cards exist.
+ * - Ends exactly at the true center point above the postcard.
+ */
 function buildFlightPath(startPx, endPx) {
   const w = window.innerWidth;
-  const h = window.innerHeight;
+
+  const heroEl = document.querySelector(".hero");
+  const heroBottom = heroEl
+    ? heroEl.getBoundingClientRect().bottom + window.scrollY
+    : startPx.y;
+  const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+  const span = Math.max(footerTop - heroBottom, 1);
+
+  // Sample up to 3 real card positions: first, middle, last.
+  const cards = [...document.querySelectorAll(".cs-card")];
+  let cardWaypoints = [];
+  if (cards.length) {
+    const idxs = cards.length === 1
+      ? [0]
+      : [0, Math.floor((cards.length - 1) / 2), cards.length - 1];
+    const uniqueIdxs = [...new Set(idxs)];
+    cardWaypoints = uniqueIdxs.map((i) => {
+      const r = cards[i].getBoundingClientRect();
+      return {
+        x: r.left + r.width * 0.6,
+        y: r.top + r.height * 0.4 + window.scrollY
+      };
+    });
+  }
+
+  // Lateral drift is proportional to viewport width, not a fixed px
+  // value, and decays as the plane approaches center.
+  const drift = w * 0.1;
 
   const points = [startPx];
-  PATH_SHAPE.forEach((p) => points.push({ x: p.x * w, y: p.y * h }));
+
+  // Early easing point — pulls inward from start position gradually,
+  // staying close to startPx.x so there's no early jump.
+  points.push({
+    x: startPx.x - drift * 0.4,
+    y: heroBottom + span * 0.12
+  });
+
+  // Threaded waypoints through real card positions, alternating drift
+  // direction for a gentle wobble.
+  cardWaypoints.forEach((cw, i) => {
+    const dir = i % 2 === 0 ? 1 : -1;
+    points.push({
+      x: cw.x + dir * drift * 0.5,
+      y: cw.y
+    });
+  });
+
+  // Final approach — converges toward endPx, not a fixed fraction.
+  points.push({
+    x: lerp(startPx.x, endPx.x, 0.85),
+    y: footerTop - span * 0.06
+  });
+
   points.push(endPx);
 
   return points;
@@ -732,8 +781,10 @@ function animateFlight(duration = 7400) {
     window.innerHeight * 0.08;
 
   const startPoint = { x: startRect.left, y: startRect.top };
+
+  // True center of the viewport, not a fixed 0.55 fraction.
   const endPoint = {
-    x: window.innerWidth * 0.55 - startRect.width / 2,
+    x: window.innerWidth * 0.5 - startRect.width / 2,
     y: window.innerHeight * 0.78 - startRect.height / 2
   };
 
@@ -754,8 +805,6 @@ function animateFlight(duration = 7400) {
 
       const pos = catmullRomPoint(path, t);
 
-      // Sample slightly ahead on the curve to get a heading, so the
-      // plane actually banks into each turn instead of just wobbling.
       const aheadT = Math.min(t + TANGENT_EPS, 1);
       const ahead = catmullRomPoint(path, aheadT);
       const heading = getPlaneAngle(pos.x, pos.y, ahead.x, ahead.y);
