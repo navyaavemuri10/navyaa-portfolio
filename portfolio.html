@@ -28,6 +28,97 @@
   --border:#D6D6D6;
   --surface:#F4F3F0;
 }
+  /* ── Hidden discovery grid ── */
+.discovery-grid-layer{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.discovery-cell{
+  position:absolute;
+  transition:background .15s ease;
+  pointer-events:auto;
+}
+.discovery-cell:hover{
+  background:rgba(0,0,0,0.035);
+}
+.discovery-cell.has-stamp{
+  pointer-events:auto;
+}
+.discovery-cell.has-stamp img{
+  position:absolute;
+  inset:10px;
+  width:calc(100% - 20px);
+  height:calc(100% - 20px);
+  object-fit:contain;
+  opacity:0;
+  transition:opacity .5s ease;
+  pointer-events:none;
+}
+.discovery-cell.has-stamp:hover img{
+  opacity:1;
+}
+.discovery-cell.has-stamp:hover{
+  background:none;
+}
+
+@media(max-width:900px){
+  .discovery-grid-layer{
+    display:none;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .discovery-cell,
+  .discovery-cell.has-stamp img{
+    transition:none;
+  }
+}
+
+/* ── Hover tooltip bubbles — matches About page hover style ── */
+.has-hover-bubble{
+  position:relative;
+}
+.hover-bubble{
+  position:absolute;
+  background:#E8E4F5;
+  color:#2F2F2F;
+  font-family:"DM Sans",sans-serif;
+  font-size:14px;
+  font-weight:400;
+  white-space:nowrap;
+  padding:9px 18px;
+  border-radius:24px;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .25s ease,transform .25s ease;
+  pointer-events:none;
+  z-index:20;
+}
+.bubble-below{
+  left:50%;
+  top:calc(100% + 10px);
+  transform:translateX(-50%) translateY(4px);
+}
+.bubble-above{
+  left:50%;
+  bottom:calc(100% + 10px);
+  transform:translateX(-50%) translateY(-4px);
+}
+.has-hover-bubble:hover .bubble-below{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+.has-hover-bubble:hover .bubble-above{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+@media(max-width:900px){
+  .hover-bubble{
+    display:none;
+  }
+}
 
 html{scroll-behavior:smooth;}
 body{
@@ -469,7 +560,7 @@ img,video{max-width:100%;display:block;}
     line-height:1.2;
   }
   .hero-meta{
-    font-size:20px;
+    font-size:16px;
     margin-top:38px;
   }
   .paper-plane-button{
@@ -525,12 +616,12 @@ img,video{max-width:100%;display:block;}
 
 <header class="hero">
   <div class="hero-copy">
-    <h1>Hi! I’m Navyaa Vemuri</h1>
+    <h1 class="hero-name-trigger">Hi! I'm Navyaa Vemuri</h1>
     <p class="hero-subtitle">
       a product designer focused on trust,<br>
       discovery, and decision-making.
     </p>
-    <p class="hero-meta">Previously @ Tesla, Splunk, CNN</p>
+    <p class="hero-meta">Cal Poly SLO Graphic Communication Grad <br> Previously @ Tesla, Splunk, CNN</p>
   </div>
 
   <button class="paper-plane-button" id="paperPlane" aria-label="Follow the flight">
@@ -987,6 +1078,202 @@ document.querySelectorAll(".cs-card").forEach((card) => {
   card.addEventListener("focus", play);
   card.addEventListener("blur", stop);
 });
+
+  /* ──────────────────────────────────────────────────────────────
+   HERO DISCOVERY GRID
+   - Invisible 8x6 grid over the hero
+   - Hovering an empty cell shows a soft shadow
+   - 8 specific cells contain stamp SVGs that fade in on hover
+   - Two moats are carved out dynamically from real element
+     positions: the headline/subtitle block, and the airplane
+   - Fully responsive: moats and grid recompute on resize
+   - Disabled entirely below 900px (tablet/mobile) since hover
+     discovery doesn't translate to touch
+   ────────────────────────────────────────────────────────────── */
+
+(function () {
+  const hero = document.querySelector(".hero");
+  const heroCopy = document.querySelector(".hero-copy") || document.querySelector(".hero-inner");
+  const planeButton = document.getElementById("paperPlane");
+  if (!hero) return;
+
+  const COLS = 8;
+  const ROWS = 6;
+  const MOAT_PADDING = 16;
+
+  const STAMP_FILES = [
+    "herostamp-1.svg",
+    "herostamp-2.svg",
+    "herostamp-3.svg",
+    "herostamp-4.svg",
+    "herostamp-5.svg",
+    "herostamp-6.svg",
+    "herostamp-7.svg",
+    "herostamp-8.svg"
+  ];
+
+  let gridLayer = null;
+  let cells = [];
+  let stampCellKeys = [];
+
+  function buildGridLayer() {
+    if (gridLayer) gridLayer.remove();
+    gridLayer = document.createElement("div");
+    gridLayer.className = "discovery-grid-layer";
+    hero.insertBefore(gridLayer, hero.firstChild);
+  }
+
+  function rectToCellBounds(rect, heroRect, cellW, cellH) {
+    const left = rect.left - heroRect.left - MOAT_PADDING;
+    const top = rect.top - heroRect.top - MOAT_PADDING;
+    const right = rect.right - heroRect.left + MOAT_PADDING;
+    const bottom = rect.bottom - heroRect.top + MOAT_PADDING;
+
+    return {
+      colStart: Math.floor(left / cellW),
+      colEnd: Math.ceil(right / cellW),
+      rowStart: Math.floor(top / cellH),
+      rowEnd: Math.ceil(bottom / cellH)
+    };
+  }
+
+  function cellInBounds(c, r, bounds) {
+    return (
+      c >= bounds.colStart &&
+      c < bounds.colEnd &&
+      r >= bounds.rowStart &&
+      r < bounds.rowEnd
+    );
+  }
+
+  function pickStampCells(moatedKeys, count) {
+    const allKeys = [];
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const key = c + "," + r;
+        if (!moatedKeys.has(key)) allKeys.push(key);
+      }
+    }
+    for (let i = allKeys.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allKeys[i], allKeys[j]] = [allKeys[j], allKeys[i]];
+    }
+    return allKeys.slice(0, Math.min(count, allKeys.length));
+  }
+
+  function renderGrid() {
+    if (window.innerWidth <= 900) {
+      if (gridLayer) {
+        gridLayer.remove();
+        gridLayer = null;
+      }
+      return;
+    }
+
+    const heroRect = hero.getBoundingClientRect();
+    const cellW = heroRect.width / COLS;
+    const cellH = heroRect.height / ROWS;
+
+    const moatedKeys = new Set();
+
+    if (heroCopy) {
+      const copyRect = heroCopy.getBoundingClientRect();
+      const b = rectToCellBounds(copyRect, heroRect, cellW, cellH);
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          if (cellInBounds(c, r, b)) moatedKeys.add(c + "," + r);
+        }
+      }
+    }
+
+    if (planeButton) {
+      const planeRect = planeButton.getBoundingClientRect();
+      const b = rectToCellBounds(planeRect, heroRect, cellW, cellH);
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          if (cellInBounds(c, r, b)) moatedKeys.add(c + "," + r);
+        }
+      }
+    }
+
+    if (!gridLayer || stampCellKeys.length === 0) {
+      buildGridLayer();
+      stampCellKeys = pickStampCells(moatedKeys, STAMP_FILES.length);
+    } else {
+      buildGridLayer();
+    }
+
+    cells = [];
+    let stampIndex = 0;
+
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const key = c + "," + r;
+        const isStampCell = stampCellKeys.includes(key);
+
+        if (moatedKeys.has(key) && !isStampCell) continue;
+
+        const cell = document.createElement("div");
+        cell.className = "discovery-cell";
+        cell.style.left = (c / COLS) * 100 + "%";
+        cell.style.top = (r / ROWS) * 100 + "%";
+        cell.style.width = 100 / COLS + "%";
+        cell.style.height = 100 / ROWS + "%";
+
+        if (isStampCell) {
+          cell.classList.add("has-stamp");
+          const img = document.createElement("img");
+          img.src = STAMP_FILES[stampIndex % STAMP_FILES.length];
+          img.alt = "";
+          img.setAttribute("aria-hidden", "true");
+          cell.appendChild(img);
+          stampIndex++;
+        }
+
+        gridLayer.appendChild(cell);
+        cells.push(cell);
+      }
+    }
+  }
+
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderGrid, 150);
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(renderGrid);
+  } else {
+    renderGrid();
+  }
+  window.addEventListener("load", renderGrid);
+  renderGrid();
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   TOOLTIP BUBBLES
+   Matches the existing About-page hover bubble style: rounded
+   pill, soft lavender background, dark text, no tail/pointer.
+   ────────────────────────────────────────────────────────────── */
+
+(function () {
+  const nameTrigger = document.querySelector(".hero-name-trigger");
+  const planeButton = document.getElementById("paperPlane");
+
+  function attachBubble(trigger, text, position) {
+    if (!trigger) return;
+
+    const bubble = document.createElement("div");
+    bubble.className = "hover-bubble " + position;
+    bubble.textContent = text;
+    trigger.appendChild(bubble);
+    trigger.classList.add("has-hover-bubble");
+  }
+
+  attachBubble(nameTrigger, "hover around to discover what i love", "bubble-below");
+  attachBubble(planeButton, "let's take a tour?", "bubble-above");
+})();
 </script>
 
 </body>
