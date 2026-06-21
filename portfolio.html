@@ -122,6 +122,41 @@ img,video{max-width:100%;display:block;}
   font-size:clamp(21px,1.8vw,30px);
   letter-spacing:-.05em;
 }
+  /* ── Hidden stamp discovery zones ── */
+.stamp-zone{
+  position:absolute;
+  width:140px;
+  height:160px;
+  cursor:default;
+  z-index:1;
+}
+.stamp-zone img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  opacity:0;
+  transition:opacity .5s ease;
+  pointer-events:none;
+}
+.stamp-zone:hover img{
+  opacity:1;
+}
+
+/* Positioned clear of headline, meta line, and the airplane's
+   resting spot + hover radius (right ~8vw, bottom ~120-190px) */
+.stamp-zone-1{ left:6vw;  top:8vh;  }
+.stamp-zone-2{ left:38vw; top:14vh; }
+.stamp-zone-3{ left:55vw; top:42vh; }
+.stamp-zone-4{ left:20vw; top:55vh; }
+
+@media(max-width:900px){
+  .stamp-zone{ display:none; }
+}
+@media(prefers-reduced-motion:reduce){
+  .stamp-zone img{ transition:none; }
+}
 
 /* PAPER PLANE */
 .paper-plane-button {
@@ -502,6 +537,18 @@ img,video{max-width:100%;display:block;}
     <span class="plane-label">Follow me→</span>
     <img src="paper-plane.svg" alt="" class="plane-img">
   </button>
+  <div class="stamp-zone stamp-zone-1" aria-hidden="true">
+  <img src="herostamp-1.svg" alt="">
+</div>
+<div class="stamp-zone stamp-zone-2" aria-hidden="true">
+  <img src="herostamp-2.svg" alt="">
+</div>
+<div class="stamp-zone stamp-zone-3" aria-hidden="true">
+  <img src="herostamp-3.svg" alt="">
+</div>
+<div class="stamp-zone stamp-zone-4" aria-hidden="true">
+  <img src="herostamp-4.svg" alt="">
+</div>
 </header>
 
 <main class="page-wrap">
