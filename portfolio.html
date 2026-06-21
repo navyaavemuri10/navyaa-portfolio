@@ -665,21 +665,20 @@ pointPlaneToCursor();
 /* ──────────────────────────────────────────────────────────────
    FLIGHT PATH
 
-   The single rule that makes this correct: plane.style.left/top
-   are set ONCE at launch (in viewport pixels, from startRect) and
-   never touched again. Every frame after that, we move the plane
-   purely via translate3d(offsetX, offsetY), where:
+   HARD CONSTRAINT: every single waypoint's x coordinate must be
+   >= startDoc.x (never left of launch) and the final point must
+   land at true center, never at an extreme edge. We enforce this
+   by clamping every generated x value with Math.max(startDoc.x, …)
+   and by deriving the end point purely from viewport center math
+   with no heading-based projection that could push it sideways.
 
-     offsetX = (document-space target x) - (document-space start x)
-     offsetY = (target x converted to CURRENT viewport y) - startRect.top
-
-   Both startDoc.x and posDoc.x live in the same space (raw page
-   x — horizontal scroll is never a factor in this vertical-only
-   layout, so we deliberately do NOT add scrollX anywhere). The
-   y-axis is the only one affected by scrolling, so it is the only
-   one where we re-subtract the LIVE window.scrollY every frame,
-   on both sides of the offset calculation, so scroll cannot
-   introduce drift in either direction.
+   The plane's ROTATION still transitions smoothly from whatever
+   angle it was facing at click-time into the flight heading — but
+   POSITION never depends on that angle. This is the deliberate
+   fix for the left-jump: the old code multiplied a launch distance
+   by cos(headingRad), so any time the cursor was above-left of the
+   plane at click, the very first waypoint shot left. Removing that
+   term entirely removes the bug at its source.
    ────────────────────────────────────────────────────────────── */
 
 function catmullRomPoint(points, t) {
@@ -716,20 +715,12 @@ function catmullRomPoint(points, t) {
 }
 
 /**
- * Build the flight path in pure document-x / document-y-at-click
- * space. startDoc.x and endDoc.x are raw page x (no scrollX, ever,
- * since this layout has no horizontal scroll). startDoc.y/endDoc.y
- * are page y at the moment of click (scrollY already added once).
- *
- * Calmer, more realistic shape than before: fewer direction changes,
- * gentler curvature, no sharp doubling-back. The plane essentially
- * continues forward from its launch heading, eases into one broad
- * downward arc, drifts very slightly side to side as it passes the
- * card region (a hint of wind, not a slalom), then settles toward
- * center for the final approach. Scales to any viewport / content
- * length since it's all derived from real DOM measurements.
+ * Build the flight path. Every waypoint x is clamped to never go
+ * left of startDoc.x. The path eases forward and down toward
+ * center — no heading-projection step, so a click-time cursor
+ * angle can never push the position leftward.
  */
-function buildFlightPath(startDoc, endDoc, startAngleDeg) {
+function buildFlightPath(startDoc, endDoc) {
   const heroEl = document.querySelector(".hero");
   const heroBottomDoc = heroEl
     ? heroEl.getBoundingClientRect().bottom + window.scrollY
@@ -747,31 +738,30 @@ function buildFlightPath(startDoc, endDoc, startAngleDeg) {
     midCardY = r.top + r.height * 0.45 + window.scrollY;
   }
 
-  const headingRad = (startAngleDeg + PLANE_TIP_OFFSET) * Math.PI / 180;
-  const launchDist = Math.max(span * 0.07, 50);
+  const clampX = (x) => Math.max(x, startDoc.x);
 
   const points = [];
 
   points.push(startDoc);
 
   points.push({
-    x: startDoc.x + Math.cos(headingRad) * launchDist,
-    y: startDoc.y + Math.sin(headingRad) * launchDist
+    x: clampX(lerp(startDoc.x, endDoc.x, 0.15)),
+    y: startDoc.y + span * 0.10
   });
 
   points.push({
-    x: lerp(startDoc.x, midCardX, 0.45),
-    y: heroBottomDoc + span * 0.22
+    x: clampX(lerp(startDoc.x, midCardX, 0.55)),
+    y: heroBottomDoc + span * 0.25
   });
 
   points.push({
-    x: midCardX,
+    x: clampX(midCardX),
     y: midCardY
   });
 
   points.push({
-    x: lerp(midCardX, endDoc.x, 0.6),
-    y: footerTopDoc - span * 0.10
+    x: clampX(lerp(midCardX, endDoc.x, 0.65)),
+    y: footerTopDoc - span * 0.08
   });
 
   points.push(endDoc);
@@ -789,9 +779,15 @@ function animateFlight(duration = 7800) {
   };
 
   const footerTopDoc = footer.getBoundingClientRect().top + window.scrollY;
+  const footerRect = footer.getBoundingClientRect();
+
+  // True horizontal center of the FOOTER element itself (not the
+  // viewport) minus half the plane's width, so the plane's own
+  // center lands on the footer's center — this is what guarantees
+  // the scale/fade plays in the middle, never at an edge.
   const endDoc = {
-    x: window.innerWidth * 0.5 - startRect.width / 2,
-    y: footerTopDoc + window.innerHeight * 0.12
+    x: footerRect.left + footerRect.width / 2 - startRect.width / 2,
+    y: footerTopDoc + footerRect.height * 0.32
   };
 
   const targetScroll = Math.max(
@@ -799,7 +795,7 @@ function animateFlight(duration = 7800) {
     scrollAtClick
   );
 
-  const path = buildFlightPath(startDoc, endDoc, currentAngle);
+  const path = buildFlightPath(startDoc, endDoc);
   const startTime = performance.now();
   const TANGENT_EPS = 0.01;
 
@@ -888,8 +884,8 @@ if (plane && footer) {
     await plane.animate(
       [
         { transform: plane.style.transform, opacity: 1 },
-        { transform: "translate3d(0,0,0) rotate(0deg) scale(1.55)", opacity: 1 },
-        { transform: "translate3d(0,0,0) rotate(0deg) scale(2)", opacity: 0 }
+        { transform: plane.style.transform.replace(/rotate\([^)]+\)/, "rotate(0deg) scale(1.55)"), opacity: 1 },
+        { transform: plane.style.transform.replace(/rotate\([^)]+\)/, "rotate(0deg) scale(2)"), opacity: 0 }
       ],
       {
         duration: 950,
