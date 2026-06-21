@@ -662,9 +662,16 @@ function pointPlaneToCursor() {
 
 pointPlaneToCursor();
 
-/* ---------- Scalable multi-waypoint flight path ---------- */
+/* ──────────────────────────────────────────────────────────────
+   FLIGHT PATH — everything below operates in DOCUMENT space
+   (i.e. all coordinates already include scroll offset). We only
+   convert to viewport space once, per animation frame, at the
+   point we actually write to plane.style.transform. This is the
+   single source of truth that fixes the coordinate-mismatch bug:
+   every waypoint, every distance, every angle is computed in the
+   same space as every other one.
+   ────────────────────────────────────────────────────────────── */
 
-// Catmull-Rom spline through a list of {x,y} points.
 function catmullRomPoint(points, t) {
   const n = points.length - 1;
   if (n < 1) return points[0];
@@ -699,28 +706,32 @@ function catmullRomPoint(points, t) {
 }
 
 /**
- * Build a flight path that scales with real page content instead of
- * hardcoded viewport fractions.
+ * Build a flight path entirely in DOCUMENT space (page coordinates,
+ * not viewport coordinates). startDoc and endDoc are both already
+ * document-space points by the time they're passed in here.
  *
- * - Starts exactly at the plane's current position (no jump).
- * - Sweeps through the vertical span between hero and footer, scaled
- *   to however tall that span actually is.
- * - Samples a handful of real card positions (first / middle / last)
- *   so the wobble always touches actual content, no matter how many
- *   cards exist.
- * - Ends exactly at the true center point above the postcard.
+ * The curve:
+ *  1. Starts exactly at startDoc — the plane's real current position,
+ *     wherever that is on whatever viewport/breakpoint is active.
+ *  2. Launches "from the way the tip is facing" — the second waypoint
+ *     is projected outward along startAngle, so the curve's initial
+ *     direction matches the plane's heading at the moment of click,
+ *     not an arbitrary leftward snap.
+ *  3. Curves down through the page using the real hero/footer
+ *     boundaries and 1-3 sampled card positions, so it scales to any
+ *     amount of content without hardcoded pixel/fraction constants.
+ *  4. Ends at endDoc — true horizontal center, document space.
  */
-function buildFlightPath(startPx, endPx) {
+function buildFlightPath(startDoc, endDoc, startAngleDeg) {
   const w = window.innerWidth;
 
   const heroEl = document.querySelector(".hero");
-  const heroBottom = heroEl
+  const heroBottomDoc = heroEl
     ? heroEl.getBoundingClientRect().bottom + window.scrollY
-    : startPx.y;
-  const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-  const span = Math.max(footerTop - heroBottom, 1);
+    : startDoc.y;
+  const footerTopDoc = footer.getBoundingClientRect().top + window.scrollY;
+  const span = Math.max(footerTopDoc - heroBottomDoc, 1);
 
-  // Sample up to 3 real card positions: first, middle, last.
   const cards = [...document.querySelectorAll(".cs-card")];
   let cardWaypoints = [];
   if (cards.length) {
@@ -737,21 +748,30 @@ function buildFlightPath(startPx, endPx) {
     });
   }
 
-  // Lateral drift is proportional to viewport width, not a fixed px
-  // value, and decays as the plane approaches center.
-  const drift = w * 0.1;
+  const drift = w * 0.09;
 
-  const points = [startPx];
+  const points = [startDoc];
 
-  // Early easing point — pulls inward from start position gradually,
-  // staying close to startPx.x so there's no early jump.
+  // Launch tangent: project a short distance forward along the plane's
+  // actual heading at click-time, so the curve's initial direction
+  // visually continues from wherever the nose was pointing. The visual
+  // nose direction is startAngleDeg + PLANE_TIP_OFFSET (we stored the
+  // rotation as an offset from that base, so we add it back here to
+  // get the true on-screen heading).
+  const headingRad = (startAngleDeg + PLANE_TIP_OFFSET) * Math.PI / 180;
+  const launchDist = Math.max(span * 0.08, 60);
   points.push({
-    x: startPx.x - drift * 0.4,
-    y: heroBottom + span * 0.12
+    x: startDoc.x + Math.cos(headingRad) * launchDist,
+    y: startDoc.y + Math.sin(headingRad) * launchDist
   });
 
-  // Threaded waypoints through real card positions, alternating drift
-  // direction for a gentle wobble.
+  // Bend back toward the page's vertical center line once launched,
+  // then continue the downward sweep through hero -> footer span.
+  points.push({
+    x: lerp(startDoc.x, endDoc.x, 0.3),
+    y: heroBottomDoc + span * 0.18
+  });
+
   cardWaypoints.forEach((cw, i) => {
     const dir = i % 2 === 0 ? 1 : -1;
     points.push({
@@ -760,57 +780,88 @@ function buildFlightPath(startPx, endPx) {
     });
   });
 
-  // Final approach — converges toward endPx, not a fixed fraction.
+  // Final approach converges toward endDoc.
   points.push({
-    x: lerp(startPx.x, endPx.x, 0.85),
-    y: footerTop - span * 0.06
+    x: lerp(startDoc.x, endDoc.x, 0.85),
+    y: footerTopDoc - span * 0.06
   });
 
-  points.push(endPx);
+  points.push(endDoc);
 
   return points;
 }
 
 function animateFlight(duration = 7400) {
   const startRect = plane.getBoundingClientRect();
+  const scrollAtClick = window.scrollY;
 
-  const startScroll = window.scrollY;
-  const endScroll =
-    footer.getBoundingClientRect().top +
-    window.scrollY -
-    window.innerHeight * 0.08;
-
-  const startPoint = { x: startRect.left, y: startRect.top };
-
-  // True center of the viewport, not a fixed 0.55 fraction.
-  const endPoint = {
-    x: window.innerWidth * 0.5 - startRect.width / 2,
-    y: window.innerHeight * 0.78 - startRect.height / 2
+  // Document-space start point (viewport-space + current scroll).
+  const startDoc = {
+    x: startRect.left + window.scrollX,
+    y: startRect.top + scrollAtClick
   };
 
-  const path = buildFlightPath(startPoint, endPoint);
+  // Document-space end point — true horizontal center, just above
+  // the footer/postcard reveal area.
+  const footerTopDoc = footer.getBoundingClientRect().top + window.scrollY;
+  const endDoc = {
+    x: window.innerWidth * 0.5 - startRect.width / 2,
+    y: footerTopDoc + window.innerHeight * 0.12
+  };
+
+  const targetScroll = Math.max(
+    footerTopDoc - window.innerHeight * 0.08,
+    scrollAtClick
+  );
+
+  const path = buildFlightPath(startDoc, endDoc, currentAngle);
   const startTime = performance.now();
   const TANGENT_EPS = 0.01;
 
+  // The plane should outrun the page scroll near the footer, so the
+  // footer is visibly "caught up to" by the user rather than the
+  // plane waiting on the scroll. We give scroll an easeInOut over the
+  // full duration, but give the plane's OWN path progress a curve
+  // that's slightly ahead in the back half (scrollLag).
   return new Promise((resolve) => {
     function frame(now) {
       const raw = Math.min((now - startTime) / duration, 1);
-      const t = easeInOut(raw);
 
+      // Scroll progress: standard ease, never overshoots target.
+      const scrollT = easeInOut(raw);
       window.scrollTo({
-        top: lerp(startScroll, endScroll, t),
+        top: lerp(scrollAtClick, targetScroll, scrollT),
         left: 0,
         behavior: "auto"
       });
 
-      const pos = catmullRomPoint(path, t);
+      // Plane progress: same ease for the first 70%, then accelerates
+      // ahead of scroll for the final approach so it visibly arrives
+      // at the footer slightly before the scroll settles there.
+      let planeT;
+      if (raw < 0.7) {
+        planeT = easeInOut(raw / 0.7) * 0.78;
+      } else {
+        const tail = (raw - 0.7) / 0.3;
+        planeT = 0.78 + easeInOut(tail) * 0.22;
+      }
 
-      const aheadT = Math.min(t + TANGENT_EPS, 1);
-      const ahead = catmullRomPoint(path, aheadT);
-      const heading = getPlaneAngle(pos.x, pos.y, ahead.x, ahead.y);
+      const posDoc = catmullRomPoint(path, planeT);
+
+      const aheadT = Math.min(planeT + TANGENT_EPS, 1);
+      const aheadDoc = catmullRomPoint(path, aheadT);
+      const heading = getPlaneAngle(posDoc.x, posDoc.y, aheadDoc.x, aheadDoc.y);
+
+      // Convert document-space position back to viewport space using
+      // the CURRENT live scroll (not the scroll at click time), so the
+      // plane stays visually correct relative to the viewport as the
+      // page scrolls beneath it during the animation.
+      const liveScrollY = window.scrollY;
+      const posViewport = { x: posDoc.x, y: posDoc.y - liveScrollY };
+      const startViewport = { x: startDoc.x, y: startDoc.y - scrollAtClick };
 
       plane.style.transform =
-        `translate3d(${pos.x - startPoint.x}px, ${pos.y - startPoint.y}px, 0) rotate(${heading}deg)`;
+        `translate3d(${posViewport.x - startViewport.x}px, ${posViewport.y - (startRect.top)}px, 0) rotate(${heading}deg)`;
 
       if (raw < 1) {
         requestAnimationFrame(frame);
@@ -848,6 +899,8 @@ if (plane && footer) {
     plane.style.bottom = "auto";
     plane.style.width = `${startRect.width}px`;
     plane.style.zIndex = "99999";
+    // Preserve whatever heading the plane was already facing from
+    // cursor tracking — this becomes the launch direction.
     plane.style.transform = `rotate(${currentAngle}deg)`;
     plane.style.pointerEvents = "none";
 
@@ -895,8 +948,6 @@ if (plane && footer) {
     document.documentElement.classList.remove("flight-active");
   });
 }
-
-/* ---------- Hover-to-play case study videos ---------- */
 
 document.querySelectorAll(".cs-card").forEach((card) => {
   const video = card.querySelector(".cs-thumb video");
