@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
 
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0;}
 
 :root{
@@ -27,125 +28,6 @@
   --line:#1F1F1F;
   --border:#D6D6D6;
   --surface:#F4F3F0;
-}
-  /* ── Hidden discovery grid ── */
-
-
-.discovery-cell:hover{
-  background:rgba(0,0,0,0.035);
-}
-.hero-grid-svg{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-.grid-line{
-  stroke:#C9BFA8;
-  stroke-width:0.6;
-  opacity:0.22;
-}
- 
-/* ── Grid-aligned stamps ── */
-.stamp-grid-layer{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-.stamp-grid-item{
-  position:absolute;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px;
-  box-sizing:border-box;
-}
-.stamp-grid-item img{
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  display:block;
-  opacity:0.92;
-}
-.discovery-cell.has-stamp{
-  pointer-events:auto;
-}
-.discovery-cell.has-stamp img{
-  position:absolute;
-  inset:10px;
-  width:calc(100% - 20px);
-  height:calc(100% - 20px);
-  object-fit:contain;
-  opacity:0;
-  transition:opacity .5s ease;
-  pointer-events:none;
-}
-.discovery-cell.has-stamp:hover img{
-  opacity:1;
-}
-.discovery-cell.has-stamp:hover{
-  background:none;
-}
-
-@media(max-width:900px){
-  .hero-grid-svg,
-  .stamp-grid-layer{
-    display:none;
-  }
-}
-@media(prefers-reduced-motion:reduce){
-  .discovery-cell,
-  .discovery-cell.has-stamp img{
-    transition:none;
-  }
-}
-
-/* ── Hover tooltip bubbles — matches About page hover style ── */
-.has-hover-bubble{
-  position:relative;
-}
-.hover-bubble{
-  position:absolute;
-  background:#E8E4F5;
-  color:#2F2F2F;
-  font-family:"DM Sans",sans-serif;
-  font-size:14px;
-  font-weight:400;
-  white-space:nowrap;
-  padding:9px 18px;
-  border-radius:24px;
-  opacity:0;
-  transform:translateY(4px);
-  transition:opacity .25s ease,transform .25s ease;
-  pointer-events:none;
-  z-index:20;
-}
-.bubble-below{
-  left:50%;
-  top:calc(100% + 10px);
-  transform:translateX(-50%) translateY(4px);
-}
-.bubble-above{
-  left:50%;
-  bottom:calc(100% + 10px);
-  transform:translateX(-50%) translateY(-4px);
-}
-.has-hover-bubble:hover .bubble-below{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-.has-hover-bubble:hover .bubble-above{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-@media(max-width:900px){
-  .hover-bubble{
-    display:none;
-  }
 }
 
 html{scroll-behavior:smooth;}
@@ -166,11 +48,9 @@ img,video{max-width:100%;display:block;}
   top:28px;
   right:clamp(24px,5vw,80px);
   z-index:9999;
-
   display:flex;
   align-items:center;
   gap:clamp(28px,4vw,64px);
-
   padding:12px 22px;
   background:rgba(248,241,228,.86);
   backdrop-filter:blur(12px);
@@ -178,33 +58,18 @@ img,video{max-width:100%;display:block;}
   border:1px solid rgba(0,0,0,.08);
   border-radius:999px;
   box-shadow:0 8px 24px rgba(0,0,0,.06);
-
   font-family:"DM Sans",sans-serif;
   font-size:18px;
   text-transform:uppercase;
   letter-spacing:-.035em;
 }
-
 .site-nav a{
   display:block;
   text-decoration:none;
   color:#111;
   white-space:nowrap;
 }
-
-.site-nav a:hover{
-  opacity:.55;
-}
-
-@media(max-width:640px){
-  .site-nav{
-    top:18px;
-    right:18px;
-    gap:20px;
-    padding:10px 16px;
-    font-size:13px;
-  }
-}
+.site-nav a:hover{opacity:.55;}
 
 /* HERO */
 .hero{
@@ -214,11 +79,15 @@ img,video{max-width:100%;display:block;}
   align-items:center;
   padding:110px clamp(48px,6vw,128px) 90px;
   overflow:hidden;
+  background-image:
+    linear-gradient(rgba(31,64,92,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,64,92,.055) 1px, transparent 1px);
+  background-size:12.5vw 12.5vw;
 }
 .hero-copy{
   max-width:900px;
   position:relative;
-  z-index:2;
+  z-index:3;
 }
 .hero h1,
 .hero-subtitle{
@@ -241,138 +110,120 @@ img,video{max-width:100%;display:block;}
   font-size:clamp(21px,1.8vw,30px);
   letter-spacing:-.05em;
 }
-.hero-grid-svg,
-.stamp-grid-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+
+/* HOVER BUBBLES */
+.bubble-wrap{
+  position:relative;
+  display:inline-block;
+}
+.hover-bubble{
+  position:absolute;
+  z-index:999;
+  background:#E8E4F5;
+  color:#2F2F2F;
+  font-family:"DM Sans",sans-serif;
+  font-size:14px;
+  font-weight:400;
+  white-space:nowrap;
+  padding:9px 18px;
+  border-radius:24px;
+  opacity:0;
+  pointer-events:none;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  transition:opacity .25s ease,transform .25s ease;
+}
+.bubble-name{
+  left:50%;
+  bottom:calc(100% + 14px);
+  transform:translateX(-50%) translateY(8px) scale(.98);
+}
+.hero-name-trigger:hover .bubble-name{
+  opacity:1;
+  transform:translateX(-50%) translateY(0) scale(1);
+}
+.bubble-plane{
+  left:50%;
+  bottom:calc(100% + 12px);
+  transform:translateX(-50%) translateY(8px) scale(.98);
+}
+.paper-plane-button:hover .bubble-plane{
+  opacity:1;
+  transform:translateX(-50%) translateY(0) scale(1);
 }
 
-.hero-grid-svg {
-  z-index: 0;
+/* HERO STAMP DISCOVERY GRID */
+.hero-stamp-grid{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
 }
-
-.grid-line {
-  stroke: rgba(31, 64, 92, 0.07);
-  stroke-width: 1;
+.hero-stamp-cell{
+  position:absolute;
+  width:clamp(120px,10vw,185px);
+  aspect-ratio:3 / 4;
+  display:grid;
+  place-items:center;
+  pointer-events:auto;
 }
-
-.stamp-grid-layer {
-  z-index: 1;
+.hero-stamp-cell img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  opacity:0;
+  transform:scale(.94);
+  transition:opacity .28s ease,transform .28s ease;
+  pointer-events:none;
 }
-
-.stamp-grid-item {
-  position: absolute;
-  pointer-events: auto;
+.hero-stamp-cell:hover img{
+  opacity:1;
+  transform:scale(1);
 }
-
-.stamp-grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  pointer-events: none;
-}
-
-.stamp-grid-item:hover img {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.hero-copy,
-.paper-plane-button {
-  z-index: 3;
-}
-
-@media (max-width: 900px) {
-  .hero-grid-svg,
-  .stamp-grid-layer {
-    display: none;
-  }
-}
-@media(max-width:900px){
-  .stamp-zone{ display:none; }
-}
-@media(prefers-reduced-motion:reduce){
-  .stamp-zone img{ transition:none; }
-}
+.cell-1{left:6.25vw;top:4vw;}
+.cell-2{left:43.75vw;top:4vw;}
+.cell-3{left:81.25vw;top:5vw;}
+.cell-4{left:18.75vw;top:48vh;}
+.cell-5{left:56.25vw;top:42vh;}
+.cell-6{left:31.25vw;top:72vh;}
+.cell-7{left:68.75vw;top:70vh;}
+.cell-8{left:6.25vw;top:74vh;}
 
 /* PAPER PLANE */
-.paper-plane-button {
-  position: absolute;
-  right: clamp(70px, 8vw, 150px);
-  bottom: clamp(120px, 18vh, 190px);
-  width: clamp(190px, 15vw, 270px);
-  border: 0;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-  z-index: 30;
-  transform-origin: center;
-  will-change: transform, left, top, width;
+.paper-plane-button{
+  position:absolute;
+  right:clamp(70px,8vw,150px);
+  bottom:clamp(120px,18vh,190px);
+  width:clamp(190px,15vw,270px);
+  border:0;
+  background:transparent;
+  padding:0;
+  cursor:pointer;
+  z-index:30;
+  transform-origin:center;
+  will-change:transform,left,top,width;
 }
-.plane-img {
-  width: 100%;
-  display: block;
-  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.12));
-  animation: floatPlane 5.5s ease-in-out infinite;
-  transform-origin: center;
+.plane-img{
+  width:100%;
+  display:block;
+  filter:drop-shadow(0 16px 18px rgba(0,0,0,.12));
+  animation:floatPlane 5.5s ease-in-out infinite;
+  transform-origin:center;
 }
-
-.plane-label {
-  position: absolute;
-  top: -36px;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  white-space: nowrap;
-  font-family: "Goudy Bookletter 1911", serif;
-  font-size: 22px;
-  color: #333;
-  opacity: 0;
-  transition: opacity .3s ease, transform .3s ease;
-  pointer-events: none;
+@keyframes floatPlane{
+  0%,100%{transform:translateY(0) rotate(-1deg);}
+  50%{transform:translateY(-8px) rotate(1.5deg);}
 }
-.plane-img {
-  width: 100%;
-  display: block;
-  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.12));
-  animation: floatPlane 5.5s ease-in-out infinite;
-  transform-origin: center;
+html.flight-active{scroll-behavior:auto!important;}
+.paper-plane-button.is-flying{
+  position:fixed!important;
+  right:auto!important;
+  bottom:auto!important;
+  z-index:99999!important;
+  pointer-events:none;
 }
-
- html.flight-active {
-  scroll-behavior: auto !important;
-}
-
-.paper-plane-button.is-flying {
-  pointer-events: none;
-  z-index: 9999;
-}
-
-.paper-plane-button.is-flying {
-  position: fixed !important;
-  right: auto !important;
-  bottom: auto !important;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.paper-plane-button.is-flying .plane-label {
-  display: none !important;
-}
-
-.paper-plane-button.is-flying .plane-img {
-  animation: none !important;
-}
-
-
-.postcard {
-  transform-origin: center;
-}
+.paper-plane-button.is-flying .plane-label{display:none!important;}
+.paper-plane-button.is-flying .plane-img{animation:none!important;}
+.postcard{transform-origin:center;}
 
 /* COLLECTION */
 .page-wrap{
@@ -432,13 +283,9 @@ img,video{max-width:100%;display:block;}
   object-fit:cover;
   transition:transform .55s ease,opacity .3s ease;
 }
-.cs-thumb video{
-  opacity:0;
-}
+.cs-thumb video{opacity:0;}
 .cs-card:hover .cs-thumb video,
-.cs-card:focus-within .cs-thumb video{
-  opacity:1;
-}
+.cs-card:focus-within .cs-thumb video{opacity:1;}
 .cs-card:hover .cs-thumb img,
 .cs-card:hover .cs-thumb video{transform:scale(1.018);}
 .cs-title{
@@ -485,6 +332,7 @@ img,video{max-width:100%;display:block;}
 
 /* POSTCARD FOOTER */
 .postcard-footer{
+  position:relative;
   padding:56px clamp(32px,5vw,70px);
   background:var(--paper-bg);
   display:flex;
@@ -522,9 +370,6 @@ img,video{max-width:100%;display:block;}
   font-size:22px;
   line-height:1.72;
   color:#111;
-}
-  .postcard-footer {
-  position: relative;
 }
 .postcard-message p{margin-bottom:18px;}
 .postcard-id{
@@ -593,6 +438,16 @@ img,video{max-width:100%;display:block;}
   .postcard-stamp{margin-bottom:34px;}
 }
 
+@media(max-width:900px){
+  .hero{
+    background-image:none;
+  }
+  .hero-stamp-grid,
+  .hover-bubble{
+    display:none;
+  }
+}
+
 /* MOBILE */
 @media(max-width:640px){
   .site-nav{
@@ -619,10 +474,6 @@ img,video{max-width:100%;display:block;}
     width:125px;
     right:22px;
     bottom:58px;
-  }
-  .plane-label{
-    font-size:16px;
-    top:-28px;
   }
   .page-wrap{width:calc(100vw - 40px);}
   .section-heading{
@@ -656,10 +507,11 @@ img,video{max-width:100%;display:block;}
     scroll-behavior:auto!important;
   }
 }
+
 </style>
 </head>
-
 <body id="top">
+
 
 <nav class="site-nav" aria-label="Primary navigation">
   <a href="#collection">Collection</a>
@@ -668,7 +520,10 @@ img,video{max-width:100%;display:block;}
 
 <header class="hero">
   <div class="hero-copy">
-    <h1 class="hero-name-trigger">Hi! I'm Navyaa Vemuri</h1>
+    <h1 class="hero-name-trigger bubble-wrap">
+      Hi! I'm Navyaa Vemuri
+      <span class="hover-bubble bubble-name">hover to discover what I love</span>
+    </h1>
     <p class="hero-subtitle">
       a product designer focused on trust,<br>
       discovery, and decision-making.
@@ -676,10 +531,22 @@ img,video{max-width:100%;display:block;}
     <p class="hero-meta">Cal Poly SLO Graphic Communication Grad <br> Previously @ Tesla, Splunk, CNN</p>
   </div>
 
-  <button class="paper-plane-button" id="paperPlane" aria-label="Follow the flight">
-    <span class="plane-label">Follow me→</span>
+  <button class="paper-plane-button" id="paperPlane" aria-label="Take a tour">
+    <span class="plane-label hover-bubble bubble-plane">take a tour?</span>
     <img src="paper-plane.svg" alt="" class="plane-img">
   </button>
+
+  <div class="hero-stamp-grid" aria-hidden="true">
+    <div class="hero-stamp-cell cell-1"><img src="herostamp-1.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-2"><img src="herostamp-2.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-3"><img src="herostamp-3.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-4"><img src="herostamp-4.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-5"><img src="herostamp-5.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-6"><img src="herostamp-6.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-7"><img src="herostamp-7.svg" alt=""></div>
+    <div class="hero-stamp-cell cell-8"><img src="herostamp-8.svg" alt=""></div>
+  </div>
+
 </header>
 
 <main class="page-wrap">
@@ -783,6 +650,7 @@ img,video{max-width:100%;display:block;}
 </footer>
 
 <script>
+
 const plane = document.getElementById("paperPlane");
 const footer = document.getElementById("footer");
 const postcard = document.querySelector(".postcard");
@@ -1118,149 +986,6 @@ document.querySelectorAll(".cs-card").forEach((card) => {
   card.addEventListener("focus", play);
   card.addEventListener("blur", stop);
 });
-
-/* ──────────────────────────────────────────────────────────────
-   HERO BACKGROUND GRID — aviation-chart / postal-ledger styled
-
-   - A faint permanent grid covers the hero, styled as map/ledger
-     paper rather than UI chrome (thin, warm-toned lines, not pure
-     gray, not pixel-perfect uniform).
-   - Grid lines fade out (lower opacity / fully absent) inside two
-     moats: the headline+subtitle+meta block, and the airplane.
-     This is done by literally not drawing line SEGMENTS that fall
-     inside a moat rect, rather than masking after the fact — so
-     it reads as the paper itself being clear there, not an overlay
-     trick.
-   - Cell size is derived from real stamp aspect ratios:
-       vertical stamps (herostamp-1 etc, ~142.5:210 / 2:3) span
-         1 column x 2 rows
-       horizontal stamps (herostamp-5 etc, ~900:470 / 19:10) span
-         2 columns x 1 row
-     Solving both simultaneously for a single shared cell ratio
-     gives cell H/W ≈ 0.89, which keeps both orientations sized
-     correctly (via object-fit:contain, so neither ever distorts).
-   - Stamps are placed at validated, non-overlapping, moat-free
-     cell-aligned positions.
-   - Fully responsive — recomputes cell size, grid line layout,
-     and stamp placement on resize.
-   - Disabled below 900px (tablet/mobile).
-   ────────────────────────────────────────────────────────────── */
-
-(function () {
-  const hero = document.querySelector(".hero");
-  const heroCopy = document.querySelector(".hero-copy");
-  const plane = document.getElementById("paperPlane");
-
-  if (!hero) return;
-
-  const stamps = [
-    { file: "herostamp-1.svg", type: "large", col: 0, row: 0 },
-    { file: "herostamp-2.svg", type: "small", col: 4, row: 0 },
-    { file: "herostamp-3.svg", type: "large", col: 7, row: 0 },
-    { file: "herostamp-4.svg", type: "small", col: 1, row: 3 },
-    { file: "herostamp-5.svg", type: "small", col: 5, row: 3 },
-    { file: "herostamp-6.svg", type: "large", col: 2, row: 5 },
-    { file: "herostamp-7.svg", type: "small", col: 6, row: 5 },
-    { file: "herostamp-8.svg", type: "large", col: 0, row: 7 }
-  ];
-
-  let svg;
-  let layer;
-
-  function createLayers() {
-    hero.querySelector(".hero-grid-svg")?.remove();
-    hero.querySelector(".stamp-grid-layer")?.remove();
-
-    svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.classList.add("hero-grid-svg");
-    svg.setAttribute("aria-hidden", "true");
-
-    layer = document.createElement("div");
-    layer.className = "stamp-grid-layer";
-    layer.setAttribute("aria-hidden", "true");
-
-    hero.prepend(layer);
-    hero.prepend(svg);
-  }
-
-  function drawGrid(width, height, cellW, cellH, rows, cols) {
-    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-    svg.innerHTML = "";
-
-    const ns = "http://www.w3.org/2000/svg";
-
-    for (let c = 0; c <= cols; c++) {
-      const line = document.createElementNS(ns, "line");
-      line.setAttribute("x1", c * cellW);
-      line.setAttribute("y1", 0);
-      line.setAttribute("x2", c * cellW);
-      line.setAttribute("y2", height);
-      line.setAttribute("class", "grid-line");
-      svg.appendChild(line);
-    }
-
-    for (let r = 0; r <= rows; r++) {
-      const line = document.createElementNS(ns, "line");
-      line.setAttribute("x1", 0);
-      line.setAttribute("y1", r * cellH);
-      line.setAttribute("x2", width);
-      line.setAttribute("y2", r * cellH);
-      line.setAttribute("class", "grid-line");
-      svg.appendChild(line);
-    }
-  }
-
-  function renderStamps(cellW, cellH) {
-    layer.innerHTML = "";
-
-    stamps.forEach((stamp) => {
-      const item = document.createElement("div");
-      item.className = "stamp-grid-item";
-
-      const isLarge = stamp.type === "large";
-
-      const w = isLarge ? cellW * 0.9 : cellW * 0.55;
-      const h = isLarge ? cellH * 1.55 : cellH * 1.05;
-
-      item.style.left = `${stamp.col * cellW + cellW * 0.18}px`;
-      item.style.top = `${stamp.row * cellH + cellH * 0.14}px`;
-      item.style.width = `${w}px`;
-      item.style.height = `${h}px`;
-
-      const img = document.createElement("img");
-      img.src = stamp.file;
-      img.alt = "";
-
-      item.appendChild(img);
-      layer.appendChild(item);
-    });
-  }
-
-  function layoutHeroGrid() {
-    if (window.innerWidth <= 900) return;
-
-    createLayers();
-
-    const rect = hero.getBoundingClientRect();
-    const cols = 8;
-    const cellW = rect.width / cols;
-    const cellH = cellW * 0.88;
-    const rows = Math.ceil(rect.height / cellH);
-
-    drawGrid(rect.width, rect.height, cellW, cellH, rows, cols);
-    renderStamps(cellW, cellH);
-  }
-
-  window.addEventListener("resize", layoutHeroGrid);
-
-  if (document.fonts?.ready) {
-    document.fonts.ready.then(layoutHeroGrid);
-  }
-
-  window.addEventListener("load", layoutHeroGrid);
-  layoutHeroGrid();
-})();
 </script>
-
 </body>
 </html>
