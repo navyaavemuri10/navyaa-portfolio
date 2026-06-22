@@ -29,17 +29,8 @@
   --surface:#F4F3F0;
 }
   /* ── Hidden discovery grid ── */
-.discovery-grid-layer{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-}
-.discovery-cell{
-  position:absolute;
-  transition:background .15s ease;
-  pointer-events:auto;
-}
+
+
 .discovery-cell:hover{
   background:rgba(0,0,0,0.035);
 }
@@ -250,35 +241,59 @@ img,video{max-width:100%;display:block;}
   font-size:clamp(21px,1.8vw,30px);
   letter-spacing:-.05em;
 }
-  /* ── Hidden stamp discovery zones ── */
-.stamp-zone{
-  position:absolute;
-  width:140px;
-  height:160px;
-  cursor:default;
-  z-index:1;
-}
-.stamp-zone img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  opacity:0;
-  transition:opacity .5s ease;
-  pointer-events:none;
-}
-.stamp-zone:hover img{
-  opacity:1;
+.hero-grid-svg,
+.stamp-grid-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-/* Positioned clear of headline, meta line, and the airplane's
-   resting spot + hover radius (right ~8vw, bottom ~120-190px) */
-.stamp-zone-1{ left:6vw;  top:8vh;  }
-.stamp-zone-2{ left:38vw; top:14vh; }
-.stamp-zone-3{ left:55vw; top:42vh; }
-.stamp-zone-4{ left:20vw; top:55vh; }
+.hero-grid-svg {
+  z-index: 0;
+}
 
+.grid-line {
+  stroke: rgba(31, 64, 92, 0.07);
+  stroke-width: 1;
+}
+
+.stamp-grid-layer {
+  z-index: 1;
+}
+
+.stamp-grid-item {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.stamp-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+.stamp-grid-item:hover img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-copy,
+.paper-plane-button {
+  z-index: 3;
+}
+
+@media (max-width: 900px) {
+  .hero-grid-svg,
+  .stamp-grid-layer {
+    display: none;
+  }
+}
 @media(max-width:900px){
   .stamp-zone{ display:none; }
 }
@@ -665,18 +680,6 @@ img,video{max-width:100%;display:block;}
     <span class="plane-label">Follow me→</span>
     <img src="paper-plane.svg" alt="" class="plane-img">
   </button>
-  <div class="stamp-zone stamp-zone-1" aria-hidden="true">
-  <img src="herostamp-1.svg" alt="">
-</div>
-<div class="stamp-zone stamp-zone-2" aria-hidden="true">
-  <img src="herostamp-2.svg" alt="">
-</div>
-<div class="stamp-zone stamp-zone-3" aria-hidden="true">
-  <img src="herostamp-3.svg" alt="">
-</div>
-<div class="stamp-zone stamp-zone-4" aria-hidden="true">
-  <img src="herostamp-4.svg" alt="">
-</div>
 </header>
 
 <main class="page-wrap">
@@ -1146,243 +1149,116 @@ document.querySelectorAll(".cs-card").forEach((card) => {
 (function () {
   const hero = document.querySelector(".hero");
   const heroCopy = document.querySelector(".hero-copy");
-  const planeButton = document.getElementById("paperPlane");
+  const plane = document.getElementById("paperPlane");
+
   if (!hero) return;
 
-  const CELL_RATIO = 0.8885; // H/W, balances both stamp orientations
-  const COLS = 8;
-  const MOAT_PADDING = 24;
-
-  const STAMPS = [
-    { file: "herostamp-1.svg", orientation: "vertical" },
-    { file: "herostamp-2.svg", orientation: "horizontal" },
-    { file: "herostamp-3.svg", orientation: "vertical" },
-    { file: "herostamp-4.svg", orientation: "horizontal" },
-    { file: "herostamp-5.svg", orientation: "horizontal" },
-    { file: "herostamp-6.svg", orientation: "vertical" },
-    { file: "herostamp-7.svg", orientation: "horizontal" },
-    { file: "herostamp-8.svg", orientation: "vertical" }
+  const stamps = [
+    { file: "herostamp-1.svg", type: "large", col: 0, row: 0 },
+    { file: "herostamp-2.svg", type: "small", col: 4, row: 0 },
+    { file: "herostamp-3.svg", type: "large", col: 7, row: 0 },
+    { file: "herostamp-4.svg", type: "small", col: 1, row: 3 },
+    { file: "herostamp-5.svg", type: "small", col: 5, row: 3 },
+    { file: "herostamp-6.svg", type: "large", col: 2, row: 5 },
+    { file: "herostamp-7.svg", type: "small", col: 6, row: 5 },
+    { file: "herostamp-8.svg", type: "large", col: 0, row: 7 }
   ];
 
-  let svgLayer = null;
-  let stampLayer = null;
+  let svg;
+  let layer;
 
-  function buildLayers() {
-    if (svgLayer) svgLayer.remove();
-    if (stampLayer) stampLayer.remove();
+  function createLayers() {
+    hero.querySelector(".hero-grid-svg")?.remove();
+    hero.querySelector(".stamp-grid-layer")?.remove();
 
-    svgLayer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svgLayer.setAttribute("class", "hero-grid-svg");
-    svgLayer.setAttribute("aria-hidden", "true");
-    hero.insertBefore(svgLayer, hero.firstChild);
+    svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.classList.add("hero-grid-svg");
+    svg.setAttribute("aria-hidden", "true");
 
-    stampLayer = document.createElement("div");
-    stampLayer.className = "stamp-grid-layer";
-    hero.insertBefore(stampLayer, svgLayer.nextSibling);
+    layer = document.createElement("div");
+    layer.className = "stamp-grid-layer";
+    layer.setAttribute("aria-hidden", "true");
+
+    hero.prepend(layer);
+    hero.prepend(svg);
   }
 
-  function rectInHeroSpace(rect, heroRect) {
-    return {
-      left: rect.left - heroRect.left - MOAT_PADDING,
-      top: rect.top - heroRect.top - MOAT_PADDING,
-      right: rect.right - heroRect.left + MOAT_PADDING,
-      bottom: rect.bottom - heroRect.top + MOAT_PADDING
-    };
-  }
-
-  function rectsOverlap(a, b) {
-    return !(
-      a.right < b.left ||
-      a.left > b.right ||
-      a.bottom < b.top ||
-      a.top > b.bottom
-    );
-  }
-
-  function pointInMoats(x, y, moats) {
-    return moats.some(
-      (m) => x >= m.left && x <= m.right && y >= m.top && y <= m.bottom
-    );
-  }
-
-  function segmentClearOfMoats(x1, y1, x2, y2, moats) {
-    // Sample a handful of points along the segment; if any sampled
-    // point falls inside a moat, treat the whole segment as moated
-    // (we draw short per-cell segments, so this is a fine enough
-    // approximation without real line-clipping math).
-    const steps = 6;
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps;
-      const x = x1 + (x2 - x1) * t;
-      const y = y1 + (y2 - y1) * t;
-      if (pointInMoats(x, y, moats)) return false;
-    }
-    return true;
-  }
-
-  function drawGrid(heroRect, moats) {
-    svgLayer.setAttribute("width", heroRect.width);
-    svgLayer.setAttribute("height", heroRect.height);
-    svgLayer.setAttribute(
-      "viewBox",
-      "0 0 " + heroRect.width + " " + heroRect.height
-    );
-    svgLayer.innerHTML = "";
-
-    const cellW = heroRect.width / COLS;
-    const cellH = cellW * CELL_RATIO;
-    const rows = Math.ceil(heroRect.height / cellH);
+  function drawGrid(width, height, cellW, cellH, rows, cols) {
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.innerHTML = "";
 
     const ns = "http://www.w3.org/2000/svg";
-    const frag = document.createDocumentFragment();
 
-    // Vertical lines, drawn as short per-row segments so each
-    // segment can be individually skipped if it falls in a moat.
-    for (let c = 0; c <= COLS; c++) {
-      const x = c * cellW;
-      for (let r = 0; r < rows; r++) {
-        const y1 = r * cellH;
-        const y2 = Math.min((r + 1) * cellH, heroRect.height);
-        if (!segmentClearOfMoats(x, y1, x, y2, moats)) continue;
-
-        const line = document.createElementNS(ns, "line");
-        line.setAttribute("x1", x);
-        line.setAttribute("y1", y1);
-        line.setAttribute("x2", x);
-        line.setAttribute("y2", y2);
-        line.setAttribute("class", "grid-line");
-        frag.appendChild(line);
-      }
+    for (let c = 0; c <= cols; c++) {
+      const line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", c * cellW);
+      line.setAttribute("y1", 0);
+      line.setAttribute("x2", c * cellW);
+      line.setAttribute("y2", height);
+      line.setAttribute("class", "grid-line");
+      svg.appendChild(line);
     }
 
-    // Horizontal lines, same per-cell segment approach.
     for (let r = 0; r <= rows; r++) {
-      const y = r * cellH;
-      for (let c = 0; c < COLS; c++) {
-        const x1 = c * cellW;
-        const x2 = Math.min((c + 1) * cellW, heroRect.width);
-        if (!segmentClearOfMoats(x1, y, x2, y, moats)) continue;
-
-        const line = document.createElementNS(ns, "line");
-        line.setAttribute("x1", x1);
-        line.setAttribute("y1", y);
-        line.setAttribute("x2", x2);
-        line.setAttribute("y2", y);
-        line.setAttribute("class", "grid-line");
-        frag.appendChild(line);
-      }
+      const line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", 0);
+      line.setAttribute("y1", r * cellH);
+      line.setAttribute("x2", width);
+      line.setAttribute("y2", r * cellH);
+      line.setAttribute("class", "grid-line");
+      svg.appendChild(line);
     }
-
-    svgLayer.appendChild(frag);
-
-    return { cellW, cellH, rows };
   }
 
-  function placeStamps(heroRect, moats, cellW, cellH, rows) {
-    stampLayer.innerHTML = "";
+  function renderStamps(cellW, cellH) {
+    layer.innerHTML = "";
 
-    const placedRects = [];
+    stamps.forEach((stamp) => {
+      const item = document.createElement("div");
+      item.className = "stamp-grid-item";
 
-    function cellBlockRect(col, row, spanCols, spanRows) {
-      const x = col * cellW;
-      const y = row * cellH;
-      return {
-        left: x,
-        top: y,
-        right: x + spanCols * cellW,
-        bottom: y + spanRows * cellH,
-        x,
-        y,
-        w: spanCols * cellW,
-        h: spanRows * cellH
-      };
-    }
+      const isLarge = stamp.type === "large";
 
-    function tryPlace(spanCols, spanRows, attempts) {
-      for (let i = 0; i < attempts; i++) {
-        const col = Math.floor(Math.random() * (COLS - spanCols + 1));
-        const row = Math.floor(Math.random() * (rows - spanRows + 1));
-        const block = cellBlockRect(col, row, spanCols, spanRows);
+      const w = isLarge ? cellW * 0.9 : cellW * 0.55;
+      const h = isLarge ? cellH * 1.55 : cellH * 1.05;
 
-        const hitsMoat = moats.some((m) => rectsOverlap(block, m));
-        if (hitsMoat) continue;
-
-        const hitsPlaced = placedRects.some((p) => rectsOverlap(block, p));
-        if (hitsPlaced) continue;
-
-        return block;
-      }
-      return null;
-    }
-
-    STAMPS.forEach((stamp) => {
-      const isVertical = stamp.orientation === "vertical";
-      const spanCols = isVertical ? 1 : 2;
-      const spanRows = isVertical ? 2 : 1;
-
-      const block = tryPlace(spanCols, spanRows, 50);
-      if (!block) return;
-
-      placedRects.push(block);
-
-      const wrap = document.createElement("div");
-      wrap.className = "stamp-grid-item";
-      wrap.style.left = block.x + "px";
-      wrap.style.top = block.y + "px";
-      wrap.style.width = block.w + "px";
-      wrap.style.height = block.h + "px";
+      item.style.left = `${stamp.col * cellW + cellW * 0.18}px`;
+      item.style.top = `${stamp.row * cellH + cellH * 0.14}px`;
+      item.style.width = `${w}px`;
+      item.style.height = `${h}px`;
 
       const img = document.createElement("img");
       img.src = stamp.file;
       img.alt = "";
-      img.setAttribute("aria-hidden", "true");
-      wrap.appendChild(img);
 
-      stampLayer.appendChild(wrap);
+      item.appendChild(img);
+      layer.appendChild(item);
     });
   }
 
-  function layout() {
-    if (window.innerWidth <= 900) {
-      if (svgLayer) {
-        svgLayer.remove();
-        svgLayer = null;
-      }
-      if (stampLayer) {
-        stampLayer.remove();
-        stampLayer = null;
-      }
-      return;
-    }
+  function layoutHeroGrid() {
+    if (window.innerWidth <= 900) return;
 
-    buildLayers();
+    createLayers();
 
-    const heroRect = hero.getBoundingClientRect();
-    const moats = [];
-    if (heroCopy) {
-      moats.push(rectInHeroSpace(heroCopy.getBoundingClientRect(), heroRect));
-    }
-    if (planeButton) {
-      moats.push(rectInHeroSpace(planeButton.getBoundingClientRect(), heroRect));
-    }
+    const rect = hero.getBoundingClientRect();
+    const cols = 8;
+    const cellW = rect.width / cols;
+    const cellH = cellW * 0.88;
+    const rows = Math.ceil(rect.height / cellH);
 
-    const { cellW, cellH, rows } = drawGrid(heroRect, moats);
-    placeStamps(heroRect, moats, cellW, cellH, rows);
+    drawGrid(rect.width, rect.height, cellW, cellH, rows, cols);
+    renderStamps(cellW, cellH);
   }
 
-  let resizeTimer = null;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(layout, 150);
-  });
+  window.addEventListener("resize", layoutHeroGrid);
 
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(layout);
-  } else {
-    layout();
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(layoutHeroGrid);
   }
-  window.addEventListener("load", layout);
-  layout();
+
+  window.addEventListener("load", layoutHeroGrid);
+  layoutHeroGrid();
 })();
 </script>
 
