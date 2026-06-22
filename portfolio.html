@@ -43,6 +43,42 @@
 .discovery-cell:hover{
   background:rgba(0,0,0,0.035);
 }
+.hero-grid-svg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.grid-line{
+  stroke:#C9BFA8;
+  stroke-width:0.6;
+  opacity:0.22;
+}
+ 
+/* ── Grid-aligned stamps ── */
+.stamp-grid-layer{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.stamp-grid-item{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  box-sizing:border-box;
+}
+.stamp-grid-item img{
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  opacity:0.92;
+}
 .discovery-cell.has-stamp{
   pointer-events:auto;
 }
@@ -64,7 +100,8 @@
 }
 
 @media(max-width:900px){
-  .discovery-grid-layer{
+  .hero-grid-svg,
+  .stamp-grid-layer{
     display:none;
   }
 }
