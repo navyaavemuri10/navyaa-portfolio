@@ -1079,200 +1079,273 @@ document.querySelectorAll(".cs-card").forEach((card) => {
   card.addEventListener("blur", stop);
 });
 
-  /* ──────────────────────────────────────────────────────────────
-   HERO DISCOVERY GRID
-   - Invisible 8x6 grid over the hero
-   - Hovering an empty cell shows a soft shadow
-   - 8 specific cells contain stamp SVGs that fade in on hover
-   - Two moats are carved out dynamically from real element
-     positions: the headline/subtitle block, and the airplane
-   - Fully responsive: moats and grid recompute on resize
-   - Disabled entirely below 900px (tablet/mobile) since hover
-     discovery doesn't translate to touch
+/* ──────────────────────────────────────────────────────────────
+   HERO BACKGROUND GRID — aviation-chart / postal-ledger styled
+
+   - A faint permanent grid covers the hero, styled as map/ledger
+     paper rather than UI chrome (thin, warm-toned lines, not pure
+     gray, not pixel-perfect uniform).
+   - Grid lines fade out (lower opacity / fully absent) inside two
+     moats: the headline+subtitle+meta block, and the airplane.
+     This is done by literally not drawing line SEGMENTS that fall
+     inside a moat rect, rather than masking after the fact — so
+     it reads as the paper itself being clear there, not an overlay
+     trick.
+   - Cell size is derived from real stamp aspect ratios:
+       vertical stamps (herostamp-1 etc, ~142.5:210 / 2:3) span
+         1 column x 2 rows
+       horizontal stamps (herostamp-5 etc, ~900:470 / 19:10) span
+         2 columns x 1 row
+     Solving both simultaneously for a single shared cell ratio
+     gives cell H/W ≈ 0.89, which keeps both orientations sized
+     correctly (via object-fit:contain, so neither ever distorts).
+   - Stamps are placed at validated, non-overlapping, moat-free
+     cell-aligned positions.
+   - Fully responsive — recomputes cell size, grid line layout,
+     and stamp placement on resize.
+   - Disabled below 900px (tablet/mobile).
    ────────────────────────────────────────────────────────────── */
 
 (function () {
   const hero = document.querySelector(".hero");
-  const heroCopy = document.querySelector(".hero-copy") || document.querySelector(".hero-inner");
+  const heroCopy = document.querySelector(".hero-copy");
   const planeButton = document.getElementById("paperPlane");
   if (!hero) return;
 
+  const CELL_RATIO = 0.8885; // H/W, balances both stamp orientations
   const COLS = 8;
-  const ROWS = 6;
-  const MOAT_PADDING = 16;
+  const MOAT_PADDING = 24;
 
-  const STAMP_FILES = [
-    "herostamp-1.svg",
-    "herostamp-2.svg",
-    "herostamp-3.svg",
-    "herostamp-4.svg",
-    "herostamp-5.svg",
-    "herostamp-6.svg",
-    "herostamp-7.svg",
-    "herostamp-8.svg"
+  const STAMPS = [
+    { file: "herostamp-1.svg", orientation: "vertical" },
+    { file: "herostamp-2.svg", orientation: "horizontal" },
+    { file: "herostamp-3.svg", orientation: "vertical" },
+    { file: "herostamp-4.svg", orientation: "horizontal" },
+    { file: "herostamp-5.svg", orientation: "horizontal" },
+    { file: "herostamp-6.svg", orientation: "vertical" },
+    { file: "herostamp-7.svg", orientation: "horizontal" },
+    { file: "herostamp-8.svg", orientation: "vertical" }
   ];
 
-  let gridLayer = null;
-  let cells = [];
-  let stampCellKeys = [];
+  let svgLayer = null;
+  let stampLayer = null;
 
-  function buildGridLayer() {
-    if (gridLayer) gridLayer.remove();
-    gridLayer = document.createElement("div");
-    gridLayer.className = "discovery-grid-layer";
-    hero.insertBefore(gridLayer, hero.firstChild);
+  function buildLayers() {
+    if (svgLayer) svgLayer.remove();
+    if (stampLayer) stampLayer.remove();
+
+    svgLayer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgLayer.setAttribute("class", "hero-grid-svg");
+    svgLayer.setAttribute("aria-hidden", "true");
+    hero.insertBefore(svgLayer, hero.firstChild);
+
+    stampLayer = document.createElement("div");
+    stampLayer.className = "stamp-grid-layer";
+    hero.insertBefore(stampLayer, svgLayer.nextSibling);
   }
 
-  function rectToCellBounds(rect, heroRect, cellW, cellH) {
-    const left = rect.left - heroRect.left - MOAT_PADDING;
-    const top = rect.top - heroRect.top - MOAT_PADDING;
-    const right = rect.right - heroRect.left + MOAT_PADDING;
-    const bottom = rect.bottom - heroRect.top + MOAT_PADDING;
-
+  function rectInHeroSpace(rect, heroRect) {
     return {
-      colStart: Math.floor(left / cellW),
-      colEnd: Math.ceil(right / cellW),
-      rowStart: Math.floor(top / cellH),
-      rowEnd: Math.ceil(bottom / cellH)
+      left: rect.left - heroRect.left - MOAT_PADDING,
+      top: rect.top - heroRect.top - MOAT_PADDING,
+      right: rect.right - heroRect.left + MOAT_PADDING,
+      bottom: rect.bottom - heroRect.top + MOAT_PADDING
     };
   }
 
-  function cellInBounds(c, r, bounds) {
-    return (
-      c >= bounds.colStart &&
-      c < bounds.colEnd &&
-      r >= bounds.rowStart &&
-      r < bounds.rowEnd
+  function rectsOverlap(a, b) {
+    return !(
+      a.right < b.left ||
+      a.left > b.right ||
+      a.bottom < b.top ||
+      a.top > b.bottom
     );
   }
 
-  function pickStampCells(moatedKeys, count) {
-    const allKeys = [];
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        const key = c + "," + r;
-        if (!moatedKeys.has(key)) allKeys.push(key);
-      }
-    }
-    for (let i = allKeys.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [allKeys[i], allKeys[j]] = [allKeys[j], allKeys[i]];
-    }
-    return allKeys.slice(0, Math.min(count, allKeys.length));
+  function pointInMoats(x, y, moats) {
+    return moats.some(
+      (m) => x >= m.left && x <= m.right && y >= m.top && y <= m.bottom
+    );
   }
 
-  function renderGrid() {
+  function segmentClearOfMoats(x1, y1, x2, y2, moats) {
+    // Sample a handful of points along the segment; if any sampled
+    // point falls inside a moat, treat the whole segment as moated
+    // (we draw short per-cell segments, so this is a fine enough
+    // approximation without real line-clipping math).
+    const steps = 6;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const x = x1 + (x2 - x1) * t;
+      const y = y1 + (y2 - y1) * t;
+      if (pointInMoats(x, y, moats)) return false;
+    }
+    return true;
+  }
+
+  function drawGrid(heroRect, moats) {
+    svgLayer.setAttribute("width", heroRect.width);
+    svgLayer.setAttribute("height", heroRect.height);
+    svgLayer.setAttribute(
+      "viewBox",
+      "0 0 " + heroRect.width + " " + heroRect.height
+    );
+    svgLayer.innerHTML = "";
+
+    const cellW = heroRect.width / COLS;
+    const cellH = cellW * CELL_RATIO;
+    const rows = Math.ceil(heroRect.height / cellH);
+
+    const ns = "http://www.w3.org/2000/svg";
+    const frag = document.createDocumentFragment();
+
+    // Vertical lines, drawn as short per-row segments so each
+    // segment can be individually skipped if it falls in a moat.
+    for (let c = 0; c <= COLS; c++) {
+      const x = c * cellW;
+      for (let r = 0; r < rows; r++) {
+        const y1 = r * cellH;
+        const y2 = Math.min((r + 1) * cellH, heroRect.height);
+        if (!segmentClearOfMoats(x, y1, x, y2, moats)) continue;
+
+        const line = document.createElementNS(ns, "line");
+        line.setAttribute("x1", x);
+        line.setAttribute("y1", y1);
+        line.setAttribute("x2", x);
+        line.setAttribute("y2", y2);
+        line.setAttribute("class", "grid-line");
+        frag.appendChild(line);
+      }
+    }
+
+    // Horizontal lines, same per-cell segment approach.
+    for (let r = 0; r <= rows; r++) {
+      const y = r * cellH;
+      for (let c = 0; c < COLS; c++) {
+        const x1 = c * cellW;
+        const x2 = Math.min((c + 1) * cellW, heroRect.width);
+        if (!segmentClearOfMoats(x1, y, x2, y, moats)) continue;
+
+        const line = document.createElementNS(ns, "line");
+        line.setAttribute("x1", x1);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", x2);
+        line.setAttribute("y2", y);
+        line.setAttribute("class", "grid-line");
+        frag.appendChild(line);
+      }
+    }
+
+    svgLayer.appendChild(frag);
+
+    return { cellW, cellH, rows };
+  }
+
+  function placeStamps(heroRect, moats, cellW, cellH, rows) {
+    stampLayer.innerHTML = "";
+
+    const placedRects = [];
+
+    function cellBlockRect(col, row, spanCols, spanRows) {
+      const x = col * cellW;
+      const y = row * cellH;
+      return {
+        left: x,
+        top: y,
+        right: x + spanCols * cellW,
+        bottom: y + spanRows * cellH,
+        x,
+        y,
+        w: spanCols * cellW,
+        h: spanRows * cellH
+      };
+    }
+
+    function tryPlace(spanCols, spanRows, attempts) {
+      for (let i = 0; i < attempts; i++) {
+        const col = Math.floor(Math.random() * (COLS - spanCols + 1));
+        const row = Math.floor(Math.random() * (rows - spanRows + 1));
+        const block = cellBlockRect(col, row, spanCols, spanRows);
+
+        const hitsMoat = moats.some((m) => rectsOverlap(block, m));
+        if (hitsMoat) continue;
+
+        const hitsPlaced = placedRects.some((p) => rectsOverlap(block, p));
+        if (hitsPlaced) continue;
+
+        return block;
+      }
+      return null;
+    }
+
+    STAMPS.forEach((stamp) => {
+      const isVertical = stamp.orientation === "vertical";
+      const spanCols = isVertical ? 1 : 2;
+      const spanRows = isVertical ? 2 : 1;
+
+      const block = tryPlace(spanCols, spanRows, 50);
+      if (!block) return;
+
+      placedRects.push(block);
+
+      const wrap = document.createElement("div");
+      wrap.className = "stamp-grid-item";
+      wrap.style.left = block.x + "px";
+      wrap.style.top = block.y + "px";
+      wrap.style.width = block.w + "px";
+      wrap.style.height = block.h + "px";
+
+      const img = document.createElement("img");
+      img.src = stamp.file;
+      img.alt = "";
+      img.setAttribute("aria-hidden", "true");
+      wrap.appendChild(img);
+
+      stampLayer.appendChild(wrap);
+    });
+  }
+
+  function layout() {
     if (window.innerWidth <= 900) {
-      if (gridLayer) {
-        gridLayer.remove();
-        gridLayer = null;
+      if (svgLayer) {
+        svgLayer.remove();
+        svgLayer = null;
+      }
+      if (stampLayer) {
+        stampLayer.remove();
+        stampLayer = null;
       }
       return;
     }
 
+    buildLayers();
+
     const heroRect = hero.getBoundingClientRect();
-    const cellW = heroRect.width / COLS;
-    const cellH = heroRect.height / ROWS;
-
-    const moatedKeys = new Set();
-
+    const moats = [];
     if (heroCopy) {
-      const copyRect = heroCopy.getBoundingClientRect();
-      const b = rectToCellBounds(copyRect, heroRect, cellW, cellH);
-      for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
-          if (cellInBounds(c, r, b)) moatedKeys.add(c + "," + r);
-        }
-      }
+      moats.push(rectInHeroSpace(heroCopy.getBoundingClientRect(), heroRect));
     }
-
     if (planeButton) {
-      const planeRect = planeButton.getBoundingClientRect();
-      const b = rectToCellBounds(planeRect, heroRect, cellW, cellH);
-      for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
-          if (cellInBounds(c, r, b)) moatedKeys.add(c + "," + r);
-        }
-      }
+      moats.push(rectInHeroSpace(planeButton.getBoundingClientRect(), heroRect));
     }
 
-    if (!gridLayer || stampCellKeys.length === 0) {
-      buildGridLayer();
-      stampCellKeys = pickStampCells(moatedKeys, STAMP_FILES.length);
-    } else {
-      buildGridLayer();
-    }
-
-    cells = [];
-    let stampIndex = 0;
-
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        const key = c + "," + r;
-        const isStampCell = stampCellKeys.includes(key);
-
-        if (moatedKeys.has(key) && !isStampCell) continue;
-
-        const cell = document.createElement("div");
-        cell.className = "discovery-cell";
-        cell.style.left = (c / COLS) * 100 + "%";
-        cell.style.top = (r / ROWS) * 100 + "%";
-        cell.style.width = 100 / COLS + "%";
-        cell.style.height = 100 / ROWS + "%";
-
-        if (isStampCell) {
-          cell.classList.add("has-stamp");
-          const img = document.createElement("img");
-          img.src = STAMP_FILES[stampIndex % STAMP_FILES.length];
-          img.alt = "";
-          img.setAttribute("aria-hidden", "true");
-          cell.appendChild(img);
-          stampIndex++;
-        }
-
-        gridLayer.appendChild(cell);
-        cells.push(cell);
-      }
-    }
+    const { cellW, cellH, rows } = drawGrid(heroRect, moats);
+    placeStamps(heroRect, moats, cellW, cellH, rows);
   }
 
   let resizeTimer = null;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(renderGrid, 150);
+    resizeTimer = setTimeout(layout, 150);
   });
 
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(renderGrid);
+    document.fonts.ready.then(layout);
   } else {
-    renderGrid();
+    layout();
   }
-  window.addEventListener("load", renderGrid);
-  renderGrid();
-})();
-
-/* ──────────────────────────────────────────────────────────────
-   TOOLTIP BUBBLES
-   Matches the existing About-page hover bubble style: rounded
-   pill, soft lavender background, dark text, no tail/pointer.
-   ────────────────────────────────────────────────────────────── */
-
-(function () {
-  const nameTrigger = document.querySelector(".hero-name-trigger");
-  const planeButton = document.getElementById("paperPlane");
-
-  function attachBubble(trigger, text, position) {
-    if (!trigger) return;
-
-    const bubble = document.createElement("div");
-    bubble.className = "hover-bubble " + position;
-    bubble.textContent = text;
-    trigger.appendChild(bubble);
-    trigger.classList.add("has-hover-bubble");
-  }
-
-  attachBubble(nameTrigger, "hover around to discover what i love", "bubble-below");
-  attachBubble(planeButton, "let's take a tour?", "bubble-above");
+  window.addEventListener("load", layout);
+  layout();
 })();
 </script>
 
