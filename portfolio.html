@@ -545,10 +545,7 @@ document.querySelectorAll(".cs-card").forEach(card => {
 
   const COLS        = 12;
   const STAMP_RATIO = 210/142.5; // from herostamp-1.svg viewBox 142.5x210
-  const MOAT_PAD    = 28;
-  const ZONE_COLS   = 4;
-  const ZONE_ROWS   = 2;
-  const ATTEMPTS    = 60;
+  const MOAT_PAD    = 20;
   const STAMPS      = [
     "herostamp-1.svg","herostamp-2.svg","herostamp-3.svg","herostamp-4.svg",
     "herostamp-5.svg","herostamp-6.svg","herostamp-7.svg","herostamp-8.svg"
@@ -622,56 +619,36 @@ document.querySelectorAll(".cs-card").forEach(card => {
     svgEl.appendChild(frag);
     hero.insertBefore(svgEl,hero.firstChild);
 
-    // Valid cells
-    const allCells=[];
-    for(let r=0;r<ROWS;r++){
-      for(let c=0;c<COLS;c++){
-        const x=c*cellW,y=r*cellH;
-        if(y+cellH>H) continue;
-        const slot={left:x,top:y,right:x+cellW,bottom:y+cellH,x,y};
-        if(!moats.some(m=>overlaps(slot,m))) allCells.push(slot);
-      }
-    }
+    // Fill every valid cell with a stamp (cycling through the 8 stamps)
+if(stampWrap) stampWrap.remove();
+stampWrap=document.createElement("div");
+stampWrap.className="stamp-grid-layer";
+hero.insertBefore(stampWrap,svgEl.nextSibling);
 
-    // Stamp wrap
-    if(stampWrap) stampWrap.remove();
-    stampWrap=document.createElement("div");
-    stampWrap.className="stamp-grid-layer";
-    hero.insertBefore(stampWrap,svgEl.nextSibling);
+let stampIdx=0;
+for(let r=0;r<ROWS;r++){
+  for(let c=0;c<COLS;c++){
+    const x=c*cellW, y=r*cellH;
+    if(y+cellH>H) continue;
+    const slot={left:x,top:y,right:x+cellW,bottom:y+cellH};
+    if(moats.some(m=>overlaps(slot,m))) continue;
 
-    const zoneW=W/ZONE_COLS, zoneH=H/ZONE_ROWS;
-    const shuffled=[...STAMPS].sort(()=>Math.random()-.5);
-    const placed=[];
-    let idx=0;
+    const wrap=document.createElement("div");
+    wrap.className="stamp-grid-item";
+    wrap.style.left=x+"px";
+    wrap.style.top=y+"px";
+    wrap.style.width=cellW+"px";
+    wrap.style.height=cellH+"px";
 
-    for(let zr=0;zr<ZONE_ROWS;zr++){
-      for(let zc=0;zc<ZONE_COLS;zc++){
-        if(idx>=shuffled.length) break;
-        const zoneCells=allCells.filter(cell=>{
-          const cx=cell.x+cellW/2, cy=cell.y+cellH/2;
-          return cx>=zc*zoneW&&cx<(zc+1)*zoneW&&cy>=zr*zoneH&&cy<(zr+1)*zoneH;
-        }).sort(()=>Math.random()-.5);
-        for(let i=0;i<Math.min(ATTEMPTS,zoneCells.length);i++){
-          const cell=zoneCells[i];
-          if(placed.some(p=>overlaps(cell,p))) continue;
-          placed.push(cell);
-          const wrap=document.createElement("div");
-          wrap.className="stamp-grid-item";
-          wrap.style.left=cell.x+"px";
-          wrap.style.top=cell.y+"px";
-          wrap.style.width=cellW+"px";
-          wrap.style.height=cellH+"px";
-          const img=document.createElement("img");
-          img.src=shuffled[idx];
-          img.alt="";
-          img.setAttribute("aria-hidden","true");
-          wrap.appendChild(img);
-          stampWrap.appendChild(wrap);
-          idx++;
-          break;
-        }
-      }
-    }
+    const img=document.createElement("img");
+    img.src=STAMPS[stampIdx % STAMPS.length];
+    img.alt="";
+    img.setAttribute("aria-hidden","true");
+    wrap.appendChild(img);
+    stampWrap.appendChild(wrap);
+    stampIdx++;
+  }
+}
   }
 
   function init(){
