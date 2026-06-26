@@ -4,206 +4,114 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Navyaa Vemuri | Product Designer</title>
-
-<link
-  rel="icon"
-  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>"
->
-
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
-
 <style>
-
 *{box-sizing:border-box;margin:0;padding:0;}
-
 :root{
-  --bg:#FDFDFB;
-  --text:#2F2F2F;
-  --muted:#505050;
-  --blue:#1F405C;
-  --paper:#F8F1E4;
-  --paper-bg:#EFE7D6;
-  --line:#1F1F1F;
-  --border:#D6D6D6;
-  --surface:#F4F3F0;
+  --bg:#FDFDFB;--text:#2F2F2F;--muted:#505050;--blue:#1F405C;
+  --paper:#F8F1E4;--paper-bg:#EFE7D6;--line:#1F1F1F;
+  --border:#D6D6D6;--surface:#F4F3F0;
 }
-
 html{scroll-behavior:smooth;}
-body{
-  min-height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"DM Sans",sans-serif;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+body{min-height:100%;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 a{color:inherit;}
 img,video{max-width:100%;display:block;}
 
 /* NAV */
 .site-nav{
-  position:fixed;
-  top:28px;
-  right:clamp(24px,5vw,80px);
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  gap:clamp(28px,4vw,64px);
-  padding:12px 22px;
-  background:rgba(248,241,228,.86);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:999px;
+  position:fixed;top:28px;right:clamp(24px,5vw,80px);z-index:9999;
+  display:flex;align-items:center;gap:clamp(28px,4vw,64px);
+  padding:12px 22px;background:rgba(248,241,228,.86);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(0,0,0,.08);border-radius:999px;
   box-shadow:0 8px 24px rgba(0,0,0,.06);
-  font-family:"DM Sans",sans-serif;
-  font-size:18px;
-  text-transform:uppercase;
-  letter-spacing:-.035em;
+  font-family:"DM Sans",sans-serif;font-size:18px;
+  text-transform:uppercase;letter-spacing:-.035em;
 }
-.site-nav a{
-  display:block;
-  text-decoration:none;
-  color:#111;
-  white-space:nowrap;
-}
+.site-nav a{display:block;text-decoration:none;color:#111;white-space:nowrap;}
 .site-nav a:hover{opacity:.55;}
 
 /* HERO */
 .hero{
-  min-height:92vh;
-  position:relative;
-  display:flex;
-  align-items:center;
+  min-height:92vh;position:relative;
+  display:flex;align-items:center;
   padding:110px clamp(48px,6vw,128px) 90px;
   overflow:hidden;
 }
-.hero-copy{
-  max-width:900px;
-  position:relative;
-  z-index:3;
-}
-.hero-grid-svg{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-.grid-line{
-  stroke:#C9BFA8;
-  stroke-width:0.6;
-  opacity:0.22;
-}
-.stamp-grid-layer{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-}
-.stamp-grid-item{
-  position:absolute;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:8px;
-  box-sizing:border-box;
-}
-.stamp-grid-item img{
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  display:block;
-}
-@media(max-width:900px){
-  .hero-grid-svg,.stamp-grid-layer{ display:none; }
-}
-@media(prefers-reduced-motion:reduce){
-  .stamp-grid-item{ transition:none; }
-}
-.hero h1,
-.hero-subtitle{
+.hero-copy{max-width:900px;position:relative;z-index:3;}
+.hero h1,.hero-subtitle{
   font-family:"Goudy Bookletter 1911",serif;
-  font-weight:400;
-  color:#3B3B3B;
-  letter-spacing:-.025em;
+  font-weight:400;color:#3B3B3B;letter-spacing:-.025em;
 }
-.hero h1{
-  font-size:clamp(42px,3.45vw,66px);
-  line-height:1.08;
-  margin-bottom:12px;
-}
-.hero-subtitle{
-  font-size:clamp(40px,3.35vw,64px);
-  line-height:1.27;
-}
-.hero-meta{
-  margin-top:52px;
-  font-size:clamp(21px,1.8vw,30px);
-  letter-spacing:-.05em;
-}
+.hero h1{font-size:clamp(42px,3.45vw,66px);line-height:1.08;margin-bottom:12px;}
+.hero-subtitle{font-size:clamp(40px,3.35vw,64px);line-height:1.27;}
+.hero-meta{margin-top:52px;font-size:clamp(21px,1.8vw,30px);letter-spacing:-.05em;}
 
 /* HOVER BUBBLES */
-.bubble-wrap{
-  position:relative;
-  display:inline-block;
-}
+.bubble-wrap{position:relative;display:inline-block;}
 .hover-bubble{
-  position:absolute;
-  z-index:999;
-  background:#E8E4F5;
-  color:#2F2F2F;
-  font-family:"DM Sans",sans-serif;
-  font-size:14px;
-  letter-spacing: 0.025em;
-  font-weight:400;
-  white-space:nowrap;
-  padding:9px 18px;
-  border-radius:24px;
-  opacity:0;
-  pointer-events:none;
-  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  position:absolute;z-index:999;
+  background:#E8E4F5;color:#2F2F2F;
+  font-family:"DM Sans",sans-serif;font-size:14px;
+  letter-spacing:.025em;font-weight:400;white-space:nowrap;
+  padding:9px 18px;border-radius:24px;opacity:0;
+  pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.08);
   transition:opacity .25s ease,transform .25s ease;
 }
 .bubble-name{
-  left:50%;
-  bottom:calc(100% + 14px);
+  left:50%;bottom:calc(100% + 14px);
   transform:translateX(-50%) translateY(8px) scale(.98);
 }
 .hero-name-trigger:hover .bubble-name{
-  opacity:1;
-  transform:translateX(-50%) translateY(0) scale(1);
+  opacity:1;transform:translateX(-50%) translateY(0) scale(1);
 }
 .bubble-plane{
-  left:50%;
-  bottom:calc(100% + 12px);
+  left:50%;bottom:calc(100% + 12px);
   transform:translateX(-50%) translateY(8px) scale(.98);
 }
 .paper-plane-button:hover .bubble-plane{
+  opacity:1;transform:translateX(-50%) translateY(0) scale(1);
+}
+
+/* GRID — drawn by JS as an SVG */
+.hero-grid-svg{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+}
+.grid-line{stroke:#C9BFA8;stroke-width:0.6;opacity:0.22;}
+
+/* STAMP DISCOVERY LAYER — generated by JS */
+.stamp-grid-layer{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.stamp-grid-item{
+  position:absolute;
+  display:flex;align-items:center;justify-content:center;
+  padding:3px;box-sizing:border-box;
+  pointer-events:auto;
+}
+.stamp-grid-item img{
+  max-width:100%;max-height:100%;
+  width:100%;height:100%;
+  object-fit:contain;display:block;
+  opacity:0;
+  transition:opacity .28s ease,transform .28s ease;
+  transform:scale(.95);
+}
+.stamp-grid-item:hover img{
   opacity:1;
-  transform:translateX(-50%) translateY(0) scale(1);
+  transform:scale(1);
 }
 
 /* PAPER PLANE */
 .paper-plane-button{
-  position:absolute;
-  right:clamp(70px,8vw,150px);
-  bottom:clamp(120px,18vh,190px);
-  width:clamp(190px,15vw,270px);
-  border:0;
-  background:transparent;
-  padding:0;
-  cursor:pointer;
-  z-index:30;
-  transform-origin:center;
+  position:absolute;right:clamp(70px,8vw,150px);bottom:clamp(120px,18vh,190px);
+  width:clamp(190px,15vw,270px);border:0;background:transparent;
+  padding:0;cursor:pointer;z-index:30;transform-origin:center;
   will-change:transform,left,top,width;
 }
 .plane-img{
-  width:100%;
-  display:block;
+  width:100%;display:block;
   filter:drop-shadow(0 16px 18px rgba(0,0,0,.12));
   animation:floatPlane 5.5s ease-in-out infinite;
   transform-origin:center;
@@ -214,137 +122,61 @@ img,video{max-width:100%;display:block;}
 }
 html.flight-active{scroll-behavior:auto!important;}
 .paper-plane-button.is-flying{
-  position:fixed!important;
-  right:auto!important;
-  bottom:auto!important;
-  z-index:99999!important;
-  pointer-events:none;
+  position:fixed!important;right:auto!important;bottom:auto!important;
+  z-index:99999!important;pointer-events:none;
 }
 .paper-plane-button.is-flying .plane-label{display:none!important;}
 .paper-plane-button.is-flying .plane-img{animation:none!important;}
 .postcard{transform-origin:center;}
 
 /* COLLECTION */
-.page-wrap{
-  width:min(1460px,calc(100vw - 128px));
-  margin:0 auto;
-}
+.page-wrap{width:min(1460px,calc(100vw - 128px));margin:0 auto;}
 .section-heading{
-  display:flex;
-  align-items:center;
-  gap:28px;
-  margin-bottom:52px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.02em;
-  font-size:22px;
-  font-weight:400;
+  display:flex;align-items:center;gap:28px;margin-bottom:52px;
+  color:var(--muted);text-transform:uppercase;letter-spacing:.02em;
+  font-size:22px;font-weight:400;
 }
-.section-heading::after{
-  content:"";
-  height:1px;
-  background:var(--border);
-  flex:1;
-}
+.section-heading::after{content:"";height:1px;background:var(--border);flex:1;}
 .collection-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:86px 64px;
-  padding-bottom:120px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:86px 64px;padding-bottom:120px;
 }
-.cs-card{
-  display:block;
-  text-decoration:none;
-  color:var(--text);
-  min-width:0;
-}
-.cs-meta{
-  font-size:14px;
-  line-height:1.2;
-  letter-spacing:.015em;
-  color:var(--text);
-  margin-bottom:12px;
-}
+.cs-card{display:block;text-decoration:none;color:var(--text);min-width:0;}
+.cs-meta{font-size:14px;line-height:1.2;letter-spacing:.015em;color:var(--text);margin-bottom:12px;}
 .cs-thumb{
-  position:relative;
-  width:100%;
-  aspect-ratio:1.22/1;
-  background:var(--surface);
-  overflow:hidden;
-  margin-bottom:22px;
+  position:relative;width:100%;aspect-ratio:1.22/1;
+  background:var(--surface);overflow:hidden;margin-bottom:22px;
 }
-.cs-thumb img,
-.cs-thumb video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.cs-thumb img,.cs-thumb video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   transition:transform .55s ease,opacity .3s ease;
 }
 .cs-thumb video{opacity:0;}
-.cs-card:hover .cs-thumb video,
-.cs-card:focus-within .cs-thumb video{opacity:1;}
-.cs-card:hover .cs-thumb img,
-.cs-card:hover .cs-thumb video{transform:scale(1.018);}
-.cs-title{
-  font-size:28px;
-  line-height:1.15;
-  letter-spacing:-.035em;
-  font-weight:400;
-  margin-bottom:14px;
-}
-.cs-desc{
-  font-size:18px;
-  line-height:1.55;
-  color:var(--text);
-  max-width:660px;
-  margin-bottom:24px;
-}
+.cs-card:hover .cs-thumb video,.cs-card:focus-within .cs-thumb video{opacity:1;}
+.cs-card:hover .cs-thumb img,.cs-card:hover .cs-thumb video{transform:scale(1.018);}
+.cs-title{font-size:28px;line-height:1.15;letter-spacing:-.035em;font-weight:400;margin-bottom:14px;}
+.cs-desc{font-size:18px;line-height:1.55;color:var(--text);max-width:660px;margin-bottom:24px;}
 .cs-pills{display:flex;gap:12px;flex-wrap:wrap;}
-.cs-pill{
-  font-size:14px;
-  border:1px solid #2A2A2A;
-  border-radius:8px;
-  padding:4px 12px;
-  color:#222;
-  background:#fff;
-}
+.cs-pill{font-size:14px;border:1px solid #2A2A2A;border-radius:8px;padding:4px 12px;color:#222;background:#fff;}
 .cs-card.coming-soon{cursor:default;}
 .cs-card.coming-soon .cs-thumb::after{
-  content:"Coming soon";
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(26,26,26,.38);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.09em;
-  font-size:13px;
-  opacity:0;
-  z-index:3;
+  content:"Coming soon";position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(26,26,26,.38);color:#fff;text-transform:uppercase;
+  letter-spacing:.09em;font-size:13px;opacity:0;z-index:3;
   transition:opacity .25s ease;
 }
 .cs-card.coming-soon:hover .cs-thumb::after{opacity:1;}
 
 /* POSTCARD FOOTER */
 .postcard-footer{
-  position:relative;
-  padding:56px clamp(32px,5vw,70px);
-  background:var(--paper-bg);
-  display:flex;
-  justify-content:center;
+  position:relative;padding:56px clamp(32px,5vw,70px);
+  background:var(--paper-bg);display:flex;justify-content:center;
 }
 .postcard{
-  width:min(1200px,100%);
-  min-height:520px;
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:56px;
-  padding:48px 60px;
-  position:relative;
+  width:min(1200px,100%);min-height:520px;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:56px;
+  padding:48px 60px;position:relative;
   background:
     radial-gradient(circle at 12% 18%,rgba(0,0,0,.04),transparent 18%),
     radial-gradient(circle at 86% 72%,rgba(0,0,0,.03),transparent 20%),
@@ -352,164 +184,66 @@ html.flight-active{scroll-behavior:auto!important;}
   box-shadow:0 24px 54px rgba(0,0,0,.07);
 }
 .postcard::after{
-  content:"";
-  position:absolute;
-  top:8%;
-  bottom:8%;
-  left:55%;
-  width:1.5px;
-  background:var(--line);
-  opacity:.85;
+  content:"";position:absolute;top:8%;bottom:8%;left:55%;
+  width:1.5px;background:var(--line);opacity:.85;
 }
 .postcard-message{
-  position:relative;
-  z-index:1;
-  max-width:620px;
+  position:relative;z-index:1;max-width:620px;
   font-family:"Goudy Bookletter 1911",serif;
-  font-size:22px;
-  line-height:1.72;
-  color:#111;
+  font-size:22px;line-height:1.72;color:#111;
 }
 .postcard-message p{margin-bottom:18px;}
-.postcard-id{
-  margin-top:30px;
-  font-family:"DM Sans",sans-serif;
-  font-size:14px;
-  letter-spacing:.03em;
-}
+.postcard-id{margin-top:30px;font-family:"DM Sans",sans-serif;font-size:14px;letter-spacing:.03em;}
 .postcard-address{
-  position:relative;
-  z-index:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-left:24px;
+  position:relative;z-index:1;display:flex;
+  flex-direction:column;align-items:center;padding-left:24px;
 }
-.postcard-stamp{
-  width:165px;
-  margin-bottom:58px;
-}
-.postcard-links{
-  width:min(340px,100%);
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
+.postcard-stamp{width:165px;margin-bottom:58px;}
+.postcard-links{width:min(340px,100%);display:flex;flex-direction:column;gap:20px;}
 .postcard-links a{
-  font-family:"Goudy Bookletter 1911",serif;
-  font-size:28px;
-  font-style:italic;
-  text-decoration:none;
-  color:#111;
-  border-bottom:1px solid rgba(0,0,0,.68);
-  padding:0 8px 7px;
-  transition:transform .2s ease,color .2s ease;
+  font-family:"Goudy Bookletter 1911",serif;font-size:28px;font-style:italic;
+  text-decoration:none;color:#111;border-bottom:1px solid rgba(0,0,0,.68);
+  padding:0 8px 7px;transition:transform .2s ease,color .2s ease;
 }
-.postcard-links a:hover{
-  color:var(--blue);
-  transform:translateX(5px);
-}
+.postcard-links a:hover{color:var(--blue);transform:translateX(5px);}
 
-/* TABLET */
+/* RESPONSIVE */
 @media(max-width:1000px){
-  .hero{
-    min-height:88vh;
-    align-items:flex-start;
-    padding-top:160px;
-  }
-  .paper-plane-button{
-    width:160px;
-    right:8vw;
-    bottom:90px;
-  }
+  .hero{min-height:88vh;align-items:flex-start;padding-top:160px;}
+  .paper-plane-button{width:160px;right:8vw;bottom:90px;}
   .collection-grid{grid-template-columns:1fr;}
-  .postcard{
-    grid-template-columns:1fr;
-    min-height:auto;
-  }
+  .postcard{grid-template-columns:1fr;min-height:auto;}
   .postcard::after{display:none;}
-  .postcard-address{
-    align-items:flex-start;
-    padding-left:0;
-    border-top:1px solid rgba(0,0,0,.25);
-    padding-top:34px;
-  }
+  .postcard-address{align-items:flex-start;padding-left:0;border-top:1px solid rgba(0,0,0,.25);padding-top:34px;}
   .postcard-stamp{margin-bottom:34px;}
 }
-
 @media(max-width:900px){
-  .hero{
-    background-image:none;
-  }
-  .hover-bubble{
-    display:none;
-  }
+  .hero-grid-svg,.stamp-grid-layer,.hover-bubble{display:none;}
 }
-
-/* MOBILE */
 @media(max-width:640px){
-  .site-nav{
-    top:22px;
-    right:24px;
-    gap:24px;
-    font-size:13px;
-  }
-  .hero{
-    min-height:100vh;
-    padding:130px 24px 90px;
-    align-items:flex-start;
-  }
+  .site-nav{top:22px;right:24px;gap:24px;font-size:13px;}
+  .hero{min-height:100vh;padding:130px 24px 90px;align-items:flex-start;}
   .hero h1{font-size:42px;}
-  .hero-subtitle{
-    font-size:36px;
-    line-height:1.2;
-  }
-  .hero-meta{
-    font-size:16px;
-    margin-top:38px;
-  }
-  .paper-plane-button{
-    width:125px;
-    right:22px;
-    bottom:58px;
-  }
+  .hero-subtitle{font-size:36px;line-height:1.2;}
+  .hero-meta{font-size:16px;margin-top:38px;}
+  .paper-plane-button{width:125px;right:22px;bottom:58px;}
   .page-wrap{width:calc(100vw - 40px);}
-  .section-heading{
-    font-size:16px;
-    margin-bottom:28px;
-    gap:18px;
-  }
-  .collection-grid{
-    gap:54px;
-    padding-bottom:80px;
-  }
+  .section-heading{font-size:16px;margin-bottom:28px;gap:18px;}
+  .collection-grid{gap:54px;padding-bottom:80px;}
   .cs-title{font-size:23px;}
   .cs-desc{font-size:16px;}
   .postcard-footer{padding:28px 16px;}
-  .postcard{
-    padding:32px 24px;
-    box-shadow:none;
-  }
-  .postcard-message{
-    font-size:19px;
-    line-height:1.6;
-  }
+  .postcard{padding:32px 24px;box-shadow:none;}
+  .postcard-message{font-size:19px;line-height:1.6;}
   .postcard-links a{font-size:25px;}
   .postcard-stamp{width:120px;}
 }
-
 @media(prefers-reduced-motion:reduce){
-  *{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important;
-  }
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
 }
-
 </style>
 </head>
 <body id="top">
-
 
 <nav class="site-nav" aria-label="Primary navigation">
   <a href="#collection">Collection</a>
@@ -526,31 +260,18 @@ html.flight-active{scroll-behavior:auto!important;}
       a product designer focused on trust,<br>
       discovery, and decision-making.
     </p>
-    <p class="hero-meta">Cal Poly SLO Graphic Communication Grad <br> Previously @ Tesla, Splunk, CNN</p>
+    <p class="hero-meta">Cal Poly SLO Graphic Communication Grad<br>Previously @ Tesla, Splunk, CNN</p>
   </div>
 
   <button class="paper-plane-button" id="paperPlane" aria-label="Take a tour">
     <span class="plane-label hover-bubble bubble-plane">take a tour?</span>
     <img src="paper-plane.svg" alt="" class="plane-img">
   </button>
-
-  <div class="hero-stamp-grid" aria-hidden="true">
-    <div class="hero-stamp-cell cell-1"><img src="herostamp-1.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-2"><img src="herostamp-2.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-3"><img src="herostamp-3.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-4"><img src="herostamp-4.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-5"><img src="herostamp-5.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-6"><img src="herostamp-6.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-7"><img src="herostamp-7.svg" alt=""></div>
-    <div class="hero-stamp-cell cell-8"><img src="herostamp-8.svg" alt=""></div>
-  </div>
-
 </header>
 
 <main class="page-wrap">
 <section id="collection" aria-labelledby="collection-title">
 <h2 class="section-heading" id="collection-title">Collection</h2>
-
 <div class="collection-grid">
 
 <a class="cs-card" href="case_study_cisco.html">
@@ -582,7 +303,7 @@ html.flight-active{scroll-behavior:auto!important;}
     <video src="research.mp4" loop muted playsinline preload="auto"></video>
   </div>
   <div class="cs-title">When AI Becomes a Trusted Teammate</div>
-  <div class="cs-desc">How I applied UX thinking to one of AI’s biggest challenges: helping people trust autonomous systems appropriately.</div>
+  <div class="cs-desc">How I applied UX thinking to one of AI's biggest challenges: helping people trust autonomous systems appropriately.</div>
   <div class="cs-pills"><span class="cs-pill">Agentic AI</span><span class="cs-pill">UX Research</span><span class="cs-pill">Trust Systems</span></div>
 </div>
 
@@ -634,7 +355,6 @@ html.flight-active{scroll-behavior:auto!important;}
       <p>Ciao, Navyaa</p>
       <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
     </section>
-
     <section class="postcard-address">
       <img src="stamp.png" alt="Navyaa hydrangea stamp" class="postcard-stamp">
       <nav class="postcard-links" aria-label="Footer links">
@@ -648,7 +368,7 @@ html.flight-active{scroll-behavior:auto!important;}
 </footer>
 
 <script>
-
+/* ── PAPER PLANE ── */
 const plane = document.getElementById("paperPlane");
 const footer = document.getElementById("footer");
 const postcard = document.querySelector(".postcard");
@@ -658,248 +378,112 @@ let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
 let currentAngle = 0;
 let isFlying = false;
-
 const PLANE_TIP_OFFSET = 135;
 
-function lerp(a, b, t) {
-  return a + (b - a) * t;
-}
-
-function easeInOut(t) {
-  return t * t * (3 - 2 * t);
-}
-
-function normalizeAngle(angle) {
-  return ((angle + 180) % 360 + 360) % 360 - 180;
-}
-
-function getPlaneAngle(fromX, fromY, toX, toY) {
+function lerp(a, b, t){ return a + (b - a) * t; }
+function easeInOut(t){ return t * t * (3 - 2 * t); }
+function normalizeAngle(angle){ return ((angle + 180) % 360 + 360) % 360 - 180; }
+function getPlaneAngle(fromX, fromY, toX, toY){
   const raw = Math.atan2(toY - fromY, toX - fromX) * 180 / Math.PI;
   return normalizeAngle(raw - PLANE_TIP_OFFSET);
 }
 
-window.addEventListener("mousemove", (event) => {
-  mouseX = event.clientX;
-  mouseY = event.clientY;
-});
+window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
 
-function pointPlaneToCursor() {
-  if (!plane || isFlying || reduceMotion) return;
-
+function pointPlaneToCursor(){
+  if(!plane || isFlying || reduceMotion) return;
   const rect = plane.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
-
   const targetAngle = getPlaneAngle(cx, cy, mouseX, mouseY);
   currentAngle += normalizeAngle(targetAngle - currentAngle) * 0.12;
-
   plane.style.transform = `rotate(${currentAngle}deg)`;
   requestAnimationFrame(pointPlaneToCursor);
 }
-
 pointPlaneToCursor();
 
-/* ──────────────────────────────────────────────────────────────
-   ROOT CAUSE #2 (verified by direct measurement, not guessing):
-
-   getBoundingClientRect() on a ROTATED element returns the
-   axis-aligned bounding box of the rotated shape, not the
-   unrotated box. Confirmed by direct test: a 190px-wide element
-   rotated -12deg around its center reported left/top shifted by
-   ~2-19px from its true unrotated position.
-
-   The plane is continuously rotating via pointPlaneToCursor()
-   right up until the moment of click. Whatever currentAngle
-   happens to be at that exact instant corrupts the very first
-   getBoundingClientRect() read — which becomes startRect, which
-   becomes startDoc, which becomes the anchor for the entire
-   flight path. This explains the seemingly random leftward jump:
-   it was never "left" specifically, it was "wherever the current
-   rotation skew happens to push the bounding box," which looked
-   like a consistent left-jump because cursor position (and thus
-   rotation angle) tends to be left-of-plane during normal mouse
-   movement toward center content.
-
-   FIX: strip rotation (transform: none) BEFORE measuring, so we
-   capture the TRUE unrotated anchor point. Lock position/size to
-   that true point. Only THEN reapply the rotation on top — at
-   that point it's purely a cosmetic rotation around an already
-   correctly-anchored box, and does not feed back into our math
-   anywhere, since all our translate3d offsets are computed
-   relative to the pre-rotation measurement, never re-measured
-   after.
-   ────────────────────────────────────────────────────────────── */
-
-function catmullRomPoint(points, t) {
+function catmullRomPoint(points, t){
   const n = points.length - 1;
-  if (n < 1) return points[0];
-
+  if(n < 1) return points[0];
   let segment = Math.floor(t * n);
-  if (segment >= n) segment = n - 1;
+  if(segment >= n) segment = n - 1;
   const localT = t * n - segment;
-
-  const p0 = points[Math.max(segment - 1, 0)];
+  const p0 = points[Math.max(segment-1,0)];
   const p1 = points[segment];
-  const p2 = points[Math.min(segment + 1, n)];
-  const p3 = points[Math.min(segment + 2, n)];
-
-  const t2 = localT * localT;
-  const t3 = t2 * localT;
-
-  const x = 0.5 * (
-    (2 * p1.x) +
-    (-p0.x + p2.x) * localT +
-    (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
-    (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3
-  );
-
-  const y = 0.5 * (
-    (2 * p1.y) +
-    (-p0.y + p2.y) * localT +
-    (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
-    (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3
-  );
-
-  return { x, y };
+  const p2 = points[Math.min(segment+1,n)];
+  const p3 = points[Math.min(segment+2,n)];
+  const t2 = localT*localT, t3 = t2*localT;
+  return {
+    x: 0.5*((2*p1.x)+(-p0.x+p2.x)*localT+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3),
+    y: 0.5*((2*p1.y)+(-p0.y+p2.y)*localT+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3)
+  };
 }
 
-function buildFlightPath(startDoc, endDoc) {
+function buildFlightPath(startDoc, endDoc){
   const heroEl = document.querySelector(".hero");
-  const heroBottomDoc = heroEl
-    ? heroEl.getBoundingClientRect().bottom + window.scrollY
-    : startDoc.y;
+  const heroBottomDoc = heroEl ? heroEl.getBoundingClientRect().bottom + window.scrollY : startDoc.y;
   const footerTopDoc = footer.getBoundingClientRect().top + window.scrollY;
   const span = Math.max(footerTopDoc - heroBottomDoc, 1);
-
   const cards = [...document.querySelectorAll(".cs-card")];
   let midCardX = lerp(startDoc.x, endDoc.x, 0.5);
   let midCardY = heroBottomDoc + span * 0.5;
-  if (cards.length) {
-    const midIdx = Math.floor((cards.length - 1) / 2);
+  if(cards.length){
+    const midIdx = Math.floor((cards.length-1)/2);
     const r = cards[midIdx].getBoundingClientRect();
     midCardX = r.left + r.width * 0.55;
     midCardY = r.top + r.height * 0.45 + window.scrollY;
   }
-
-  const clampX = (x) => Math.max(x, startDoc.x);
-
-  const points = [];
-  points.push(startDoc);
-  points.push({
-    x: clampX(lerp(startDoc.x, endDoc.x, 0.15)),
-    y: startDoc.y + span * 0.10
-  });
-  points.push({
-    x: clampX(lerp(startDoc.x, midCardX, 0.55)),
-    y: heroBottomDoc + span * 0.25
-  });
-  points.push({
-    x: clampX(midCardX),
-    y: midCardY
-  });
-  points.push({
-    x: clampX(lerp(midCardX, endDoc.x, 0.65)),
-    y: footerTopDoc - span * 0.08
-  });
-  points.push(endDoc);
-
-  return points;
+  const clampX = x => Math.max(x, startDoc.x);
+  return [
+    startDoc,
+    {x: clampX(lerp(startDoc.x, endDoc.x, 0.15)), y: startDoc.y + span * 0.10},
+    {x: clampX(lerp(startDoc.x, midCardX, 0.55)), y: heroBottomDoc + span * 0.25},
+    {x: clampX(midCardX), y: midCardY},
+    {x: clampX(lerp(midCardX, endDoc.x, 0.65)), y: footerTopDoc - span * 0.08},
+    endDoc
+  ];
 }
 
-function animateFlight(startDoc, startRect, duration = 7800) {
+function animateFlight(startDoc, startRect, duration=7800){
   const scrollAtClick = window.scrollY;
-
   const footerTopDoc = footer.getBoundingClientRect().top + window.scrollY;
   const footerRect = footer.getBoundingClientRect();
-
   const endDoc = {
-    x: footerRect.left + footerRect.width / 2 - startRect.width / 2,
+    x: footerRect.left + footerRect.width/2 - startRect.width/2,
     y: footerTopDoc + footerRect.height * 0.32
   };
-
-  const targetScroll = Math.max(
-    footerTopDoc - window.innerHeight * 0.08,
-    scrollAtClick
-  );
-
+  const targetScroll = Math.max(footerTopDoc - window.innerHeight * 0.08, scrollAtClick);
   const path = buildFlightPath(startDoc, endDoc);
   const startTime = performance.now();
   const TANGENT_EPS = 0.01;
-
-  return new Promise((resolve) => {
-    function frame(now) {
+  return new Promise(resolve => {
+    function frame(now){
       const raw = Math.min((now - startTime) / duration, 1);
-
-      const scrollT = easeInOut(raw);
-      window.scrollTo({
-        top: lerp(scrollAtClick, targetScroll, scrollT),
-        left: 0,
-        behavior: "auto"
-      });
-
+      window.scrollTo({top: lerp(scrollAtClick, targetScroll, easeInOut(raw)), left:0, behavior:"auto"});
       let planeT;
-      if (raw < 0.72) {
-        planeT = easeInOut(raw / 0.72) * 0.8;
-      } else {
-        const tail = (raw - 0.72) / 0.28;
-        planeT = 0.8 + easeInOut(tail) * 0.2;
-      }
-
+      if(raw < 0.72){ planeT = easeInOut(raw/0.72)*0.8; }
+      else { const tail=(raw-0.72)/0.28; planeT=0.8+easeInOut(tail)*0.2; }
       const posDoc = catmullRomPoint(path, planeT);
-
-      const aheadT = Math.min(planeT + TANGENT_EPS, 1);
-      const aheadDoc = catmullRomPoint(path, aheadT);
+      const aheadDoc = catmullRomPoint(path, Math.min(planeT+TANGENT_EPS,1));
       const heading = getPlaneAngle(posDoc.x, posDoc.y, aheadDoc.x, aheadDoc.y);
-
-      const liveScrollY = window.scrollY;
-
       const offsetX = posDoc.x - startDoc.x;
-      const offsetY = (posDoc.y - liveScrollY) - startRect.top;
-
-      plane.style.transform =
-        `translate3d(${offsetX}px, ${offsetY}px, 0) rotate(${heading}deg)`;
-
-      if (raw < 1) {
-        requestAnimationFrame(frame);
-      } else {
-        resolve();
-      }
+      const offsetY = (posDoc.y - window.scrollY) - startRect.top;
+      plane.style.transform = `translate3d(${offsetX}px,${offsetY}px,0) rotate(${heading}deg)`;
+      if(raw < 1){ requestAnimationFrame(frame); } else { resolve(); }
     }
-
     requestAnimationFrame(frame);
   });
 }
 
-if (plane && footer) {
+if(plane && footer){
   plane.addEventListener("click", async () => {
-    if (isFlying) return;
-
-    if (reduceMotion) {
-      footer.scrollIntoView({ behavior: "auto" });
-      return;
-    }
-
+    if(isFlying) return;
+    if(reduceMotion){ footer.scrollIntoView({behavior:"auto"}); return; }
     isFlying = true;
-
-    /* ── STEP 1: strip rotation BEFORE measuring ──
-       This is the critical line that fixes the verified bug.
-       Without this, getBoundingClientRect() reports a rotation-
-       swollen bounding box, and every downstream coordinate is
-       anchored to a position the plane was never actually at. */
     const savedAngle = currentAngle;
     plane.style.transform = "none";
-
-    /* ── STEP 2: measure the TRUE unrotated position ── */
     const startRect = plane.getBoundingClientRect();
-    const startDoc = {
-      x: startRect.left,
-      y: startRect.top + window.scrollY
-    };
-
-    /* ── STEP 3: lock position/size to the TRUE measurement,
-       then reapply rotation on top. Rotation is now purely
-       cosmetic — it never gets re-measured or fed back into any
-       coordinate math from this point forward. */
+    const startDoc = {x: startRect.left, y: startRect.top + window.scrollY};
     plane.style.position = "fixed";
     plane.style.left = `${startRect.left}px`;
     plane.style.top = `${startRect.top}px`;
@@ -909,274 +493,199 @@ if (plane && footer) {
     plane.style.zIndex = "99999";
     plane.style.transform = `rotate(${savedAngle}deg)`;
     plane.style.pointerEvents = "none";
-
     document.documentElement.classList.add("flight-active");
     plane.classList.add("is-flying");
-
     const label = plane.querySelector(".plane-label");
-    if (label) label.style.display = "none";
-
+    if(label) label.style.display = "none";
     const img = plane.querySelector(".plane-img");
-    if (img) img.style.animation = "none";
-
-    if (postcard) {
-      postcard.style.opacity = "0";
-      postcard.style.transform = "translateY(40px) scale(.96)";
-    }
-
+    if(img) img.style.animation = "none";
+    if(postcard){ postcard.style.opacity="0"; postcard.style.transform="translateY(40px) scale(.96)"; }
     await animateFlight(startDoc, startRect);
-
-    await plane.animate(
-      [
-        { transform: plane.style.transform, opacity: 1 },
-        { transform: plane.style.transform.replace(/rotate\([^)]+\)/, "rotate(0deg) scale(1.55)"), opacity: 1 },
-        { transform: plane.style.transform.replace(/rotate\([^)]+\)/, "rotate(0deg) scale(2)"), opacity: 0 }
-      ],
-      {
-        duration: 950,
-        easing: "cubic-bezier(.16,1,.3,1)",
-        fill: "forwards"
-      }
-    ).finished;
-
-    if (postcard) {
-      postcard.style.opacity = "1";
-      postcard.style.transform = "translateY(0) scale(1)";
-
+    await plane.animate([
+      {transform: plane.style.transform, opacity:1},
+      {transform: plane.style.transform.replace(/rotate\([^)]+\)/,"rotate(0deg) scale(1.55)"), opacity:1},
+      {transform: plane.style.transform.replace(/rotate\([^)]+\)/,"rotate(0deg) scale(2)"), opacity:0}
+    ], {duration:950, easing:"cubic-bezier(.16,1,.3,1)", fill:"forwards"}).finished;
+    if(postcard){
+      postcard.style.opacity="1"; postcard.style.transform="translateY(0) scale(1)";
       postcard.animate(
-        [
-          { opacity: 0, transform: "translateY(40px) scale(.96)" },
-          { opacity: 1, transform: "translateY(0) scale(1)" }
-        ],
-        {
-          duration: 900,
-          easing: "cubic-bezier(.16,1,.3,1)",
-          fill: "forwards"
-        }
+        [{opacity:0,transform:"translateY(40px) scale(.96)"},{opacity:1,transform:"translateY(0) scale(1)"}],
+        {duration:900, easing:"cubic-bezier(.16,1,.3,1)", fill:"forwards"}
       );
     }
-
     plane.style.display = "none";
     document.documentElement.classList.remove("flight-active");
   });
 }
 
-document.querySelectorAll(".cs-card").forEach((card) => {
+/* ── VIDEO HOVER ── */
+document.querySelectorAll(".cs-card").forEach(card => {
   const video = card.querySelector(".cs-thumb video");
-  if (!video) return;
-
-  video.pause();
-  video.currentTime = 0;
-
-  const play = () => {
-    video.currentTime = 0;
-    const playPromise = video.play();
-    if (playPromise !== undefined) playPromise.catch(() => {});
-  };
-
-  const stop = () => {
-    video.pause();
-    video.currentTime = 0;
-  };
-
+  if(!video) return;
+  video.pause(); video.currentTime = 0;
+  const play = () => { video.currentTime=0; video.play().catch(()=>{}); };
+  const stop = () => { video.pause(); video.currentTime=0; };
   card.addEventListener("mouseenter", play);
   card.addEventListener("mouseleave", stop);
   card.addEventListener("focus", play);
   card.addEventListener("blur", stop);
 });
-(function () {
-  const hero   = document.querySelector(".hero");
-  const copy   = document.querySelector(".hero-copy");
-  const plane  = document.getElementById("paperPlane");
-  if (!hero) return;
 
-  const COLS       = 8;
-  const STAMP_RATIO = 210 / 142.5; // exact h/w from herostamp-1.svg viewBox
-  const MOAT_PAD   = 24;
-  const ZONE_COLS  = 4;
-  const ZONE_ROWS  = 2;
-  const ATTEMPTS   = 60;
+/* ── HERO DISCOVERY GRID ──
+   Draws an SVG grid and places 8 stamp SVGs snapped to cells.
+   Stamps are invisible by default, fade in on hover.
+   Moats around .hero-copy and #paperPlane are kept clear.
+   Zone-based placement ensures even scatter across the hero.
+*/
+(function(){
+  const hero  = document.querySelector(".hero");
+  const copy  = document.querySelector(".hero-copy");
+  const plane = document.getElementById("paperPlane");
+  if(!hero) return;
 
-  const STAMPS = [
-    "herostamp-1.svg",
-    "herostamp-2.svg",
-    "herostamp-3.svg",
-    "herostamp-4.svg",
-    "herostamp-5.svg",
-    "herostamp-6.svg",
-    "herostamp-7.svg",
-    "herostamp-8.svg",
+  const COLS        = 8;
+  const STAMP_RATIO = 210/142.5; // from herostamp-1.svg viewBox 142.5x210
+  const MOAT_PAD    = 28;
+  const ZONE_COLS   = 4;
+  const ZONE_ROWS   = 2;
+  const ATTEMPTS    = 60;
+  const STAMPS      = [
+    "herostamp-1.svg","herostamp-2.svg","herostamp-3.svg","herostamp-4.svg",
+    "herostamp-5.svg","herostamp-6.svg","herostamp-7.svg","herostamp-8.svg"
   ];
 
-  let svgEl     = null;
-  let stampWrap = null;
+  let svgEl=null, stampWrap=null;
 
-  function toLocal(rect, heroRect, pad) {
+  function toLocal(rect,heroRect,pad){
     return {
-      left  : rect.left   - heroRect.left   - pad,
-      top   : rect.top    - heroRect.top    - pad,
-      right : rect.right  - heroRect.left   + pad,
-      bottom: rect.bottom - heroRect.top    + pad,
+      left:  rect.left  -heroRect.left  -pad,
+      top:   rect.top   -heroRect.top   -pad,
+      right: rect.right -heroRect.left  +pad,
+      bottom:rect.bottom-heroRect.top   +pad
     };
   }
-
-  function overlaps(a, b) {
-    return !(a.right < b.left || a.left > b.right ||
-             a.bottom < b.top || a.top > b.bottom);
+  function overlaps(a,b){
+    return !(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom);
+  }
+  function segInMoat(x1,y1,x2,y2,moats){
+    const mx=(x1+x2)/2, my=(y1+y2)/2;
+    return moats.some(m=>mx>=m.left&&mx<=m.right&&my>=m.top&&my<=m.bottom);
   }
 
-  function segInMoat(x1, y1, x2, y2, moats) {
-    const mx = (x1 + x2) / 2;
-    const my = (y1 + y2) / 2;
-    return moats.some(m => mx >= m.left && mx <= m.right &&
-                           my >= m.top  && my <= m.bottom);
-  }
-
-  function layout() {
-    if (window.innerWidth <= 900) {
-      if (svgEl)     { svgEl.remove();     svgEl     = null; }
-      if (stampWrap) { stampWrap.remove(); stampWrap = null; }
+  function layout(){
+    if(window.innerWidth<=900){
+      if(svgEl){svgEl.remove();svgEl=null;}
+      if(stampWrap){stampWrap.remove();stampWrap=null;}
       return;
     }
+    const heroRect=hero.getBoundingClientRect();
+    const W=heroRect.width, H=heroRect.height;
+    const cellW=W/COLS;
+    const cellH=cellW*STAMP_RATIO;
+    const ROWS=Math.ceil(H/cellH);
 
-    const heroRect = hero.getBoundingClientRect();
-    const W = heroRect.width;
-    const H = heroRect.height;
+    const moats=[];
+    if(copy)  moats.push(toLocal(copy.getBoundingClientRect(),  heroRect, MOAT_PAD));
+    if(plane) moats.push(toLocal(plane.getBoundingClientRect(), heroRect, MOAT_PAD));
 
-    // Cell = exactly one stamp: cellW = W/8, cellH = cellW * stamp aspect ratio
-    const cellW = W / COLS;
-    const cellH = cellW * STAMP_RATIO;
-    const ROWS  = Math.ceil(H / cellH);
-
-    const moats = [];
-    if (copy)  moats.push(toLocal(copy.getBoundingClientRect(),  heroRect, MOAT_PAD));
-    if (plane) moats.push(toLocal(plane.getBoundingClientRect(), heroRect, MOAT_PAD));
-
-    // ── draw grid SVG ──
-    if (svgEl) svgEl.remove();
-    const ns = "http://www.w3.org/2000/svg";
-    svgEl = document.createElementNS(ns, "svg");
-    svgEl.setAttribute("class",   "hero-grid-svg");
-    svgEl.setAttribute("aria-hidden", "true");
-    svgEl.setAttribute("width",   W);
-    svgEl.setAttribute("height",  H);
-    svgEl.setAttribute("viewBox", `0 0 ${W} ${H}`);
-
-    const frag = document.createDocumentFragment();
-    const addLine = (x1,y1,x2,y2) => {
-      const ln = document.createElementNS(ns, "line");
-      ln.setAttribute("x1", x1); ln.setAttribute("y1", y1);
-      ln.setAttribute("x2", x2); ln.setAttribute("y2", y2);
-      ln.setAttribute("class", "grid-line");
+    // SVG grid
+    if(svgEl) svgEl.remove();
+    const ns="http://www.w3.org/2000/svg";
+    svgEl=document.createElementNS(ns,"svg");
+    svgEl.setAttribute("class","hero-grid-svg");
+    svgEl.setAttribute("aria-hidden","true");
+    svgEl.setAttribute("width",W);
+    svgEl.setAttribute("height",H);
+    svgEl.setAttribute("viewBox",`0 0 ${W} ${H}`);
+    const frag=document.createDocumentFragment();
+    const addLine=(x1,y1,x2,y2)=>{
+      const ln=document.createElementNS(ns,"line");
+      ln.setAttribute("x1",x1);ln.setAttribute("y1",y1);
+      ln.setAttribute("x2",x2);ln.setAttribute("y2",y2);
+      ln.setAttribute("class","grid-line");
       frag.appendChild(ln);
     };
-
-    for (let c = 0; c <= COLS; c++) {
-      const x = c * cellW;
-      for (let r = 0; r < ROWS; r++) {
-        const y1 = r * cellH, y2 = Math.min((r + 1) * cellH, H);
-        if (!segInMoat(x, y1, x, y2, moats)) addLine(x, y1, x, y2);
+    for(let c=0;c<=COLS;c++){
+      const x=c*cellW;
+      for(let r=0;r<ROWS;r++){
+        const y1=r*cellH,y2=Math.min((r+1)*cellH,H);
+        if(!segInMoat(x,y1,x,y2,moats)) addLine(x,y1,x,y2);
       }
     }
-    for (let r = 0; r <= ROWS; r++) {
-      const y = r * cellH;
-      for (let c = 0; c < COLS; c++) {
-        const x1 = c * cellW, x2 = Math.min((c + 1) * cellW, W);
-        if (!segInMoat(x1, y, x2, y, moats)) addLine(x1, y, x2, y);
+    for(let r=0;r<=ROWS;r++){
+      const y=r*cellH;
+      for(let c=0;c<COLS;c++){
+        const x1=c*cellW,x2=Math.min((c+1)*cellW,W);
+        if(!segInMoat(x1,y,x2,y,moats)) addLine(x1,y,x2,y);
       }
     }
     svgEl.appendChild(frag);
-    hero.insertBefore(svgEl, hero.firstChild);
+    hero.insertBefore(svgEl,hero.firstChild);
 
-    // ── build list of all valid cells ──
-    const allCells = [];
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        const x = c * cellW, y = r * cellH;
-        if (y + cellH > H) continue;
-        const slot = { left:x, top:y, right:x+cellW, bottom:y+cellH, x, y };
-        if (!moats.some(m => overlaps(slot, m))) allCells.push(slot);
+    // Valid cells
+    const allCells=[];
+    for(let r=0;r<ROWS;r++){
+      for(let c=0;c<COLS;c++){
+        const x=c*cellW,y=r*cellH;
+        if(y+cellH>H) continue;
+        const slot={left:x,top:y,right:x+cellW,bottom:y+cellH,x,y};
+        if(!moats.some(m=>overlaps(slot,m))) allCells.push(slot);
       }
     }
 
-    // ── place stamps: one per zone, shuffled ──
-    if (stampWrap) stampWrap.remove();
-    stampWrap = document.createElement("div");
-    stampWrap.className = "stamp-grid-layer";
-    hero.insertBefore(stampWrap, svgEl.nextSibling);
+    // Stamp wrap
+    if(stampWrap) stampWrap.remove();
+    stampWrap=document.createElement("div");
+    stampWrap.className="stamp-grid-layer";
+    hero.insertBefore(stampWrap,svgEl.nextSibling);
 
-    const zoneW = W / ZONE_COLS;
-    const zoneH = H / ZONE_ROWS;
+    const zoneW=W/ZONE_COLS, zoneH=H/ZONE_ROWS;
+    const shuffled=[...STAMPS].sort(()=>Math.random()-.5);
+    const placed=[];
+    let idx=0;
 
-    // Shuffle stamp filenames so a different stamp appears in each zone each load
-    const shuffled = [...STAMPS].sort(() => Math.random() - 0.5);
-
-    const placed = [];
-    let stampIdx = 0;
-
-    for (let zr = 0; zr < ZONE_ROWS; zr++) {
-      for (let zc = 0; zc < ZONE_COLS; zc++) {
-        if (stampIdx >= shuffled.length) break;
-
-        // Cells whose center falls inside this zone
-        const zoneCells = allCells.filter(cell => {
-          const cx = cell.x + cellW / 2;
-          const cy = cell.y + cellH / 2;
-          return cx >= zc * zoneW && cx < (zc + 1) * zoneW &&
-                 cy >= zr * zoneH && cy < (zr + 1) * zoneH;
-        });
-
-        if (!zoneCells.length) continue;
-
-        // Shuffle zone cells so we pick randomly within the zone
-        const shuffledZone = zoneCells.sort(() => Math.random() - 0.5);
-
-        for (let i = 0; i < Math.min(ATTEMPTS, shuffledZone.length); i++) {
-          const cell = shuffledZone[i];
-          if (placed.some(p => overlaps(cell, p))) continue;
-
+    for(let zr=0;zr<ZONE_ROWS;zr++){
+      for(let zc=0;zc<ZONE_COLS;zc++){
+        if(idx>=shuffled.length) break;
+        const zoneCells=allCells.filter(cell=>{
+          const cx=cell.x+cellW/2, cy=cell.y+cellH/2;
+          return cx>=zc*zoneW&&cx<(zc+1)*zoneW&&cy>=zr*zoneH&&cy<(zr+1)*zoneH;
+        }).sort(()=>Math.random()-.5);
+        for(let i=0;i<Math.min(ATTEMPTS,zoneCells.length);i++){
+          const cell=zoneCells[i];
+          if(placed.some(p=>overlaps(cell,p))) continue;
           placed.push(cell);
-
-          const wrap = document.createElement("div");
-          wrap.className = "stamp-grid-item";
-          wrap.style.left   = cell.x + "px";
-          wrap.style.top    = cell.y + "px";
-          wrap.style.width  = cellW  + "px";
-          wrap.style.height = cellH  + "px";
-
-          const img = document.createElement("img");
-          img.src = shuffled[stampIdx];
-          img.alt = "";
-          img.setAttribute("aria-hidden", "true");
+          const wrap=document.createElement("div");
+          wrap.className="stamp-grid-item";
+          wrap.style.left=cell.x+"px";
+          wrap.style.top=cell.y+"px";
+          wrap.style.width=cellW+"px";
+          wrap.style.height=cellH+"px";
+          const img=document.createElement("img");
+          img.src=shuffled[idx];
+          img.alt="";
+          img.setAttribute("aria-hidden","true");
           wrap.appendChild(img);
           stampWrap.appendChild(wrap);
-          stampIdx++;
+          idx++;
           break;
         }
       }
     }
   }
 
-  function init() {
-    const run = () => requestAnimationFrame(() => requestAnimationFrame(layout));
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(run);
-    } else {
-      run();
-    }
+  function init(){
+    const run=()=>requestAnimationFrame(()=>requestAnimationFrame(layout));
+    if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(run); }
+    else{ run(); }
   }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-  window.addEventListener("load", () => requestAnimationFrame(layout));
-
-  let resizeTimer = null;
-  window.addEventListener("resize", () => {
+  if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",init); }
+  else{ init(); }
+  window.addEventListener("load",()=>requestAnimationFrame(layout));
+  let resizeTimer=null;
+  window.addEventListener("resize",()=>{
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => requestAnimationFrame(layout), 150);
+    resizeTimer=setTimeout(()=>requestAnimationFrame(layout),150);
   });
 })();
 </script>
