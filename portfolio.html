@@ -79,15 +79,50 @@ img,video{max-width:100%;display:block;}
   align-items:center;
   padding:110px clamp(48px,6vw,128px) 90px;
   overflow:hidden;
-  background-image:
-    linear-gradient(rgba(31,64,92,.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31,64,92,.055) 1px, transparent 1px);
-  background-size:12.5vw 12.5vw;
 }
 .hero-copy{
   max-width:900px;
   position:relative;
   z-index:3;
+}
+.hero-grid-svg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.grid-line{
+  stroke:#C9BFA8;
+  stroke-width:0.6;
+  opacity:0.22;
+}
+.stamp-grid-layer{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.stamp-grid-item{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px;
+  box-sizing:border-box;
+}
+.stamp-grid-item img{
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+}
+@media(max-width:900px){
+  .hero-grid-svg,.stamp-grid-layer{ display:none; }
+}
+@media(prefers-reduced-motion:reduce){
+  .stamp-grid-item{ transition:none; }
 }
 .hero h1,
 .hero-subtitle{
@@ -151,43 +186,6 @@ img,video{max-width:100%;display:block;}
   opacity:1;
   transform:translateX(-50%) translateY(0) scale(1);
 }
-
-/* HERO STAMP DISCOVERY GRID */
-.hero-stamp-grid{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-}
-.hero-stamp-cell{
-  position:absolute;
-  width:clamp(120px,10vw,185px);
-  aspect-ratio:3 / 4;
-  display:grid;
-  place-items:center;
-  pointer-events:auto;
-}
-.hero-stamp-cell img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  opacity:0;
-  transform:scale(.94);
-  transition:opacity .28s ease,transform .28s ease;
-  pointer-events:none;
-}
-.hero-stamp-cell:hover img{
-  opacity:1;
-  transform:scale(1);
-}
-.cell-1{left:6.25vw;top:4vw;}
-.cell-2{left:43.75vw;top:4vw;}
-.cell-3{left:81.25vw;top:5vw;}
-.cell-4{left:18.75vw;top:48vh;}
-.cell-5{left:56.25vw;top:42vh;}
-.cell-6{left:31.25vw;top:72vh;}
-.cell-7{left:68.75vw;top:70vh;}
-.cell-8{left:6.25vw;top:74vh;}
 
 /* PAPER PLANE */
 .paper-plane-button{
@@ -443,7 +441,6 @@ html.flight-active{scroll-behavior:auto!important;}
   .hero{
     background-image:none;
   }
-  .hero-stamp-grid,
   .hover-bubble{
     display:none;
   }
@@ -987,6 +984,201 @@ document.querySelectorAll(".cs-card").forEach((card) => {
   card.addEventListener("focus", play);
   card.addEventListener("blur", stop);
 });
+(function () {
+  const hero   = document.querySelector(".hero");
+  const copy   = document.querySelector(".hero-copy");
+  const plane  = document.getElementById("paperPlane");
+  if (!hero) return;
+
+  const COLS       = 8;
+  const STAMP_RATIO = 210 / 142.5; // exact h/w from herostamp-1.svg viewBox
+  const MOAT_PAD   = 24;
+  const ZONE_COLS  = 4;
+  const ZONE_ROWS  = 2;
+  const ATTEMPTS   = 60;
+
+  const STAMPS = [
+    "herostamp-1.svg",
+    "herostamp-2.svg",
+    "herostamp-3.svg",
+    "herostamp-4.svg",
+    "herostamp-5.svg",
+    "herostamp-6.svg",
+    "herostamp-7.svg",
+    "herostamp-8.svg",
+  ];
+
+  let svgEl     = null;
+  let stampWrap = null;
+
+  function toLocal(rect, heroRect, pad) {
+    return {
+      left  : rect.left   - heroRect.left   - pad,
+      top   : rect.top    - heroRect.top    - pad,
+      right : rect.right  - heroRect.left   + pad,
+      bottom: rect.bottom - heroRect.top    + pad,
+    };
+  }
+
+  function overlaps(a, b) {
+    return !(a.right < b.left || a.left > b.right ||
+             a.bottom < b.top || a.top > b.bottom);
+  }
+
+  function segInMoat(x1, y1, x2, y2, moats) {
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    return moats.some(m => mx >= m.left && mx <= m.right &&
+                           my >= m.top  && my <= m.bottom);
+  }
+
+  function layout() {
+    if (window.innerWidth <= 900) {
+      if (svgEl)     { svgEl.remove();     svgEl     = null; }
+      if (stampWrap) { stampWrap.remove(); stampWrap = null; }
+      return;
+    }
+
+    const heroRect = hero.getBoundingClientRect();
+    const W = heroRect.width;
+    const H = heroRect.height;
+
+    // Cell = exactly one stamp: cellW = W/8, cellH = cellW * stamp aspect ratio
+    const cellW = W / COLS;
+    const cellH = cellW * STAMP_RATIO;
+    const ROWS  = Math.ceil(H / cellH);
+
+    const moats = [];
+    if (copy)  moats.push(toLocal(copy.getBoundingClientRect(),  heroRect, MOAT_PAD));
+    if (plane) moats.push(toLocal(plane.getBoundingClientRect(), heroRect, MOAT_PAD));
+
+    // ── draw grid SVG ──
+    if (svgEl) svgEl.remove();
+    const ns = "http://www.w3.org/2000/svg";
+    svgEl = document.createElementNS(ns, "svg");
+    svgEl.setAttribute("class",   "hero-grid-svg");
+    svgEl.setAttribute("aria-hidden", "true");
+    svgEl.setAttribute("width",   W);
+    svgEl.setAttribute("height",  H);
+    svgEl.setAttribute("viewBox", `0 0 ${W} ${H}`);
+
+    const frag = document.createDocumentFragment();
+    const addLine = (x1,y1,x2,y2) => {
+      const ln = document.createElementNS(ns, "line");
+      ln.setAttribute("x1", x1); ln.setAttribute("y1", y1);
+      ln.setAttribute("x2", x2); ln.setAttribute("y2", y2);
+      ln.setAttribute("class", "grid-line");
+      frag.appendChild(ln);
+    };
+
+    for (let c = 0; c <= COLS; c++) {
+      const x = c * cellW;
+      for (let r = 0; r < ROWS; r++) {
+        const y1 = r * cellH, y2 = Math.min((r + 1) * cellH, H);
+        if (!segInMoat(x, y1, x, y2, moats)) addLine(x, y1, x, y2);
+      }
+    }
+    for (let r = 0; r <= ROWS; r++) {
+      const y = r * cellH;
+      for (let c = 0; c < COLS; c++) {
+        const x1 = c * cellW, x2 = Math.min((c + 1) * cellW, W);
+        if (!segInMoat(x1, y, x2, y, moats)) addLine(x1, y, x2, y);
+      }
+    }
+    svgEl.appendChild(frag);
+    hero.insertBefore(svgEl, hero.firstChild);
+
+    // ── build list of all valid cells ──
+    const allCells = [];
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const x = c * cellW, y = r * cellH;
+        if (y + cellH > H) continue;
+        const slot = { left:x, top:y, right:x+cellW, bottom:y+cellH, x, y };
+        if (!moats.some(m => overlaps(slot, m))) allCells.push(slot);
+      }
+    }
+
+    // ── place stamps: one per zone, shuffled ──
+    if (stampWrap) stampWrap.remove();
+    stampWrap = document.createElement("div");
+    stampWrap.className = "stamp-grid-layer";
+    hero.insertBefore(stampWrap, svgEl.nextSibling);
+
+    const zoneW = W / ZONE_COLS;
+    const zoneH = H / ZONE_ROWS;
+
+    // Shuffle stamp filenames so a different stamp appears in each zone each load
+    const shuffled = [...STAMPS].sort(() => Math.random() - 0.5);
+
+    const placed = [];
+    let stampIdx = 0;
+
+    for (let zr = 0; zr < ZONE_ROWS; zr++) {
+      for (let zc = 0; zc < ZONE_COLS; zc++) {
+        if (stampIdx >= shuffled.length) break;
+
+        // Cells whose center falls inside this zone
+        const zoneCells = allCells.filter(cell => {
+          const cx = cell.x + cellW / 2;
+          const cy = cell.y + cellH / 2;
+          return cx >= zc * zoneW && cx < (zc + 1) * zoneW &&
+                 cy >= zr * zoneH && cy < (zr + 1) * zoneH;
+        });
+
+        if (!zoneCells.length) continue;
+
+        // Shuffle zone cells so we pick randomly within the zone
+        const shuffledZone = zoneCells.sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < Math.min(ATTEMPTS, shuffledZone.length); i++) {
+          const cell = shuffledZone[i];
+          if (placed.some(p => overlaps(cell, p))) continue;
+
+          placed.push(cell);
+
+          const wrap = document.createElement("div");
+          wrap.className = "stamp-grid-item";
+          wrap.style.left   = cell.x + "px";
+          wrap.style.top    = cell.y + "px";
+          wrap.style.width  = cellW  + "px";
+          wrap.style.height = cellH  + "px";
+
+          const img = document.createElement("img");
+          img.src = shuffled[stampIdx];
+          img.alt = "";
+          img.setAttribute("aria-hidden", "true");
+          wrap.appendChild(img);
+          stampWrap.appendChild(wrap);
+          stampIdx++;
+          break;
+        }
+      }
+    }
+  }
+
+  function init() {
+    const run = () => requestAnimationFrame(() => requestAnimationFrame(layout));
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(run);
+    } else {
+      run();
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+  window.addEventListener("load", () => requestAnimationFrame(layout));
+
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => requestAnimationFrame(layout), 150);
+  });
+})();
 </script>
 </body>
 </html>
