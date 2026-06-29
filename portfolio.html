@@ -166,6 +166,107 @@ html.flight-active{scroll-behavior:auto!important;}
   letter-spacing:.09em;font-size:13px;opacity:0;z-index:3;
   transition:opacity .25s ease;
 }
+
+  /* CREATED WITH VIBES */
+
+.vibes-section{
+  padding-bottom:120px;
+}
+
+.vibes-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:86px 64px;
+}
+
+.vibe-card{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.vibe-thumb{
+  position:relative;
+  width:100%;
+  aspect-ratio:1.22/1;
+  overflow:hidden;
+  background:#F4F3F0;
+  margin-bottom:22px;
+}
+
+.vibe-thumb img,
+.vibe-thumb video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.vibe-thumb video{
+  opacity:1;
+}
+
+.vibe-title{
+  font-size:28px;
+  line-height:1.15;
+  letter-spacing:-0.035em;
+  font-weight:400;
+  margin-bottom:14px;
+}
+
+.vibe-desc{
+  font-size:18px;
+  line-height:1.55;
+  margin-bottom:22px;
+  max-width:640px;
+}
+
+.vibe-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.vibe-pill{
+  font-size:14px;
+  border:1px solid #2A2A2A;
+  border-radius:8px;
+  padding:4px 12px;
+  background:white;
+}
+  .vibe-card:hover .vibe-thumb{
+
+transform:translateY(-4px);
+
+transition:.35s ease;
+
+}
+
+.vibe-thumb{
+
+transition:.35s ease;
+
+box-shadow:0 8px 24px rgba(0,0,0,.06);
+
+}
+
+.vibe-card:hover .vibe-title{
+
+color:var(--blue);
+
+transition:.25s ease;
+
+}
+
+@media(max-width:1000px){
+
+.vibes-grid{
+grid-template-columns:1fr;
+gap:54px;
+}
+
+}
 .cs-card.coming-soon:hover .cs-thumb::after{opacity:1;}
 
 /* POSTCARD FOOTER */
@@ -341,6 +442,67 @@ html.flight-active{scroll-behavior:auto!important;}
 </a>
 
 </div>
+</section>
+<section class="vibes-section" id="vibes">
+
+<h2 class="section-heading">
+Created with Vibes
+</h2>
+
+<div class="vibes-grid">
+
+<a class="vibe-card" href="https://notice-slice-98284198.figma.site/">
+
+<div class="vibe-thumb">
+<div class="vibe-thumb">
+  <img src="App.png" alt="Fridge to Michelin preview">
+</div>
+</div>
+
+<div class="vibe-title">
+Fridge to Michelin
+</div>
+
+<div class="vibe-desc">
+Turn whatever's already in your fridge into surprisingly good meal ideas.
+</div>
+
+<div class="vibe-pills">
+<span class="vibe-pill">Figma</span>
+<span class="vibe-pill">Figma Make</span>
+<span class="vibe-pill">Claude</span>
+</div>
+
+</a>
+
+
+
+<a class="vibe-card" href="https://notice-slice-98284198.figma.site/">
+
+<div class="vibe-thumb">
+<div class="vibe-thumb">
+  <img src="gaze.png" alt="Gaze preview">
+</div>
+</div>
+
+<div class="vibe-title">
+Gaze Chrome Extension
+</div>
+
+<div class="vibe-desc">
+A Chrome extension that gently reminds you to follow the 20–20–20 rule and give your eyes a break. Launching to chrome extensions soon!
+</div>
+
+<div class="vibe-pills">
+<span class="vibe-pill">Figma</span>
+<span class="vibe-pill">Claude</span>
+<span class="vibe-pill">GPT-5</span>
+</div>
+
+</a>
+
+</div>
+
 </section>
 </main>
 
