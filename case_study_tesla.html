@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tesla Mobility Platform — Navyaa Vemuri</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --bg:#FDFDFD;--surface:#F4F3F0;--surface-2:#ECEBE7;--border:#E8E8E4;
   --text:#1A1A1A;--muted:#4F4F4F;--dim:#737373;
   --accent:#C43A31;--accent-bg:#FFF1EF;--accent-border:#F0C0B9;
+  --paper-bg:#F4F0E8;--paper:#FFFDF7;--line:rgba(26,26,26,.28);--blue:#314F8E;
   --dark:#202020;--shadow:0 12px 32px rgba(26,26,26,.06);
 }
 html{scroll-behavior:smooth;}
@@ -240,9 +241,37 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .ba-list span{font-size:16px;line-height:1.55;color:var(--muted);padding-bottom:10px;border-bottom:.5px solid var(--border);}
 .ba-card.after .ba-list span{color:var(--text);border-bottom-color:var(--accent-border);}
 
-/* POSTCARD FOOTER */
+/* CASE STUDY NAV + POSTCARD FOOTER */
+.case-study-nav-wrap{
+  width:100%;
+  padding:24px clamp(24px,6vw,96px) 92px;
+  background:var(--bg);
+}
+.case-study-nav{
+  max-width:1080px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:16px;
+  align-items:center;
+  border-top:.5px solid var(--border);
+  border-bottom:.5px solid var(--border);
+  padding:22px 0;
+}
+.case-study-nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:17px;
+  line-height:1.4;
+  transition:color .2s,transform .2s;
+}
+.case-study-nav a:hover{color:var(--accent);}
+.case-study-nav a:first-child{text-align:left;}
+.case-study-nav a:nth-child(2){text-align:center;color:var(--text);}
+.case-study-nav a:last-child{text-align:right;}
 .postcard-footer{
-  padding:56px clamp(32px,5vw,70px);
+  width:100%;
+  padding:64px clamp(24px,5vw,70px);
   background:var(--paper-bg);
   display:flex;
   justify-content:center;
@@ -280,9 +309,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   line-height:1.72;
   color:#111;
 }
-  .postcard-footer {
-  position: relative;
-}
 .postcard-message p{margin-bottom:18px;}
 .postcard-id{
   margin-top:30px;
@@ -298,10 +324,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   align-items:center;
   padding-left:24px;
 }
-.postcard-stamp{
-  width:165px;
-  margin-bottom:58px;
-}
+.postcard-stamp{width:165px;margin-bottom:58px;animation:none!important;}
+.postcard-stamp img{animation:none!important;}
 .postcard-links{
   width:min(340px,100%);
   display:flex;
@@ -318,16 +342,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   padding:0 8px 7px;
   transition:transform .2s ease,color .2s ease;
 }
-.postcard-links a:hover{
-  color:var(--blue);
-  transform:translateX(5px);
-}
+.postcard-links a:hover{color:var(--blue);transform:translateX(5px);}
 
-
-.postcard-stamp{animation:none!important;}
-.postcard-stamp img{animation:none!important;}
 @media(max-width:900px){
   .layout{display:block;}
+  .case-study-nav-wrap{padding:12px 24px 56px;}
+  .case-study-nav{grid-template-columns:1fr;gap:12px;padding:18px 0;}
+  .case-study-nav a,.case-study-nav a:first-child,.case-study-nav a:nth-child(2),.case-study-nav a:last-child{text-align:left;}
   .cs-sidebar{display:none;}
   .mobile-topbar,.mobile-toc{display:flex;}
   .right-col{width:100%;}
@@ -378,7 +399,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 </style>
 </head>
-<body>
+<body id="top">
 <div class="mobile-topbar">
   <a href="portfolio.html" class="mobile-brand">navyaa vemuri</a>
   <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" onclick="toggleMobileMenu()">
@@ -396,6 +417,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <a href="#overview" class="mobile-toc-link active">Overview</a>
   <a href="#context" class="mobile-toc-link">Context</a>
   <a href="#challenge" class="mobile-toc-link">Challenge</a>
+  <a href="#principles" class="mobile-toc-link">Principles</a>
   <a href="#exploration" class="mobile-toc-link">Exploration</a>
   <a href="#constraints" class="mobile-toc-link">Mobile</a>
   <a href="#solution" class="mobile-toc-link">Solution</a>
@@ -413,7 +435,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       <ul class="toc-list">
         <li><a href="#overview" class="toc-link active">Overview</a></li>
         <li><a href="#context" class="toc-link">Context</a></li>
+        <li><a href="#flow" class="toc-link">User flow</a></li>
         <li><a href="#challenge" class="toc-link">Why it was hard</a></li>
+        <li><a href="#principles" class="toc-link">Design principles</a></li>
         <li><a href="#exploration" class="toc-link">Prototype gallery</a></li>
         <li><a href="#constraints" class="toc-link">Mobile constraints</a></li>
         <li><a href="#solution" class="toc-link">Final solution</a></li>
@@ -430,8 +454,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     <main class="cs-main">
       <section id="overview" class="cs-section">
         <div class="cs-eyebrow">Tesla · UX Consultant · Enterprise Mobility · 2025–2026</div>
-        <h1 class="cs-title">Designing for commuting decisions before employees arrive.</h1>
-        <p class="cs-tagline">I designed a unified mobility experience inside Tesla One that consolidated fragmented parking, shuttle, navigation, and reporting workflows into one decision-support platform for 1,000+ employees and transportation managers.</p>
+        <h1 class="cs-title">From transportation data to confident commute decisions.</h1>
+        <p class="cs-tagline">Employees had access to transportation data, but making a commuting decision still meant switching between multiple disconnected tools. I designed a unified mobility experience inside Tesla One that brought parking, shuttle planning, navigation, and reporting into one decision-making workflow for 1,000+ employees and transportation managers.</p>
 
         <div class="hero-badges">
           <span class="hero-badge">Enterprise UX</span>
@@ -452,14 +476,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       <section id="context" class="cs-section">
         <div class="cs-section-label">Context</div>
         <h2 class="cs-h2">Employees had transportation data, but not transportation confidence.</h2>
-        <p class="cs-p">Before the platform, a simple commute decision required employees to jump between Tesla One, parking availability, shuttle schedules, native maps, and transportation guidance. Even after checking availability, employees could arrive to find a lot full because the information changed before they got there.</p>
+        <p class="cs-p">Before the platform, a simple commute decision required employees to jump between Tesla One, parking availability, shuttle schedules, native maps, and transportation guidance. Even after checking availability, employees could arrive to find a lot full because the information changed before they got there.</p><p class="cs-p"><strong>The problem was not finding information. It was synthesizing changing information quickly enough to make a confident decision before leaving for work.</strong></p>
 
         <div class="phone-fragmentation">
           <div class="phone-stage">
             <div>
-              <div class="phone-copy-kicker">Suggested visual · animated context</div>
-              <div class="phone-copy-title">From four disconnected tools to one commute decision flow.</div>
-              <div class="phone-copy-body">Use this section for a short animation: phones/apps fan out to show fragmentation, then collapse into one unified Tesla One experience.</div>
+              <div class="phone-copy-kicker">Animated context</div>
+              <div class="phone-copy-title">Four separate tools became one commute decision flow.</div>
+              <div class="phone-copy-body">Employees were not just switching screens. They were mentally stitching together parking, shuttle, routing, and reporting information to decide what to do next.</div>
             </div>
             <div class="phone-stack" aria-label="Animated phone stack showing disconnected commute tools">
               <div class="phone-shell one">
@@ -498,6 +522,36 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         </div>
       </section>
 
+      <section id="flow" class="cs-section">
+        <div class="cs-section-label">User flow</div>
+        <h2 class="cs-h2">The core flow followed the commute decision from planning to arrival.</h2>
+        <p class="cs-p">I used the flow to align the employee experience, operational visibility, and handoff points between parking, shuttle, navigation, and manager reporting.</p>
+
+        <div class="flow-strip" aria-label="Employee commute user flow">
+          <div class="flow-track">
+            <div class="flow-step"><div class="flow-dot">01</div><div class="flow-title">Check status</div><div class="flow-copy">Employee opens Tesla One before leaving.</div></div>
+            <div class="flow-step"><div class="flow-dot">02</div><div class="flow-title">Predict availability</div><div class="flow-copy">System shows whether parking will still be viable by arrival.</div></div>
+            <div class="flow-step"><div class="flow-dot">03</div><div class="flow-title">Compare options</div><div class="flow-copy">Parking, shuttle, and routing options appear in one decision flow.</div></div>
+            <div class="flow-step"><div class="flow-dot">04</div><div class="flow-title">Navigate</div><div class="flow-copy">Employee moves into the selected route without switching context.</div></div>
+            <div class="flow-step"><div class="flow-dot">05</div><div class="flow-title">Monitor</div><div class="flow-copy">Managers track utilization and reporting across the same platform.</div></div>
+          </div>
+        </div>
+
+        <div class="before-after-strip">
+          <div>
+            <div class="ba-simple-label">Before</div>
+            <div class="ba-simple-title">Fragmented information</div>
+            <div class="ba-simple-copy">Employees interpreted parking, shuttle, maps, and reporting across separate tools while managers lacked centralized visibility.</div>
+          </div>
+          <div class="ba-arrow">→</div>
+          <div>
+            <div class="ba-simple-label">After</div>
+            <div class="ba-simple-title">One decision workflow</div>
+            <div class="ba-simple-copy">Tesla One brought availability, prediction, alternatives, navigation, and manager reporting into a unified mobility experience.</div>
+          </div>
+        </div>
+      </section>
+
       <section id="challenge" class="cs-section">
         <div class="cs-section-label">Why it was challenging</div>
         <h2 class="cs-h2">The product sat at the intersection of changing data, ambitious stakeholders, and mobile constraints.</h2>
@@ -523,28 +577,57 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         </div>
       </section>
 
+      <section id="principles" class="cs-section">
+        <div class="cs-section-label">Design principles</div>
+        <h2 class="cs-h2">I used three principles to move the product from information display to decision support.</h2>
+        <p class="cs-p">Because the data could change while employees were still commuting, the product could not simply show a static answer. Each feature had to help users understand what was happening, what was likely to happen next, and what action made the most sense.</p>
+
+        <div class="principle-list">
+          <div class="principle-line">
+            <div class="principle-num">01</div>
+            <div class="principle-name">Surface the next best action</div>
+            <div class="principle-line-copy">Lead with a recommendation or status summary before exposing detailed parking, shuttle, or routing data.</div>
+          </div>
+          <div class="principle-line">
+            <div class="principle-num">02</div>
+            <div class="principle-name">Reduce context switching</div>
+            <div class="principle-line-copy">Bring parking, shuttle, navigation, and reporting into one flow so users do not have to assemble the commute story themselves.</div>
+          </div>
+          <div class="principle-line">
+            <div class="principle-num">03</div>
+            <div class="principle-name">Design for uncertainty</div>
+            <div class="principle-line-copy">Represent changing conditions through prediction, confidence cues, and alternate options instead of implying certainty.</div>
+          </div>
+        </div>
+
+        <div class="tradeoff">
+          <div class="tradeoff-label">Product tradeoff · Build maps vs focus the product</div>
+          <div class="tradeoff-body">We explored how much navigation should live inside the platform, but rebuilding a full maps experience would have duplicated mature functionality and increased engineering complexity. The stronger product decision was to focus on what Tesla needed most: helping employees decide when and where to park, then connecting them to navigation at the right moment.</div>
+        </div>
+      </section>
+
       <section id="exploration" class="cs-section">
         <div class="cs-section-label">Exploration</div>
-        <h2 class="cs-h2">A prototype gallery shows how the system came together across employee and manager needs.</h2>
-        <p class="cs-p">Instead of making this a long scroll of every screen, use this tabbed gallery for short GIFs or MP4s of the key prototype moments. It keeps the case study concise while still showing interaction design depth.</p>
+        <h2 class="cs-h2">A prototype gallery shows how the decision system came together across employee and manager needs.</h2>
+        <p class="cs-p">Rather than showing every screen, this gallery focuses on the moments where the product helped users move from uncertainty to action: checking parking, predicting availability, comparing alternatives, and monitoring operations.</p>
 
         <div class="prototype-gallery">
           <div class="prototype-tabs" role="tablist" aria-label="Prototype gallery">
             <button class="proto-tab active" data-proto="availability">
-              <div class="proto-title">Parking availability</div>
-              <div class="proto-desc">Status, lot capacity, and decision hierarchy.</div>
+              <div class="proto-title">Check parking</div>
+              <div class="proto-desc">Status, lot capacity, and next-best action.</div>
             </button>
             <button class="proto-tab" data-proto="prediction">
-              <div class="proto-title">Predictive occupancy</div>
+              <div class="proto-title">Predict availability</div>
               <div class="proto-desc">Will this still be available by arrival?</div>
             </button>
             <button class="proto-tab" data-proto="shuttle">
-              <div class="proto-title">Shuttle prompt</div>
-              <div class="proto-desc">Alternative when parking looks risky.</div>
+              <div class="proto-title">Compare alternatives</div>
+              <div class="proto-desc">Surface shuttle options when parking looks risky.</div>
             </button>
             <button class="proto-tab" data-proto="reporting">
-              <div class="proto-title">Manager reporting</div>
-              <div class="proto-desc">Operational visibility and utilization.</div>
+              <div class="proto-title">Manage operations</div>
+              <div class="proto-desc">Utilization, reporting, and operational visibility.</div>
             </button>
           </div>
 
@@ -554,104 +637,83 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
               <video class="proto-media" data-proto="prediction" src="tesla-predictive-occupancy.mp4" autoplay muted loop playsinline></video>
               <video class="proto-media" data-proto="shuttle" src="tesla-shuttle-prompt.mp4" autoplay muted loop playsinline></video>
               <video class="proto-media" data-proto="reporting" src="tesla-manager-reporting.mp4" autoplay muted loop playsinline></video>
-              <div class="proto-placeholder" id="protoFallback"><strong>Prototype placeholder</strong>Replace the MP4 filenames with your exported GIFs/videos. Tabs will switch between them.</div>
+              <div class="proto-placeholder" id="protoFallback"><strong>Prototype moment</strong>Add exported GIFs or MP4s showing the key decision points in the flow.</div>
             </div>
-            <div class="proto-caption" id="protoCaption">Parking availability prototype: employees can scan lot status and understand which option is most viable.</div>
+            <div class="proto-caption" id="protoCaption">Check parking: employees can understand lot status and the most viable option without switching tools.</div>
           </div>
         </div>
       </section>
 
       <section id="constraints" class="cs-section">
-        <div class="cs-section-label">Mobile constraints</div>
-        <h2 class="cs-h2">Mobile design forced sharper choices about hierarchy, states, and accessibility.</h2>
-        <p class="cs-p">This project helped me understand that mobile enterprise design is not just about fitting desktop information into a smaller space. It requires deciding what a user needs first, what can wait, and what must be accessible at a glance.</p>
+        <div class="cs-section-label">Designing for quick decisions</div>
+        <h2 class="cs-h2">Accessibility and mobile hierarchy had to make status understandable at a glance.</h2>
+        <p class="cs-p">Employees might check transportation information while leaving home, walking to a shuttle, or already in transit. I focused the mobile experience on clear status labels, redundant cues, thumb-safe actions, and states that stayed useful even when availability changed.</p>
 
-        <div class="mobile-principles">
-          <div class="principle-board">
-            <div class="principle-row">
-              <div class="principle-label">Glanceable</div>
-              <div class="principle-copy">Lead with status and recommendation before exposing detailed lot or shuttle data.</div>
-            </div>
-            <div class="principle-row">
-              <div class="principle-label">Progressive</div>
-              <div class="principle-copy">Reveal comparisons, alternatives, and operational details only when they help the next decision.</div>
-            </div>
-            <div class="principle-row">
-              <div class="principle-label">Thumb-first</div>
-              <div class="principle-copy">Prioritize primary actions and route-switching patterns that are easy to trigger quickly.</div>
-            </div>
-            <div class="principle-row">
-              <div class="principle-label">State-aware</div>
-              <div class="principle-copy">Design for full, limited, unknown, loading, and error states so the system remains useful when data changes.</div>
+        <div class="accessibility-annotated">
+          <div class="annotated-phone-wrap">
+            <div class="annotated-phone" aria-label="Annotated mobile screen for accessibility decisions">
+              <div class="annotated-screen">
+                <div class="mock-status">Tesla One · Mobility</div>
+                <div class="mock-title">Your best commute option</div>
+                <div class="mock-alert"><strong>Lot B likely full</strong><span>Predicted 94% occupancy by your arrival time.</span></div>
+                <div class="mock-route"><div class="mock-route-title">Recommended: Shuttle</div><div class="mock-route-copy">Next shuttle in 7 min · Arrive by 8:42 AM</div></div>
+                <div class="mock-route"><div class="mock-route-title">Alternate: Lot C</div><div class="mock-route-copy">12 min walk · Limited availability</div></div>
+                <div class="mock-button">Navigate to shuttle</div>
+              </div>
+              <div class="hotspot one" tabindex="0">1<div class="hotspot-card"><div class="hotspot-title">Status labels</div><div class="hotspot-copy">Availability was written in plain language so users did not have to interpret raw percentages.</div></div></div>
+              <div class="hotspot two" tabindex="0">2<div class="hotspot-card"><div class="hotspot-title">Redundant cues</div><div class="hotspot-copy">Color was paired with text and labels so urgency never depended on color alone.</div></div></div>
+              <div class="hotspot three" tabindex="0">3<div class="hotspot-card"><div class="hotspot-title">Progressive detail</div><div class="hotspot-copy">Alternatives appeared after the recommendation, keeping the first decision simple while preserving choice.</div></div></div>
+              <div class="hotspot four" tabindex="0">4<div class="hotspot-card"><div class="hotspot-title">Thumb-safe action</div><div class="hotspot-copy">Primary actions stayed low on the screen for quick use while walking or commuting.</div></div></div>
             </div>
           </div>
-          <div class="accessibility-card">
-            <h3>Accessibility mattered because status could not rely on color alone.</h3>
-            <p>Parking availability and prediction states needed clear labels, contrast, and redundant cues so employees could understand urgency quickly and confidently.</p>
-          </div>
-        </div>
 
-        <div class="img-block">
-          <div class="placeholder"><strong>Suggested visual</strong>Add a mobile constraints board showing status labels, color/label pairings, empty states, and thumb-zone decisions.</div>
-          <div class="img-caption-bar"><div class="img-caption-text">Suggested visual: mobile accessibility and state system for transportation status.</div></div>
+          <div class="accessibility-notes">
+            <div class="accessibility-note"><div class="accessibility-note-label">Glanceable</div><div class="accessibility-note-copy">Lead with the commute recommendation, then reveal the data behind it.</div></div>
+            <div class="accessibility-note"><div class="accessibility-note-label">State-aware</div><div class="accessibility-note-copy">Account for full, limited, unknown, loading, and error states so the system remains trustworthy when data changes.</div></div>
+            <div class="accessibility-note"><div class="accessibility-note-label">Accessible</div><div class="accessibility-note-copy">Use clear labels, contrast, and redundant visual cues so status and urgency are understandable without relying on color alone.</div></div>
+          </div>
         </div>
       </section>
 
       <section id="solution" class="cs-section">
         <div class="cs-section-label">Final solution</div>
-        <h2 class="cs-h2">A unified mobility platform embedded in Tesla One.</h2>
-        <p class="cs-p">The final experience brought parking availability, predictive occupancy, shuttle planning, navigation, and manager reporting into one platform. The design reframed transportation from a set of disconnected tasks into one decision-making workflow.</p>
+        <h2 class="cs-h2">A unified mobility platform embedded in Tesla One, shown through the core decision moments.</h2>
+        <p class="cs-p">Instead of asking employees to interpret transportation data across multiple systems, the final experience guided them through the commute decision: check status, understand prediction, compare alternatives, navigate, and give managers operational visibility.</p>
 
-        <div class="two-col">
-          <div class="col-card">
-            <div class="col-label">Employee experience</div>
-            <div class="col-item">View parking availability in one place</div>
-            <div class="col-item">Understand predicted occupancy before arrival</div>
-            <div class="col-item">Compare parking and shuttle alternatives</div>
-            <div class="col-item">Access navigation without switching tools</div>
+        <div class="solution-tabs-wrap">
+          <div class="solution-tabs" role="tablist" aria-label="Final solution tabs">
+            <button class="solution-tab active" data-solution="parking">Parking decision</button>
+            <button class="solution-tab" data-solution="prediction">Predictive occupancy</button>
+            <button class="solution-tab" data-solution="alternatives">Alternatives</button>
+            <button class="solution-tab" data-solution="manager">Manager reporting</button>
           </div>
-          <div class="col-card">
-            <div class="col-label">Manager experience</div>
-            <div class="col-item">Monitor parking availability and utilization</div>
-            <div class="col-item">Identify lots approaching capacity</div>
-            <div class="col-item">Generate operational reports</div>
-            <div class="col-item">Support transportation decisions at scale</div>
-          </div>
-        </div>
 
-        <div class="before-after">
-          <div class="ba-card">
-            <div class="ba-label">Before</div>
-            <div class="ba-title">Fragmented decisions</div>
-            <div class="ba-list">
-              <span>4 disconnected tools</span>
-              <span>Availability changed before arrival</span>
-              <span>Employees had to infer alternatives manually</span>
-              <span>Managers lacked centralized visibility</span>
-            </div>
+          <div class="solution-panel active" data-solution="parking">
+            <div class="solution-visual"><video src="tesla-parking-availability.mp4" autoplay muted loop playsinline onerror="this.outerHTML='<div class=&quot;solution-placeholder&quot;><strong>Parking decision visual</strong>Add a GIF or screenshot showing status, lot availability, and the recommended next action.</div>'"></video></div>
+            <div><div class="solution-copy-kicker">Employee moment</div><div class="solution-copy-title">Check parking without switching tools.</div><div class="solution-copy-body">Employees could quickly evaluate lot status and understand the most viable option before leaving or while already in transit.</div></div>
           </div>
-          <div class="ba-card after">
-            <div class="ba-label">After</div>
-            <div class="ba-title">Unified mobility flow</div>
-            <div class="ba-list">
-              <span>1 embedded Tesla One experience</span>
-              <span>Predictive occupancy before arrival</span>
-              <span>Shuttle and navigation surfaced at decision points</span>
-              <span>Manager reporting in the same platform</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="img-block">
-          <div class="placeholder"><strong>Final flow placeholder</strong>Add a horizontal journey: check availability → compare options → receive recommendation → navigate → manager monitors/reporting.</div>
-          <div class="img-caption-bar"><div class="img-caption-text">Suggested visual: final end-to-end flow across commuter and manager experiences.</div></div>
+          <div class="solution-panel" data-solution="prediction">
+            <div class="solution-visual"><video src="tesla-predictive-occupancy.mp4" autoplay muted loop playsinline onerror="this.outerHTML='<div class=&quot;solution-placeholder&quot;><strong>Predictive occupancy visual</strong>Add a GIF or screenshot showing how current availability becomes an arrival-time prediction.</div>'"></video></div>
+            <div><div class="solution-copy-kicker">Decision support</div><div class="solution-copy-title">Shift from “what is available now?” to “what will be available when I arrive?”</div><div class="solution-copy-body">Prediction helped employees account for changing conditions instead of relying on a static number that could become outdated mid-commute.</div></div>
+          </div>
+
+          <div class="solution-panel" data-solution="alternatives">
+            <div class="solution-visual"><video src="tesla-shuttle-prompt.mp4" autoplay muted loop playsinline onerror="this.outerHTML='<div class=&quot;solution-placeholder&quot;><strong>Alternatives visual</strong>Add a GIF or screenshot showing shuttle or alternate lot options when parking becomes risky.</div>'"></video></div>
+            <div><div class="solution-copy-kicker">Alternate route</div><div class="solution-copy-title">Surface shuttle options when parking becomes risky.</div><div class="solution-copy-body">The product reduced dead ends by giving employees a clear next step when their first commute option was unlikely to work.</div></div>
+          </div>
+
+          <div class="solution-panel" data-solution="manager">
+            <div class="solution-visual"><video src="tesla-manager-reporting.mp4" autoplay muted loop playsinline onerror="this.outerHTML='<div class=&quot;solution-placeholder&quot;><strong>Manager reporting visual</strong>Add a GIF or screenshot showing utilization, lot status, or exportable reports.</div>'"></video></div>
+            <div><div class="solution-copy-kicker">Operations</div><div class="solution-copy-title">Give transportation managers visibility into utilization.</div><div class="solution-copy-body">Managers could monitor parking availability, identify capacity issues, and generate reports from the same platform employees used to make commute decisions.</div></div>
+          </div>
         </div>
       </section>
 
       <section id="impact" class="cs-section">
         <div class="cs-section-label">Impact & reflection</div>
         <h2 class="cs-h2">This project taught me that enterprise UX is often about designing confidence, not just screens.</h2>
-        <p class="cs-p">The platform consolidated 4 disconnected transportation tools into one mobility workflow for 1,000+ employees, while giving parking managers clearer operational visibility. More importantly, it changed the product goal from exposing transportation data to supporting better decisions before employees arrived.</p>
+        <p class="cs-p">Before Tesla, I thought enterprise UX was mostly about organizing complex workflows. This project taught me that great enterprise products do not simply expose information — they help people make confident decisions despite changing conditions and uncertainty.</p><p class="cs-p">The platform consolidated 4 disconnected transportation tools into one mobility workflow for 1,000+ employees, while giving parking managers clearer operational visibility. More importantly, it changed the product goal from exposing transportation data to helping employees make better decisions before they arrived.</p>
 
         <div class="learning-list">
           <div class="learning"><span class="learning-num">01</span><div class="learning-text"><strong>I learned to design for uncertainty.</strong> Real-time data alone was not enough. The most useful experience helped users understand what was likely to happen next.</div></div>
@@ -661,13 +723,25 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
       </section>
     </main>
 
-    <footer class="postcard-footer" id="footer">
+
+  </div>
+</div>
+
+<section class="case-study-nav-wrap" aria-label="Case study navigation">
+  <nav class="case-study-nav">
+    <a href="splunk.html">← Splunk</a>
+    <a href="portfolio.html">All work</a>
+    <a href="cnn.html">CNN →</a>
+  </nav>
+</section>
+
+<footer class="postcard-footer" id="footer">
   <div class="postcard">
     <section class="postcard-message">
       <p><em>Greetings!</em></p>
-      <p>Looks like you’ve made it to the bottom of the page!</p>
-      <p>This portfolio has been through more redesigns than I’d like to admit, but somewhere between looking through countless inspiration sites, late-night iterations, and a few existential design crises, I finally found a style that feels like me.</p>
-      <p>Thanks for taking the time to explore my work.</p>
+      <p>Thanks for taking the time to explore this project.</p>
+      <p>Tesla challenged me to move beyond designing interfaces and think more deeply about confidence: what does someone need to know before they can make a good decision?</p>
+      <p>That question has shaped a lot of my work since — from transportation systems to information discovery, AI trust, and everything in between.</p>
       <p>Built with Figma, Claude, curiosity, and my brain mostly.</p>
       <p>— Navyaa</p>
       <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
@@ -684,8 +758,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
     </section>
   </div>
 </footer>
-  </div>
-</div>
 
 <script>
 function toggleMobileMenu(){
@@ -715,10 +787,10 @@ function toggleMobileMenu(){
 
 (function(){
   const captions={
-    availability:'Parking availability prototype: employees can scan lot status and understand which option is most viable.',
-    prediction:'Predictive occupancy prototype: the experience shifts from raw counts to “will this still be available when I arrive?”',
-    shuttle:'Shuttle prompt prototype: alternate commute options appear when parking availability becomes risky.',
-    reporting:'Manager reporting prototype: parking managers can monitor utilization and export operational reports.'
+    availability:'Check parking: employees can understand lot status and the most viable option without switching tools.',
+    prediction:'Predict availability: the experience shifts from raw counts to “will this still be available when I arrive?”',
+    shuttle:'Compare alternatives: shuttle and route options appear when parking availability becomes risky.',
+    reporting:'Manage operations: parking managers can monitor utilization and export operational reports from the same platform.'
   };
   const tabs=document.querySelectorAll('.proto-tab');
   const media=document.querySelectorAll('.proto-media');
@@ -752,6 +824,25 @@ function toggleMobileMenu(){
     m.addEventListener('error',updateFallback);
   });
   updateFallback();
+})();
+
+
+(function(){
+  const tabs=document.querySelectorAll('.solution-tab');
+  const panels=document.querySelectorAll('.solution-panel');
+  if(!tabs.length || !panels.length)return;
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      const key=tab.dataset.solution;
+      tabs.forEach(t=>t.classList.toggle('active',t===tab));
+      panels.forEach(panel=>{
+        const active=panel.dataset.solution===key;
+        panel.classList.toggle('active',active);
+        const video=panel.querySelector('video');
+        if(video){ active ? video.play().catch(()=>{}) : video.pause(); }
+      });
+    });
+  });
 })();
 </script>
 </body>
