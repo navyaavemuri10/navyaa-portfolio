@@ -20,19 +20,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .layout{display:flex;min-height:100vh;}
 
 /* sidebar */
-.cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
-.stamp{width:160px;margin-bottom:20px;cursor:pointer;flex-shrink:0;}
+.cs-sidebar{width:260px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:36px 32px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
+.stamp{width:118px;margin-bottom:18px;cursor:pointer;flex-shrink:0;}
 .stamp img{width:100%;display:block;animation:stamp-float 4s ease-in-out infinite;will-change:transform;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
 .stamp:hover img{animation-play-state:paused;}
-.sidebar-mid{display:flex;flex-direction:column;gap:18px;}
-.back-link{font-size:17px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
+.sidebar-mid{display:flex;flex-direction:column;gap:14px;}
+.back-link{font-size:15px;color:var(--muted);text-decoration:none;letter-spacing:.01em;transition:color .2s;}
 .back-link:hover{color:var(--text);}
-.toc-label{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-top:6px;}
+.toc-label{font-size:10px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;margin-top:4px;}
 .toc-list{list-style:none;display:flex;flex-direction:column;gap:1px;}
-.toc-link{font-size:17px;color:var(--dim);text-decoration:none;display:block;padding:6px 0 6px 12px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.4;}
-.toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:15px;}
-.toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:16px;}
+.toc-link{font-size:15px;color:var(--dim);text-decoration:none;display:block;padding:5px 0 5px 10px;border-left:1.5px solid var(--border);transition:color .2s,border-color .2s,padding-left .18s;line-height:1.35;}
+.toc-link:hover{color:var(--text);border-left-color:#ABABAB;padding-left:13px;}
+.toc-link.active{color:var(--accent);border-left-color:var(--accent);padding-left:14px;}
 
 /* mobile */
 .mobile-topbar,.mobile-toc{display:none;}
@@ -53,9 +53,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .mobile-toc-link.active{color:var(--accent);border-color:var(--accent-border);background:var(--accent-bg);}
 
 .right-col{flex:1;min-width:0;overflow-y:auto;display:flex;flex-direction:column;}
-.hero-media{width:100%;border-bottom:.5px solid var(--border);min-height:520px;max-height:620px;overflow:hidden;background:var(--surface);}
+.hero-media{width:100%;border-bottom:.5px solid var(--border);min-height:500px;max-height:580px;overflow:hidden;background:var(--surface);}
 .hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover;display:block;}
-.cs-main{padding:64px clamp(40px,6vw,96px) 112px;max-width:1240px;width:100%;}
+.cs-main{padding:64px clamp(40px,6vw,96px) 112px;max-width:1280px;width:100%;}
 .cs-section{margin-bottom:92px;scroll-margin-top:110px;}
 .cs-eyebrow,.cs-section-label,.metric-label,.mini-label,.proof-label{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
 .cs-eyebrow{color:var(--accent);margin-bottom:14px;}
@@ -101,39 +101,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .learning-num{font-size:11px;color:var(--accent);font-weight:500;padding-top:2px;}
 .learning-text{font-size:16px;color:var(--muted);line-height:1.78;}
 .learning-text strong{display:block;font-size:17px;color:var(--text);font-weight:400;margin-bottom:4px;}
-
-.principles-list{
-  margin-top:36px;
-  border-top:.5px solid var(--border);
-}
-
-.principle-item{
-  display:grid;
-  grid-template-columns:72px 1fr;
-  gap:28px;
-  padding:28px 0;
-  border-bottom:.5px solid var(--border);
-}
-
-.principle-num{
-  font-size:14px;
-  color:var(--accent);
-  letter-spacing:.14em;
-}
-
-.principle-item h3{
-  font-size:24px;
-  font-weight:400;
-  letter-spacing:-.02em;
-  margin-bottom:8px;
-}
-
-.principle-item p{
-  font-size:17px;
-  color:var(--muted);
-  line-height:1.7;
-  max-width:850px;
-}
 
 /* custom Tesla visuals */
 .phone-fragmentation{
@@ -274,6 +241,293 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .ba-list span{font-size:16px;line-height:1.55;color:var(--muted);padding-bottom:10px;border-bottom:.5px solid var(--border);}
 .ba-card.after .ba-list span{color:var(--text);border-bottom-color:var(--accent-border);}
 
+
+/* premium Tesla case-study components */
+.flow-strip{
+  margin:34px 0 24px;
+  border-top:.5px solid var(--border);
+  border-bottom:.5px solid var(--border);
+  padding:30px 0;
+  overflow-x:auto;
+}
+.flow-track{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(170px,1fr));
+  gap:0;
+  min-width:880px;
+}
+.flow-step{
+  position:relative;
+  padding:0 22px 0 0;
+}
+.flow-step:not(:last-child)::after{
+  content:'→';
+  position:absolute;
+  top:4px;
+  right:16px;
+  color:var(--accent);
+  font-size:20px;
+  font-weight:300;
+}
+.flow-dot{
+  font-size:11px;
+  letter-spacing:.14em;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+.flow-title{
+  font-size:20px;
+  line-height:1.2;
+  letter-spacing:-.025em;
+  margin-bottom:8px;
+}
+.flow-copy{
+  font-size:15px;
+  line-height:1.65;
+  color:var(--muted);
+  max-width:190px;
+}
+.before-after-strip{
+  margin:34px 0 0;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:24px;
+  align-items:center;
+  border:.5px solid var(--border);
+  border-radius:16px;
+  padding:28px;
+  background:linear-gradient(135deg,#fff,var(--surface));
+}
+.ba-simple-label{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:14px;
+  font-weight:500;
+}
+.ba-simple-title{
+  font-size:26px;
+  line-height:1.1;
+  letter-spacing:-.025em;
+  margin-bottom:8px;
+}
+.ba-simple-copy{
+  font-size:16px;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:420px;
+}
+.ba-arrow{
+  color:var(--accent);
+  font-size:30px;
+  font-weight:300;
+}
+.principle-list{
+  margin:36px 0 30px;
+  border-top:.5px solid var(--border);
+}
+.principle-line{
+  display:grid;
+  grid-template-columns:72px minmax(220px,.55fr) 1fr;
+  gap:28px;
+  padding:28px 0;
+  border-bottom:.5px solid var(--border);
+  align-items:start;
+}
+.principle-num{
+  font-size:13px;
+  color:var(--accent);
+  letter-spacing:.14em;
+}
+.principle-name{
+  font-size:23px;
+  line-height:1.15;
+  letter-spacing:-.025em;
+  color:var(--text);
+}
+.principle-line-copy{
+  font-size:17px;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:760px;
+}
+.accessibility-annotated{
+  margin:40px 0 0;
+  display:grid;
+  grid-template-columns:minmax(320px,.9fr) minmax(280px,.7fr);
+  gap:clamp(28px,5vw,72px);
+  align-items:center;
+}
+.annotated-phone-wrap{
+  min-height:620px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#F7F5F1,#ECEBE7);
+  border:.5px solid var(--border);
+  border-radius:18px;
+  position:relative;
+  overflow:visible;
+}
+.annotated-phone{
+  width:286px;
+  height:560px;
+  border:9px solid #151515;
+  border-radius:42px;
+  background:#151515;
+  position:relative;
+  box-shadow:0 26px 70px rgba(0,0,0,.18);
+}
+.annotated-screen{
+  height:100%;
+  border-radius:32px;
+  background:#FBFAF7;
+  padding:26px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.mock-status{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
+.mock-title{font-size:24px;line-height:1.1;letter-spacing:-.035em;color:var(--text);}
+.mock-alert{border:.5px solid var(--accent-border);background:var(--accent-bg);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:5px;}
+.mock-alert strong{font-size:17px;line-height:1.2;color:var(--accent);font-weight:500;}
+.mock-alert span{font-size:13px;line-height:1.45;color:var(--muted);}
+.mock-route{background:#fff;border:.5px solid var(--border);border-radius:14px;padding:13px;}
+.mock-route-title{font-size:15px;color:var(--text);margin-bottom:4px;}
+.mock-route-copy{font-size:12px;line-height:1.45;color:var(--muted);}
+.mock-button{margin-top:auto;background:#1D1D1D;color:#fff;border-radius:999px;text-align:center;padding:13px;font-size:14px;}
+.hotspot{
+  position:absolute;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  cursor:pointer;
+  box-shadow:0 0 0 8px rgba(196,58,49,.12);
+  z-index:4;
+}
+.hotspot.one{top:150px;right:-14px;}
+.hotspot.two{top:222px;left:-14px;}
+.hotspot.three{top:350px;right:-14px;}
+.hotspot.four{bottom:62px;left:50%;transform:translateX(-50%);}
+.hotspot-card{
+  opacity:0;
+  pointer-events:none;
+  position:absolute;
+  width:220px;
+  padding:14px 16px;
+  background:#fff;
+  border:.5px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  color:var(--text);
+  transform:translateY(8px);
+  transition:opacity .18s ease, transform .18s ease;
+  text-align:left;
+  z-index:10;
+}
+.hotspot:hover .hotspot-card,.hotspot:focus .hotspot-card,.hotspot:focus-within .hotspot-card{opacity:1;transform:translateY(0);}
+.hotspot.one .hotspot-card,.hotspot.three .hotspot-card{left:38px;top:-12px;}
+.hotspot.two .hotspot-card{right:38px;top:-12px;}
+.hotspot.four .hotspot-card{left:50%;bottom:38px;transform:translateX(-50%) translateY(8px);}
+.hotspot.four:hover .hotspot-card,.hotspot.four:focus .hotspot-card{transform:translateX(-50%) translateY(0);}
+.hotspot-title{font-size:14px;color:var(--text);font-weight:500;margin-bottom:6px;}
+.hotspot-copy{font-size:13px;color:var(--muted);line-height:1.55;}
+.accessibility-notes{
+  border-top:.5px solid var(--border);
+}
+.accessibility-note{
+  padding:24px 0;
+  border-bottom:.5px solid var(--border);
+}
+.accessibility-note-label{
+  font-size:13px;
+  letter-spacing:.14em;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-weight:500;
+  margin-bottom:8px;
+}
+.accessibility-note-copy{
+  font-size:18px;
+  line-height:1.7;
+  color:var(--muted);
+}
+.solution-tabs-wrap{
+  margin:36px 0 0;
+}
+.solution-tabs{
+  display:flex;
+  gap:6px;
+  border-bottom:.5px solid var(--border);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.solution-tabs::-webkit-scrollbar{display:none;}
+.solution-tab{
+  border:none;
+  background:transparent;
+  font-family:inherit;
+  font-size:15px;
+  color:var(--muted);
+  padding:12px 16px;
+  cursor:pointer;
+  white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s,background .2s;
+}
+.solution-tab:hover{color:var(--text);background:var(--surface);}
+.solution-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.solution-panel{
+  display:none;
+  grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);
+  gap:clamp(28px,4vw,56px);
+  align-items:center;
+  padding:34px 0 0;
+}
+.solution-panel.active{display:grid;}
+.solution-visual{
+  min-height:520px;
+  background:linear-gradient(135deg,#F8F7F4,#ECEBE7);
+  border:.5px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+}
+.solution-visual video,.solution-visual img{width:100%;height:100%;object-fit:cover;display:block;}
+.solution-placeholder{
+  padding:34px;
+  text-align:center;
+  color:var(--dim);
+  font-size:14px;
+  line-height:1.7;
+}
+.solution-placeholder strong{display:block;color:var(--text);font-weight:400;margin-bottom:6px;}
+.solution-copy-kicker{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+  font-weight:500;
+}
+.solution-copy-title{
+  font-size:32px;
+  line-height:1.12;
+  letter-spacing:-.035em;
+  margin-bottom:14px;
+}
+.solution-copy-body{
+  font-size:18px;
+  line-height:1.75;
+  color:var(--muted);
+}
+
 /* CASE STUDY NAV + POSTCARD FOOTER */
 .case-study-nav-wrap{
   width:100%;
@@ -377,6 +631,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 }
 .postcard-links a:hover{color:var(--blue);transform:translateX(5px);}
 
+
+@media(max-width:1100px){
+  .cs-sidebar{width:230px;padding:32px 26px;}
+  .stamp{width:104px;}
+  .toc-link{font-size:14px;}
+  .cs-title{max-width:900px;}
+}
+
 @media(max-width:900px){
   .layout{display:block;}
   .case-study-nav-wrap{padding:12px 24px 56px;}
@@ -387,7 +649,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   .right-col{width:100%;}
   .hero-media{min-height:220px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
-  .metrics-grid,.two-col,.img-row,.mini-grid,.mini-grid.three,.proof-strip,.phone-stage,.prototype-gallery,.mobile-principles,.before-after{grid-template-columns:1fr;}
+  .metrics-grid,.two-col,.img-row,.mini-grid,.mini-grid.three,.proof-strip,.phone-stage,.prototype-gallery,.mobile-principles,.before-after,.before-after-strip,.principle-line,.accessibility-annotated,.solution-panel.active{grid-template-columns:1fr;}
+  .flow-track{grid-template-columns:repeat(5,180px);}
+  .ba-arrow{transform:rotate(90deg);justify-self:start;}
+  .annotated-phone-wrap{min-height:560px;}
+  .annotated-phone{transform:scale(.88);}
+  .hotspot-card{width:200px;}
+  .solution-visual{min-height:360px;}
+  .footer-inner{grid-template-columns:1fr;gap:32px;}
+  .footer-stamp img{width:96px;}
   .phone-stack{min-height:360px;transform:scale(.86);}
   .prototype-gallery{gap:14px;}
   .prototype-tabs{display:grid;grid-template-columns:1fr 1fr;}
@@ -615,31 +885,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <h2 class="cs-h2">I used three principles to move the product from information display to decision support.</h2>
         <p class="cs-p">Because the data could change while employees were still commuting, the product could not simply show a static answer. Each feature had to help users understand what was happening, what was likely to happen next, and what action made the most sense.</p>
 
-        <div class="principles-list">
-  <div class="principle-item">
-    <span class="principle-num">01</span>
-    <div>
-      <h3>Surface the next best action</h3>
-      <p>Lead with a recommendation or status summary before exposing detailed parking, shuttle, or routing data.</p>
-    </div>
-  </div>
-
-  <div class="principle-item">
-    <span class="principle-num">02</span>
-    <div>
-      <h3>Reduce context switching</h3>
-      <p>Bring parking, shuttle, navigation, and reporting into one flow so users do not have to assemble the commute story themselves.</p>
-    </div>
-  </div>
-
-  <div class="principle-item">
-    <span class="principle-num">03</span>
-    <div>
-      <h3>Design for uncertainty</h3>
-      <p>Represent changing conditions through prediction, confidence cues, and alternate options instead of implying certainty.</p>
-    </div>
-  </div>
-</div>
+        <div class="principle-list">
+          <div class="principle-line">
+            <div class="principle-num">01</div>
+            <div class="principle-name">Surface the next best action</div>
+            <div class="principle-line-copy">Lead with a recommendation or status summary before exposing detailed parking, shuttle, or routing data.</div>
+          </div>
+          <div class="principle-line">
+            <div class="principle-num">02</div>
+            <div class="principle-name">Reduce context switching</div>
+            <div class="principle-line-copy">Bring parking, shuttle, navigation, and reporting into one flow so users do not have to assemble the commute story themselves.</div>
+          </div>
+          <div class="principle-line">
+            <div class="principle-num">03</div>
+            <div class="principle-name">Design for uncertainty</div>
+            <div class="principle-line-copy">Represent changing conditions through prediction, confidence cues, and alternate options instead of implying certainty.</div>
+          </div>
+        </div>
 
         <div class="tradeoff">
           <div class="tradeoff-label">Product tradeoff · Build maps vs focus the product</div>
@@ -776,27 +1038,24 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   </nav>
 </section>
 
-<footer class="postcard-footer" id="footer">
-  <div class="postcard">
-    <section class="postcard-message">
-      <p><em>Greetings!</em></p>
-      <p>Thanks for taking the time to explore this project.</p>
-      <p>Tesla challenged me to move beyond designing interfaces and think more deeply about confidence: what does someone need to know before they can make a good decision?</p>
-      <p>That question has shaped a lot of my work since — from transportation systems to information discovery, AI trust, and everything in between.</p>
-      <p>Built with Figma, Claude, curiosity, and my brain mostly.</p>
-      <p>— Navyaa</p>
-      <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
-    </section>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-copy">
+      <div class="footer-title">The collection is still growing.</div>
+      <div class="footer-meta">Collected so far: Tesla · Splunk · CNN · Cal Poly</div>
+    </div>
 
-    <section class="postcard-address">
-      <img src="stamp.png" alt="Navyaa hydrangea stamp" class="postcard-stamp">
-      <nav class="postcard-links" aria-label="Footer links">
-        <a href="#top">Navyaa Vemuri</a>
-        <a href="mailto:navyaa.vemuri@gmail.com">Send a note</a>
+    <div class="footer-contact">
+      <div class="footer-contact-title">Contact me</div>
+      <div class="footer-links">
         <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="resume.pdf" target="_blank">Resume</a>
-      </nav>
-    </section>
+        <a href="mailto:navyaa.vemuri@gmail.com">Mail</a>
+      </div>
+    </div>
+
+    <a class="footer-stamp" href="portfolio.html" aria-label="Back to homepage">
+      <img src="stamp.png" alt="Navyaa Vemuri stamp" onerror="this.style.display='none'">
+    </a>
   </div>
 </footer>
 
