@@ -102,6 +102,39 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .learning-text{font-size:16px;color:var(--muted);line-height:1.78;}
 .learning-text strong{display:block;font-size:17px;color:var(--text);font-weight:400;margin-bottom:4px;}
 
+.principles-list{
+  margin-top:36px;
+  border-top:.5px solid var(--border);
+}
+
+.principle-item{
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:28px;
+  padding:28px 0;
+  border-bottom:.5px solid var(--border);
+}
+
+.principle-num{
+  font-size:14px;
+  color:var(--accent);
+  letter-spacing:.14em;
+}
+
+.principle-item h3{
+  font-size:24px;
+  font-weight:400;
+  letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+
+.principle-item p{
+  font-size:17px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:850px;
+}
+
 /* custom Tesla visuals */
 .phone-fragmentation{
   margin:28px 0;
@@ -582,23 +615,31 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <h2 class="cs-h2">I used three principles to move the product from information display to decision support.</h2>
         <p class="cs-p">Because the data could change while employees were still commuting, the product could not simply show a static answer. Each feature had to help users understand what was happening, what was likely to happen next, and what action made the most sense.</p>
 
-        <div class="principle-list">
-          <div class="principle-line">
-            <div class="principle-num">01</div>
-            <div class="principle-name">Surface the next best action</div>
-            <div class="principle-line-copy">Lead with a recommendation or status summary before exposing detailed parking, shuttle, or routing data.</div>
-          </div>
-          <div class="principle-line">
-            <div class="principle-num">02</div>
-            <div class="principle-name">Reduce context switching</div>
-            <div class="principle-line-copy">Bring parking, shuttle, navigation, and reporting into one flow so users do not have to assemble the commute story themselves.</div>
-          </div>
-          <div class="principle-line">
-            <div class="principle-num">03</div>
-            <div class="principle-name">Design for uncertainty</div>
-            <div class="principle-line-copy">Represent changing conditions through prediction, confidence cues, and alternate options instead of implying certainty.</div>
-          </div>
-        </div>
+        <div class="principles-list">
+  <div class="principle-item">
+    <span class="principle-num">01</span>
+    <div>
+      <h3>Surface the next best action</h3>
+      <p>Lead with a recommendation or status summary before exposing detailed parking, shuttle, or routing data.</p>
+    </div>
+  </div>
+
+  <div class="principle-item">
+    <span class="principle-num">02</span>
+    <div>
+      <h3>Reduce context switching</h3>
+      <p>Bring parking, shuttle, navigation, and reporting into one flow so users do not have to assemble the commute story themselves.</p>
+    </div>
+  </div>
+
+  <div class="principle-item">
+    <span class="principle-num">03</span>
+    <div>
+      <h3>Design for uncertainty</h3>
+      <p>Represent changing conditions through prediction, confidence cues, and alternate options instead of implying certainty.</p>
+    </div>
+  </div>
+</div>
 
         <div class="tradeoff">
           <div class="tradeoff-label">Product tradeoff · Build maps vs focus the product</div>
