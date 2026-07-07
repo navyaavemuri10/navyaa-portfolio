@@ -127,7 +127,7 @@ html.flight-active{scroll-behavior:auto!important;}
 }
 .paper-plane-button.is-flying .plane-label{display:none!important;}
 .paper-plane-button.is-flying .plane-img{animation:none!important;}
-.postcard{transform-origin:center;}
+
 
 /* COLLECTION */
 .page-wrap{width:min(1460px,calc(100vw - 128px));margin:0 auto;}
@@ -269,54 +269,173 @@ gap:54px;
 }
 .cs-card.coming-soon:hover .cs-thumb::after{opacity:1;}
 
-/* POSTCARD FOOTER */
+/* ENVELOPE FOOTER */
 .postcard-footer{
-  position:relative;padding:56px clamp(32px,5vw,70px);
-  background:var(--paper-bg);display:flex;justify-content:center;
+  position:relative;background:#FBF9F3;
+  border-top:1px solid rgba(0,0,0,.06);
 }
-.postcard{
-  width:min(1200px,100%);min-height:520px;
-  display:grid;grid-template-columns:1.15fr .85fr;gap:56px;
-  padding:48px 60px;position:relative;
-  background:
-    radial-gradient(circle at 12% 18%,rgba(0,0,0,.04),transparent 18%),
-    radial-gradient(circle at 86% 72%,rgba(0,0,0,.03),transparent 20%),
-    var(--paper);
-  box-shadow:0 24px 54px rgba(0,0,0,.07);
+.airmail-stripe{
+  height:10px;
+  background:repeating-linear-gradient(-45deg,#C33B2E 0 16px,#FBF9F3 16px 28px,#3B5BDB 28px 44px,#FBF9F3 44px 56px);
 }
-.postcard::after{
-  content:"";position:absolute;top:8%;bottom:8%;left:55%;
-  width:1.5px;background:var(--line);opacity:.85;
+.envelope{
+  width:min(1200px,100%);margin:0 auto;
+  padding:64px clamp(28px,5vw,72px) 26px;
+  transform-origin:center;
 }
-.postcard-message{
-  position:relative;z-index:1;max-width:620px;
-  font-family:"Goudy Bookletter 1911",serif;
-  font-size:22px;line-height:1.72;color:#111;
+.envelope-top{
+  display:flex;flex-wrap:wrap;gap:40px 64px;
+  justify-content:space-between;align-items:flex-start;
 }
-.postcard-message p{margin-bottom:18px;}
-.postcard-id{margin-top:30px;font-family:"DM Sans",sans-serif;font-size:14px;letter-spacing:.03em;}
-.postcard-address{
-  position:relative;z-index:1;display:flex;
-  flex-direction:column;align-items:center;padding-left:24px;
+.envelope-quote{max-width:560px;}
+.envelope-quote .quote-line{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:clamp(28px,2.6vw,40px);line-height:1.3;color:#111;
+  margin-bottom:16px;
 }
-.postcard-stamp{width:165px;margin-bottom:58px;}
-.postcard-links{width:min(340px,100%);display:flex;flex-direction:column;gap:20px;}
-.postcard-links a{
-  font-family:"Goudy Bookletter 1911",serif;font-size:28px;font-style:italic;
-  text-decoration:none;color:#111;border-bottom:1px solid rgba(0,0,0,.68);
-  padding:0 8px 7px;transition:transform .2s ease,color .2s ease;
+.envelope-tagline{
+  font-family:"DM Sans",sans-serif;font-size:12px;
+  letter-spacing:.22em;color:#8A8577;
 }
-.postcard-links a:hover{color:var(--blue);transform:translateX(5px);}
+.envelope-cols{
+  display:flex;gap:clamp(40px,6vw,90px);
+  font-family:"DM Sans",sans-serif;font-size:13px;letter-spacing:.2em;
+}
+.envelope-col p{color:#2A2A26;font-weight:500;margin-bottom:16px;}
+.envelope-col a{
+  display:block;text-decoration:none;color:#9A9588;
+  margin-bottom:13px;transition:color .2s ease;
+}
+.envelope-col a:hover{color:var(--blue);}
+
+/* MAIL FIELD — trail, parked plane, signature, card flip */
+.mail-field{position:relative;height:340px;margin-top:8px;perspective:1600px;}
+.field-card{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .8s cubic-bezier(.45,.05,.2,1);
+}
+.mail-field.is-flipped .field-card{transform:rotateY(180deg);}
+.field-front,.field-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+}
+.field-back{transform:rotateY(180deg);}
+.field-front .trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.postcard-plane{
+  position:absolute;top:12px;right:3.5%;width:96px;z-index:2;
+  pointer-events:none;transform:rotate(-6deg);
+  filter:drop-shadow(0 12px 14px rgba(0,0,0,.12));
+  opacity:0;visibility:hidden;
+}
+.postcard-plane.is-parked{opacity:1;visibility:visible;}
+.mail-field.is-flipped .postcard-plane{opacity:0;transition:opacity .2s ease .3s;}
+
+/* Signing zone */
+.sign-zone{position:absolute;left:2px;bottom:16px;width:min(340px,80%);}
+.sign-label{
+  font-family:"DM Sans",sans-serif;font-size:11px;
+  letter-spacing:.24em;color:#8A8577;margin-bottom:6px;
+}
+.sign-line-wrap{
+  position:relative;height:84px;
+  border-bottom:1.2px solid rgba(0,0,0,.5);
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M2 22 L6 13 L18 1 L23 6 L11 18 Z' fill='%231F405C'/%3E%3Cpath d='M2 22 L7 17' stroke='%23FBF9F3' stroke-width='1.2'/%3E%3C/svg%3E") 2 22,crosshair;
+}
+.sign-x{
+  position:absolute;left:2px;bottom:6px;
+  font-family:"DM Sans",sans-serif;font-size:15px;
+  color:#B0AA9B;pointer-events:none;
+}
+#sigCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block;}
+.receive-mark{
+  position:absolute;left:min(372px,84%);bottom:22px;pointer-events:none;
+  opacity:0;transform:rotate(-7deg) scale(1.22);
+  transition:opacity .2s ease,transform .28s cubic-bezier(.2,1.4,.4,1);
+}
+.receive-mark.is-stamped{opacity:.62;transform:rotate(-7deg) scale(1);}
+
+/* Card back — the visitor's own postcard */
+.field-back{
+  background:var(--paper);
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:0 18px 40px rgba(0,0,0,.08);
+  padding:30px 36px;
+}
+.cardf-stamp{position:absolute;top:26px;right:30px;width:92px;}
+.cardf-postmark{
+  position:absolute;top:58px;right:92px;
+  opacity:.62;transform:rotate(-8deg);pointer-events:none;
+}
+.cardf-caption{
+  position:absolute;top:170px;right:32px;
+  font-family:"DM Sans",sans-serif;font-size:9px;
+  letter-spacing:.22em;color:#8A8577;
+}
+.cardf-note{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:clamp(18px,1.8vw,24px);line-height:1.5;color:#111;
+  max-width:440px;margin-top:12px;
+}
+.cardf-signoff{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:clamp(16px,1.5vw,20px);line-height:1.55;color:#111;
+  margin-top:16px;
+}
+.cardf-sig-area{
+  position:absolute;left:36px;bottom:58px;
+  width:min(320px,58%);height:78px;
+  border-bottom:1.2px solid rgba(0,0,0,.5);
+}
+.cardf-sig-area img{
+  position:absolute;left:0;bottom:2px;
+  max-width:100%;max-height:100%;display:none;
+}
+.cardf-no{
+  position:absolute;left:36px;bottom:26px;
+  font-family:"DM Sans",sans-serif;font-size:10.5px;
+  letter-spacing:.2em;color:#B0AA9B;
+}
+.cardf-visits{
+  position:absolute;right:34px;bottom:62px;
+  display:flex;gap:10px;align-items:center;
+  font-family:"DM Sans",sans-serif;font-size:10px;
+  letter-spacing:.14em;color:#8A8577;
+}
+.flip-back{
+  position:absolute;right:34px;bottom:24px;
+  border:0;background:none;padding:0;cursor:pointer;
+  font-family:"DM Sans",sans-serif;font-size:10.5px;
+  letter-spacing:.2em;color:#B0AA9B;text-decoration:underline;
+}
+.flip-back:hover{color:var(--blue);}
+
+/* Meta row */
+.envelope-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0 8px;
+  font-family:"DM Sans",sans-serif;font-size:11px;
+  letter-spacing:.2em;color:#B0AA9B;
+}
+.meta-actions{display:flex;gap:26px;}
+.fresh-btn,.view-btn{
+  border:0;background:none;padding:0;cursor:pointer;
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;
+  color:#B0AA9B;text-decoration:underline;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease,color .2s ease;
+}
+.fresh-btn:hover,.view-btn:hover{color:var(--blue);}
+.mail-field.has-ink ~ .envelope-meta .fresh-btn{opacity:1;pointer-events:auto;}
+.mail-field.is-signed ~ .envelope-meta .view-btn{opacity:1;pointer-events:auto;}
 
 /* RESPONSIVE */
 @media(max-width:1000px){
   .hero{min-height:88vh;align-items:flex-start;padding-top:160px;}
   .paper-plane-button{width:160px;right:8vw;bottom:90px;}
   .collection-grid{grid-template-columns:1fr;}
-  .postcard{grid-template-columns:1fr;min-height:auto;}
-  .postcard::after{display:none;}
-  .postcard-address{align-items:flex-start;padding-left:0;border-top:1px solid rgba(0,0,0,.25);padding-top:34px;}
-  .postcard-stamp{margin-bottom:34px;}
+  .mail-field{height:300px;}
+  .postcard-plane{width:80px;top:10px;right:4%;}
 }
 @media(max-width:900px){
   .hero-grid-svg,.stamp-grid-layer,.hover-bubble{display:none;}
@@ -333,11 +452,24 @@ gap:54px;
   .collection-grid{gap:54px;padding-bottom:80px;}
   .cs-title{font-size:23px;}
   .cs-desc{font-size:16px;}
-  .postcard-footer{padding:28px 16px;}
-  .postcard{padding:32px 24px;box-shadow:none;}
-  .postcard-message{font-size:19px;line-height:1.6;}
-  .postcard-links a{font-size:25px;}
-  .postcard-stamp{width:120px;}
+  .envelope{padding:44px 20px 14px;}
+  .envelope-cols{gap:36px;font-size:11px;letter-spacing:.16em;}
+  .mail-field{height:280px;}
+  .sign-zone{width:76%;}
+  .receive-mark{left:auto;right:-6px;transform:rotate(-7deg) scale(.72);}
+  .receive-mark.is-stamped{transform:rotate(-7deg) scale(.72);}
+  .postcard-plane{width:64px;top:8px;right:4%;}
+  .field-back{padding:20px 18px;}
+  .cardf-note{font-size:16px;max-width:56%;margin-top:4px;}
+  .cardf-signoff{font-size:14px;margin-top:10px;}
+  .cardf-stamp{width:62px;top:14px;right:14px;}
+  .cardf-postmark{top:28px;right:52px;transform:rotate(-8deg) scale(.7);}
+  .cardf-caption{top:112px;right:14px;}
+  .cardf-sig-area{left:18px;bottom:52px;width:62%;height:58px;}
+  .cardf-no{left:18px;bottom:22px;}
+  .cardf-visits{right:14px;bottom:92px;gap:6px;}
+  .flip-back{right:14px;bottom:22px;}
+  .envelope-meta{font-size:10px;letter-spacing:.16em;flex-wrap:wrap;gap:8px;}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
@@ -507,25 +639,65 @@ A Chrome extension that gently reminds you to follow the 20–20–20 rule and g
 </main>
 
 <footer class="postcard-footer" id="footer">
-  <div class="postcard">
-    <section class="postcard-message">
-      <p><em>Greetings!</em></p>
-      <p>Looks like you've made it to the end of the route.</p>
-      <p>Whether you arrived here by scrolling or took a tour, thanks for taking the time to explore my work.</p>
-      <p>If you'd like to chat about design, AI, travel, or anything in between, I'd love to hear from you.</p>
-      <p>Built with Figma, Claude, curiosity, and my brain mostly.</p>
-      <p>Ciao, Navyaa</p>
-      <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
-    </section>
-    <section class="postcard-address">
-      <img src="stamp.png" alt="Navyaa hydrangea stamp" class="postcard-stamp">
-      <nav class="postcard-links" aria-label="Footer links">
-        <a href="#top">Navyaa Vemuri</a>
-        <a href="mailto:navyaa.vemuri@gmail.com">Send a note</a>
-        <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="resume.pdf" target="_blank">Resume</a>
-      </nav>
-    </section>
+  <div class="airmail-stripe" aria-hidden="true"></div>
+  <div class="envelope">
+    <div class="envelope-top">
+      <div class="envelope-quote">
+        <p class="quote-line">You&#8217;ve made it to the end of the route.</p>
+        <p class="envelope-tagline">MADE WITH &lt;3 AND SENT FIRST CLASS</p>
+      </div>
+      <div class="envelope-cols">
+        <div class="envelope-col">
+          <p>SAY HI</p>
+          <a href="mailto:navyaa.vemuri@gmail.com">SEND A NOTE</a>
+          <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LINKEDIN</a>
+          <a href="resume.pdf" target="_blank">RESUME</a>
+        </div>
+        <nav class="envelope-col" aria-label="Footer pages">
+          <p>PAGE</p>
+          <a href="#collection">COLLECTION</a>
+          <a href="#vibes">VIBES</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </div>
+    <div class="mail-field" id="mailField">
+      <div class="field-card" id="fieldCard">
+        <div class="field-front" id="fieldFront">
+          <svg style="position:absolute;width:0;height:0" aria-hidden="true"><defs><path id="pmArc" d="M 45 14 A 31 31 0 1 1 44.9 14"/></defs></svg>
+          <svg class="trail" viewBox="0 0 1000 340" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 20 60 C 220 160 470 240 640 195 C 770 160 880 95 946 50" fill="none" stroke="#B8B2A2" stroke-width="1.4" stroke-dasharray="0.6 9" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-zone">
+            <p class="sign-label">LEAVE YOUR MARK</p>
+            <div class="sign-line-wrap">
+              <span class="sign-x">&#215;</span>
+              <canvas id="sigCanvas" aria-label="Sign here with your cursor or finger"></canvas>
+            </div>
+          </div>
+          <div class="receive-mark" id="receiveMark" aria-hidden="true"></div>
+          <img src="paper-plane.svg" alt="" class="postcard-plane" id="parkedPlane" aria-hidden="true">
+        </div>
+        <div class="field-back" id="fieldBack" aria-hidden="true">
+          <img src="stamp.png" alt="Navyaa hydrangea stamp" class="cardf-stamp">
+          <div class="cardf-postmark" id="cardPostmark"></div>
+          <p class="cardf-caption">FIRST ARRIVED</p>
+          <p class="cardf-note">Thanks for visiting. This one&#8217;s yours.</p>
+          <p class="cardf-signoff">Sincerely,<br>Navyaa</p>
+          <div class="cardf-visits" id="cardVisits"></div>
+          <div class="cardf-sig-area"><img id="cardSig" alt="Your signature"></div>
+          <p class="cardf-no" id="cardNo"></p>
+          <button class="flip-back" id="flipBack" type="button">FLIP BACK &#8617;</button>
+        </div>
+      </div>
+    </div>
+    <div class="envelope-meta">
+      <span>POSTCARD ID: CA-2026-006</span>
+      <span class="meta-actions">
+        <button class="view-btn" id="viewBtn" type="button">VIEW YOUR POSTCARD</button>
+        <button class="fresh-btn" id="freshBtn" type="button">FRESH POSTCARD &#8635;</button>
+      </span>
+    </div>
   </div>
 </footer>
 
@@ -533,13 +705,15 @@ A Chrome extension that gently reminds you to follow the 20–20–20 rule and g
 /* ── PAPER PLANE ── */
 const plane = document.getElementById("paperPlane");
 const footer = document.getElementById("footer");
-const postcard = document.querySelector(".postcard");
+const envelope = document.querySelector(".envelope");
+const parkedPlane = document.getElementById("parkedPlane");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
 let currentAngle = 0;
 let isFlying = false;
+let planeLanded = false;
 const PLANE_TIP_OFFSET = 135;
 
 function lerp(a, b, t){ return a + (b - a) * t; }
@@ -637,10 +811,38 @@ function animateFlight(startDoc, startRect, duration=7800){
   });
 }
 
+/* Land the flying plane onto its parked spot on the postcard.
+   If the parked plane is already visible (visitor scrolled here earlier),
+   the flying plane fades out into it instead of double-landing. */
+async function landPlane(startRect){
+  if(!parkedPlane){ plane.style.display = "none"; planeLanded = true; return; }
+  const alreadyParked = parkedPlane.classList.contains("is-parked");
+  parkedPlane.classList.add("is-parked");
+  if(!alreadyParked){ parkedPlane.style.opacity = "0"; }
+  const tr = parkedPlane.getBoundingClientRect();
+  const targetW = parkedPlane.offsetWidth || tr.width;
+  const tx = (tr.left + tr.width/2) - (startRect.left + startRect.width/2);
+  const ty = (tr.top + tr.height/2) - (startRect.top + startRect.height/2);
+  const s = targetW / startRect.width;
+  await plane.animate([
+    {transform: `${plane.style.transform} scale(1)`, opacity: 1},
+    {transform: `translate3d(${tx}px,${ty}px,0) rotate(-6deg) scale(${s})`, opacity: alreadyParked ? 0 : 1}
+  ], {duration: 950, easing: "cubic-bezier(.16,1,.3,1)", fill: "forwards"}).finished;
+  parkedPlane.style.opacity = "";
+  plane.style.display = "none";
+  planeLanded = true;
+}
+
 if(plane && footer){
   plane.addEventListener("click", async () => {
     if(isFlying) return;
-    if(reduceMotion){ footer.scrollIntoView({behavior:"auto"}); return; }
+    if(reduceMotion){
+      footer.scrollIntoView({behavior:"auto"});
+      if(parkedPlane) parkedPlane.classList.add("is-parked");
+      planeLanded = true;
+      plane.style.display = "none";
+      return;
+    }
     isFlying = true;
     const savedAngle = currentAngle;
     plane.style.transform = "none";
@@ -661,24 +863,296 @@ if(plane && footer){
     if(label) label.style.display = "none";
     const img = plane.querySelector(".plane-img");
     if(img) img.style.animation = "none";
-    if(postcard){ postcard.style.opacity="0"; postcard.style.transform="translateY(40px) scale(.96)"; }
+    if(envelope){ envelope.style.opacity="0"; envelope.style.transform="translateY(40px) scale(.96)"; }
     await animateFlight(startDoc, startRect);
-    await plane.animate([
-      {transform: plane.style.transform, opacity:1},
-      {transform: plane.style.transform.replace(/rotate\([^)]+\)/,"rotate(0deg) scale(1.55)"), opacity:1},
-      {transform: plane.style.transform.replace(/rotate\([^)]+\)/,"rotate(0deg) scale(2)"), opacity:0}
-    ], {duration:950, easing:"cubic-bezier(.16,1,.3,1)", fill:"forwards"}).finished;
-    if(postcard){
-      postcard.style.opacity="1"; postcard.style.transform="translateY(0) scale(1)";
-      postcard.animate(
+    if(envelope){
+      envelope.style.opacity="1"; envelope.style.transform="translateY(0) scale(1)";
+      envelope.animate(
         [{opacity:0,transform:"translateY(40px) scale(.96)"},{opacity:1,transform:"translateY(0) scale(1)"}],
-        {duration:900, easing:"cubic-bezier(.16,1,.3,1)", fill:"forwards"}
+        {duration:700, easing:"cubic-bezier(.16,1,.3,1)", fill:"forwards"}
       );
     }
-    plane.style.display = "none";
+    await landPlane(startRect);
     document.documentElement.classList.remove("flight-active");
   });
 }
+
+/* Fly the parked plane along the actual dotted trail, then settle onto its spot */
+function glideAlongTrail(){
+  const trailPath = document.querySelector(".mail-field .trail path");
+  const fieldEl = document.getElementById("mailField");
+  if(!trailPath || !trailPath.getTotalLength || !fieldEl){
+    parkedPlane.classList.add("is-parked");
+    return;
+  }
+  const fr = fieldEl.getBoundingClientRect();
+  const sx = fr.width / 1000, sy = fr.height / 340;
+  parkedPlane.classList.add("is-parked");
+  const pr = parkedPlane.getBoundingClientRect();
+  const homeX = pr.left - fr.left + pr.width / 2;
+  const homeY = pr.top - fr.top + pr.height / 2;
+  const total = trailPath.getTotalLength();
+  const D = 2200, t0 = performance.now();
+  const restRot = -6;
+  function frame(now){
+    const raw = Math.min((now - t0) / D, 1);
+    const t = easeInOut(raw);
+    const pt = trailPath.getPointAtLength(total * t);
+    const ahead = trailPath.getPointAtLength(Math.min(total * (t + 0.012), total));
+    let heading = getPlaneAngle(pt.x * sx, pt.y * sy, ahead.x * sx, ahead.y * sy);
+    let dx = pt.x * sx - homeX;
+    let dy = pt.y * sy - homeY;
+    if(raw > .85){
+      const settle = (raw - .85) / .15;
+      dx = lerp(dx, 0, settle);
+      dy = lerp(dy, 0, settle);
+      heading = heading + normalizeAngle(restRot - heading) * settle;
+    }
+    parkedPlane.style.opacity = Math.min(raw * 6, 1);
+    parkedPlane.style.transform = `translate(${dx}px,${dy}px) rotate(${heading}deg)`;
+    if(raw < 1){ requestAnimationFrame(frame); }
+    else{
+      parkedPlane.style.transform = `rotate(${restRot}deg)`;
+      parkedPlane.style.opacity = "";
+    }
+  }
+  const pt0 = trailPath.getPointAtLength(0);
+  const ahead0 = trailPath.getPointAtLength(total * 0.012);
+  parkedPlane.style.opacity = "0";
+  parkedPlane.style.transform = `translate(${pt0.x * sx - homeX}px,${pt0.y * sy - homeY}px) rotate(${getPlaneAngle(pt0.x * sx, pt0.y * sy, ahead0.x * sx, ahead0.y * sy)}deg)`;
+  requestAnimationFrame(frame);
+}
+
+/* ── PLANE GLIDES IN ON SCROLL ARRIVAL ──
+   If the visitor scrolls to the footer without taking the tour,
+   the plane flies the dotted trail and parks itself. */
+(function(){
+  if(!parkedPlane || !footer) return;
+  if(!("IntersectionObserver" in window)){
+    parkedPlane.classList.add("is-parked");
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(!en.isIntersecting || planeLanded || isFlying) return;
+      planeLanded = true;
+      io.disconnect();
+      if(reduceMotion){
+        parkedPlane.classList.add("is-parked");
+        return;
+      }
+      glideAlongTrail();
+    });
+  }, {threshold:.35});
+  io.observe(footer);
+})();
+
+/* ── LEAVE YOUR MARK — signature, memory, and the card flip ── */
+(function(){
+  const field = document.getElementById("mailField");
+  const canvas = document.getElementById("sigCanvas");
+  const receive = document.getElementById("receiveMark");
+  const frontFace = document.getElementById("fieldFront");
+  const backFace = document.getElementById("fieldBack");
+  const viewBtn = document.getElementById("viewBtn");
+  const freshBtn = document.getElementById("freshBtn");
+  const flipBack = document.getElementById("flipBack");
+  const cardSig = document.getElementById("cardSig");
+  const cardPostmark = document.getElementById("cardPostmark");
+  const cardVisits = document.getElementById("cardVisits");
+  const cardNo = document.getElementById("cardNo");
+  if(!field || !canvas || !canvas.getContext) return;
+
+  const KEY = "nv_postcard";
+  const MO = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  const ctx = canvas.getContext("2d");
+  let drawing = false, last = null, nibW = 2.4, hasInk = false;
+  let finalizeT = null;
+  let state = null;
+
+  function todayISO(){
+    const d = new Date(), p = n => String(n).padStart(2,"0");
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+  function fmtMD(iso){ return MO[+iso.slice(5,7)-1] + " " + iso.slice(8,10); }
+  function loadState(){ try{ return JSON.parse(localStorage.getItem(KEY)) || null; }catch(e){ return null; } }
+  function saveState(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+  function pmSVG(ink, iso){
+    return '<svg width="150" height="90" viewBox="0 0 150 90">'
+      + '<g fill="none" stroke="' + ink + '" stroke-width="1.4">'
+      + '<circle cx="45" cy="45" r="42"/><circle cx="45" cy="45" r="31"/>'
+      + '<path d="M94 30 q9 -7 18 0 t18 0"/><path d="M94 45 q9 -7 18 0 t18 0"/><path d="M94 60 q9 -7 18 0 t18 0"/></g>'
+      + '<text font-family="DM Sans,sans-serif" font-size="7.2" letter-spacing="1.6" fill="' + ink + '"><textPath href="#pmArc">NAVYAA VEMURI \u00B7 CALIFORNIA</textPath></text>'
+      + '<text x="45" y="43" text-anchor="middle" font-size="9" letter-spacing="1" font-family="DM Sans,sans-serif" fill="' + ink + '">' + fmtMD(iso) + '</text>'
+      + '<text x="45" y="55" text-anchor="middle" font-size="9" letter-spacing="1" font-family="DM Sans,sans-serif" fill="' + ink + '">' + iso.slice(0,4) + '</text></svg>';
+  }
+
+  function applyInkStyle(){
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(31,64,92,.92)";
+  }
+
+  function size(){
+    const r = canvas.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    const dpr = window.devicePixelRatio || 1;
+    let snap = null;
+    if(hasInk){
+      snap = document.createElement("canvas");
+      snap.width = canvas.width; snap.height = canvas.height;
+      snap.getContext("2d").drawImage(canvas, 0, 0);
+    }
+    canvas.width = r.width * dpr;
+    canvas.height = r.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    applyInkStyle();
+    if(snap) ctx.drawImage(snap, 0, 0, r.width, r.height);
+  }
+
+  function pos(e){
+    const r = canvas.getBoundingClientRect();
+    return {x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now()};
+  }
+
+  function markReceived(iso, animate){
+    receive.innerHTML = pmSVG("#3B5BDB", iso);
+    if(animate){ requestAnimationFrame(() => receive.classList.add("is-stamped")); }
+    else{ receive.classList.add("is-stamped"); }
+    field.classList.add("is-signed");
+  }
+
+  function finalize(){
+    if(!hasInk) return;
+    const r = canvas.getBoundingClientRect();
+    const firstTime = !(state && state.sig);
+    if(firstTime){ state = {first: todayISO(), visits: [todayISO()]}; }
+    state.sig = canvas.toDataURL("image/png");
+    state.w = r.width; state.h = r.height;
+    saveState();
+    if(firstTime){ markReceived(state.first, true); }
+  }
+
+  canvas.addEventListener("pointerdown", e => {
+    clearTimeout(finalizeT);
+    drawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    last = pos(e);
+    nibW = 2.4;
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", e => {
+    if(!drawing || !last) return;
+    const p = pos(e);
+    const dist = Math.hypot(p.x - last.x, p.y - last.y);
+    const speed = dist / Math.max(p.t - last.t, 1);
+    const target = Math.max(1.1, 2.7 - speed * 1.4);
+    nibW += (target - nibW) * 0.3;
+    ctx.lineWidth = nibW;
+    ctx.beginPath();
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    last = p;
+    if(!hasInk){ hasInk = true; field.classList.add("has-ink"); }
+  });
+
+  const endStroke = () => {
+    if(drawing && hasInk){
+      clearTimeout(finalizeT);
+      finalizeT = setTimeout(finalize, 900);
+    }
+    drawing = false; last = null;
+  };
+  canvas.addEventListener("pointerup", endStroke);
+  canvas.addEventListener("pointercancel", endStroke);
+
+  function renderBack(){
+    if(!state || !state.sig) return;
+    cardSig.src = state.sig;
+    cardSig.style.display = "block";
+    cardPostmark.innerHTML = pmSVG("#3B5BDB", state.first);
+    cardNo.textContent = "CARD NO. " + state.first.slice(0,4) + "-" + state.first.slice(5,7) + state.first.slice(8,10);
+    const returns = state.visits.slice(1);
+    if(!returns.length){
+      cardVisits.innerHTML = "";
+    } else if(returns.length <= 5){
+      cardVisits.innerHTML = returns.map((v,i) =>
+        '<svg width="30" height="30" viewBox="0 0 30 30" style="transform:rotate(' + ((i*37)%15 - 7) + 'deg);opacity:.6" aria-hidden="true">'
+        + '<circle cx="15" cy="15" r="13" fill="none" stroke="#3B5BDB" stroke-width="1"/>'
+        + '<circle cx="15" cy="15" r="9.5" fill="none" stroke="#3B5BDB" stroke-width="1"/>'
+        + '<text x="15" y="17.5" text-anchor="middle" font-size="5.4" letter-spacing=".5" font-family="DM Sans,sans-serif" fill="#3B5BDB">'
+        + v.slice(5,7) + "\u00B7" + v.slice(8,10) + '</text></svg>'
+      ).join("");
+    } else {
+      cardVisits.textContent = "VISIT NO. " + state.visits.length;
+    }
+  }
+
+  if(viewBtn){
+    viewBtn.addEventListener("click", () => {
+      if(!state || !state.sig) return;
+      renderBack();
+      field.classList.add("is-flipped");
+      backFace.setAttribute("aria-hidden", "false");
+      frontFace.setAttribute("aria-hidden", "true");
+    });
+  }
+  if(flipBack){
+    flipBack.addEventListener("click", () => {
+      field.classList.remove("is-flipped");
+      backFace.setAttribute("aria-hidden", "true");
+      frontFace.setAttribute("aria-hidden", "false");
+    });
+  }
+  if(freshBtn){
+    freshBtn.addEventListener("click", () => {
+      const r = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, r.width, r.height);
+      hasInk = false;
+      state = null;
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      clearTimeout(finalizeT);
+      field.classList.remove("has-ink", "is-signed", "is-flipped");
+      receive.classList.remove("is-stamped");
+      receive.innerHTML = "";
+      cardSig.style.display = "none";
+      backFace.setAttribute("aria-hidden", "true");
+      frontFace.setAttribute("aria-hidden", "false");
+    });
+  }
+
+  size();
+
+  /* Returning visitor: restore signature, add today's postmark if it's a new day */
+  state = loadState();
+  if(state && state.sig){
+    if(!Array.isArray(state.visits)) state.visits = [state.first || todayISO()];
+    if(state.visits.indexOf(todayISO()) === -1){
+      state.visits.push(todayISO());
+      saveState();
+    }
+    const img = new Image();
+    img.onload = () => {
+      const r = canvas.getBoundingClientRect();
+      const w = state.w || r.width, h = state.h || r.height;
+      const sc = Math.min(r.width / w, r.height / h, 1);
+      ctx.drawImage(img, 0, 0, w * sc, h * sc);
+      hasInk = true;
+      field.classList.add("has-ink");
+    };
+    img.src = state.sig;
+    markReceived(state.first || todayISO(), false);
+  }
+
+  let resizeT = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(size, 150);
+  });
+})();
 
 /* ── VIDEO HOVER ── */
 document.querySelectorAll(".cs-card").forEach(card => {
