@@ -5,589 +5,334 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — Navyaa Vemuri</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#FDFDFD;
-  --text:#2B2B2B;
-  --muted:#6A6A6A;
-  --dim:#8A8A8A;
-  --border:#E3E1DC;
+  --bg:#FDFDFB;--text:#2B2B2B;--muted:#6A6A6A;--dim:#8A8A8A;
+  --border:#E3E1DC;--blue:#1F405C;--paper:#F8F1E4;
 }
-html,body{
-  min-height:100%;
-  font-family:'DM Sans',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  background:var(--bg);
-  color:var(--text);
-}
+html,body{min-height:100%;font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);}
+body{overflow-x:hidden;}
 a{color:inherit;}
+img{max-width:100%;display:block;}
 
 /* NAV */
-
-.site-nav {
-  position: fixed;
-  top: 28px;
-  right: clamp(24px, 5vw, 80px);
-  z-index: 9999;
-
-  display: flex;
-  align-items: center;
-  gap: clamp(28px, 4vw, 64px);
-
-  padding: 12px 22px;
-  background: rgba(248, 241, 228, 0.86);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-
-  font-family: "DM Sans", sans-serif;
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: -0.035em;
+.site-nav{
+  position:fixed;top:28px;right:clamp(24px,5vw,80px);z-index:9999;
+  display:flex;align-items:center;gap:clamp(28px,4vw,64px);
+  padding:12px 22px;background:rgba(248,241,228,.86);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(0,0,0,.08);border-radius:999px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  font-size:18px;text-transform:uppercase;letter-spacing:-.035em;
 }
-
-.site-nav a {
-  display: block;
-  text-decoration: none;
-  color: #111;
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-}
-
-.site-nav a:hover {
-  opacity: 0.55;
-}
-
-/* POSTCARD FOOTER */
-
-.postcard-footer {
-  padding: 56px clamp(32px, 5vw, 70px);
-  background: #efe7d6;
-  display: flex;
-  justify-content: center;
-}
-
-.postcard {
-  width: min(1200px, 100%);
-  min-height: 520px;
-
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 56px;
-
-  padding: 48px 60px;
-  position: relative;
-
-  background:
-    radial-gradient(circle at 12% 18%, rgba(0,0,0,.04), transparent 18%),
-    radial-gradient(circle at 86% 72%, rgba(0,0,0,.03), transparent 20%),
-    #f8f1e4;
-
-  box-shadow: 0 24px 54px rgba(0,0,0,.07);
-}
-
-.postcard::after {
-  content: "";
-  position: absolute;
-  top: 8%;
-  bottom: 8%;
-  left: 55%;
-  width: 1.5px;
-  background: #1f1f1f;
-  opacity: 0.85;
-}
-
-.postcard-message {
-  position: relative;
-  z-index: 1;
-  max-width: 620px;
-
-  font-family: "Goudy Bookletter 1911", serif;
-  font-size: 22px;
-  line-height: 1.72;
-  color: #111;
-}
-
-.postcard-message p {
-  margin-bottom: 18px;
-}
-
-.postcard-id {
-  margin-top: 30px;
-  font-family: "DM Sans", sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.03em;
-}
-
-.postcard-address {
-  position: relative;
-  z-index: 1;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding-left: 24px;
-}
-
-.postcard-stamp {
-  width: 165px;
-  margin-bottom: 58px;
-}
-
-.postcard-links {
-  width: min(340px, 100%);
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.postcard-links a {
-  font-family: "Goudy Bookletter 1911", serif;
-  font-size: 28px;
-  font-style: italic;
-  text-decoration: none;
-  color: #111;
-
-  border-bottom: 1px solid rgba(0, 0, 0, 0.68);
-  padding: 0 8px 7px;
-
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.postcard-links a:hover {
-  color: #1f405c;
-  transform: translateX(5px);
-}
-
-/* MOBILE */
-
-@media (max-width: 900px) {
-  .postcard {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    gap: 36px;
-  }
-
-  .postcard::after {
-    display: none;
-  }
-
-  .postcard-address {
-    align-items: flex-start;
-    padding-left: 0;
-    border-top: 1px solid rgba(0,0,0,.25);
-    padding-top: 34px;
-  }
-
-  .postcard-stamp {
-    margin-bottom: 34px;
-  }
-}
-
-@media (max-width: 640px) {
-  .site-nav {
-    top: 18px;
-    right: 18px;
-    gap: 20px;
-    padding: 10px 16px;
-    font-size: 13px;
-  }
-
-  .postcard-footer {
-    padding: 28px 16px;
-  }
-
-  .postcard {
-    padding: 32px 24px;
-    box-shadow: none;
-  }
-
-  .postcard-message {
-    font-size: 19px;
-    line-height: 1.6;
-  }
-
-  .postcard-links a {
-    font-size: 25px;
-  }
-
-  .postcard-stamp {
-    width: 120px;
-  }
-}
+.site-nav a{display:block;text-decoration:none;color:#111;white-space:nowrap;transition:opacity .2s ease;}
+.site-nav a:hover{opacity:.55;}
 
 /* PAGE */
-.page{
-  width:100%;
-  max-width:1440px;
-  margin:0 auto;
-  padding:118px 48px 96px;
+.page{width:100%;max-width:1440px;margin:0 auto;padding:126px 48px 110px;}
+
+/* SECTION HEADINGS — homepage language */
+.rule-heading{
+  display:flex;align-items:center;gap:24px;
+  color:#505050;text-transform:uppercase;letter-spacing:.02em;
+  font-size:19px;font-weight:400;
+}
+.rule-heading .rule{flex:1;height:1px;background:var(--border);}
+.pile-hint{
+  font-size:11px;letter-spacing:.2em;color:#B0AA9B;
+  text-transform:uppercase;white-space:nowrap;
 }
 
-/* MAIN ABOUT GRID */
-.about-grid{
-  display:grid;
-  grid-template-columns:420px minmax(0,1fr);
-  gap:48px;
-  align-items:start;
+/* MAIL PILE — draggable prints */
+.mail-pile{
+  position:relative;
+  height:min(66vh,620px);min-height:470px;
+  margin-top:30px;
+}
+.print{
+  position:absolute;
+  background:#fff;padding:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.08);
+  cursor:grab;user-select:none;-webkit-user-select:none;
+  transform:rotate(var(--r,0deg));
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+@media(min-width:641px){.print{touch-action:none;}}
+.print.lifting{
+  cursor:grabbing;
+  transform:rotate(var(--r,0deg)) scale(1.045);
+  box-shadow:0 24px 48px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.1);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.print.captioned{padding-bottom:32px;}
+.print-photo{display:block;pointer-events:none;filter:saturate(.97);}
+.print-caption{
+  position:absolute;left:10px;right:10px;bottom:9px;
+  text-align:center;font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:#8A8577;pointer-events:none;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mini-postcard .mini-inner{
+  position:relative;width:200px;height:136px;
+  background:var(--paper);border:.5px solid rgba(0,0,0,.1);
+  pointer-events:none;
+}
+.mini-stamp{position:absolute;top:9px;right:9px;width:46px;}
+.mini-hello{
+  position:absolute;left:14px;bottom:12px;
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:19px;color:#111;
 }
 
-/* LEFT COLUMN */
-.about-left{
-  max-width:420px;
-  position:sticky;
-  top:118px;
-  align-self:start;
-}
+/* INTRO */
+.intro{margin-top:96px;max-width:680px;}
 .note-label{
-  font-size:22px;
-  line-height:1.2;
-  letter-spacing:-.03em;
-  font-weight:400;
-  color:var(--text);
-  margin-bottom:26px;
+  font-family:"Goudy Bookletter 1911",serif;font-weight:400;
+  font-size:clamp(30px,2.8vw,40px);letter-spacing:-.02em;
+  color:#3B3B3B;margin-bottom:26px;
 }
 .about-p{
-  font-size:15px;
-  line-height:1.75;
-  letter-spacing:-.01em;
-  color:var(--muted);
-  margin-bottom:20px;
-  max-width:38ch;
+  font-size:16px;line-height:1.78;letter-spacing:-.005em;
+  color:var(--muted);margin-bottom:18px;
 }
-.signature-block{
-  margin-top:40px;
-  margin-bottom:52px;
-}
+.signature-block{margin-top:36px;}
 .signature-best{
-  font-size:20px;
-  color:var(--text);
-  margin-bottom:14px;
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:20px;color:#111;margin-bottom:12px;
 }
-.signature-img{
-  width:140px;
-  opacity:.72;
-}
+.signature-img{width:150px;opacity:.75;}
 
-/* LISTS */
-.about-lists{
-  display:flex;
-  flex-direction:column;
-  gap:34px;
+/* LEDGER — two columns */
+.ledger{margin-top:96px;}
+.ledger-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:56px 84px;margin-top:34px;
 }
-.section-heading{
-  font-size:20px;
-  font-weight:400;
-  letter-spacing:-.02em;
-  color:var(--text);
-  margin-bottom:10px;
+.ledger-col{display:flex;flex-direction:column;gap:44px;}
+.ledger-section .sub-heading{
+  font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+  color:#8A8577;margin-bottom:14px;font-weight:500;
 }
-.info-list{
-  border-top:.5px solid var(--border);
-}
+.info-list{border-top:.5px solid var(--border);}
 .info-row{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:16px;
-  padding:10px 0;
-  border-bottom:.5px solid var(--border);
+  display:grid;grid-template-columns:1fr auto;gap:16px;
+  padding:12px 0;border-bottom:.5px solid var(--border);
   align-items:baseline;
 }
-.info-main{
-  font-size:14px;
-  line-height:1.35;
-  letter-spacing:-.01em;
-  color:var(--text);
-}
-.info-main span{
-  color:var(--dim);
-}
-.info-date{
-  font-size:13px;
-  color:var(--dim);
-  white-space:nowrap;
-}
-.info-sub{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.5;
-  margin-top:4px;
-}
+.info-main{font-size:15px;line-height:1.35;letter-spacing:-.01em;color:var(--text);}
+.info-main span{color:var(--dim);}
+.info-date{font-size:13px;color:var(--dim);white-space:nowrap;}
+.info-sub{font-size:12px;color:var(--muted);line-height:1.55;margin-top:5px;}
 
-/* RIGHT PHOTO COLLAGE */
-.photo-collage{
-  display:grid;
-  grid-template-columns:1.12fr 1fr;
-  grid-template-rows:auto auto auto;
-  gap:18px;
+/* ENVELOPE FOOTER */
+.postcard-footer{
+  position:relative;background:#FBF9F3;
+  border-top:1px solid rgba(0,0,0,.06);
 }
-.photo-card{
-  position:relative;
-  overflow:visible;
+.airmail-stripe{
+  height:10px;
+  background:repeating-linear-gradient(-45deg,#C33B2E 0 16px,#FBF9F3 16px 28px,#3B5BDB 28px 44px,#FBF9F3 44px 56px);
 }
-.photo-frame{
-  width:100%;
-  overflow:hidden;
-  background:#D9D9D9;
+.envelope{
+  width:min(1200px,100%);margin:0 auto;
+  padding:64px clamp(28px,5vw,72px) 26px;
+  transform-origin:center;
 }
-.photo-frame img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-  filter:saturate(.95);
-  transition:transform .35s ease, filter .35s ease;
+.envelope-top{
+  display:flex;flex-wrap:wrap;gap:40px 64px;
+  justify-content:space-between;align-items:flex-start;
 }
-.photo-card.feature .photo-frame img{
-  object-position:center top;
+.envelope-quote{max-width:560px;}
+.envelope-quote .quote-line{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:clamp(28px,2.6vw,40px);line-height:1.3;color:#111;
+  margin-bottom:16px;
 }
-.photo-card:hover img{
-  transform:scale(1.018);
-  filter:saturate(1.02);
+.envelope-tagline{
+  font-family:"DM Sans",sans-serif;font-size:12px;
+  letter-spacing:.22em;color:#8A8577;
 }
-.photo-card.feature{
-  grid-row:1 / span 2;
+.envelope-cols{
+  display:flex;gap:clamp(40px,6vw,90px);
+  font-family:"DM Sans",sans-serif;font-size:13px;letter-spacing:.2em;
 }
-.photo-card.feature .photo-frame{
-  aspect-ratio:4/5;
+.envelope-col p{color:#2A2A26;font-weight:500;margin-bottom:16px;}
+.envelope-col a{
+  display:block;text-decoration:none;color:#9A9588;
+  margin-bottom:13px;transition:color .2s ease;
 }
-.photo-card.medium .photo-frame{
-  aspect-ratio:4/3;
-}
-.photo-card.square .photo-frame{
-  aspect-ratio:1/1;
-}
-.photo-card.tall-food .photo-frame{
-  aspect-ratio:4/5;
-}
-.photo-card.wide{
-  grid-column:1 / -1;
-}
-.photo-card.wide .photo-frame{
-  aspect-ratio:16/7;
-}
-.photo-caption{
-  position:absolute;
-  left:0;
-  top:0;
-  z-index:3;
-  display:inline-flex;
-  align-items:center;
-  width:max-content;
-  max-width:none;
-  white-space:nowrap;
-  padding:10px 16px;
-  border-radius:999px;
-  background:#F0D8E7;
-  color:#312B30;
-  font-size:13px;
-  line-height:1;
-  font-weight:500;
-  letter-spacing:-.01em;
-  opacity:0;
-  transform:translate(-50%, -50%) scale(.96);
-  transition:opacity .16s ease, transform .16s ease;
-  pointer-events:none;
-  will-change:left, top, transform, opacity;
-}
-.photo-card:hover .photo-caption{
-  opacity:1;
-  transform:translate(-50%, -50%) scale(1);
-}
-.caption-kicker{
-  display:none;
-}
+.envelope-col a:hover{color:var(--blue);}
 
-/* FOOTER - MATCHES OTHER PAGES */
-.site-footer{
-  width:100vw;
-  margin-left:calc(50% - 50vw);
-  background:#F0D8E7;
-  padding:80px clamp(32px,6vw,96px);
-  margin-top:112px;
+/* MAIL FIELD — trail, parked plane, signature, card flip */
+.mail-field{position:relative;height:340px;margin-top:8px;perspective:1600px;}
+.field-card{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .8s cubic-bezier(.45,.05,.2,1);
 }
-.footer-inner{
-  width:100%;
-  max-width:1440px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto auto;
-  gap:clamp(36px,7vw,96px);
-  align-items:start;
+.mail-field.is-flipped .field-card{transform:rotateY(180deg);}
+.field-front,.field-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
 }
-.footer-title{
-  font-size:clamp(30px,3vw,44px);
-  line-height:1.15;
-  letter-spacing:-.035em;
-  color:#2F2F2F;
-  font-weight:500;
-  margin-bottom:24px;
+.field-back{transform:rotateY(180deg);}
+.field-front .trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.postcard-plane{
+  position:absolute;top:12px;right:3.5%;width:96px;z-index:2;
+  pointer-events:none;transform:rotate(-6deg);
+  filter:drop-shadow(0 12px 14px rgba(0,0,0,.12));
+  opacity:0;visibility:hidden;
 }
-.footer-meta{
-  font-size:18px;
-  line-height:1.5;
-  color:#6E3D62;
-  font-weight:500;
-}
-.footer-contact-title{
-  font-size:13px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:#2F2F2F;
-  margin-bottom:20px;
-  font-weight:500;
-}
-.footer-links{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-.footer-links a{
-  font-size:18px;
-  color:#6E3D62;
-  text-decoration:none;
-  transition:color .2s ease, transform .2s ease;
-}
-.footer-links a:hover{
-  color:#2F2F2F;
-  transform:translateX(3px);
-}
-.footer-stamp img{
-  width:130px;
-  height:auto;
-  display:block;
-}
+.postcard-plane.is-parked{opacity:1;visibility:visible;}
+.mail-field.is-flipped .postcard-plane{opacity:0;transition:opacity .2s ease .3s;}
 
-/* MOBILE */
-.mobile-topbar{
-  display:none;
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(253,253,253,.95);
-  backdrop-filter:blur(10px);
-  border-bottom:.5px solid var(--border);
-  padding:16px 20px;
-  align-items:center;
-  justify-content:space-between;
+/* Signing zone */
+.sign-zone{position:absolute;left:2px;bottom:16px;width:min(340px,80%);}
+.sign-label{
+  font-family:"DM Sans",sans-serif;font-size:11px;
+  letter-spacing:.24em;color:#8A8577;margin-bottom:6px;
 }
-.mobile-brand{
-  display:block;
-  text-decoration:none;
-  font-size:15px;
-  color:var(--text);
+.sign-line-wrap{
+  position:relative;height:84px;
+  border-bottom:1.2px solid rgba(0,0,0,.5);
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M2 22 L6 13 L18 1 L23 6 L11 18 Z' fill='%231F405C'/%3E%3Cpath d='M2 22 L7 17' stroke='%23FBF9F3' stroke-width='1.2'/%3E%3C/svg%3E") 2 22,crosshair;
 }
-.mobile-menu-btn{
-  border:none;
-  background:transparent;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-  padding:4px;
-  cursor:pointer;
+.sign-x{
+  position:absolute;left:2px;bottom:6px;
+  font-family:"DM Sans",sans-serif;font-size:15px;
+  color:#B0AA9B;pointer-events:none;
 }
-.mobile-menu-btn span{
-  width:18px;
-  height:1.5px;
-  background:var(--text);
-  display:block;
-  transition:transform .25s,opacity .25s;
+#sigCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block;}
+.receive-mark{
+  position:absolute;left:min(372px,84%);bottom:22px;pointer-events:none;
+  opacity:0;transform:rotate(-7deg) scale(1.22);
+  transition:opacity .2s ease,transform .28s cubic-bezier(.2,1.4,.4,1);
 }
-.mobile-menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.mobile-menu-btn.open span:nth-child(2){opacity:0;}
-.mobile-menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-.mobile-menu{
-  display:none;
-  position:fixed;
-  inset:57px 0 auto 0;
-  z-index:45;
-  background:rgba(253,253,253,.98);
-  border-bottom:.5px solid var(--border);
-  padding:20px;
-  box-shadow:0 8px 24px rgba(26,26,26,.06);
-}
-.mobile-menu.open{display:block;}
-.mobile-menu-links{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-.mobile-menu-link{
-  font-size:15px;
-  color:var(--muted);
-  text-decoration:none;
-}
+.receive-mark.is-stamped{opacity:.62;transform:rotate(-7deg) scale(1);}
 
-@media(max-width:1080px){
-  .about-grid{
-    grid-template-columns:360px minmax(0,1fr);
-    gap:36px;
-  }
-  .about-left{max-width:360px;}
+/* Card back — the visitor's own postcard */
+.field-back{
+  background:var(--paper);
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:0 18px 40px rgba(0,0,0,.08);
+  padding:30px 36px;
+}
+.cardf-stamp{position:absolute;top:26px;right:30px;width:92px;}
+.cardf-postmark{
+  position:absolute;top:58px;right:92px;
+  opacity:.62;transform:rotate(-8deg);pointer-events:none;
+}
+.cardf-caption{
+  position:absolute;top:170px;right:32px;
+  font-family:"DM Sans",sans-serif;font-size:9px;
+  letter-spacing:.22em;color:#8A8577;
+}
+.cardf-note{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:clamp(18px,1.8vw,24px);line-height:1.5;color:#111;
+  max-width:440px;margin-top:12px;
+}
+.cardf-signoff{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:clamp(16px,1.5vw,20px);line-height:1.55;color:#111;
+  margin-top:16px;
+}
+.cardf-sig-area{
+  position:absolute;left:36px;bottom:58px;
+  width:min(320px,58%);height:78px;
+  border-bottom:1.2px solid rgba(0,0,0,.5);
+}
+.cardf-sig-area img{
+  position:absolute;left:0;bottom:2px;
+  max-width:100%;max-height:100%;display:none;
+}
+.cardf-no{
+  position:absolute;left:36px;bottom:26px;
+  font-family:"DM Sans",sans-serif;font-size:10.5px;
+  letter-spacing:.2em;color:#B0AA9B;
+}
+.cardf-visits{
+  position:absolute;right:34px;bottom:62px;
+  display:flex;gap:10px;align-items:center;
+  font-family:"DM Sans",sans-serif;font-size:10px;
+  letter-spacing:.14em;color:#8A8577;
+}
+.flip-back{
+  position:absolute;right:34px;bottom:24px;
+  border:0;background:none;padding:0;cursor:pointer;
+  font-family:"DM Sans",sans-serif;font-size:10.5px;
+  letter-spacing:.2em;color:#B0AA9B;text-decoration:underline;
+}
+.flip-back:hover{color:var(--blue);}
+
+/* Meta row */
+.envelope-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0 8px;
+  font-family:"DM Sans",sans-serif;font-size:11px;
+  letter-spacing:.2em;color:#B0AA9B;
+}
+.meta-actions{display:flex;gap:26px;}
+.fresh-btn,.view-btn{
+  border:0;background:none;padding:0;cursor:pointer;
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;
+  color:#B0AA9B;text-decoration:underline;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease,color .2s ease;
+}
+.fresh-btn:hover,.view-btn:hover{color:var(--blue);}
+.mail-field.has-ink ~ .envelope-meta .fresh-btn{opacity:1;pointer-events:auto;}
+.mail-field.is-signed ~ .envelope-meta .view-btn{opacity:1;pointer-events:auto;}
+
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .ledger-grid{gap:44px 56px;}
+  .mail-field{height:300px;}
+  .postcard-plane{width:80px;top:10px;right:4%;}
 }
 @media(max-width:900px){
-  .top-nav{display:none;}
-  .mobile-topbar{display:flex;}
-  .page{
-    padding:64px 24px 72px;
-  }
-  .about-grid{
-    grid-template-columns:1fr;
-    gap:48px;
-  }
-  .about-left{
-    position:static;
-    max-width:100%;
-  }
-  .about-p{max-width:46ch;}
-  .photo-collage{
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-  }
-  .photo-card.feature{
-    grid-row:auto;
-    grid-column:1 / -1;
-  }
-  .photo-card.feature .photo-frame{
-    aspect-ratio:16/10;
-  }
-  .photo-card.wide .photo-frame{
-    aspect-ratio:16/9;
-  }
-  .site-footer{
-    padding:56px 24px;
-  }
-  .footer-inner{
-    grid-template-columns:1fr;
-    gap:32px;
-  }
-  .footer-title{font-size:30px;}
-  .footer-meta,.footer-links a{font-size:18px;}
-  .footer-stamp img{width:96px;}
+  .page{padding:110px 24px 80px;}
+  .ledger-grid{grid-template-columns:1fr;}
 }
-@media(max-width:560px){
-  .photo-collage{grid-template-columns:1fr;}
-  .photo-card.wide{grid-column:auto;}
-  .photo-card.feature .photo-frame,
-  .photo-card.medium .photo-frame,
-  .photo-card.square .photo-frame,
-  .photo-card.tall-food .photo-frame,
-  .photo-card.wide .photo-frame{
-    aspect-ratio:4/3;
-  }
-  .info-row{
-    grid-template-columns:1fr;
-    gap:3px;
-  }
+@media(max-width:640px){
+  .site-nav{top:22px;right:24px;gap:24px;font-size:13px;}
+  .page{padding:100px 20px 64px;}
+  .rule-heading{font-size:15px;gap:16px;}
+  .pile-hint{display:none;}
+  .mail-pile{height:480px;min-height:480px;margin-top:22px;}
+  .print{padding:7px;}
+  .print.captioned{padding-bottom:24px;}
+  .print-caption{font-size:8px;letter-spacing:.16em;bottom:7px;}
+  .mini-postcard .mini-inner{width:132px;height:90px;}
+  .mini-stamp{width:32px;top:6px;right:6px;}
+  .mini-hello{font-size:15px;left:9px;bottom:7px;}
+  .intro{margin-top:64px;}
+  .about-p{font-size:15px;}
+  .ledger{margin-top:64px;}
+  .info-row{grid-template-columns:1fr;gap:3px;}
+  .envelope{padding:44px 20px 14px;}
+  .envelope-cols{gap:36px;font-size:11px;letter-spacing:.16em;}
+  .mail-field{height:280px;}
+  .sign-zone{width:76%;}
+  .receive-mark{left:auto;right:-6px;transform:rotate(-7deg) scale(.72);}
+  .receive-mark.is-stamped{transform:rotate(-7deg) scale(.72);}
+  .postcard-plane{width:64px;top:8px;right:4%;}
+  .field-back{padding:20px 18px;}
+  .cardf-note{font-size:16px;max-width:56%;margin-top:4px;}
+  .cardf-signoff{font-size:14px;margin-top:10px;}
+  .cardf-stamp{width:62px;top:14px;right:14px;}
+  .cardf-postmark{top:28px;right:52px;transform:rotate(-8deg) scale(.7);}
+  .cardf-caption{top:112px;right:14px;}
+  .cardf-sig-area{left:18px;bottom:52px;width:62%;height:58px;}
+  .cardf-no{left:18px;bottom:22px;}
+  .cardf-visits{right:14px;bottom:92px;gap:6px;}
+  .flip-back{right:14px;bottom:22px;}
+  .envelope-meta{font-size:10px;letter-spacing:.16em;flex-wrap:wrap;gap:8px;}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
@@ -596,47 +341,60 @@ a{color:inherit;}
 </head>
 <body>
 <nav class="site-nav" aria-label="Primary navigation">
-  <a href="index.html#collection">Collection</a>
+  <a href="portfolio.html#collection">Collection</a>
   <a href="about.html">About</a>
 </nav>
 
-<div class="mobile-topbar">
-  <a href="portfolio.html" class="mobile-brand">navyaa vemuri</a>
-  <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open navigation">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-links">
-    <a href="portfolio.html" class="mobile-menu-link">Collection</a>
-    <a href="about.html" class="mobile-menu-link active">About</a>
-    <a href="https://docs.google.com/document/d/1ANObdLbRHOAS6jsA5gyrgypKnb6-9eGoaDlQtiH-IDE/export?format=pdf" class="mobile-menu-link" target="_blank" rel="noopener">Resume ↗</a>
-    <a href="https://linkedin.com/in/navyaavemuri" class="mobile-menu-link" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a href="mailto:navyaa.vemuri@gmail.com" class="mobile-menu-link">Mail ↗</a>
-  </div>
-</div>
-
 <main class="page">
-  <section class="about-grid">
-    <div class="about-left">
-      <div class="about-copy">
-        <h1 class="note-label">To: Visitor</h1>
 
-        <p class="about-p">I'm Navyaa, a designer interested in how people find information, decide what to trust, and move forward with confidence.</p>
-
-        <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
-
-        <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just because.</p>
-
-        <div class="signature-block">
-          <div class="signature-best">Best,</div>
-          <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
+  <section aria-label="A pile of photo prints — drag them around">
+    <p class="rule-heading">Out of the envelope<span class="rule"></span><span class="pile-hint">go ahead &#8212; move things around</span></p>
+    <div class="mail-pile" id="mailPile">
+      <div class="print captioned" data-size="360">
+        <img class="print-photo" src="leadership-1.png" alt="Iter8 design community group photo" onerror="this.parentElement.style.display='none'">
+        <p class="print-caption">Design community builder</p>
+      </div>
+      <div class="print captioned" data-size="280">
+        <img class="print-photo" src="about-4.jpg" alt="DJ setup" onerror="this.parentElement.style.display='none'">
+        <p class="print-caption">Brief DJ era</p>
+      </div>
+      <div class="print" data-size="330">
+        <img class="print-photo" src="about-5.png" alt="New York City view from the Edge" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print captioned" data-size="300">
+        <img class="print-photo" src="about-3.jpeg" alt="Bánh mì" onerror="this.parentElement.style.display='none'">
+        <p class="print-caption">Always planning my next meal</p>
+      </div>
+      <div class="print captioned" data-size="310">
+        <img class="print-photo" src="hobby-5.jpg" alt="Singing on stage" onerror="this.parentElement.style.display='none'">
+        <p class="print-caption">Singing since I was four</p>
+      </div>
+      <div class="print mini-postcard">
+        <div class="mini-inner">
+          <img src="stamp.png" alt="" class="mini-stamp" onerror="this.style.display='none'">
+          <p class="mini-hello">hello!</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="about-lists">
-        <section class="about-section">
-          <h2 class="section-heading">Experience</h2>
+  <section class="intro">
+    <h1 class="note-label">To: Visitor</h1>
+    <p class="about-p">I'm Navyaa, a designer interested in how people find information, decide what to trust, and move forward with confidence.</p>
+    <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
+    <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just because.</p>
+    <div class="signature-block">
+      <div class="signature-best">Best,</div>
+      <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
+    </div>
+  </section>
+
+  <section class="ledger" aria-label="Experience, leadership, and education">
+    <p class="rule-heading">The record<span class="rule"></span></p>
+    <div class="ledger-grid">
+      <div class="ledger-col">
+        <section class="ledger-section">
+          <h2 class="sub-heading">Experience</h2>
           <div class="info-list">
             <div class="info-row">
               <div>
@@ -661,36 +419,36 @@ a{color:inherit;}
             </div>
             <div class="info-row">
               <div>
-                <div class="info-main">Cal Poly Health & Wellbeing <span>/ UX Designer</span></div>
+                <div class="info-main">Cal Poly Health &amp; Wellbeing <span>/ UX Designer</span></div>
                 <div class="info-sub">Student health information systems serving 23,000+ students.</div>
               </div>
-              <div class="info-date">2023–2025</div>
+              <div class="info-date">2023&#8211;2025</div>
             </div>
           </div>
         </section>
-
-        <section class="about-section">
-          <h2 class="section-heading">Leadership</h2>
+      </div>
+      <div class="ledger-col">
+        <section class="ledger-section">
+          <h2 class="sub-heading">Leadership</h2>
           <div class="info-list">
             <div class="info-row">
               <div>
                 <div class="info-main">Cal Poly iter8 <span>/ President</span></div>
                 <div class="info-sub">Led a student design agency and community of 140+ designers.</div>
               </div>
-              <div class="info-date">2024–2025</div>
+              <div class="info-date">2024&#8211;2025</div>
             </div>
             <div class="info-row">
               <div>
-                <div class="info-main">UX Fest SLO <span>/ Events & Experience Director</span></div>
+                <div class="info-main">UX Fest SLO <span>/ Events &amp; Experience Director</span></div>
                 <div class="info-sub">Created workshops, community events, and design experiences.</div>
               </div>
-              <div class="info-date">2023–2024</div>
+              <div class="info-date">2023&#8211;2024</div>
             </div>
           </div>
         </section>
-
-        <section class="about-section">
-          <h2 class="section-heading">Education</h2>
+        <section class="ledger-section">
+          <h2 class="sub-heading">Education</h2>
           <div class="info-list">
             <div class="info-row">
               <div>
@@ -703,97 +461,447 @@ a{color:inherit;}
         </section>
       </div>
     </div>
-
-    <div class="photo-collage" aria-label="Things I've collected outside of work">
-      <div class="photo-card feature">
-        <div class="photo-frame"><img src="leadership-1.png" alt="Iter8 design community" onerror="this.style.display='none'"></div>
-        <div class="photo-caption">Design community builder</div>
-      </div>
-
-      <div class="photo-card medium">
-        <div class="photo-frame"><img src="about-4.jpg" alt="DJ setup" onerror="this.style.display='none'"></div>
-        <div class="photo-caption">Brief DJ era</div>
-      </div>
-
-      <div class="photo-card medium">
-        <div class="photo-frame"><img src="about-5.png" alt="New York City view" onerror="this.style.display='none'"></div>
-        <div class="photo-caption">Worth the 5am wake-up</div>
-      </div>
-
-      <div class="photo-card tall-food">
-        <div class="photo-frame"><img src="about-3.jpeg" alt="Vegetarian food" onerror="this.style.display='none'"></div>
-        <div class="photo-caption">Always planning my next meal</div>
-      </div>
-
-      <div class="photo-card square">
-        <div class="photo-frame"><img src="hobby-5.jpg" alt="Singing performance" onerror="this.style.display='none'"></div>
-        <div class="photo-caption">Singing since I was four</div>
-      </div>
-    </div>
   </section>
+
 </main>
 
 <footer class="postcard-footer" id="footer">
-  <div class="postcard">
-    <section class="postcard-message">
-      <p><em>Greetings!</em></p>
-
-      <p>Looks like you’ve made it to the bottom of the page!</p>
-
-      <p>
-        This portfolio has been through more redesigns than I’d like to admit,
-        but somewhere between looking through countless inspiration sites,
-        late-night iterations, and a few existential design crises, I finally
-        found a style that feels like me.
-      </p>
-
-      <p>Thanks for taking the time to explore my work.</p>
-
-      <p>Built with Figma, Claude, curiosity, and my brain mostly.</p>
-
-      <p>— Navyaa</p>
-
-      <p class="postcard-id">POSTCARD ID: CA-2026-006</p>
-    </section>
-
-    <section class="postcard-address">
-      <img src="stamp.png" alt="Navyaa hydrangea stamp" class="postcard-stamp">
-
-      <nav class="postcard-links" aria-label="Footer links">
-        <a href="index.html">Navyaa Vemuri</a>
-        <a href="mailto:navyaa.vemuri@gmail.com">Send a note</a>
-        <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="resume.pdf" target="_blank">Resume</a>
-      </nav>
-    </section>
+  <div class="airmail-stripe" aria-hidden="true"></div>
+  <div class="envelope">
+    <div class="envelope-top">
+      <div class="envelope-quote">
+        <p class="quote-line">You&#8217;ve made it to the end of the route.</p>
+        <p class="envelope-tagline">MADE WITH &lt;3 AND SENT FIRST CLASS</p>
+      </div>
+      <div class="envelope-cols">
+        <div class="envelope-col">
+          <p>SAY HI</p>
+          <a href="mailto:navyaa.vemuri@gmail.com">SEND A NOTE</a>
+          <a href="https://linkedin.com/in/navyaavemuri" target="_blank" rel="noopener">LINKEDIN</a>
+          <a href="resume.pdf" target="_blank">RESUME</a>
+        </div>
+        <nav class="envelope-col" aria-label="Footer pages">
+          <p>PAGE</p>
+          <a href="portfolio.html#collection">COLLECTION</a>
+          <a href="portfolio.html#vibes">VIBES</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </div>
+    <div class="mail-field" id="mailField">
+      <div class="field-card" id="fieldCard">
+        <div class="field-front" id="fieldFront">
+          <svg style="position:absolute;width:0;height:0" aria-hidden="true"><defs><path id="pmArc" d="M 45 14 A 31 31 0 1 1 44.9 14"/></defs></svg>
+          <svg class="trail" viewBox="0 0 1000 340" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 20 60 C 220 160 470 240 640 195 C 770 160 880 95 946 50" fill="none" stroke="#B8B2A2" stroke-width="1.4" stroke-dasharray="0.6 9" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-zone">
+            <p class="sign-label">LEAVE YOUR MARK</p>
+            <div class="sign-line-wrap">
+              <span class="sign-x">&#215;</span>
+              <canvas id="sigCanvas" aria-label="Sign here with your cursor or finger"></canvas>
+            </div>
+          </div>
+          <div class="receive-mark" id="receiveMark" aria-hidden="true"></div>
+          <img src="paper-plane.svg" alt="" class="postcard-plane" id="parkedPlane" aria-hidden="true">
+        </div>
+        <div class="field-back" id="fieldBack" aria-hidden="true">
+          <img src="stamp.png" alt="Navyaa hydrangea stamp" class="cardf-stamp">
+          <div class="cardf-postmark" id="cardPostmark"></div>
+          <p class="cardf-caption">FIRST ARRIVED</p>
+          <p class="cardf-note">Thanks for visiting. This one&#8217;s yours.</p>
+          <p class="cardf-signoff">Sincerely,<br>Navyaa</p>
+          <div class="cardf-visits" id="cardVisits"></div>
+          <div class="cardf-sig-area"><img id="cardSig" alt="Your signature"></div>
+          <p class="cardf-no" id="cardNo"></p>
+          <button class="flip-back" id="flipBack" type="button">FLIP BACK &#8617;</button>
+        </div>
+      </div>
+    </div>
+    <div class="envelope-meta">
+      <span>POSTCARD ID: CA-2026-006</span>
+      <span class="meta-actions">
+        <button class="view-btn" id="viewBtn" type="button">VIEW YOUR POSTCARD</button>
+        <button class="fresh-btn" id="freshBtn" type="button">FRESH POSTCARD &#8635;</button>
+      </span>
+    </div>
   </div>
 </footer>
+
 <script>
-function toggleMobileMenu(){
-  const btn=document.getElementById('mobileMenuBtn');
-  const menu=document.getElementById('mobileMenu');
-  btn.classList.toggle('open');
-  menu.classList.toggle('open');
-  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+/* ── SHARED HELPERS + FOOTER PLANE (ported from portfolio.html) ── */
+const footer = document.getElementById("footer");
+const envelope = document.querySelector(".envelope");
+const parkedPlane = document.getElementById("parkedPlane");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const PLANE_TIP_OFFSET = 135;
+let planeLanded = false;
+let isFlying = false;
+
+function lerp(a, b, t){ return a + (b - a) * t; }
+function easeInOut(t){ return t * t * (3 - 2 * t); }
+function normalizeAngle(angle){ return ((angle + 180) % 360 + 360) % 360 - 180; }
+function getPlaneAngle(fromX, fromY, toX, toY){
+  const raw = Math.atan2(toY - fromY, toX - fromX) * 180 / Math.PI;
+  return normalizeAngle(raw - PLANE_TIP_OFFSET);
 }
 
-document.querySelectorAll('.photo-card').forEach((card) => {
-  const pill = card.querySelector('.photo-caption');
-  if (!pill) return;
+/* Fly the parked plane along the actual dotted trail, then settle onto its spot */
+function glideAlongTrail(){
+  const trailPath = document.querySelector(".mail-field .trail path");
+  const fieldEl = document.getElementById("mailField");
+  if(!trailPath || !trailPath.getTotalLength || !fieldEl){
+    parkedPlane.classList.add("is-parked");
+    return;
+  }
+  const fr = fieldEl.getBoundingClientRect();
+  const sx = fr.width / 1000, sy = fr.height / 340;
+  parkedPlane.classList.add("is-parked");
+  const pr = parkedPlane.getBoundingClientRect();
+  const homeX = pr.left - fr.left + pr.width / 2;
+  const homeY = pr.top - fr.top + pr.height / 2;
+  const total = trailPath.getTotalLength();
+  const D = 2200, t0 = performance.now();
+  const restRot = -6;
+  function frame(now){
+    const raw = Math.min((now - t0) / D, 1);
+    const t = easeInOut(raw);
+    const pt = trailPath.getPointAtLength(total * t);
+    const ahead = trailPath.getPointAtLength(Math.min(total * (t + 0.012), total));
+    let heading = getPlaneAngle(pt.x * sx, pt.y * sy, ahead.x * sx, ahead.y * sy);
+    let dx = pt.x * sx - homeX;
+    let dy = pt.y * sy - homeY;
+    if(raw > .85){
+      const settle = (raw - .85) / .15;
+      dx = lerp(dx, 0, settle);
+      dy = lerp(dy, 0, settle);
+      heading = heading + normalizeAngle(restRot - heading) * settle;
+    }
+    parkedPlane.style.opacity = Math.min(raw * 6, 1);
+    parkedPlane.style.transform = `translate(${dx}px,${dy}px) rotate(${heading}deg)`;
+    if(raw < 1){ requestAnimationFrame(frame); }
+    else{
+      parkedPlane.style.transform = `rotate(${restRot}deg)`;
+      parkedPlane.style.opacity = "";
+    }
+  }
+  const pt0 = trailPath.getPointAtLength(0);
+  const ahead0 = trailPath.getPointAtLength(total * 0.012);
+  parkedPlane.style.opacity = "0";
+  parkedPlane.style.transform = `translate(${pt0.x * sx - homeX}px,${pt0.y * sy - homeY}px) rotate(${getPlaneAngle(pt0.x * sx, pt0.y * sy, ahead0.x * sx, ahead0.y * sy)}deg)`;
+  requestAnimationFrame(frame);
+}
 
-  card.addEventListener('mouseenter', (event) => {
-    const rect = card.getBoundingClientRect();
-    pill.style.left = `${event.clientX - rect.left + 18}px`;
-    pill.style.top = `${event.clientY - rect.top - 18}px`;
+/* ── PLANE GLIDES IN ON SCROLL ARRIVAL ──
+   If the visitor scrolls to the footer without taking the tour,
+   the plane flies the dotted trail and parks itself. */
+(function(){
+  if(!parkedPlane || !footer) return;
+  if(!("IntersectionObserver" in window)){
+    parkedPlane.classList.add("is-parked");
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(!en.isIntersecting || planeLanded || isFlying) return;
+      planeLanded = true;
+      io.disconnect();
+      if(reduceMotion){
+        parkedPlane.classList.add("is-parked");
+        return;
+      }
+      glideAlongTrail();
+    });
+  }, {threshold:.35});
+  io.observe(footer);
+})();
+
+/* ── LEAVE YOUR MARK — signature, memory, and the card flip ── */
+(function(){
+  const field = document.getElementById("mailField");
+  const canvas = document.getElementById("sigCanvas");
+  const receive = document.getElementById("receiveMark");
+  const frontFace = document.getElementById("fieldFront");
+  const backFace = document.getElementById("fieldBack");
+  const viewBtn = document.getElementById("viewBtn");
+  const freshBtn = document.getElementById("freshBtn");
+  const flipBack = document.getElementById("flipBack");
+  const cardSig = document.getElementById("cardSig");
+  const cardPostmark = document.getElementById("cardPostmark");
+  const cardVisits = document.getElementById("cardVisits");
+  const cardNo = document.getElementById("cardNo");
+  if(!field || !canvas || !canvas.getContext) return;
+
+  const KEY = "nv_postcard";
+  const MO = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  const ctx = canvas.getContext("2d");
+  let drawing = false, last = null, nibW = 2.4, hasInk = false;
+  let finalizeT = null;
+  let state = null;
+
+  function todayISO(){
+    const d = new Date(), p = n => String(n).padStart(2,"0");
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+  function fmtMD(iso){ return MO[+iso.slice(5,7)-1] + " " + iso.slice(8,10); }
+  function loadState(){ try{ return JSON.parse(localStorage.getItem(KEY)) || null; }catch(e){ return null; } }
+  function saveState(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+  function pmSVG(ink, iso){
+    return '<svg width="150" height="90" viewBox="0 0 150 90">'
+      + '<g fill="none" stroke="' + ink + '" stroke-width="1.4">'
+      + '<circle cx="45" cy="45" r="42"/><circle cx="45" cy="45" r="31"/>'
+      + '<path d="M94 30 q9 -7 18 0 t18 0"/><path d="M94 45 q9 -7 18 0 t18 0"/><path d="M94 60 q9 -7 18 0 t18 0"/></g>'
+      + '<text font-family="DM Sans,sans-serif" font-size="7.2" letter-spacing="1.6" fill="' + ink + '"><textPath href="#pmArc">NAVYAA VEMURI \u00B7 CALIFORNIA</textPath></text>'
+      + '<text x="45" y="43" text-anchor="middle" font-size="9" letter-spacing="1" font-family="DM Sans,sans-serif" fill="' + ink + '">' + fmtMD(iso) + '</text>'
+      + '<text x="45" y="55" text-anchor="middle" font-size="9" letter-spacing="1" font-family="DM Sans,sans-serif" fill="' + ink + '">' + iso.slice(0,4) + '</text></svg>';
+  }
+
+  function applyInkStyle(){
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(31,64,92,.92)";
+  }
+
+  function size(){
+    const r = canvas.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    const dpr = window.devicePixelRatio || 1;
+    let snap = null;
+    if(hasInk){
+      snap = document.createElement("canvas");
+      snap.width = canvas.width; snap.height = canvas.height;
+      snap.getContext("2d").drawImage(canvas, 0, 0);
+    }
+    canvas.width = r.width * dpr;
+    canvas.height = r.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    applyInkStyle();
+    if(snap) ctx.drawImage(snap, 0, 0, r.width, r.height);
+  }
+
+  function pos(e){
+    const r = canvas.getBoundingClientRect();
+    return {x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now()};
+  }
+
+  function markReceived(iso, animate){
+    receive.innerHTML = pmSVG("#3B5BDB", iso);
+    if(animate){ requestAnimationFrame(() => receive.classList.add("is-stamped")); }
+    else{ receive.classList.add("is-stamped"); }
+    field.classList.add("is-signed");
+  }
+
+  function finalize(){
+    if(!hasInk) return;
+    const r = canvas.getBoundingClientRect();
+    const firstTime = !(state && state.sig);
+    if(firstTime){ state = {first: todayISO(), visits: [todayISO()]}; }
+    state.sig = canvas.toDataURL("image/png");
+    state.w = r.width; state.h = r.height;
+    saveState();
+    if(firstTime){ markReceived(state.first, true); }
+  }
+
+  canvas.addEventListener("pointerdown", e => {
+    clearTimeout(finalizeT);
+    drawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    last = pos(e);
+    nibW = 2.4;
+    e.preventDefault();
   });
 
-  card.addEventListener('mousemove', (event) => {
-    const rect = card.getBoundingClientRect();
-    pill.style.left = `${event.clientX - rect.left + 18}px`;
-    pill.style.top = `${event.clientY - rect.top - 18}px`;
+  canvas.addEventListener("pointermove", e => {
+    if(!drawing || !last) return;
+    const p = pos(e);
+    const dist = Math.hypot(p.x - last.x, p.y - last.y);
+    const speed = dist / Math.max(p.t - last.t, 1);
+    const target = Math.max(1.1, 2.7 - speed * 1.4);
+    nibW += (target - nibW) * 0.3;
+    ctx.lineWidth = nibW;
+    ctx.beginPath();
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    last = p;
+    if(!hasInk){ hasInk = true; field.classList.add("has-ink"); }
   });
-});
 
+  const endStroke = () => {
+    if(drawing && hasInk){
+      clearTimeout(finalizeT);
+      finalizeT = setTimeout(finalize, 900);
+    }
+    drawing = false; last = null;
+  };
+  canvas.addEventListener("pointerup", endStroke);
+  canvas.addEventListener("pointercancel", endStroke);
+
+  function renderBack(){
+    if(!state || !state.sig) return;
+    cardSig.src = state.sig;
+    cardSig.style.display = "block";
+    cardPostmark.innerHTML = pmSVG("#3B5BDB", state.first);
+    cardNo.textContent = "CARD NO. " + state.first.slice(0,4) + "-" + state.first.slice(5,7) + state.first.slice(8,10);
+    const returns = state.visits.slice(1);
+    if(!returns.length){
+      cardVisits.innerHTML = "";
+    } else if(returns.length <= 5){
+      cardVisits.innerHTML = returns.map((v,i) =>
+        '<svg width="30" height="30" viewBox="0 0 30 30" style="transform:rotate(' + ((i*37)%15 - 7) + 'deg);opacity:.6" aria-hidden="true">'
+        + '<circle cx="15" cy="15" r="13" fill="none" stroke="#3B5BDB" stroke-width="1"/>'
+        + '<circle cx="15" cy="15" r="9.5" fill="none" stroke="#3B5BDB" stroke-width="1"/>'
+        + '<text x="15" y="17.5" text-anchor="middle" font-size="5.4" letter-spacing=".5" font-family="DM Sans,sans-serif" fill="#3B5BDB">'
+        + v.slice(5,7) + "\u00B7" + v.slice(8,10) + '</text></svg>'
+      ).join("");
+    } else {
+      cardVisits.textContent = "VISIT NO. " + state.visits.length;
+    }
+  }
+
+  if(viewBtn){
+    viewBtn.addEventListener("click", () => {
+      if(!state || !state.sig) return;
+      renderBack();
+      field.classList.add("is-flipped");
+      backFace.setAttribute("aria-hidden", "false");
+      frontFace.setAttribute("aria-hidden", "true");
+    });
+  }
+  if(flipBack){
+    flipBack.addEventListener("click", () => {
+      field.classList.remove("is-flipped");
+      backFace.setAttribute("aria-hidden", "true");
+      frontFace.setAttribute("aria-hidden", "false");
+    });
+  }
+  if(freshBtn){
+    freshBtn.addEventListener("click", () => {
+      const r = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, r.width, r.height);
+      hasInk = false;
+      state = null;
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      clearTimeout(finalizeT);
+      field.classList.remove("has-ink", "is-signed", "is-flipped");
+      receive.classList.remove("is-stamped");
+      receive.innerHTML = "";
+      cardSig.style.display = "none";
+      backFace.setAttribute("aria-hidden", "true");
+      frontFace.setAttribute("aria-hidden", "false");
+    });
+  }
+
+  size();
+
+  /* Returning visitor: restore signature, add today's postmark if it's a new day */
+  state = loadState();
+  if(state && state.sig){
+    if(!Array.isArray(state.visits)) state.visits = [state.first || todayISO()];
+    if(state.visits.indexOf(todayISO()) === -1){
+      state.visits.push(todayISO());
+      saveState();
+    }
+    const img = new Image();
+    img.onload = () => {
+      const r = canvas.getBoundingClientRect();
+      const w = state.w || r.width, h = state.h || r.height;
+      const sc = Math.min(r.width / w, r.height / h, 1);
+      ctx.drawImage(img, 0, 0, w * sc, h * sc);
+      hasInk = true;
+      field.classList.add("has-ink");
+    };
+    img.src = state.sig;
+    markReceived(state.first || todayISO(), false);
+  }
+
+  let resizeT = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(size, 150);
+  });
+})();
+
+
+/* ── MAIL PILE — draggable prints ── */
+(function(){
+  const pile = document.getElementById("mailPile");
+  if(!pile) return;
+  const prints = [...pile.querySelectorAll(".print")];
+  const SEEDS_D = [[5,8,-4],[40,3,3],[64,7,-2.5],[21,45,5],[48,48,-3],[81,56,6]];
+  const SEEDS_M = [[2,2,-3],[46,2,3],[52,28,-2],[4,36,4],[28,58,-3],[58,72,5]];
+  let zTop = 10;
+  const isMobile = () => window.innerWidth <= 640;
+
+  function sizeImg(p){
+    const img = p.querySelector(".print-photo");
+    if(!img || !img.naturalWidth) return;
+    const S = +p.dataset.size || 300;
+    const cap = isMobile() ? Math.round(S * 0.52) : S;
+    if(img.naturalWidth >= img.naturalHeight){ img.style.width = cap + "px"; img.style.height = "auto"; }
+    else{ img.style.height = cap + "px"; img.style.width = "auto"; }
+  }
+
+  function seed(){
+    const S = isMobile() ? SEEDS_M : SEEDS_D;
+    prints.forEach((p, i) => {
+      const s = S[i % S.length];
+      p.style.left = s[0] + "%";
+      p.style.top = s[1] + "%";
+      p.style.setProperty("--r", s[2] + "deg");
+    });
+  }
+
+  prints.forEach(p => {
+    const img = p.querySelector(".print-photo");
+    if(img){
+      if(img.complete && img.naturalWidth){ sizeImg(p); }
+      else{ img.addEventListener("load", () => sizeImg(p)); }
+    }
+    p.addEventListener("pointerdown", e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      p.setPointerCapture(e.pointerId);
+      const pr = p.getBoundingClientRect();
+      const cr = pile.getBoundingClientRect();
+      const ox = e.clientX - pr.left, oy = e.clientY - pr.top;
+      p.style.zIndex = ++zTop;
+      p.classList.add("lifting");
+      const move = ev => {
+        let x = ev.clientX - cr.left - ox;
+        let y = ev.clientY - cr.top - oy;
+        x = Math.max(-pr.width * 0.25, Math.min(x, cr.width - pr.width * 0.7));
+        y = Math.max(-pr.height * 0.2, Math.min(y, cr.height - pr.height * 0.55));
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+      };
+      const up = () => {
+        p.classList.remove("lifting");
+        p.removeEventListener("pointermove", move);
+        p.removeEventListener("pointerup", up);
+        p.removeEventListener("pointercancel", up);
+      };
+      p.addEventListener("pointermove", move);
+      p.addEventListener("pointerup", up);
+      p.addEventListener("pointercancel", up);
+    });
+  });
+
+  seed();
+  let wasMobile = isMobile();
+  let rt = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => {
+      if(isMobile() !== wasMobile){
+        wasMobile = isMobile();
+        seed();
+        prints.forEach(sizeImg);
+      }
+    }, 150);
+  });
+})();
 </script>
 </body>
 </html>
