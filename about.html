@@ -397,9 +397,9 @@ img{max-width:100%;display:block;}
     <section class="about-row">
       <h1 class="row-label">To: Visitor</h1>
       <div class="row-content">
-        <p class="about-p">Hi, I'm Navyaa &#8212; a designer interested in how people find information, decide what to trust, and move forward with confidence.</p>
+        <p class="about-p">Oh hey!! I'm Navyaa, a product designer who loves designing for how people find information, decide what to trust, and move forward with confidence.</p>
         <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
-        <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just because.</p>
+        <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, teaching music to children, taking photos, or making something just because.</p>
         <div class="signature-block">
           <div class="signature-best">Best,</div>
           <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
@@ -849,8 +849,9 @@ function glideAlongTrail(){
   const track = document.getElementById("deskTrack");
   const hint = document.getElementById("deskHint");
   if(!desk || !track) return;
+track.innerHTML += track.innerHTML;
   const prints = [...track.querySelectorAll(".print")];
-  const TRACK_W = 4740;
+  const HALF = prints.length / 2;  const TRACK_W = 4740;
   const TRACK_H = 560;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let scale = 1, x = 0;
@@ -859,15 +860,14 @@ function glideAlongTrail(){
   function calcScale(){
     return Math.min(Math.max(desk.clientHeight / TRACK_H, 0.5), 1.15);
   }
-  function minX(){ return Math.min(desk.clientWidth - TRACK_W * scale, 0); }
-  function clamp(v){ return Math.max(minX(), Math.min(0, v)); }
+ function clamp(v){ const w = TRACK_W * scale; return -((((-v) % w) + w) % w); }
   function apply(){ track.style.transform = "translate3d(" + x + "px,0,0)"; }
 
   function layout(){
     scale = calcScale();
-    track.style.width = TRACK_W * scale + "px";
-    prints.forEach(p => {
-      p.style.left = (+p.dataset.x) * scale + "px";
+    track.style.width = TRACK_W * 2 * scale + "px";
+    prints.forEach((p, i) => {
+      p.style.left = ((+p.dataset.x) + (i >= HALF ? TRACK_W : 0)) * scale + "px";
       p.style.top = (+p.dataset.y) * scale + "px";
       p.style.setProperty("--r", p.dataset.r + "deg");
       p.style.padding = Math.max(5, Math.round(9 * scale)) + "px";
@@ -918,11 +918,9 @@ function glideAlongTrail(){
     if(Math.abs(v) < 0.5) return;
     function glide(){
       v *= 0.94;
-      const next = clamp(x + v);
-      const hitEdge = next === x;
-      x = next;
+      x = clamp(x + v);
       apply();
-      if(!hitEdge && Math.abs(v) > 0.4){ raf = requestAnimationFrame(glide); }
+      if(Math.abs(v) > 0.4){ raf = requestAnimationFrame(glide); }
       else{ raf = null; }
     }
     raf = requestAnimationFrame(glide);
