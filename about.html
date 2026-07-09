@@ -21,19 +21,31 @@ img{max-width:100%;display:block;}
 
 /* NAV */
 .site-nav{
-  position:fixed;top:28px;right:clamp(24px,5vw,80px);z-index:9999;
-  display:flex;align-items:center;gap:clamp(28px,4vw,64px);
-  padding:12px 22px;background:rgba(248,241,228,.86);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(0,0,0,.08);border-radius:999px;
-  box-shadow:0 8px 24px rgba(0,0,0,.06);
-  font-size:18px;text-transform:uppercase;letter-spacing:-.035em;
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:24px clamp(24px,4vw,56px);
+  background:linear-gradient(to bottom,rgba(253,253,251,.92) 30%,rgba(253,253,251,0));
+  pointer-events:none;
 }
-.site-nav a{display:block;text-decoration:none;color:#111;white-space:nowrap;transition:opacity .2s ease;}
-.site-nav a:hover{opacity:.55;}
+.site-nav a{pointer-events:auto;text-decoration:none;}
+.nav-name{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:20px;color:#111;
+}
+.nav-links{
+  display:flex;gap:36px;
+  font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+}
+.nav-links a{
+  color:#6A6A6A;padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:color .2s ease,border-color .2s ease;
+}
+.nav-links a:hover{color:#111;}
+.nav-links a.active{color:#111;border-bottom-color:#111;}
 
 /* PAGE */
-.page{width:100%;max-width:1440px;margin:0 auto;padding:126px 48px 110px;}
+.page{width:100%;max-width:1440px;margin:0 auto;padding:0 48px 110px;}
 
 /* SECTION HEADINGS — homepage language */
 .rule-heading{
@@ -42,54 +54,42 @@ img{max-width:100%;display:block;}
   font-size:19px;font-weight:400;
 }
 .rule-heading .rule{flex:1;height:1px;background:var(--border);}
-.pile-hint{
-  font-size:11px;letter-spacing:.2em;color:#B0AA9B;
-  text-transform:uppercase;white-space:nowrap;
-}
 
-/* MAIL PILE — draggable prints */
-.mail-pile{
-  position:relative;
-  height:min(66vh,620px);min-height:470px;
-  margin-top:30px;
+/* PRINT DESK — full-bleed pannable strip */
+.desk{
+  position:relative;width:100%;
+  height:min(64vh,680px);min-height:420px;
+  overflow:hidden;cursor:grab;touch-action:pan-y;outline:none;
 }
+.desk:focus-visible{box-shadow:inset 0 0 0 2px var(--blue);}
+.desk.dragging{cursor:grabbing;}
+.desk-track{position:absolute;top:0;left:0;height:100%;will-change:transform;}
 .print{
-  position:absolute;
-  background:#fff;padding:10px;
-  box-shadow:0 6px 18px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.08);
-  cursor:grab;user-select:none;-webkit-user-select:none;
-  transform:rotate(var(--r,0deg));
-  transition:transform .18s ease,box-shadow .18s ease;
+  position:absolute;background:#fff;padding:9px;
+  box-shadow:0 5px 16px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.07);
+  transform:rotate(var(--r,0deg));pointer-events:none;
+  user-select:none;-webkit-user-select:none;
 }
-@media(min-width:641px){.print{touch-action:none;}}
-.print.lifting{
-  cursor:grabbing;
-  transform:rotate(var(--r,0deg)) scale(1.045);
-  box-shadow:0 24px 48px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.1);
-  transition:transform .12s ease,box-shadow .12s ease;
-}
-.print.captioned{padding-bottom:32px;}
-.print-photo{display:block;pointer-events:none;filter:saturate(.97);}
-.print-caption{
-  position:absolute;left:10px;right:10px;bottom:9px;
-  text-align:center;font-size:9.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:#8A8577;pointer-events:none;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
+.print-photo{display:block;filter:saturate(.97);}
 .mini-postcard .mini-inner{
-  position:relative;width:200px;height:136px;
-  background:var(--paper);border:.5px solid rgba(0,0,0,.1);
-  pointer-events:none;
+  position:relative;background:var(--paper);
+  border:.5px solid rgba(0,0,0,.1);
 }
-.mini-stamp{position:absolute;top:9px;right:9px;width:46px;}
+.mini-stamp{position:absolute;top:8%;right:5%;width:23%;}
 .mini-hello{
-  position:absolute;left:14px;bottom:12px;
+  position:absolute;left:7%;bottom:9%;
   font-family:"Goudy Bookletter 1911",serif;font-style:italic;
   font-size:19px;color:#111;
 }
+.desk-hint{
+  position:absolute;left:50%;bottom:14px;transform:translateX(-50%);
+  font-size:11px;letter-spacing:.24em;color:#B8B2A2;
+  text-transform:uppercase;pointer-events:none;white-space:nowrap;
+  transition:opacity .3s ease;
+}
 
 /* INTRO */
-.intro{margin-top:96px;max-width:680px;}
+.intro{margin-top:88px;max-width:680px;}
 .note-label{
   font-family:"Goudy Bookletter 1911",serif;font-weight:400;
   font-size:clamp(30px,2.8vw,40px);letter-spacing:-.02em;
@@ -296,21 +296,16 @@ img{max-width:100%;display:block;}
   .postcard-plane{width:80px;top:10px;right:4%;}
 }
 @media(max-width:900px){
-  .page{padding:110px 24px 80px;}
+  .page{padding:0 24px 80px;}
   .ledger-grid{grid-template-columns:1fr;}
 }
 @media(max-width:640px){
-  .site-nav{top:22px;right:24px;gap:24px;font-size:13px;}
-  .page{padding:100px 20px 64px;}
+  .site-nav{padding:16px 20px;}
+  .nav-name{font-size:17px;}
+  .nav-links{gap:22px;font-size:11px;letter-spacing:.14em;}
+  .page{padding:0 20px 64px;}
   .rule-heading{font-size:15px;gap:16px;}
-  .pile-hint{display:none;}
-  .mail-pile{height:480px;min-height:480px;margin-top:22px;}
-  .print{padding:7px;}
-  .print.captioned{padding-bottom:24px;}
-  .print-caption{font-size:8px;letter-spacing:.16em;bottom:7px;}
-  .mini-postcard .mini-inner{width:132px;height:90px;}
-  .mini-stamp{width:32px;top:6px;right:6px;}
-  .mini-hello{font-size:15px;left:9px;bottom:7px;}
+  .desk-hint{font-size:9px;letter-spacing:.18em;bottom:10px;}
   .intro{margin-top:64px;}
   .about-p{font-size:15px;}
   .ledger{margin-top:64px;}
@@ -341,42 +336,74 @@ img{max-width:100%;display:block;}
 </head>
 <body>
 <nav class="site-nav" aria-label="Primary navigation">
-  <a href="portfolio.html#collection">Collection</a>
-  <a href="about.html">About</a>
+  <a class="nav-name" href="portfolio.html">Navyaa Vemuri</a>
+  <div class="nav-links">
+    <a href="portfolio.html#collection">Collection</a>
+    <a href="about.html" class="active">About</a>
+  </div>
 </nav>
+
+<section class="desk" id="desk" tabindex="0" role="region" aria-label="Pannable photo strip. Use left and right arrow keys to explore.">
+  <div class="desk-track" id="deskTrack">
+    <div class="print" data-cap="340" data-x="-60" data-y="110" data-r="-2">
+      <img class="print-photo" src="leadership-1.png" alt="Iter8 design community group photo" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="240" data-x="330" data-y="320" data-r="3">
+      <img class="print-photo" src="froyo.png" alt="Frozen yogurt cups held together" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="300" data-x="560" data-y="80" data-r="2">
+      <img class="print-photo" src="me-2.jpeg" alt="Standing above the Golden Gate Bridge" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="300" data-x="880" data-y="340" data-r="-1.5">
+      <img class="print-photo" src="noodles.jpeg" alt="Friends assembling noodle bowls" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="260" data-x="1140" data-y="70" data-r="-3">
+      <img class="print-photo" src="henna.jpeg" alt="Henna on my hand" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="250" data-x="1180" data-y="365" data-r="2">
+      <img class="print-photo" src="food-1.jpeg" alt="Curry noodle soup" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="330" data-x="1430" data-y="120" data-r="1.5">
+      <img class="print-photo" src="iter8.jpeg" alt="Teaching a design workshop in a lecture hall" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="280" data-x="1750" data-y="370" data-r="-2">
+      <img class="print-photo" src="me.jpeg" alt="Leaning on a giant pink heart sculpture" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="300" data-x="1770" data-y="40" data-r="-2">
+      <img class="print-photo" src="edge.jpeg" alt="New York City from the Edge" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print mini-postcard" data-x="2060" data-y="365" data-r="2">
+      <div class="mini-inner">
+        <img src="stamp.png" alt="" class="mini-stamp" onerror="this.style.display='none'">
+        <p class="mini-hello">hello!</p>
+      </div>
+    </div>
+    <div class="print" data-cap="320" data-x="2100" data-y="90" data-r="2">
+      <img class="print-photo" src="singing.jpeg" alt="A cappella group on stage" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="240" data-x="2400" data-y="380" data-r="-2.5">
+      <img class="print-photo" src="food.jpeg" alt="Lemon orzo I made" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="300" data-x="2440" data-y="50" data-r="-2">
+      <img class="print-photo" src="nyc.jpeg" alt="Brooklyn Bridge at night" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="290" data-x="2700" data-y="335" data-r="-1.5">
+      <img class="print-photo" src="me-1.jpeg" alt="Selfie under the palms in Cancun" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="280" data-x="2760" data-y="25" data-r="-2">
+      <img class="print-photo" src="pic.jpeg" alt="Graduation gown on the SLO coast" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="print" data-cap="260" data-x="3020" data-y="330" data-r="3">
+      <img class="print-photo" src="about-4.jpg" alt="Behind the DJ decks" draggable="false" onerror="this.parentElement.style.display='none'">
+    </div>
+  </div>
+  <span class="desk-hint" id="deskHint">Drag to explore</span>
+</section>
 
 <main class="page">
 
-  <section aria-label="A pile of photo prints — drag them around">
-    <p class="rule-heading">Out of the envelope<span class="rule"></span><span class="pile-hint">go ahead &#8212; move things around</span></p>
-    <div class="mail-pile" id="mailPile">
-      <div class="print captioned" data-size="360">
-        <img class="print-photo" src="leadership-1.png" alt="Iter8 design community group photo" onerror="this.parentElement.style.display='none'">
-        <p class="print-caption">Design community builder</p>
-      </div>
-      <div class="print captioned" data-size="280">
-        <img class="print-photo" src="about-4.jpg" alt="DJ setup" onerror="this.parentElement.style.display='none'">
-        <p class="print-caption">Brief DJ era</p>
-      </div>
-      <div class="print" data-size="330">
-        <img class="print-photo" src="about-5.png" alt="New York City view from the Edge" onerror="this.parentElement.style.display='none'">
-      </div>
-      <div class="print captioned" data-size="300">
-        <img class="print-photo" src="about-3.jpeg" alt="Bánh mì" onerror="this.parentElement.style.display='none'">
-        <p class="print-caption">Always planning my next meal</p>
-      </div>
-      <div class="print captioned" data-size="310">
-        <img class="print-photo" src="hobby-5.jpg" alt="Singing on stage" onerror="this.parentElement.style.display='none'">
-        <p class="print-caption">Singing since I was four</p>
-      </div>
-      <div class="print mini-postcard">
-        <div class="mini-inner">
-          <img src="stamp.png" alt="" class="mini-stamp" onerror="this.style.display='none'">
-          <p class="mini-hello">hello!</p>
-        </div>
-      </div>
-    </div>
-  </section>
+
+
 
   <section class="intro">
     <h1 class="note-label">To: Visitor</h1>
@@ -824,82 +851,124 @@ function glideAlongTrail(){
 })();
 
 
-/* ── MAIL PILE — draggable prints ── */
+/* ── PRINT DESK — horizontal pan with momentum ── */
 (function(){
-  const pile = document.getElementById("mailPile");
-  if(!pile) return;
-  const prints = [...pile.querySelectorAll(".print")];
-  const SEEDS_D = [[5,8,-4],[40,3,3],[64,7,-2.5],[21,45,5],[48,48,-3],[81,56,6]];
-  const SEEDS_M = [[2,2,-3],[46,2,3],[52,28,-2],[4,36,4],[28,58,-3],[58,72,5]];
-  let zTop = 10;
-  const isMobile = () => window.innerWidth <= 640;
+  const desk = document.getElementById("desk");
+  const track = document.getElementById("deskTrack");
+  const hint = document.getElementById("deskHint");
+  if(!desk || !track) return;
+  const prints = [...track.querySelectorAll(".print")];
+  const TRACK_W = 3320;
+  const TRACK_H = 560;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let scale = 1, x = 0;
+  let dragging = false, sx = 0, sp = 0, vx = 0, lx = 0, lt = 0, raf = null, moved = false;
 
-  function sizeImg(p){
-    const img = p.querySelector(".print-photo");
-    if(!img || !img.naturalWidth) return;
-    const S = +p.dataset.size || 300;
-    const cap = isMobile() ? Math.round(S * 0.52) : S;
-    if(img.naturalWidth >= img.naturalHeight){ img.style.width = cap + "px"; img.style.height = "auto"; }
-    else{ img.style.height = cap + "px"; img.style.width = "auto"; }
+  function calcScale(){
+    return Math.min(Math.max(desk.clientHeight / TRACK_H, 0.5), 1.15);
   }
+  function minX(){ return Math.min(desk.clientWidth - TRACK_W * scale, 0); }
+  function clamp(v){ return Math.max(minX(), Math.min(0, v)); }
+  function apply(){ track.style.transform = "translate3d(" + x + "px,0,0)"; }
 
-  function seed(){
-    const S = isMobile() ? SEEDS_M : SEEDS_D;
-    prints.forEach((p, i) => {
-      const s = S[i % S.length];
-      p.style.left = s[0] + "%";
-      p.style.top = s[1] + "%";
-      p.style.setProperty("--r", s[2] + "deg");
+  function layout(){
+    scale = calcScale();
+    track.style.width = TRACK_W * scale + "px";
+    prints.forEach(p => {
+      p.style.left = (+p.dataset.x) * scale + "px";
+      p.style.top = (+p.dataset.y) * scale + "px";
+      p.style.setProperty("--r", p.dataset.r + "deg");
+      p.style.padding = Math.max(5, Math.round(9 * scale)) + "px";
+      const img = p.querySelector(".print-photo");
+      if(img && img.naturalWidth){
+        const cap = (+p.dataset.cap || 300) * scale;
+        if(img.naturalWidth >= img.naturalHeight){ img.style.width = cap + "px"; img.style.height = "auto"; }
+        else{ img.style.height = cap + "px"; img.style.width = "auto"; }
+      }
+      const mini = p.querySelector(".mini-inner");
+      if(mini){ mini.style.width = 200 * scale + "px"; mini.style.height = 134 * scale + "px";
+        const hello = p.querySelector(".mini-hello");
+        if(hello){ hello.style.fontSize = Math.max(12, Math.round(19 * scale)) + "px"; } }
     });
+    x = clamp(x);
+    apply();
   }
+
+  function hideHint(){
+    if(hint){ hint.style.opacity = "0"; }
+  }
+
+  desk.addEventListener("pointerdown", e => {
+    dragging = true; moved = false;
+    desk.setPointerCapture(e.pointerId);
+    desk.classList.add("dragging");
+    sx = e.clientX; sp = x; vx = 0; lx = e.clientX; lt = performance.now();
+    if(raf){ cancelAnimationFrame(raf); raf = null; }
+  });
+
+  desk.addEventListener("pointermove", e => {
+    if(!dragging) return;
+    const now = performance.now();
+    x = clamp(sp + (e.clientX - sx));
+    apply();
+    const dt = now - lt;
+    if(dt > 0){ vx = (e.clientX - lx) / dt; }
+    lx = e.clientX; lt = now;
+    if(!moved && Math.abs(e.clientX - sx) > 10){ moved = true; hideHint(); }
+  });
+
+  function endDrag(){
+    if(!dragging) return;
+    dragging = false;
+    desk.classList.remove("dragging");
+    if(reduce) return;
+    let v = vx * 16;
+    if(Math.abs(v) < 0.5) return;
+    function glide(){
+      v *= 0.94;
+      const next = clamp(x + v);
+      const hitEdge = next === x;
+      x = next;
+      apply();
+      if(!hitEdge && Math.abs(v) > 0.4){ raf = requestAnimationFrame(glide); }
+      else{ raf = null; }
+    }
+    raf = requestAnimationFrame(glide);
+  }
+  desk.addEventListener("pointerup", endDrag);
+  desk.addEventListener("pointercancel", endDrag);
+
+  desk.addEventListener("wheel", e => {
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)){
+      x = clamp(x - e.deltaX);
+      apply();
+      hideHint();
+      e.preventDefault();
+    }
+  }, {passive:false});
+
+  desk.addEventListener("keydown", e => {
+    if(e.key === "ArrowLeft" || e.key === "ArrowRight"){
+      x = clamp(x + (e.key === "ArrowLeft" ? 120 : -120));
+      apply();
+      hideHint();
+      e.preventDefault();
+    }
+  });
 
   prints.forEach(p => {
     const img = p.querySelector(".print-photo");
-    if(img){
-      if(img.complete && img.naturalWidth){ sizeImg(p); }
-      else{ img.addEventListener("load", () => sizeImg(p)); }
-    }
-    p.addEventListener("pointerdown", e => {
-      if(isMobile()) return;
-      e.preventDefault();
-      p.setPointerCapture(e.pointerId);
-      const pr = p.getBoundingClientRect();
-      const cr = pile.getBoundingClientRect();
-      const ox = e.clientX - pr.left, oy = e.clientY - pr.top;
-      p.style.zIndex = ++zTop;
-      p.classList.add("lifting");
-      const move = ev => {
-        let x = ev.clientX - cr.left - ox;
-        let y = ev.clientY - cr.top - oy;
-        x = Math.max(-pr.width * 0.25, Math.min(x, cr.width - pr.width * 0.7));
-        y = Math.max(-pr.height * 0.2, Math.min(y, cr.height - pr.height * 0.55));
-        p.style.left = x + "px";
-        p.style.top = y + "px";
-      };
-      const up = () => {
-        p.classList.remove("lifting");
-        p.removeEventListener("pointermove", move);
-        p.removeEventListener("pointerup", up);
-        p.removeEventListener("pointercancel", up);
-      };
-      p.addEventListener("pointermove", move);
-      p.addEventListener("pointerup", up);
-      p.addEventListener("pointercancel", up);
-    });
+    if(img && !img.complete){ img.addEventListener("load", layout); }
   });
 
-  seed();
-  let wasMobile = isMobile();
+  layout();
+  x = clamp(-70 * scale);
+  apply();
+
   let rt = null;
   window.addEventListener("resize", () => {
     clearTimeout(rt);
-    rt = setTimeout(() => {
-      if(isMobile() !== wasMobile){
-        wasMobile = isMobile();
-        seed();
-        prints.forEach(sizeImg);
-      }
-    }, 150);
+    rt = setTimeout(layout, 150);
   });
 })();
 </script>
