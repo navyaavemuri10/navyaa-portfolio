@@ -22,17 +22,29 @@ img,video{max-width:100%;display:block;}
 
 /* NAV */
 .site-nav{
-  position:fixed;top:28px;right:clamp(24px,5vw,80px);z-index:9999;
-  display:flex;align-items:center;gap:clamp(28px,4vw,64px);
-  padding:12px 22px;background:rgba(248,241,228,.86);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(0,0,0,.08);border-radius:999px;
-  box-shadow:0 8px 24px rgba(0,0,0,.06);
-  font-family:"DM Sans",sans-serif;font-size:18px;
-  text-transform:uppercase;letter-spacing:-.035em;
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:24px clamp(24px,4vw,56px);
+  background:linear-gradient(to bottom,rgba(253,253,251,.92) 30%,rgba(253,253,251,0));
+  pointer-events:none;
 }
-.site-nav a{display:block;text-decoration:none;color:#111;white-space:nowrap;}
-.site-nav a:hover{opacity:.55;}
+.site-nav a{pointer-events:auto;text-decoration:none;}
+.nav-name{
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:20px;color:#111;
+}
+.nav-links{
+  display:flex;gap:36px;
+  font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+  font-family:"DM Sans",sans-serif;
+}
+.nav-links a{
+  color:#6A6A6A;padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:color .2s ease,border-color .2s ease;
+}
+.nav-links a:hover{color:#111;}
+.nav-links a.active{color:#111;border-bottom-color:#111;}
 
 /* HERO */
 .hero{
@@ -441,7 +453,9 @@ gap:54px;
   .hero-grid-svg,.stamp-grid-layer,.hover-bubble{display:none;}
 }
 @media(max-width:640px){
-  .site-nav{top:22px;right:24px;gap:24px;font-size:13px;}
+  .site-nav{padding:16px 20px;}
+  .nav-name{font-size:17px;}
+  .nav-links{gap:22px;font-size:11px;letter-spacing:.14em;}
   .hero{min-height:100vh;padding:130px 24px 90px;align-items:flex-start;}
   .hero h1{font-size:42px;}
   .hero-subtitle{font-size:36px;line-height:1.2;}
@@ -479,8 +493,11 @@ gap:54px;
 <body id="top">
 
 <nav class="site-nav" aria-label="Primary navigation">
-  <a href="#collection">Collection</a>
-  <a href="about.html">About</a>
+  <a class="nav-name" href="#top">Navyaa Vemuri</a>
+  <div class="nav-links">
+    <a href="#collection">Collection</a>
+    <a href="about.html">About</a>
+  </div>
 </nav>
 
 <header class="hero">
