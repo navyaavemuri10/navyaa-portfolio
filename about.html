@@ -48,12 +48,6 @@ img{max-width:100%;display:block;}
 .page{width:100%;max-width:1440px;margin:0 auto;padding:0 48px 110px;}
 
 /* SECTION HEADINGS — homepage language */
-.rule-heading{
-  display:flex;align-items:center;gap:24px;
-  color:#505050;text-transform:uppercase;letter-spacing:.02em;
-  font-size:19px;font-weight:400;
-}
-.rule-heading .rule{flex:1;height:1px;background:var(--border);}
 
 /* PRINT DESK — full-bleed pannable strip */
 .desk{
@@ -88,45 +82,41 @@ img{max-width:100%;display:block;}
   transition:opacity .3s ease;
 }
 
-/* INTRO */
-.intro{margin-top:88px;max-width:680px;}
-.note-label{
-  font-family:"Goudy Bookletter 1911",serif;font-weight:400;
-  font-size:clamp(30px,2.8vw,40px);letter-spacing:-.02em;
-  color:#3B3B3B;margin-bottom:26px;
+/* ABOUT ROWS — label left, content right */
+.about-rows{margin-top:64px;}
+.about-row{
+  display:grid;grid-template-columns:300px minmax(0,1fr);
+  gap:clamp(40px,6vw,96px);
+  padding:64px 0;
+}
+.about-row + .about-row{border-top:.5px solid var(--border);}
+.about-rows .about-row:first-child{padding-top:40px;}
+.row-label{
+  font-size:16px;font-weight:500;letter-spacing:-.01em;
+  color:var(--text);line-height:1.4;
 }
 .about-p{
-  font-size:16px;line-height:1.78;letter-spacing:-.005em;
-  color:var(--muted);margin-bottom:18px;
+  font-size:17px;line-height:1.8;letter-spacing:-.005em;
+  color:#55524B;margin-bottom:20px;max-width:920px;
 }
-.signature-block{margin-top:36px;}
+.signature-block{margin-top:34px;}
 .signature-best{
   font-family:"Goudy Bookletter 1911",serif;font-style:italic;
   font-size:20px;color:#111;margin-bottom:12px;
 }
 .signature-img{width:150px;opacity:.75;}
 
-/* LEDGER — two columns */
-.ledger{margin-top:96px;}
-.ledger-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:56px 84px;margin-top:34px;
-}
-.ledger-col{display:flex;flex-direction:column;gap:44px;}
-.ledger-section .sub-heading{
-  font-size:13px;letter-spacing:.2em;text-transform:uppercase;
-  color:#8A8577;margin-bottom:14px;font-weight:500;
-}
+/* Record lists */
 .info-list{border-top:.5px solid var(--border);}
 .info-row{
-  display:grid;grid-template-columns:1fr auto;gap:16px;
-  padding:12px 0;border-bottom:.5px solid var(--border);
+  display:grid;grid-template-columns:1fr auto;gap:20px;
+  padding:16px 0;border-bottom:.5px solid var(--border);
   align-items:baseline;
 }
-.info-main{font-size:15px;line-height:1.35;letter-spacing:-.01em;color:var(--text);}
+.info-main{font-size:16px;line-height:1.4;letter-spacing:-.01em;color:var(--text);}
 .info-main span{color:var(--dim);}
-.info-date{font-size:13px;color:var(--dim);white-space:nowrap;}
-.info-sub{font-size:12px;color:var(--muted);line-height:1.55;margin-top:5px;}
+.info-date{font-size:14px;color:var(--dim);white-space:nowrap;}
+.info-sub{font-size:13px;color:var(--muted);line-height:1.55;margin-top:5px;}
 
 /* ENVELOPE FOOTER */
 .postcard-footer{
@@ -291,24 +281,21 @@ img{max-width:100%;display:block;}
 
 /* RESPONSIVE */
 @media(max-width:1000px){
-  .ledger-grid{gap:44px 56px;}
   .mail-field{height:300px;}
   .postcard-plane{width:80px;top:10px;right:4%;}
 }
 @media(max-width:900px){
   .page{padding:0 24px 80px;}
-  .ledger-grid{grid-template-columns:1fr;}
+  .about-row{grid-template-columns:1fr;gap:22px;padding:44px 0;}
 }
 @media(max-width:640px){
   .site-nav{padding:16px 20px;}
   .nav-name{font-size:17px;}
   .nav-links{gap:22px;font-size:11px;letter-spacing:.14em;}
   .page{padding:0 20px 64px;}
-  .rule-heading{font-size:15px;gap:16px;}
   .desk-hint{font-size:9px;letter-spacing:.18em;bottom:10px;}
-  .intro{margin-top:64px;}
+  .about-rows{margin-top:40px;}
   .about-p{font-size:15px;}
-  .ledger{margin-top:64px;}
   .info-row{grid-template-columns:1fr;gap:3px;}
   .envelope{padding:44px 20px 14px;}
   .envelope-cols{gap:36px;font-size:11px;letter-spacing:.16em;}
@@ -345,55 +332,55 @@ img{max-width:100%;display:block;}
 
 <section class="desk" id="desk" tabindex="0" role="region" aria-label="Pannable photo strip. Use left and right arrow keys to explore.">
   <div class="desk-track" id="deskTrack">
-    <div class="print" data-cap="340" data-x="-60" data-y="110" data-r="-2">
+    <div class="print" data-cap="340" data-x="-60" data-y="90" data-r="-2">
       <img class="print-photo" src="leadership-1.png" alt="Iter8 design community group photo" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="240" data-x="330" data-y="320" data-r="3">
+    <div class="print" data-cap="240" data-x="350" data-y="330" data-r="3">
       <img class="print-photo" src="froyo.png" alt="Frozen yogurt cups held together" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="300" data-x="560" data-y="80" data-r="2">
+    <div class="print" data-cap="300" data-x="600" data-y="60" data-r="2">
       <img class="print-photo" src="me-2.jpeg" alt="Standing above the Golden Gate Bridge" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="300" data-x="880" data-y="340" data-r="-1.5">
+    <div class="print" data-cap="300" data-x="890" data-y="340" data-r="-1.5">
       <img class="print-photo" src="noodles.jpeg" alt="Friends assembling noodle bowls" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="260" data-x="1140" data-y="70" data-r="-3">
+    <div class="print" data-cap="260" data-x="1250" data-y="55" data-r="-3">
       <img class="print-photo" src="henna.jpeg" alt="Henna on my hand" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="250" data-x="1180" data-y="365" data-r="2">
+    <div class="print" data-cap="250" data-x="1510" data-y="330" data-r="2">
       <img class="print-photo" src="food-1.jpeg" alt="Curry noodle soup" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="330" data-x="1430" data-y="120" data-r="1.5">
+    <div class="print" data-cap="330" data-x="1760" data-y="80" data-r="1.5">
       <img class="print-photo" src="iter8.jpeg" alt="Teaching a design workshop in a lecture hall" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="280" data-x="1750" data-y="370" data-r="-2">
+    <div class="print" data-cap="280" data-x="2150" data-y="340" data-r="-2">
       <img class="print-photo" src="me.jpeg" alt="Leaning on a giant pink heart sculpture" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="300" data-x="1770" data-y="40" data-r="-2">
+    <div class="print" data-cap="300" data-x="2420" data-y="50" data-r="-2">
       <img class="print-photo" src="edge.jpeg" alt="New York City from the Edge" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print mini-postcard" data-x="2060" data-y="365" data-r="2">
+    <div class="print mini-postcard" data-x="2705" data-y="360" data-r="2">
       <div class="mini-inner">
         <img src="stamp.png" alt="" class="mini-stamp" onerror="this.style.display='none'">
         <p class="mini-hello">hello!</p>
       </div>
     </div>
-    <div class="print" data-cap="320" data-x="2100" data-y="90" data-r="2">
+    <div class="print" data-cap="320" data-x="2965" data-y="85" data-r="2">
       <img class="print-photo" src="singing.jpeg" alt="A cappella group on stage" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="240" data-x="2400" data-y="380" data-r="-2.5">
+    <div class="print" data-cap="240" data-x="3345" data-y="340" data-r="-2.5">
       <img class="print-photo" src="food.jpeg" alt="Lemon orzo I made" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="300" data-x="2440" data-y="50" data-r="-2">
+    <div class="print" data-cap="300" data-x="3585" data-y="45" data-r="-2">
       <img class="print-photo" src="nyc.jpeg" alt="Brooklyn Bridge at night" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="290" data-x="2700" data-y="335" data-r="-1.5">
+    <div class="print" data-cap="290" data-x="3870" data-y="330" data-r="-1.5">
       <img class="print-photo" src="me-1.jpeg" alt="Selfie under the palms in Cancun" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="280" data-x="2760" data-y="25" data-r="-2">
+    <div class="print" data-cap="280" data-x="4150" data-y="40" data-r="-2">
       <img class="print-photo" src="pic.jpeg" alt="Graduation gown on the SLO coast" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
-    <div class="print" data-cap="260" data-x="3020" data-y="330" data-r="3">
+    <div class="print" data-cap="260" data-x="4420" data-y="330" data-r="3">
       <img class="print-photo" src="about-4.jpg" alt="Behind the DJ decks" draggable="false" onerror="this.parentElement.style.display='none'">
     </div>
   </div>
@@ -405,24 +392,25 @@ img{max-width:100%;display:block;}
 
 
 
-  <section class="intro">
-    <h1 class="note-label">To: Visitor</h1>
-    <p class="about-p">I'm Navyaa, a designer interested in how people find information, decide what to trust, and move forward with confidence.</p>
-    <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
-    <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just because.</p>
-    <div class="signature-block">
-      <div class="signature-best">Best,</div>
-      <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
-    </div>
-  </section>
+  <div class="about-rows">
 
-  <section class="ledger" aria-label="Experience, leadership, and education">
-    <p class="rule-heading">The record<span class="rule"></span></p>
-    <div class="ledger-grid">
-      <div class="ledger-col">
-        <section class="ledger-section">
-          <h2 class="sub-heading">Experience</h2>
-          <div class="info-list">
+    <section class="about-row">
+      <h1 class="row-label">To: Visitor</h1>
+      <div class="row-content">
+        <p class="about-p">Hi, I'm Navyaa &#8212; a designer interested in how people find information, decide what to trust, and move forward with confidence.</p>
+        <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
+        <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, taking photos, or making something just because.</p>
+        <div class="signature-block">
+          <div class="signature-best">Best,</div>
+          <img class="signature-img" src="signature.png" alt="Navyaa signature" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </section>
+
+    <section class="about-row">
+      <h2 class="row-label">Experience</h2>
+      <div class="row-content">
+        <div class="info-list">
             <div class="info-row">
               <div>
                 <div class="info-main">Tesla <span>/ UX Consultant</span></div>
@@ -451,13 +439,14 @@ img{max-width:100%;display:block;}
               </div>
               <div class="info-date">2023&#8211;2025</div>
             </div>
-          </div>
-        </section>
+        </div>
       </div>
-      <div class="ledger-col">
-        <section class="ledger-section">
-          <h2 class="sub-heading">Leadership</h2>
-          <div class="info-list">
+    </section>
+
+    <section class="about-row">
+      <h2 class="row-label">Leadership</h2>
+      <div class="row-content">
+        <div class="info-list">
             <div class="info-row">
               <div>
                 <div class="info-main">Cal Poly iter8 <span>/ President</span></div>
@@ -472,11 +461,14 @@ img{max-width:100%;display:block;}
               </div>
               <div class="info-date">2023&#8211;2024</div>
             </div>
-          </div>
-        </section>
-        <section class="ledger-section">
-          <h2 class="sub-heading">Education</h2>
-          <div class="info-list">
+        </div>
+      </div>
+    </section>
+
+    <section class="about-row">
+      <h2 class="row-label">Education</h2>
+      <div class="row-content">
+        <div class="info-list">
             <div class="info-row">
               <div>
                 <div class="info-main">Cal Poly SLO <span>/ Graphic Communication</span></div>
@@ -484,11 +476,11 @@ img{max-width:100%;display:block;}
               </div>
               <div class="info-date">2025</div>
             </div>
-          </div>
-        </section>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+  </div>
 
 </main>
 
@@ -858,7 +850,7 @@ function glideAlongTrail(){
   const hint = document.getElementById("deskHint");
   if(!desk || !track) return;
   const prints = [...track.querySelectorAll(".print")];
-  const TRACK_W = 3320;
+  const TRACK_W = 4740;
   const TRACK_H = 560;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let scale = 1, x = 0;
