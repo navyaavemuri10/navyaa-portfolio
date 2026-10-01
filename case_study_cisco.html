@@ -488,27 +488,48 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
           <div class="img-caption-bar"><div class="img-caption-text"><strong>Before / after.</strong> From a five-step filter maze under Resources to a two-step front door.</div></div>
         </div>
 
-        <h3 class="sub-h">Iterations</h3>
-        <p class="cs-p">Filtering felt like the obvious answer: the old site was a filter maze, and users asked for filters. So I explored a bunch of placements to get them right.</p>
-        <div class="exploration-row">
-  <img src="option 1.png" alt="Filter placement exploration — Option 1">
-  <img src="option 2.png" alt="Filter placement exploration — Option 2">
-  <img src="option 3 .png" alt="Filter placement exploration — Option 3">
-</div>
-        <p class="cs-p">Stakeholder review and 8 user tests narrowed it to one direction. <!-- TODO: name the winning placement --></p>
+        <h3 class="sub-h">Exploring the hierarchy</h3>
+
+<p class="cs-p">
+  I explored different ways to organize the experience around one question:
+  <strong>what should users see first to find the right demo?</strong>
+  I varied the placement of filters, product categories, and demo content,
+  then used stakeholder feedback to narrow the explorations to one direction.
+</p>
 
 <div class="exploration-row">
-  <img src="demo-testing.png" alt="Demo Center user testing analysis">
+  <img src="option 1.png" alt="Demo Center hierarchy exploration — Option 1">
+  <img src="option 2.png" alt="Demo Center hierarchy exploration — Option 2">
+  <img src="option 3.png" alt="Demo Center hierarchy exploration — Option 3">
 </div>
-        <h3 class="sub-h">What testing taught me</h3>
-        <div class="anno-list">
+
+
+<h3 class="sub-h">Then I put the direction in front of users.</h3>
+
+<p class="cs-p">
+  Stakeholder alignment told me the direction worked for Splunk. I still needed
+  to know whether it worked for the people trying to find a demo. I tested the
+  selected direction with users, focusing on what they noticed first, how they
+  expected to browse, and what information they needed before choosing.
+</p>
+
+<div class="exploration-row">
+  <img src="demo-testing.png" alt="Demo Center usability testing analysis">
+</div>
+
+
+<h3 class="sub-h">What testing taught me</h3>
+
+<div class="anno-list">
 
   <div class="anno">
     <span class="anno-num">01</span>
     <div>
       <div class="anno-title">Give people somewhere to start.</div>
       <div class="anno-copy">
-        Users gravitated toward the featured demo as an easy starting point, so I kept featured content prominent instead of presenting every demo with equal weight.
+        Users gravitated toward the featured demo as an easy entry point.
+        That gave me evidence to keep one recommendation prominent instead
+        of presenting every demo with equal weight.
       </div>
     </div>
   </div>
@@ -516,9 +537,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <div class="anno">
     <span class="anno-num">02</span>
     <div>
-      <div class="anno-title">Time matters before the click.</div>
+      <div class="anno-title">Time mattered before the click.</div>
       <div class="anno-copy">
-        Users wanted to know a demo's duration before committing, so I surfaced time alongside each demo to make the choice easier.
+        Users wanted to know how long a demo would take before committing,
+        making duration an important signal to investigate before finalizing
+        the experience.
       </div>
     </div>
   </div>
@@ -526,17 +549,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   <div class="anno">
     <span class="anno-num">03</span>
     <div>
-      <div class="anno-title">Categories made a large catalog feel smaller.</div>
+      <div class="anno-title">Categories made the catalog easier to navigate.</div>
       <div class="anno-copy">
-        Users responded well to browsing by Security, Observability, and other product areas, validating the pre-filtered categories as a faster path to relevant demos.
+        Users responded well to browsing by Security, Observability, and other
+        product areas, validating pre-categorized paths as a faster way to
+        reach relevant demos.
       </div>
     </div>
   </div>
 
 </div>
 
-      
- <section class="tradeoffs cs-section">
+
+<section class="tradeoffs">
   <div class="cs-kicker">Tradeoffs</div>
 
   <h2 class="cs-h2">
@@ -622,14 +647,25 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
   </div>
 </section>
 
-        <div class="img-block">
-          <video src="democenter.mp4" autoplay muted loop playsinline preload="metadata"></video>
-          <div class="img-caption-bar"><div class="img-caption-text"><strong>The shipped Demo Center, live on splunk.com.</strong></div></div>
-        </div>
 
-        <a class="link-btn" href="https://www.splunk.com/en_us/resources/videos.html" target="_blank" rel="noopener">View the live Demo Center ↗</a>
-        <p class="cs-p" style="margin-top:20px;font-size:15px;">On credit: I led the design. [Engineering team built it from my specs; replace with what's true].</p>
-        <p class="cs-p" style="font-size:15px;">On metrics, honestly: post-launch success is tracked through demo engagement and downstream sign-ups, data that wasn't mine to publish. The shipped URL is the proof I can stand behind.</p>
+<h3 class="sub-h">The final experience</h3>
+
+<p class="cs-p">
+  Those decisions shaped the version that moved forward: a simpler entry point,
+  organized around clear product categories, with a featured demo to help users
+  get started.
+</p>
+
+<div class="img-block">
+  <video src="democenter.mp4" autoplay muted loop playsinline preload="metadata"></video>
+
+  <div class="img-caption-bar">
+    <div class="img-caption-text">
+      <strong>The shipped Demo Center.</strong>
+      Designed during my internship and launched on splunk.com after I left.
+    </div>
+  </div>
+</div>
       </section>
 
       <!-- ══ AI SNIPPET ══ -->
