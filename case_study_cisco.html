@@ -82,6 +82,113 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .outcome-desc a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-border);}
 .outcome-desc a:hover{border-bottom-color:var(--accent);}
 
+.tradeoffs {
+  margin: 120px 0;
+}
+
+.tradeoffs-header {
+  max-width: 720px;
+  margin-bottom: 48px;
+}
+
+.tradeoffs-header h2 {
+  margin: 10px 0 16px;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.tradeoffs-intro {
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+.tradeoff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.tradeoff-card {
+  padding: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tradeoff-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.tradeoff-num {
+  font-size: 13px;
+  opacity: 0.45;
+}
+
+.tradeoff-decision {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 7px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 999px;
+}
+
+.tradeoff-card h3 {
+  font-size: 28px;
+  margin: 0 0 28px;
+  letter-spacing: -0.02em;
+}
+
+.tradeoff-tension {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tradeoff-tension span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  opacity: 0.45;
+}
+
+.tradeoff-tension strong {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.tradeoff-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 24px 0;
+}
+
+.tradeoff-card p {
+  margin: auto 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.72;
+}
+
+@media (max-width: 800px) {
+  .tradeoff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tradeoff-card {
+    min-height: auto;
+  }
+}
+
 /* ── SECTION HEADERS: narrative titles ── */
 .cs-kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
 .cs-kicker::after{content:'';flex:1;height:.5px;background:var(--border);}
@@ -182,7 +289,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 /* sub-heads inside sections */
 .sub-h{font-size:22px;font-weight:500;letter-spacing:-.02em;margin:48px 0 6px;color:var(--text);}
 
-/* placeholders for incoming assets (replace with real media) */
+.media-ph img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
 .media-ph{border:1.5px dashed #CFCCC2;border-radius:12px;background:#FAFAF8;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:28px 24px;margin:20px 0;}
 .media-ph.tall{min-height:380px;}
 .media-ph .ph-tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:500;}
@@ -320,10 +432,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
             <div class="outcome-desc">sprint teams moved audit findings into their planning</div>
           </div>
           <div class="outcome">
-            <div class="outcome-label">Proposal</div>
-            <div class="outcome-num">100%</div>
-            <div class="outcome-desc">AI concept tested with 6 users, scoped with SMEs, documented for handoff</div>
-          </div>
+    <div class="outcome-label">Concept validation</div>
+    <div class="outcome-num">6 / 6</div>
+    <div class="outcome-desc">users validated the concept before I scoped it with SMEs and documented it for handoff</div>
+</div>
         </div>
       </section>
 
@@ -359,38 +471,150 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <p class="cs-p">Separate from the audit, I kept coming back to one problem in two forms: helping people find what they need. <strong>Version one was the Demo Center.</strong> Splunk's demos were scattered across the site. Useful, but buried. I designed the Demo Center as the single front door: one IA, one component strategy, one copy hierarchy.</p>
 
         <div class="img-block">
-          <img src="democenter-before-after.png" alt="Before and after: old Resource Center with filter flow vs new Demo Center with simplified flow">
+          <img src="userflow-demo.png" alt="Before and after: old Resource Center with filter flow vs new Demo Center with simplified flow">
           <div class="img-caption-bar"><div class="img-caption-text"><strong>Before / after.</strong> From a five-step filter maze under Resources to a two-step front door.</div></div>
         </div>
 
         <h3 class="sub-h">Iterations</h3>
         <p class="cs-p">Filtering felt like the obvious answer: the old site was a filter maze, and users asked for filters. So I explored a bunch of placements to get them right.</p>
         <div class="ph-row-3">
-          <div class="media-ph"><span class="ph-tag">Placement A</span><span class="ph-hint">Drop your first filter-placement exploration here</span></div>
-          <div class="media-ph"><span class="ph-tag">Placement B</span><span class="ph-hint">Drop your second filter-placement exploration here</span></div>
-          <div class="media-ph"><span class="ph-tag">Placement C</span><span class="ph-hint">Drop your third filter-placement exploration here</span></div>
-        </div>
+  <div class="media-ph">
+    <img src="option 1.png" alt="Filter placement exploration — Option 1">
+  </div>
+
+  <div class="media-ph">
+    <img src="option 2.png" alt="Filter placement exploration — Option 2">
+  </div>
+
+  <div class="media-ph">
+    <img src="option 3.png" alt="Filter placement exploration — Option 3">
+  </div>
+</div>
         <p class="cs-p">Stakeholder review and 8 user tests narrowed it to one direction. <!-- TODO: name the winning placement --></p>
 
-        <div class="media-ph tall"><span class="ph-tag">Testing analysis</span><span class="ph-hint">Screenshot your analysis / notes here: affinity map, quote clusters, tallies from the 8 sessions</span></div>
-
+<div class="media-ph tall">
+  <img src="demo-testing.png" alt="Demo Center user testing analysis">
+</div>
         <h3 class="sub-h">What testing taught me</h3>
         <div class="anno-list">
-          <div class="anno"><span class="anno-num">01</span><div><div class="anno-title">"What's new?" comes first.</div><div class="anno-copy">Users cared most about new and featured demos, so I pushed those to the top of the hierarchy instead of treating every demo equally.</div></div></div>
-          <div class="anno"><span class="anno-num">02</span><div><div class="anno-title">[Your second learning]</div><div class="anno-copy">[What users did → what you changed: one line each]</div></div></div>
-          <div class="anno"><span class="anno-num">03</span><div><div class="anno-title">[Your third learning]</div><div class="anno-copy">[What users did → what you changed: one line each]</div></div></div>
-        </div>
 
-        <h3 class="sub-h">Refined directions</h3>
-        <div class="ph-row-2">
-          <div class="media-ph"><span class="ph-tag">Direction 1</span><span class="ph-hint">Post-testing layout iteration</span></div>
-          <div class="media-ph"><span class="ph-tag">Direction 2</span><span class="ph-hint">Post-testing layout iteration</span></div>
-        </div>
+  <div class="anno">
+    <span class="anno-num">01</span>
+    <div>
+      <div class="anno-title">Give people somewhere to start.</div>
+      <div class="anno-copy">
+        Users gravitated toward the featured demo as an easy starting point, so I kept featured content prominent instead of presenting every demo with equal weight.
+      </div>
+    </div>
+  </div>
 
-        <div class="verdict">
-          <div class="verdict-label">Tradeoffs</div>
-          <div class="verdict-body"><strong>Durations.</strong> Several users asked how long each demo takes. Stakeholders confirmed demos are self-paced. A time label would have been fiction, so I left it off rather than ship a misleading number.</div>
-        </div>
+  <div class="anno">
+    <span class="anno-num">02</span>
+    <div>
+      <div class="anno-title">Time matters before the click.</div>
+      <div class="anno-copy">
+        Users wanted to know a demo's duration before committing, so I surfaced time alongside each demo to make the choice easier.
+      </div>
+    </div>
+  </div>
+
+  <div class="anno">
+    <span class="anno-num">03</span>
+    <div>
+      <div class="anno-title">Categories made a large catalog feel smaller.</div>
+      <div class="anno-copy">
+        Users responded well to browsing by Security, Observability, and other product areas, validating the pre-filtered categories as a faster path to relevant demos.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+      
+
+     <section class="tradeoffs">
+  <div class="tradeoffs-header">
+    <span class="eyebrow">TRADEOFFS</span>
+    <h2>Not every user request made it into the final design.</h2>
+    <p class="tradeoffs-intro">
+      Testing gave me clear signals, but the final experience also had to account
+      for product constraints, content scale, and business priorities.
+    </p>
+  </div>
+
+  <div class="tradeoff-grid">
+
+    <article class="tradeoff-card">
+      <div class="tradeoff-top">
+        <span class="tradeoff-num">01</span>
+        <span class="tradeoff-decision">REMOVED</span>
+      </div>
+
+      <h3>Duration</h3>
+
+      <div class="tradeoff-tension">
+        <span>Users wanted</span>
+        <strong>Time before committing</strong>
+      </div>
+
+      <div class="tradeoff-divider"></div>
+
+      <p>
+        Users asked how long demos would take, but stakeholders confirmed they
+        were self-paced with no reliable duration. Rather than introduce a
+        misleading number, I removed time from the final design.
+      </p>
+    </article>
+
+
+    <article class="tradeoff-card">
+      <div class="tradeoff-top">
+        <span class="tradeoff-num">02</span>
+        <span class="tradeoff-decision">SIMPLIFIED</span>
+      </div>
+
+      <h3>Filters</h3>
+
+      <div class="tradeoff-tension">
+        <span>I explored</span>
+        <strong>More ways to narrow</strong>
+      </div>
+
+      <div class="tradeoff-divider"></div>
+
+      <p>
+        With a relatively small demo library, persistent filters added more
+        interface than value. Users already responded well to pre-categorized
+        paths like Security and Observability, so I removed the extra filtering
+        layer and let categories do the work.
+      </p>
+    </article>
+
+
+    <article class="tradeoff-card">
+      <div class="tradeoff-top">
+        <span class="tradeoff-num">03</span>
+        <span class="tradeoff-decision">ADVOCATED FOR</span>
+      </div>
+
+      <h3>Featured demo</h3>
+
+      <div class="tradeoff-tension">
+        <span>Business questioned</span>
+        <strong>Giving one demo priority</strong>
+      </div>
+
+      <div class="tradeoff-divider"></div>
+
+      <p>
+        Stakeholders initially didn't want a featured demo, but testing showed
+        that users valued having a clear place to start. I advocated for keeping
+        it prominent, using the research to support the decision.
+      </p>
+    </article>
+
+  </div>
+</section>
 
         <div class="img-block">
           <video src="democenter.mp4" autoplay muted loop playsinline preload="metadata"></video>
@@ -426,11 +650,33 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
         <h3 class="sub-h">Pressure-testing with SMEs</h3>
         <p class="cs-p">Before writing the proposal, I brought the concept to subject-matter experts to find out what the backend would actually have to do.</p>
-        <div class="sme-row">
-          <div class="sme-card"><div class="sme-num">01</div><div class="sme-title">Tracking user history</div><div class="sme-copy">Personalization needs memory. What does storing snippet and browsing history mean for the backend? Data model, retention, consent.</div></div>
-          <div class="sme-card"><div class="sme-num">02</div><div class="sme-title">[Your second question]</div><div class="sme-copy">[Replace with what you actually asked, e.g. which APIs expose the signals you need]</div></div>
-          <div class="sme-card"><div class="sme-num">03</div><div class="sme-title">[Your third question]</div><div class="sme-copy">[Replace with your notes, e.g. latency, scope, or feasibility limits]</div></div>
-        </div>
+       <div class="sme-row">
+
+  <div class="sme-card">
+    <div class="sme-num">01</div>
+    <div class="sme-title">What signals could power personalization?</div>
+    <div class="sme-copy">
+      Explored how snippet interactions, site behavior, and user context could signal intent and help surface more relevant resources.
+    </div>
+  </div>
+
+  <div class="sme-card">
+    <div class="sme-num">02</div>
+    <div class="sme-title">What would the AI require behind the scenes?</div>
+    <div class="sme-copy">
+      Worked with AI and engineering SMEs to understand the APIs, storage, latency, and backend load required to generate recommendations dynamically.
+    </div>
+  </div>
+
+  <div class="sme-card">
+    <div class="sme-num">03</div>
+    <div class="sme-title">What was realistic to build first?</div>
+    <div class="sme-copy">
+      Separated the vision from the MVP: start with contextual resources tied to the snippet, then evolve toward behavior-aware personalization as the infrastructure matured.
+    </div>
+  </div>
+
+</div>
 
         <div class="verdict">
           <div class="verdict-label">The call</div>
