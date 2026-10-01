@@ -92,6 +92,30 @@ img,video{max-width:100%;display:block;}
   transform:scale(1);
 }
 
+/* DELETE SOON */
+.play-a::after { content: "A"; }
+.play-b::after { content: "B"; }
+.play-c::after { content: "C"; }
+.play-d::after { content: "D"; }
+.play-e::after { content: "E"; }
+.play-f::after { content: "F"; }
+
+.play-card::after {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 999;
+  background: black;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font: 600 14px sans-serif;
+}
+
+.play-card {
+  position: relative;
+}
+
 /* PAPER PLANE */
 .paper-plane-button{
   position:absolute;right:clamp(70px,8vw,150px);bottom:clamp(120px,18vh,190px);
