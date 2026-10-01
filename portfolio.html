@@ -255,16 +255,51 @@ div.play-card{cursor:default;}
 .play-card img,.play-card video{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
-/* mosaic placement — perfect tiling, no gaps */
-.play-a{grid-column:1 / span 2;grid-row:1 / span 4;}
-.play-b{grid-column:1 / span 2;grid-row:5 / span 6;}
-.play-c{grid-column:3 / span 2;grid-row:1 / span 4;}
-.play-c2{grid-column:3 / span 2;grid-row:5 / span 3;}
-.play-d{grid-column:5 / span 2;grid-row:1 / span 3;}
-.play-e{grid-column:5 / span 2;grid-row:4 / span 4;}
-.play-f{grid-column:3 / span 4;grid-row:8 / span 3;}
+/* mosaic placement */
+
+.play-a {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 4;
+}
+
+.play-b {
+  grid-column: 1 / span 2;
+  grid-row: 5 / span 6;
+}
+
+/* C — shorter */
+.play-c {
+  grid-column: 3 / span 2;
+  grid-row: 1 / span 3;
+}
+
+/* C2 — remove / no longer needed */
+.play-c2 {
+  display: none;
+}
+
+.play-d {
+  grid-column: 5 / span 2;
+  grid-row: 1 / span 3;
+}
+
+/* E — Gaze becomes the visual hero
+   Takes up both the old C2 + E space */
+.play-e {
+  grid-column: 3 / span 4;
+  grid-row: 4 / span 4;
+}
+
+.play-f {
+  grid-column: 3 / span 4;
+  grid-row: 8 / span 3;
+}
+
 /* empty slots awaiting media */
-.play-card.is-empty{border:1.5px dashed #D3D3D3;background:#F1F1F1;}
+.play-card.is-empty {
+  border: 1.5px dashed #D3D3D3;
+  background: #F1F1F1;
+}
 
 
 /* ENVELOPE FOOTER */
@@ -640,40 +675,28 @@ div.play-card{cursor:default;}
   </div>
 </a>
 
-<div class="work-card" aria-disabled="true">
-  <div class="work-thumb" style="background:#F0EDED;">
-    <img src="research-thumb.png" alt="Research" onerror="this.style.opacity=0">
-    <video src="research.mp4" loop muted playsinline preload="auto"></video>
-  </div>
-  <div class="work-tags"><span class="work-tag">Agentic AI</span><span class="work-tag">UX Research</span><span class="work-tag">Trust Systems</span></div>
-  <div class="work-scrim"></div>
-  <div class="work-caption">
-    <div class="work-title">When AI Becomes a Trusted Teammate</div>
-    <div class="work-sub">Coming soon</div>
-  </div>
-</div>
-
 <a class="work-card" href="case_study_cnn.html">
   <div class="work-thumb" style="background:#F5EDED;">
     <img src="cnn-thumb.png" alt="CNN" onerror="this.style.opacity=0">
     <video src="cnn.mp4" loop muted playsinline preload="auto"></video>
   </div>
-  <div class="work-tags"><span class="work-tag">Content Design</span><span class="work-tag">Information Architecture</span><span class="work-tag">Design Strategy</span></div>
+  <div class="work-tags"><span class="work-tag">Content Design</span><span class="work-tag">Information Architecture</span><span class="work-tag">Design Strategy</span><span class="work-tag">UX Research</span></div>
   <div class="work-scrim"></div>
   <div class="work-caption">
     <div class="work-title">Consistent, Mobile-First News Experiences at Scale</div>
   </div>
 </a>
 
-<a class="work-card" href="case_study_navi.html">
+<div class="work-card" aria-disabled="true">
   <div class="work-thumb" style="background:#EDEEF5;">
     <img src="navi-thumb.png" alt="Navi" onerror="this.style.opacity=0">
     <video src="navi.mp4" loop muted playsinline preload="auto"></video>
   </div>
-  <div class="work-tags"><span class="work-tag">Product Design</span><span class="work-tag">AI Interaction</span><span class="work-tag">UX Research</span></div>
+  <div class="work-tags"><span class="work-tag">Product Design</span><span class="work-tag">AI Interaction</span><span class="work-tag">First Place Winners</span></div>
   <div class="work-scrim"></div>
   <div class="work-caption">
     <div class="work-title">A Real-Time Safety System for Everyday Travel</div>
+     <div class="work-sub">In progress</div>
   </div>
 </a>
 
