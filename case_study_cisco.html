@@ -204,6 +204,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .anno-title{font-size:17px;font-weight:500;color:var(--text);margin-bottom:6px;letter-spacing:-.01em;}
 .anno-copy{font-size:15.5px;color:var(--muted);line-height:1.7;}
 
+.exploration-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.exploration-row img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* two-col: narrow sticky note + wide visual */
 .split{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:48px;margin:32px 0;align-items:start;}
 .split-note{position:sticky;top:120px;}
@@ -477,18 +490,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 
         <h3 class="sub-h">Iterations</h3>
         <p class="cs-p">Filtering felt like the obvious answer: the old site was a filter maze, and users asked for filters. So I explored a bunch of placements to get them right.</p>
-        <div class="ph-row-3">
-  <div class="media-ph">
-    <img src="option 1.png" alt="Filter placement exploration — Option 1">
-  </div>
-
-  <div class="media-ph">
-    <img src="option 2.png" alt="Filter placement exploration — Option 2">
-  </div>
-
-  <div class="media-ph">
-    <img src="option 3.png" alt="Filter placement exploration — Option 3">
-  </div>
+        <div class="exploration-row">
+  <img src="option 1.png" alt="Filter placement exploration — Option 1">
+  <img src="option 2.png" alt="Filter placement exploration — Option 2">
+  <img src="option 3 .png" alt="Filter placement exploration — Option 3">
 </div>
         <p class="cs-p">Stakeholder review and 8 user tests narrowed it to one direction. <!-- TODO: name the winning placement --></p>
 
@@ -531,15 +536,17 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </div>
 
       
+ <section class="tradeoffs cs-section">
+  <div class="cs-kicker">Tradeoffs</div>
 
-     <section class="tradeoffs">
-  <div class="tradeoffs-header">
-    <span class="eyebrow">TRADEOFFS</span>
-    <h2>Not every user request made it into the final design.</h2>
-    <p class="tradeoffs-intro">
-      Testing gave me clear signals, but the final experience also had to account
-      for product constraints, content scale, and business priorities.
-    </p>
+  <h2 class="cs-h2">
+    Not every user request made it into the final design.
+  </h2>
+
+  <p class="cs-p">
+    Testing gave me clear signals, but the final experience also had to account
+    for product constraints, content scale, and business priorities.
+  </p>
   </div>
 
   <div class="tradeoff-grid">
@@ -620,7 +627,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
           <video src="democenter.mp4" autoplay muted loop playsinline preload="metadata"></video>
           <div class="img-caption-bar"><div class="img-caption-text"><strong>The shipped Demo Center, live on splunk.com.</strong></div></div>
         </div>
-        <div class="media-ph"><span class="ph-tag">Fallback still</span><span class="ph-hint">Export a frame from democenter.mp4: this still shows if the video can't load. Name it democenter-poster.png and swap this block for an &lt;img&gt;.</span></div>
 
         <a class="link-btn" href="https://www.splunk.com/en_us/resources/videos.html" target="_blank" rel="noopener">View the live Demo Center ↗</a>
         <p class="cs-p" style="margin-top:20px;font-size:15px;">On credit: I led the design. [Engineering team built it from my specs; replace with what's true].</p>
@@ -633,10 +639,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <h2 class="cs-h2">The copy button was a beginning, not an end.</h2>
         <p class="cs-p">Version two started smaller: developers landed on technical blogs, copied a code snippet, and left. Everyone treated copy as the end of the journey. I treated it as a <strong>high-intent signal</strong> and explored it through an org hackathon.</p>
 
-        <div class="ph-row-2">
-          <div class="media-ph"><span class="ph-tag">Before</span><span class="ph-hint">Old snippet UI: weak hierarchy, icon-only copy</span></div>
-          <div class="media-ph"><span class="ph-tag">After</span><span class="ph-hint">Your redesigned snippet component</span></div>
-        </div>
+       <div class="exploration-row">
+  <img src="old-snippet.png" alt="Original Splunk code snippet component">
+  <img src="new-snippet.png" alt="Redesigned Splunk code snippet component">
+</div>
         <p class="cs-p" style="font-size:14px;color:var(--dim);margin-top:-6px;">Old vs. new: the same component, rethought: clearer hierarchy, explicit "Copy," built to be maintained.</p>
 
         <p class="cs-p">I started from a question: <em>what if this is a door deeper into the ecosystem, uniquely for each user?</em></p>
