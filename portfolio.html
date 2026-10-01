@@ -687,38 +687,57 @@ div.play-card{cursor:default;}
      Slots: play-a (top-left) · play-b (bottom-left) · play-c / play-c2 (middle, top/bottom) · play-d (top-right) · play-e (mid-right) · play-f (wide banner) -->
 <div class="play-grid">
 
-<a class="play-card play-a" href="https://notice-slice-98284198.figma.site/" aria-label="Fridge to Michelin">
-  <img src="App 1.png" alt="Fridge to Michelin preview">
-</a>
+  <!-- A — Fridge to Michelin -->
+  <a
+    class="play-card play-a"
+    href="https://notice-slice-98284198.figma.site/"
+    target="_blank"
+    rel="noopener"
+    aria-label="View Fridge to Michelin"
+  >
+    <img src="App 1.png" alt="Fridge to Michelin preview">
+  </a>
 
-<div class="play-card play-b" aria-hidden="true"></div>
+
+  <!-- B — Resy Concept -->
+  <div class="play-card play-b">
     <img src="resy-concept.png" alt="Resy Concept preview">
+  </div>
 
 
-<div class="play-card play-c is-empty" aria-hidden="true"></div>
+  <!-- C — Empty -->
+  <div class="play-card play-c is-empty" aria-hidden="true"></div>
 
-<div class="play-card play-c2 is-empty" aria-hidden="true"></div>
 
-<a
-  href="https://chromewebstore.google.com/detail/gaze/kfiapofhcploclkfcldelikcpnbnjenp"
-  target="_blank"
-  rel="noopener"
-  class="play-card play-d"
-  aria-label="View Gaze on the Chrome Web Store"
->
-  <video autoplay muted loop playsinline preload="metadata">
-    <source src="gaze.mp4" type="video/mp4">
-  </video>
-</a>
+  <!-- C2 — Empty -->
+  <div class="play-card play-c2 is-empty" aria-hidden="true"></div>
 
-  <div class="play-card play-e" aria-hidden="true"></div>
-    <img src="resy-concept.png" alt="Resy Concept preview">
 
-<div class="play-card play-f">
-  <video autoplay muted loop playsinline preload="metadata">
-    <source src="space-view.mp4" type="video/mp4">
-  </video>
-</div>
+  <!-- D — Empty -->
+  <div class="play-card play-d is-empty" aria-hidden="true"></div>
+
+
+  <!-- E — Gaze -->
+  <a
+    class="play-card play-e"
+    href="https://chromewebstore.google.com/detail/gaze/kfiapofhcploclkfcldelikcpnbnjenp"
+    target="_blank"
+    rel="noopener"
+    aria-label="View Gaze on the Chrome Web Store"
+  >
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="gaze.mp4" type="video/mp4">
+    </video>
+  </a>
+
+
+  <!-- F — Space -->
+  <div class="play-card play-f">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="space-view.mp4" type="video/mp4">
+    </video>
+  </div>
+
 </div>
 
 </section>
