@@ -39,6 +39,17 @@ img,video{max-width:100%;display:block;}
 .meta-line{display:block;}
 .hero-meta .at{color:#1B1B1B;font-weight:500;}
 
+/* HOVER BUBBLES */
+.bubble-wrap{position:relative;display:inline-block;}
+.hover-bubble{
+  position:absolute;z-index:999;
+  background:#E8E4F5;color:#2F2F2F;
+  font-family:"DM Sans",sans-serif;font-size:14px;
+  letter-spacing:.025em;font-weight:400;white-space:nowrap;
+  padding:9px 18px;border-radius:24px;opacity:0;
+  pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.08);
+  transition:opacity .25s ease,transform .25s ease;
+}
 .bubble-name{
   left:50%;bottom:calc(100% + 14px);
   transform:translateX(-50%) translateY(8px) scale(.98);
@@ -448,6 +459,76 @@ div.play-card{cursor:default;}
   .flip-back{right:14px;bottom:22px;}
   .envelope-meta{font-size:10px;letter-spacing:.16em;flex-wrap:wrap;gap:8px;}
 }
+/* ABOUT TAB — photo desk + record rows */
+#about{--dim:#8A8A8A;padding-bottom:110px;}
+#about .desk{
+  position:relative;width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);
+  height:min(64vh,680px);min-height:420px;
+  overflow:hidden;cursor:grab;touch-action:pan-y;outline:none;
+}
+#about .desk:focus-visible{box-shadow:inset 0 0 0 2px var(--blue);}
+#about .desk.dragging{cursor:grabbing;}
+.desk-track{position:absolute;top:0;left:0;height:100%;will-change:transform;}
+.print{
+  position:absolute;background:#fff;padding:9px;
+  box-shadow:0 5px 16px rgba(0,0,0,.10),0 1px 3px rgba(0,0,0,.07);
+  transform:rotate(var(--r,0deg));pointer-events:none;
+  user-select:none;-webkit-user-select:none;
+}
+.print-photo{display:block;filter:saturate(.97);}
+.mini-postcard .mini-inner{
+  position:relative;background:var(--paper);
+  border:.5px solid rgba(0,0,0,.1);
+}
+.mini-stamp{position:absolute;top:8%;right:5%;width:23%;}
+.mini-hello{
+  position:absolute;left:7%;bottom:9%;
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;
+  font-size:19px;color:#111;
+}
+.desk-hint{
+  position:absolute;left:50%;bottom:14px;transform:translateX(-50%);
+  font-size:11px;letter-spacing:.24em;color:#B8B2A2;
+  text-transform:uppercase;pointer-events:none;white-space:nowrap;
+  transition:opacity .3s ease;
+}
+.about-rows{margin-top:64px;}
+.about-row{
+  display:grid;grid-template-columns:300px minmax(0,1fr);
+  gap:clamp(40px,6vw,96px);
+  padding:64px 0;
+}
+.about-row + .about-row{border-top:.5px solid var(--border);}
+.about-rows .about-row:first-child{padding-top:40px;}
+.row-label{
+  font-size:16px;font-weight:500;letter-spacing:-.01em;
+  color:var(--text);line-height:1.4;
+}
+.about-p{
+  font-size:17px;line-height:1.8;letter-spacing:-.005em;
+  color:#55524B;margin-bottom:20px;max-width:920px;
+}
+.info-list{border-top:.5px solid var(--border);}
+.info-row{
+  display:grid;grid-template-columns:1fr auto;gap:20px;
+  padding:16px 0;border-bottom:.5px solid var(--border);
+  align-items:baseline;
+}
+.info-main{font-size:16px;line-height:1.4;letter-spacing:-.01em;color:var(--text);}
+.info-main span{color:var(--dim);}
+.info-date{font-size:14px;color:var(--dim);white-space:nowrap;}
+.info-sub{font-size:13px;color:var(--muted);line-height:1.55;margin-top:5px;}
+@media(max-width:900px){
+  #about{padding-bottom:80px;}
+  .about-row{grid-template-columns:1fr;gap:22px;padding:44px 0;}
+}
+@media(max-width:640px){
+  #about{padding-bottom:64px;}
+  .desk-hint{font-size:9px;letter-spacing:.18em;bottom:10px;}
+  .about-rows{margin-top:40px;}
+  .about-p{font-size:15px;}
+  .info-row{grid-template-columns:1fr;gap:3px;}
+}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
 }
@@ -478,7 +559,7 @@ div.play-card{cursor:default;}
     <span class="tab-pill" id="tabPill" aria-hidden="true"></span>
     <a href="#collection" class="tab is-active" data-tab="work">work</a>
     <a href="#play" class="tab" data-tab="play">play</a>
-    <a href="about.html" class="tab" data-tab="about">about</a>
+    <a href="#about" class="tab" data-tab="about">about</a>
   </nav>
 </div>
 
@@ -603,6 +684,155 @@ div.play-card{cursor:default;}
 </div>
 
 </section>
+<section id="about" aria-label="About" hidden>
+  <div class="desk" id="desk" tabindex="0" role="region" aria-label="Pannable photo strip. Use left and right arrow keys to explore.">
+    <div class="desk-track" id="deskTrack">
+      <div class="print" data-cap="340" data-x="-60" data-y="90" data-r="-2">
+        <img class="print-photo" src="leadership-1.png" alt="Iter8 design community group photo" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="240" data-x="350" data-y="330" data-r="3">
+        <img class="print-photo" src="froyo.png" alt="Frozen yogurt cups held together" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="300" data-x="600" data-y="60" data-r="2">
+        <img class="print-photo" src="me-2.jpeg" alt="Standing above the Golden Gate Bridge" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="300" data-x="890" data-y="340" data-r="-1.5">
+        <img class="print-photo" src="noodles.jpeg" alt="Friends assembling noodle bowls" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="260" data-x="1250" data-y="55" data-r="-3">
+        <img class="print-photo" src="henna.jpeg" alt="Henna on my hand" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="250" data-x="1510" data-y="330" data-r="2">
+        <img class="print-photo" src="food-1.jpeg" alt="Curry noodle soup" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="330" data-x="1760" data-y="80" data-r="1.5">
+        <img class="print-photo" src="iter8.jpeg" alt="Teaching a design workshop in a lecture hall" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="280" data-x="2150" data-y="340" data-r="-2">
+        <img class="print-photo" src="me.jpeg" alt="Leaning on a giant pink heart sculpture" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="300" data-x="2420" data-y="50" data-r="-2">
+        <img class="print-photo" src="edge.jpeg" alt="New York City from the Edge" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print mini-postcard" data-x="2705" data-y="360" data-r="2">
+        <div class="mini-inner">
+          <img src="stamp.png" alt="" class="mini-stamp" onerror="this.style.display='none'">
+          <p class="mini-hello">hello!</p>
+        </div>
+      </div>
+      <div class="print" data-cap="320" data-x="2965" data-y="85" data-r="2">
+        <img class="print-photo" src="singing.jpeg" alt="A cappella group on stage" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="240" data-x="3345" data-y="340" data-r="-2.5">
+        <img class="print-photo" src="food.jpeg" alt="Lemon orzo I made" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="300" data-x="3585" data-y="45" data-r="-2">
+        <img class="print-photo" src="nyc.jpeg" alt="Brooklyn Bridge at night" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="290" data-x="3870" data-y="330" data-r="-1.5">
+        <img class="print-photo" src="me-1.jpeg" alt="Selfie under the palms in Cancun" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="280" data-x="4150" data-y="40" data-r="-2">
+        <img class="print-photo" src="pic.jpeg" alt="Graduation gown on the SLO coast" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="print" data-cap="260" data-x="4420" data-y="330" data-r="3">
+        <img class="print-photo" src="about-4.jpg" alt="Behind the DJ decks" draggable="false" onerror="this.parentElement.style.display='none'">
+      </div>
+    </div>
+    <span class="desk-hint" id="deskHint">Drag to explore</span>
+  </div>
+
+  <div class="about-rows">
+    <section class="about-row">
+      <h2 class="row-label">To: Visitor</h2>
+      <div class="row-content">
+        <p class="about-p">Oh hey!! I'm Navyaa, a product designer who loves designing for how people find information, decide what to trust, and move forward with confidence.</p>
+        <p class="about-p">My work has taken me from healthcare and media to enterprise software, mobility, and AI-powered experiences. Along the way, I've collected questions, observations, and experiences that shape how I design.</p>
+        <p class="about-p">Outside of work, you'll usually find me trying a new matcha spot, planning an overly ambitious themed party, teaching music to children, taking photos, or making something just because.</p>
+      </div>
+    </section>
+
+    <section class="about-row">
+      <h2 class="row-label">Experience</h2>
+      <div class="row-content">
+        <div class="info-list">
+          <div class="info-row">
+            <div>
+              <div class="info-main">Payactiv <span>/ Product Designer</span></div>
+              <div class="info-sub">Financial workflows across earned wage access, admin configuration, and employee financial wellness.</div>
+            </div>
+            <div class="info-date">2026</div>
+          </div>
+          <div class="info-row">
+            <div>
+              <div class="info-main">Tesla <span>/ UX Consultant</span></div>
+              <div class="info-sub">Operational workflows across mobility, parking, and employee commute experiences.</div>
+            </div>
+            <div class="info-date">2025</div>
+          </div>
+          <div class="info-row">
+            <div>
+              <div class="info-main">Splunk <span>/ UX Design Intern</span></div>
+              <div class="info-sub">Demo discovery, ecosystem audits, and AI-powered interaction concepts.</div>
+            </div>
+            <div class="info-date">2025</div>
+          </div>
+          <div class="info-row">
+            <div>
+              <div class="info-main">CNN <span>/ Content Design Intern</span></div>
+              <div class="info-sub">Content experiences across news, election, and platform surfaces.</div>
+            </div>
+            <div class="info-date">2024</div>
+          </div>
+          <div class="info-row">
+            <div>
+              <div class="info-main">Cal Poly Health &amp; Wellbeing <span>/ UX Designer</span></div>
+              <div class="info-sub">Student health information systems serving 23,000+ students.</div>
+            </div>
+            <div class="info-date">2023&#8211;2025</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-row">
+      <h2 class="row-label">Leadership</h2>
+      <div class="row-content">
+        <div class="info-list">
+          <div class="info-row">
+            <div>
+              <div class="info-main">Cal Poly iter8 <span>/ President</span></div>
+              <div class="info-sub">Led a student design agency and community of 140+ designers.</div>
+            </div>
+            <div class="info-date">2024&#8211;2025</div>
+          </div>
+          <div class="info-row">
+            <div>
+              <div class="info-main">UX Fest SLO <span>/ Events &amp; Experience Director</span></div>
+              <div class="info-sub">Created workshops, community events, and design experiences.</div>
+            </div>
+            <div class="info-date">2023&#8211;2024</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-row">
+      <h2 class="row-label">Education</h2>
+      <div class="row-content">
+        <div class="info-list">
+          <div class="info-row">
+            <div>
+              <div class="info-main">Cal Poly SLO <span>/ Graphic Communication</span></div>
+              <div class="info-sub">B.S. Graphic Communication, Minor in Computer Science.</div>
+            </div>
+            <div class="info-date">2025</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
 </main>
 
 <footer class="postcard-footer" id="footer">
@@ -624,7 +854,7 @@ div.play-card{cursor:default;}
           <p>PAGE</p>
           <a href="#collection">WORK</a>
           <a href="#play">PLAY</a>
-          <a href="about.html">ABOUT</a>
+          <a href="#about">ABOUT</a>
         </nav>
       </div>
     </div>
@@ -1082,7 +1312,7 @@ function glideAlongTrail(){
   const tabs=[...document.querySelectorAll(".tab")];
   const pill=document.getElementById("tabPill");
   if(!tabs.length||!pill) return;
-  const sections={work:document.getElementById("collection"),play:document.getElementById("play")};
+  const sections={work:document.getElementById("collection"),play:document.getElementById("play"),about:document.getElementById("about")};
   function move(el){
     tabs.forEach(t=>t.classList.remove("is-active"));
     el.classList.add("is-active");
@@ -1098,26 +1328,27 @@ function glideAlongTrail(){
     if(!tab||!sections[key]) return;
     Object.keys(sections).forEach(k=>{const s=sections[k]; if(s) s.hidden=(k!==key);});
     move(tab);
+    if(key==="about"){requestAnimationFrame(()=>window.dispatchEvent(new Event("resize")));}
     if(scroll!==false) sections[key].scrollIntoView({behavior:"smooth",block:"start"});
     if(history.replaceState) history.replaceState(null,"","#"+key);
   }
   tabs.forEach(t=>t.addEventListener("click",e=>{
     const key=t.dataset.tab;
-    if(key==="about") return; /* normal link to about.html */
     e.preventDefault();
     activate(key);
   }));
   /* footer PAGE links switch tabs too */
-  document.querySelectorAll('a[href="#play"],a[href="#collection"]').forEach(a=>{
+  document.querySelectorAll('a[href="#play"],a[href="#collection"],a[href="#about"]').forEach(a=>{
     if(a.classList.contains("tab")) return;
     a.addEventListener("click",e=>{
       e.preventDefault();
-      activate(a.getAttribute("href")==="#play"?"play":"work");
+      const h=a.getAttribute("href");
+      activate(h==="#play"?"play":h==="#about"?"about":"work");
     });
   });
   function init(){
     const h=(location.hash||"").replace("#","");
-    activate(h==="play"?"play":"work",false);
+    activate(h==="play"?"play":h==="about"?"about":"work",false);
     requestAnimationFrame(()=>move(current()));
   }
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>requestAnimationFrame(init));}
@@ -1270,6 +1501,127 @@ for(let r=0;r<ROWS;r++){
   window.addEventListener("resize",()=>{
     clearTimeout(resizeTimer);
     resizeTimer=setTimeout(()=>requestAnimationFrame(layout),150);
+  });
+})();
+
+/* ── ABOUT TAB: PRINT DESK (horizontal pan with momentum) ── */
+(function(){
+  const desk = document.getElementById("desk");
+  const track = document.getElementById("deskTrack");
+  const hint = document.getElementById("deskHint");
+  if(!desk || !track) return;
+  track.innerHTML += track.innerHTML;
+  const prints = [...track.querySelectorAll(".print")];
+  const HALF = prints.length / 2;
+  const TRACK_W = 4740;
+  const TRACK_H = 560;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let scale = 1, x = 0;
+  let dragging = false, sx = 0, sp = 0, vx = 0, lx = 0, lt = 0, raf = null, moved = false;
+
+  function calcScale(){
+    return Math.min(Math.max(desk.clientHeight / TRACK_H, 0.5), 1.15);
+  }
+  function clamp(v){ const w = TRACK_W * scale; return -((((-v) % w) + w) % w); }
+  function apply(){ track.style.transform = "translate3d(" + x + "px,0,0)"; }
+
+  function layout(){
+    if(!desk.clientHeight) return;
+    scale = calcScale();
+    track.style.width = TRACK_W * 2 * scale + "px";
+    prints.forEach((p, i) => {
+      p.style.left = ((+p.dataset.x) + (i >= HALF ? TRACK_W : 0)) * scale + "px";
+      p.style.top = (+p.dataset.y) * scale + "px";
+      p.style.setProperty("--r", p.dataset.r + "deg");
+      p.style.padding = Math.max(5, Math.round(9 * scale)) + "px";
+      const img = p.querySelector(".print-photo");
+      if(img && img.naturalWidth){
+        const cap = (+p.dataset.cap || 300) * scale;
+        if(img.naturalWidth >= img.naturalHeight){ img.style.width = cap + "px"; img.style.height = "auto"; }
+        else{ img.style.height = cap + "px"; img.style.width = "auto"; }
+      }
+      const mini = p.querySelector(".mini-inner");
+      if(mini){ mini.style.width = 200 * scale + "px"; mini.style.height = 134 * scale + "px";
+        const hello = p.querySelector(".mini-hello");
+        if(hello){ hello.style.fontSize = Math.max(12, Math.round(19 * scale)) + "px"; } }
+    });
+    x = clamp(x);
+    apply();
+  }
+
+  function hideHint(){
+    if(hint){ hint.style.opacity = "0"; }
+  }
+
+  desk.addEventListener("pointerdown", e => {
+    dragging = true; moved = false;
+    desk.setPointerCapture(e.pointerId);
+    desk.classList.add("dragging");
+    sx = e.clientX; sp = x; vx = 0; lx = e.clientX; lt = performance.now();
+    if(raf){ cancelAnimationFrame(raf); raf = null; }
+  });
+
+  desk.addEventListener("pointermove", e => {
+    if(!dragging) return;
+    const now = performance.now();
+    x = clamp(sp + (e.clientX - sx));
+    apply();
+    const dt = now - lt;
+    if(dt > 0){ vx = (e.clientX - lx) / dt; }
+    lx = e.clientX; lt = now;
+    if(!moved && Math.abs(e.clientX - sx) > 10){ moved = true; hideHint(); }
+  });
+
+  function endDrag(){
+    if(!dragging) return;
+    dragging = false;
+    desk.classList.remove("dragging");
+    if(reduce) return;
+    let v = vx * 16;
+    if(Math.abs(v) < 0.5) return;
+    function glide(){
+      v *= 0.94;
+      x = clamp(x + v);
+      apply();
+      if(Math.abs(v) > 0.4){ raf = requestAnimationFrame(glide); }
+      else{ raf = null; }
+    }
+    raf = requestAnimationFrame(glide);
+  }
+  desk.addEventListener("pointerup", endDrag);
+  desk.addEventListener("pointercancel", endDrag);
+
+  desk.addEventListener("wheel", e => {
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)){
+      x = clamp(x - e.deltaX);
+      apply();
+      hideHint();
+      e.preventDefault();
+    }
+  }, {passive:false});
+
+  desk.addEventListener("keydown", e => {
+    if(e.key === "ArrowLeft" || e.key === "ArrowRight"){
+      x = clamp(x + (e.key === "ArrowLeft" ? 120 : -120));
+      apply();
+      hideHint();
+      e.preventDefault();
+    }
+  });
+
+  prints.forEach(p => {
+    const img = p.querySelector(".print-photo");
+    if(img && !img.complete){ img.addEventListener("load", layout); }
+  });
+
+  layout();
+  x = clamp(-70 * scale);
+  apply();
+
+  let rt = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(rt);
+    rt = setTimeout(layout, 150);
   });
 })();
 </script>
