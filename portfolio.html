@@ -637,7 +637,7 @@ div.play-card{cursor:default;}
     <img src="cisco-thumb.png" alt="Cisco Splunk" onerror="this.style.opacity=0">
     <video src="cisco.mp4" loop muted playsinline preload="auto"></video>
   </div>
-  <div class="work-tags"><span class="work-tag">Enterprise UX</span><span class="work-tag">Systems Design</span><span class="work-tag">AI Interaction</span></div>
+  <div class="work-tags"><span class="work-tag">Enterprise UX</span><span class="work-tag">Product Design</span><span class="work-tag">Systems</span></div>
   <div class="work-scrim"></div>
   <div class="work-caption">
     <div class="work-title">Making Product Discovery Faster and More Intentional at Splunk</div>
@@ -679,7 +679,7 @@ div.play-card{cursor:default;}
     <div class="work-title">A Real-Time Safety System for Everyday Travel</div>
      <div class="work-sub">In progress</div>
   </div>
-</a>
+</div>
 
 </div>
 </section>
@@ -996,6 +996,25 @@ function pointPlaneToCursor(){
   requestAnimationFrame(pointPlaneToCursor);
 }
 pointPlaneToCursor();
+
+/* Click the hero plane -> it flies down the page and lands on the postcard */
+plane.addEventListener("click", async () => {
+  if(!plane || isFlying){ return; }
+  if(reduceMotion || planeLanded){ footer.scrollIntoView({behavior:"smooth"}); return; }
+  isFlying = true;
+  document.documentElement.classList.add("flight-active");
+  const startRect = plane.getBoundingClientRect();
+  plane.style.left = startRect.left + "px";
+  plane.style.top = startRect.top + "px";
+  plane.classList.add("is-flying");
+  const startDoc = {x: startRect.left, y: startRect.top + window.scrollY};
+  try{
+    await animateFlight(startDoc, startRect);
+    await landPlane(startRect);
+  }finally{
+    document.documentElement.classList.remove("flight-active");
+  }
+});
 
 function catmullRomPoint(points, t){
   const n = points.length - 1;
@@ -1366,324 +1385,6 @@ function glideAlongTrail(){
   window.addEventListener("resize", () => {
     clearTimeout(resizeT);
     resizeT = setTimeout(size, 150);
-  });
-})();
-
-/* ── TABS (real content switching) ── */
-(function(){
-  const tabs=[...document.querySelectorAll(".tab")];
-  const pill=document.getElementById("tabPill");
-  if(!tabs.length||!pill) return;
-  const sections={work:document.getElementById("collection"),play:document.getElementById("play"),about:document.getElementById("about")};
-  function move(el){
-    tabs.forEach(t=>t.classList.remove("is-active"));
-    el.classList.add("is-active");
-    pill.style.opacity="1";
-    pill.style.transform="translateX("+el.offsetLeft+"px)";
-    pill.style.top=el.offsetTop+"px";
-    pill.style.height=el.offsetHeight+"px";
-    pill.style.width=el.offsetWidth+"px";
-  }
-  function current(){return document.querySelector(".tab.is-active")||tabs[0];}
-  function activate(key,scroll){
-    const tab=tabs.find(t=>t.dataset.tab===key);
-    if(!tab||!sections[key]) return;
-    Object.keys(sections).forEach(k=>{const s=sections[k]; if(s) s.hidden=(k!==key);});
-    move(tab);
-    if(key==="about"){requestAnimationFrame(()=>window.dispatchEvent(new Event("resize")));}
-    if(scroll!==false) sections[key].scrollIntoView({behavior:"smooth",block:"start"});
-    if(history.replaceState) history.replaceState(null,"","#"+key);
-  }
-  tabs.forEach(t=>t.addEventListener("click",e=>{
-    const key=t.dataset.tab;
-    e.preventDefault();
-    activate(key);
-  }));
-  /* footer PAGE links switch tabs too */
-  document.querySelectorAll('a[href="#play"],a[href="#collection"],a[href="#about"]').forEach(a=>{
-    if(a.classList.contains("tab")) return;
-    a.addEventListener("click",e=>{
-      e.preventDefault();
-      const h=a.getAttribute("href");
-      activate(h==="#play"?"play":h==="#about"?"about":"work");
-    });
-  });
-  function init(){
-    const h=(location.hash||"").replace("#","");
-    activate(h==="play"?"play":h==="about"?"about":"work",false);
-    requestAnimationFrame(()=>move(current()));
-  }
-  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>requestAnimationFrame(init));}
-  window.addEventListener("load",init);
-  window.addEventListener("resize",()=>requestAnimationFrame(()=>move(current())));
-})();
-
-/* ── VIDEO HOVER ── */
-document.querySelectorAll(".work-card").forEach(card => {
-  const video = card.querySelector(".work-thumb video");
-  if(!video) return;
-  video.pause(); video.currentTime = 0;
-  const play = () => { video.currentTime=0; video.play().catch(()=>{}); };
-  const stop = () => { video.pause(); video.currentTime=0; };
-  card.addEventListener("mouseenter", play);
-  card.addEventListener("mouseleave", stop);
-  card.addEventListener("focus", play);
-  card.addEventListener("blur", stop);
-});
-
-/* ── HERO DISCOVERY GRID ──
-   Draws an SVG grid and places 8 stamp SVGs snapped to cells.
-   Stamps are invisible by default, fade in on hover.
-   Moats around .hero-copy and #paperPlane are kept clear.
-   Zone-based placement ensures even scatter across the hero.
-*/
-(function(){
-  const hero  = document.querySelector(".hero");
-  const copy  = document.querySelector(".hero-copy");
-  const plane = document.getElementById("paperPlane");
-  if(!hero) return;
-
-  const COLS        = 12;
-  const STAMP_RATIO = 210/142.5; // from herostamp-1.svg viewBox 142.5x210
-  const MOAT_PAD    = 8;
-  const STAMPS      = [
-    "herostamp-1.svg","herostamp-2.svg","herostamp-3.svg","herostamp-4.svg",
-    "herostamp-5.svg","herostamp-6.svg","herostamp-7.svg","herostamp-8.svg"
-  ];
-
-  let svgEl=null, stampWrap=null;
-
-  function toLocal(rect,heroRect,pad){
-    return {
-      left:  rect.left  -heroRect.left  -pad,
-      top:   rect.top   -heroRect.top   -pad,
-      right: rect.right -heroRect.left  +pad,
-      bottom:rect.bottom-heroRect.top   +pad
-    };
-  }
-  function overlaps(a,b){
-    return !(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom);
-  }
-  function segInMoat(x1,y1,x2,y2,moats){
-    const mx=(x1+x2)/2, my=(y1+y2)/2;
-    return moats.some(m=>mx>=m.left&&mx<=m.right&&my>=m.top&&my<=m.bottom);
-  }
-
-  function layout(){
-    if(window.innerWidth<=900){
-      if(svgEl){svgEl.remove();svgEl=null;}
-      if(stampWrap){stampWrap.remove();stampWrap=null;}
-      return;
-    }
-    const heroRect=hero.getBoundingClientRect();
-    const W=heroRect.width, H=heroRect.height;
-    const cellW=W/COLS;
-    const cellH=cellW*STAMP_RATIO;
-    const ROWS=Math.ceil(H/cellH);
-
-    const moats=[];
-    if(copy)  moats.push(toLocal(copy.getBoundingClientRect(),  heroRect, MOAT_PAD));
-    if(plane) moats.push(toLocal(plane.getBoundingClientRect(), heroRect, MOAT_PAD));
-
-    // SVG grid
-    if(svgEl) svgEl.remove();
-    const ns="http://www.w3.org/2000/svg";
-    svgEl=document.createElementNS(ns,"svg");
-    svgEl.setAttribute("class","hero-grid-svg");
-    svgEl.setAttribute("aria-hidden","true");
-    svgEl.setAttribute("width",W);
-    svgEl.setAttribute("height",H);
-    svgEl.setAttribute("viewBox",`0 0 ${W} ${H}`);
-    const frag=document.createDocumentFragment();
-    const addLine=(x1,y1,x2,y2)=>{
-      const ln=document.createElementNS(ns,"line");
-      ln.setAttribute("x1",x1);ln.setAttribute("y1",y1);
-      ln.setAttribute("x2",x2);ln.setAttribute("y2",y2);
-      ln.setAttribute("class","grid-line");
-      frag.appendChild(ln);
-    };
-    for(let c=0;c<=COLS;c++){
-      const x=c*cellW;
-      for(let r=0;r<ROWS;r++){
-        const y1=r*cellH,y2=Math.min((r+1)*cellH,H);
-        if(!segInMoat(x,y1,x,y2,moats)) addLine(x,y1,x,y2);
-      }
-    }
-    for(let r=0;r<=ROWS;r++){
-      const y=r*cellH;
-      for(let c=0;c<COLS;c++){
-        const x1=c*cellW,x2=Math.min((c+1)*cellW,W);
-        if(!segInMoat(x1,y,x2,y,moats)) addLine(x1,y,x2,y);
-      }
-    }
-    svgEl.appendChild(frag);
-    hero.insertBefore(svgEl,hero.firstChild);
-
-    // Fill every valid cell with a stamp (cycling through the 8 stamps)
-if(stampWrap) stampWrap.remove();
-stampWrap=document.createElement("div");
-stampWrap.className="stamp-grid-layer";
-hero.insertBefore(stampWrap,svgEl.nextSibling);
-
-let stampIdx=0;
-for(let r=0;r<ROWS;r++){
-  for(let c=0;c<COLS;c++){
-    const x=c*cellW, y=r*cellH;
-    if(y+cellH>H) continue;
-    const slot={left:x,top:y,right:x+cellW,bottom:y+cellH};
-    if(moats.some(m=>overlaps(slot,m))) continue;
-
-    const wrap=document.createElement("div");
-    wrap.className="stamp-grid-item";
-    wrap.style.left=x+"px";
-    wrap.style.top=y+"px";
-    wrap.style.width=cellW+"px";
-    wrap.style.height=cellH+"px";
-
-    const img=document.createElement("img");
-    img.src=STAMPS[stampIdx % STAMPS.length];
-    img.alt="";
-    img.setAttribute("aria-hidden","true");
-    wrap.appendChild(img);
-    stampWrap.appendChild(wrap);
-    stampIdx++;
-  }
-}
-  }
-
-  function init(){
-    const run=()=>requestAnimationFrame(()=>requestAnimationFrame(layout));
-    if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(run); }
-    else{ run(); }
-  }
-  if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",init); }
-  else{ init(); }
-  window.addEventListener("load",()=>requestAnimationFrame(layout));
-  let resizeTimer=null;
-  window.addEventListener("resize",()=>{
-    clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(()=>requestAnimationFrame(layout),150);
-  });
-})();
-
-/* ── ABOUT TAB: PRINT DESK (horizontal pan with momentum) ── */
-(function(){
-  const desk = document.getElementById("desk");
-  const track = document.getElementById("deskTrack");
-  const hint = document.getElementById("deskHint");
-  if(!desk || !track) return;
-  track.innerHTML += track.innerHTML;
-  const prints = [...track.querySelectorAll(".print")];
-  const HALF = prints.length / 2;
-  const TRACK_W = 4740;
-  const TRACK_H = 560;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let scale = 1, x = 0;
-  let dragging = false, sx = 0, sp = 0, vx = 0, lx = 0, lt = 0, raf = null, moved = false;
-
-  function calcScale(){
-    return Math.min(Math.max(desk.clientHeight / TRACK_H, 0.5), 1.15);
-  }
-  function clamp(v){ const w = TRACK_W * scale; return -((((-v) % w) + w) % w); }
-  function apply(){ track.style.transform = "translate3d(" + x + "px,0,0)"; }
-
-  function layout(){
-    if(!desk.clientHeight) return;
-    scale = calcScale();
-    track.style.width = TRACK_W * 2 * scale + "px";
-    prints.forEach((p, i) => {
-      p.style.left = ((+p.dataset.x) + (i >= HALF ? TRACK_W : 0)) * scale + "px";
-      p.style.top = (+p.dataset.y) * scale + "px";
-      p.style.setProperty("--r", p.dataset.r + "deg");
-      p.style.padding = Math.max(5, Math.round(9 * scale)) + "px";
-      const img = p.querySelector(".print-photo");
-      if(img && img.naturalWidth){
-        const cap = (+p.dataset.cap || 300) * scale;
-        if(img.naturalWidth >= img.naturalHeight){ img.style.width = cap + "px"; img.style.height = "auto"; }
-        else{ img.style.height = cap + "px"; img.style.width = "auto"; }
-      }
-      const mini = p.querySelector(".mini-inner");
-      if(mini){ mini.style.width = 200 * scale + "px"; mini.style.height = 134 * scale + "px";
-        const hello = p.querySelector(".mini-hello");
-        if(hello){ hello.style.fontSize = Math.max(12, Math.round(19 * scale)) + "px"; } }
-    });
-    x = clamp(x);
-    apply();
-  }
-
-  function hideHint(){
-    if(hint){ hint.style.opacity = "0"; }
-  }
-
-  desk.addEventListener("pointerdown", e => {
-    dragging = true; moved = false;
-    desk.setPointerCapture(e.pointerId);
-    desk.classList.add("dragging");
-    sx = e.clientX; sp = x; vx = 0; lx = e.clientX; lt = performance.now();
-    if(raf){ cancelAnimationFrame(raf); raf = null; }
-  });
-
-  desk.addEventListener("pointermove", e => {
-    if(!dragging) return;
-    const now = performance.now();
-    x = clamp(sp + (e.clientX - sx));
-    apply();
-    const dt = now - lt;
-    if(dt > 0){ vx = (e.clientX - lx) / dt; }
-    lx = e.clientX; lt = now;
-    if(!moved && Math.abs(e.clientX - sx) > 10){ moved = true; hideHint(); }
-  });
-
-  function endDrag(){
-    if(!dragging) return;
-    dragging = false;
-    desk.classList.remove("dragging");
-    if(reduce) return;
-    let v = vx * 16;
-    if(Math.abs(v) < 0.5) return;
-    function glide(){
-      v *= 0.94;
-      x = clamp(x + v);
-      apply();
-      if(Math.abs(v) > 0.4){ raf = requestAnimationFrame(glide); }
-      else{ raf = null; }
-    }
-    raf = requestAnimationFrame(glide);
-  }
-  desk.addEventListener("pointerup", endDrag);
-  desk.addEventListener("pointercancel", endDrag);
-
-  desk.addEventListener("wheel", e => {
-    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)){
-      x = clamp(x - e.deltaX);
-      apply();
-      hideHint();
-      e.preventDefault();
-    }
-  }, {passive:false});
-
-  desk.addEventListener("keydown", e => {
-    if(e.key === "ArrowLeft" || e.key === "ArrowRight"){
-      x = clamp(x + (e.key === "ArrowLeft" ? 120 : -120));
-      apply();
-      hideHint();
-      e.preventDefault();
-    }
-  });
-
-  prints.forEach(p => {
-    const img = p.querySelector(".print-photo");
-    if(img && !img.complete){ img.addEventListener("load", layout); }
-  });
-
-  layout();
-  x = clamp(-70 * scale);
-  apply();
-
-  let rt = null;
-  window.addEventListener("resize", () => {
-    clearTimeout(rt);
-    rt = setTimeout(layout, 150);
   });
 })();
 </script>
