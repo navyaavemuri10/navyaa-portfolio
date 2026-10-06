@@ -19,6 +19,22 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
 .layout{display:flex;min-height:100vh;}
 
+/* payactiv: password gate */
+body.pw-locked{overflow:hidden;height:100vh;}
+body.pw-locked .layout,body.pw-locked .mobile-topbar,body.pw-locked .mobile-toc,body.pw-locked .mobile-menu{display:none!important;}
+.pw-gate{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;align-items:center;justify-content:center;padding:24px;}
+body.pw-locked .pw-gate{display:flex;}
+.pw-card{max-width:400px;width:100%;text-align:center;}
+.pw-kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}
+.pw-title{font-family:'Goudy Bookletter 1911',serif;font-size:30px;letter-spacing:-.01em;margin-bottom:12px;}
+.pw-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:26px;}
+#pwForm{display:flex;gap:10px;}
+#pwInput{flex:1;border:.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:15px;font-family:inherit;background:#fff;color:var(--text);outline:none;}
+#pwInput:focus{border-color:var(--accent);}
+#pwForm button{border:none;border-radius:10px;background:var(--accent);color:#fff;font-size:15px;font-weight:500;padding:13px 22px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+#pwForm button:hover{background:#2f4bc4;}
+.pw-error{display:none;font-size:14px;color:#B3261E;margin-top:14px;}
+
 /* sidebar */
 .cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
 .stamp{width:160px;margin-bottom:20px;cursor:pointer;flex-shrink:0;}
@@ -328,7 +344,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 </style>
 </head>
-<body>
+<body class="pw-locked">
+<div class="pw-gate" id="pwGate">
+  <div class="pw-card">
+    <div class="pw-kicker">Payactiv Core · Product Designer</div>
+    <div class="pw-title">This case study is password protected</div>
+    <p class="pw-sub">This work is unreleased. Enter the password to view it.</p>
+    <form id="pwForm" autocomplete="off">
+      <input type="password" id="pwInput" placeholder="Password" aria-label="Password">
+      <button type="submit">View case study</button>
+    </form>
+    <p class="pw-error" id="pwError">That password didn't work. Try again.</p>
+  </div>
+</div>
 <div class="mobile-topbar">
   <a href="portfolio.html" class="mobile-brand">navyaa vemuri</a>
   <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" onclick="toggleMobileMenu()">
@@ -893,6 +921,28 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 </footer>
 
 <script>
+/* password gate */
+(function(){
+  var PASS='stillWIP2026';
+  var body=document.body;
+  try{
+    if(sessionStorage.getItem('payactiv-unlocked')==='1'){body.classList.remove('pw-locked');return;}
+  }catch(e){}
+  var form=document.getElementById('pwForm');
+  var input=document.getElementById('pwInput');
+  var err=document.getElementById('pwError');
+  setTimeout(function(){input.focus();},300);
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(input.value===PASS){
+      try{sessionStorage.setItem('payactiv-unlocked','1');}catch(e2){}
+      body.classList.remove('pw-locked');
+    }else{
+      err.style.display='block';
+      input.select();
+    }
+  });
+})();
 function toggleMobileMenu(){
   const btn=document.getElementById('mobileMenuBtn');
   const menu=document.getElementById('mobileMenu');
