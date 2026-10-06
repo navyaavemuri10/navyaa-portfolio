@@ -36,7 +36,7 @@ body.pw-locked .pw-gate{display:flex;}
 .pw-error{display:none;font-size:14px;color:#B3261E;margin-top:14px;}
 
 /* sidebar */
-.cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
+.cs-sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px 40px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
 .stamp{width:160px;margin-bottom:20px;cursor:pointer;flex-shrink:0;}
 .stamp img{width:100%;display:block;}
 @keyframes stamp-float{0%{transform:translateY(0) rotate(-.5deg);}33%{transform:translateY(-6px) rotate(.3deg);}66%{transform:translateY(-3px) rotate(-.2deg);}100%{transform:translateY(0) rotate(-.5deg);}}
@@ -74,7 +74,7 @@ body.pw-locked .pw-gate{display:flex;}
 .right-col{flex:1;min-width:0;overflow-y:auto;display:flex;flex-direction:column;}
 .hero-media{width:100%;border-bottom:.5px solid var(--border);min-height:500px;max-height:560px;overflow:hidden;background:var(--surface);}
 .hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover;display:block;}
-.cs-main{padding:64px clamp(40px,6vw,96px) 112px;max-width:1240px;width:100%;}
+.cs-main{--gutter:clamp(24px,4vw,72px);padding:64px var(--gutter) 112px;max-width:1400px;width:100%;}
 .cs-section{margin-bottom:104px;scroll-margin-top:110px;}
 
 /* ── HERO ── */
@@ -124,6 +124,15 @@ body.pw-locked .pw-gate{display:flex;}
 .img-caption-bar{padding:14px 20px;border-top:.5px solid var(--border);background:var(--bg);}
 .img-caption-text{font-size:14px;color:var(--muted);line-height:1.65;}
 .img-caption-text strong{color:var(--text);font-weight:500;}
+
+/* annotated images: out of the box, click to zoom */
+.img-plain{margin:32px 0;}
+.img-plain img{width:100%;display:block;border-radius:10px;box-shadow:0 18px 50px rgba(26,26,26,.10);cursor:zoom-in;}
+.img-plain .img-caption{font-size:14px;color:var(--dim);line-height:1.65;margin-top:12px;max-width:880px;}
+.img-plain .img-caption strong{color:var(--text);font-weight:500;}
+.lightbox{position:fixed;inset:0;z-index:400;background:rgba(18,18,18,.94);display:none;align-items:center;justify-content:center;padding:4vmin;cursor:zoom-out;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:96vw;max-height:94vh;object-fit:contain;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.4);}
 
 /* user quote */
 .pull-quote{margin:32px 0;padding:8px 0 8px 28px;border-left:2px solid var(--accent);max-width:760px;}
@@ -260,6 +269,10 @@ body.pw-locked .pw-gate{display:flex;}
 .sprint-list .sq{color:var(--accent);font-weight:500;flex-shrink:0;}
 .img-duo{display:grid;grid-template-columns:1fr;gap:28px;margin:24px 0;}
 .img-duo .img-block{margin:0;}
+/* screenshots break out into the gutter, wider than the text measure */
+.img-block,.img-plain,.img-duo{margin-left:calc(var(--gutter)*-1);margin-right:calc(var(--gutter)*-1);}
+.img-duo .img-block{margin-left:0;margin-right:0;}
+.img-block img{cursor:zoom-in;}
 /* payactiv: editorial decisions (no gray fill) */
 .verdict{background:transparent;border:none;border-left:2px solid var(--accent);border-radius:0;padding:6px 0 6px 26px;}
 /* payactiv: layout options as full rows, image left + text right */
@@ -305,6 +318,7 @@ body.pw-locked .pw-gate{display:flex;}
   .right-col{width:100%;}
   .hero-media{min-height:220px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
+  .img-block,.img-plain,.img-duo{margin-left:0;margin-right:0;}
   .meta-strip{grid-template-columns:repeat(2,1fr);}
   .outcome-strip{grid-template-columns:1fr;gap:24px;}
   .split{grid-template-columns:1fr;gap:20px;}
@@ -718,9 +732,9 @@ body.pw-locked .pw-gate{display:flex;}
           <span class="fw-step">Activity</span><span class="fw-arrow">→</span>
           <span class="fw-step">Detail</span>
         </div>
-        <div class="img-block">
+        <div class="img-plain">
           <img src="framework.png" alt="Page framework applied to the EWA default configuration view with tabs, guidance banner, configuration table, and detail panel">
-          <div class="img-caption-bar"><p class="img-caption-text"><strong>The framework applied:</strong> context in the title, guidance in the banner, navigation in the tabs, configuration in the table, activity in the timestamps, detail in the side panel.</p></div>
+          <p class="img-caption"><strong>The framework applied:</strong> context in the title, guidance in the banner, navigation in the tabs, configuration in the table, activity in the timestamps, detail in the side panel. Click to zoom.</p>
         </div>
 
         <h3 class="sub-h">Designing for dense information</h3>
@@ -739,9 +753,9 @@ body.pw-locked .pw-gate{display:flex;}
         <p class="cs-p">Role-based access wasn't just a backend constraint. It changed what admins could meaningfully do on the page.</p>
         <p class="cs-p">I kept the IA identical for Global Admins and view-only admins, and changed only the available actions.</p>
         <div class="img-duo">
-          <div class="img-block">
+          <div class="img-plain">
             <img src="no-access.png" alt="Permission-specific empty state explaining that the page isn't available to this admin">
-            <div class="img-caption-bar"><p class="img-caption-text"><strong>No access:</strong> restricted sections vanish from nav; a permission-specific state covers direct links.</p></div>
+            <p class="img-caption"><strong>No access:</strong> restricted sections vanish from nav; a permission-specific state covers direct links. Click to zoom.</p>
           </div>
           <div class="img-block">
             <img src="view-only.png" alt="View-only detail panel where Close replaces editing actions">
@@ -761,9 +775,9 @@ body.pw-locked .pw-gate{display:flex;}
         <h2 class="cs-h2">Iterating within the design system</h2>
         <p class="cs-p">No lo-fi to hi-fi here. I worked directly in existing design-system components, exploring realistic layouts close to what could ship.</p>
         <div class="img-duo">
-          <div class="img-block">
+          <div class="img-plain">
             <img src="early.png" alt="Early direction of the state requirements detail establishing content and page anatomy">
-            <div class="img-caption-bar"><p class="img-caption-text"><strong>Early direction:</strong> established the content and page anatomy.</p></div>
+            <p class="img-caption"><strong>Early direction:</strong> established the content and page anatomy. Click to zoom.</p>
           </div>
           <div class="img-block">
             <img src="current.png" alt="Current direction of the state overrides page with refined title, guidance, tabs, and tables">
@@ -1255,6 +1269,25 @@ function glideAlongTrail(){
     clearTimeout(resizeT);
     resizeT = setTimeout(size, 150);
   });
+})();
+</script>
+<script>
+/* lightbox for annotated images */
+(function(){
+  var lb=document.createElement('div');
+  lb.className='lightbox';
+  var lbImg=document.createElement('img');
+  lb.appendChild(lbImg);
+  document.body.appendChild(lb);
+  function close(){lb.classList.remove('open');document.body.style.overflow='';}
+  document.querySelectorAll('.img-block img, .img-plain img').forEach(function(im){
+    im.addEventListener('click',function(){
+      lbImg.src=im.src;lbImg.alt=im.alt;
+      lb.classList.add('open');document.body.style.overflow='hidden';
+    });
+  });
+  lb.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
 })();
 </script>
 </body>
