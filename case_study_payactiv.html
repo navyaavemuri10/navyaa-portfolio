@@ -252,15 +252,22 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .opt .opt-shot{border-bottom:none;border-right:.5px solid var(--border);min-height:320px;}
 .opt .opt-shot img{width:100%;display:block;aspect-ratio:auto;object-fit:cover;object-position:top;height:100%;min-height:320px;}
 @media(max-width:900px){
-  .ia-compare,.opt-row,.img-duo,.detail-row{grid-template-columns:1fr;}
+  .ia-compare,.opt-row,.img-duo{grid-template-columns:1fr;}
   .opt{grid-template-columns:1fr;}
   .opt .opt-shot{border-right:none;border-bottom:.5px solid var(--border);min-height:0;}
   .opt .opt-shot img{min-height:220px;}
+  .craft-row{grid-template-columns:1fr;}
+  .craft-media{border-right:none;border-bottom:.5px solid var(--border);min-height:0;}
+  .craft-media video,.craft-media img{min-height:220px;}
 }
-/* payactiv: craft detail macro shots */
-.detail-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:26px 0 8px;}
-.detail-row .img-block{margin:0;}
-.detail-row img{aspect-ratio:4/3;object-fit:cover;object-position:top;}
+/* payactiv: craft detail rows (video left, copy right) */
+.craft-rows{display:flex;flex-direction:column;gap:28px;margin:26px 0 8px;}
+.craft-row{display:grid;grid-template-columns:1.5fr 1fr;border:.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg);}
+.craft-media{border-right:.5px solid var(--border);min-height:320px;background:#0a0a0a;}
+.craft-media video,.craft-media img{width:100%;height:100%;min-height:320px;object-fit:cover;object-position:top;display:block;}
+.craft-copy{padding:30px 32px;display:flex;flex-direction:column;justify-content:center;}
+.craft-name{font-size:17px;font-weight:500;margin-bottom:10px;letter-spacing:-.01em;color:var(--text);}
+.craft-copy p{font-size:15px;color:var(--muted);line-height:1.7;margin:0;}
 /* payactiv: reframe before/after boxes */
 .reframe-flow{display:flex;flex-direction:column;max-width:780px;margin:26px 0;}
 .reframe-box{border:.5px solid var(--border);border-radius:12px;padding:22px 26px;background:var(--bg);}
@@ -439,18 +446,42 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
         <div class="cs-kicker">Craft</div>
         <h2 class="cs-h2">The details are the design</h2>
         <p class="cs-p">Admin platforms are won in small moments. Three I paid attention to:</p>
-        <div class="detail-row">
-          <div class="img-block">
-            <img src="detail-drawer.png" alt="Edit drawer showing the new configuration value against the currently saved value, with a banner explaining the override's scope">
-            <div class="img-caption-bar"><p class="img-caption-text"><strong>Explicit change confirmation:</strong> new value against currently-saved, with scope guidance at the moment of action.</p></div>
+        <div class="craft-rows">
+          <div class="craft-row">
+            <div class="craft-media">
+              <video autoplay loop muted playsinline poster="detail-drawer.png" aria-label="Screen recording of the edit drawer showing explicit change confirmation">
+                <source src="detail-drawer.mp4" type="video/mp4">
+                <img src="detail-drawer.png" alt="Edit drawer showing the new configuration value against the currently saved value, with a banner explaining the override's scope">
+              </video>
+            </div>
+            <div class="craft-copy">
+              <div class="craft-name">Explicit change confirmation</div>
+              <p>New value against currently-saved, with scope guidance at the moment of action.</p>
+            </div>
           </div>
-          <div class="img-block">
-            <img src="detail-status.png" alt="Close-up of Active, Disabled, and Removed status pills pairing icons with labels">
-            <div class="img-caption-bar"><p class="img-caption-text"><strong>Status at a glance:</strong> every pill pairs icon and label, so meaning never depends on color alone.</p></div>
+          <div class="craft-row">
+            <div class="craft-media">
+              <video autoplay loop muted playsinline poster="detail-status.png" aria-label="Screen recording of status pills in the requirements table">
+                <source src="detail-status.mp4" type="video/mp4">
+                <img src="detail-status.png" alt="Close-up of Active, Disabled, and Removed status pills pairing icons with labels">
+              </video>
+            </div>
+            <div class="craft-copy">
+              <div class="craft-name">Status at a glance</div>
+              <p>Every pill pairs icon and label, so meaning never depends on color alone.</p>
+            </div>
           </div>
-          <div class="img-block">
-            <img src="detail-filters.png" alt="Close-up of the search field with State and Status filter dropdowns above the requirements table">
-            <div class="img-caption-bar"><p class="img-caption-text"><strong>Findability first:</strong> search plus State and Status filters, because support specialists live in these tables.</p></div>
+          <div class="craft-row">
+            <div class="craft-media">
+              <video autoplay loop muted playsinline poster="detail-filters.png" aria-label="Screen recording of search and filters in the requirements table">
+                <source src="detail-filters.mp4" type="video/mp4">
+                <img src="detail-filters.png" alt="Close-up of the search field with State and Status filter dropdowns above the requirements table">
+              </video>
+            </div>
+            <div class="craft-copy">
+              <div class="craft-name">Findability first</div>
+              <p>Search plus State and Status filters, because support specialists live in these tables.</p>
+            </div>
           </div>
         </div>
       </section>
