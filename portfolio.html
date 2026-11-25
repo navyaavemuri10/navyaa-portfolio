@@ -97,31 +97,6 @@ img,video{max-width:100%;display:block;}
   position: relative;
 }
 
-/* PAPER PLANE */
-.paper-plane-button{
-  position:absolute;right:clamp(70px,8vw,150px);bottom:clamp(120px,18vh,190px);
-  width:clamp(190px,15vw,270px);border:0;background:transparent;
-  padding:0;cursor:pointer;z-index:30;transform-origin:center;
-  will-change:transform,left,top,width;
-}
-.plane-img{
-  width:100%;display:block;
-  filter:drop-shadow(0 16px 18px rgba(0,0,0,.12));
-  animation:floatPlane 5.5s ease-in-out infinite;
-  transform-origin:center;
-}
-@keyframes floatPlane{
-  0%,100%{transform:translateY(0) rotate(-1deg);}
-  50%{transform:translateY(-8px) rotate(1.5deg);}
-}
-html.flight-active{scroll-behavior:auto!important;}
-.paper-plane-button.is-flying{
-  position:fixed!important;right:auto!important;bottom:auto!important;
-  z-index:99999!important;pointer-events:none;
-}
-.paper-plane-button.is-flying .plane-label{display:none!important;}
-.paper-plane-button.is-flying .plane-img{animation:none!important;}
-
 
 /* TABS */
 .tabs-wrap{
@@ -322,28 +297,6 @@ div.play-card{cursor:default;}
 }
 .envelope-col a:hover{color:var(--blue);}
 
-/* MAIL FIELD — trail, parked plane, signature, card flip */
-.mail-field{position:relative;height:340px;margin-top:8px;perspective:1600px;}
-.field-card{
-  position:relative;width:100%;height:100%;
-  transform-style:preserve-3d;
-  transition:transform .8s cubic-bezier(.45,.05,.2,1);
-}
-.mail-field.is-flipped .field-card{transform:rotateY(180deg);}
-.field-front,.field-back{
-  position:absolute;inset:0;
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
-}
-.field-back{transform:rotateY(180deg);}
-.field-front .trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-.postcard-plane{
-  position:absolute;top:12px;right:3.5%;width:96px;z-index:2;
-  pointer-events:none;transform:rotate(-6deg);
-  filter:drop-shadow(0 12px 14px rgba(0,0,0,.12));
-  opacity:0;visibility:hidden;
-}
-.postcard-plane.is-parked{opacity:1;visibility:visible;}
-.mail-field.is-flipped .postcard-plane{opacity:0;transition:opacity .2s ease .3s;}
 
 /* Signing zone */
 .sign-zone{position:absolute;left:2px;bottom:16px;width:min(340px,80%);}
@@ -446,7 +399,6 @@ div.play-card{cursor:default;}
 /* RESPONSIVE */
 @media(max-width:1000px){
   .hero{min-height:88vh;align-items:flex-start;padding-top:120px;}
-  .paper-plane-button{width:160px;right:8vw;bottom:90px;}
   .work-grid{grid-template-columns:1fr;gap:46px;}
   .work-card{overflow:visible;aspect-ratio:auto;background:none;border-radius:0;}
   .work-thumb{position:relative;aspect-ratio:16/10;border-radius:20px;overflow:hidden;}
@@ -462,7 +414,6 @@ div.play-card{cursor:default;}
   .play-a,.play-b,.play-c,.play-c2{grid-row:span 2;}
   .play-f{grid-column:span 2;}
   .mail-field{height:300px;}
-  .postcard-plane{width:80px;top:10px;right:4%;}
 }
 @media(max-width:900px){
   .hero-grid-svg,.stamp-grid-layer,.hover-bubble{display:none;}
@@ -471,7 +422,6 @@ div.play-card{cursor:default;}
   .hero{min-height:100vh;padding:100px 24px 90px;align-items:flex-start;}
   .hero-headline{font-size:31px;line-height:1.18;}
   .hero-meta{font-size:16px;margin-top:30px;}
-  .paper-plane-button{width:125px;right:22px;bottom:58px;}
   .page-wrap{width:calc(100vw - 40px);}
   .section-heading{font-size:16px;margin-bottom:28px;gap:18px;}
   .work-grid{gap:40px;padding-bottom:70px;}
