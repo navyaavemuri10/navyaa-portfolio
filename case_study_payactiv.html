@@ -22,22 +22,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-we
 .layout{display:flex;min-height:100vh;}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 
-/* payactiv: password gate */
-body.pw-locked{overflow:hidden;height:100vh;}
-body.pw-locked .layout,body.pw-locked .mobile-topbar,body.pw-locked .mobile-toc,body.pw-locked .mobile-menu{display:none!important;}
-.pw-gate{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;align-items:center;justify-content:center;padding:24px;}
-body.pw-locked .pw-gate{display:flex;}
-.pw-card{max-width:400px;width:100%;text-align:center;}
-.pw-kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}
-.pw-title{font-family:'Goudy Bookletter 1911',serif;font-size:30px;letter-spacing:-.01em;margin-bottom:12px;}
-.pw-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:26px;}
-#pwForm{display:flex;gap:10px;}
-#pwInput{flex:1;border:.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:15px;font-family:inherit;background:#fff;color:var(--text);outline:none;}
-#pwInput:focus{border-color:var(--accent);}
-#pwForm button{border:none;border-radius:10px;background:var(--accent);color:#fff;font-size:15px;font-weight:500;padding:13px 22px;cursor:pointer;font-family:inherit;white-space:nowrap;}
-#pwForm button:hover{background:#2f4bc4;}
-.pw-error{display:none;font-size:14px;color:#B3261E;margin-top:14px;}
-
 /* sidebar */
 .cs-sidebar{width:320px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:48px;display:flex;flex-direction:column;border-right:.5px solid var(--border);background:var(--bg);}
 .stamp{width:160px;margin-bottom:20px;cursor:pointer;flex-shrink:0;}
@@ -143,6 +127,15 @@ body.pw-locked .pw-gate{display:flex;}
 .dest{font-size:16px;font-weight:600;border-radius:999px;padding:9px 18px;background:var(--ink);color:#fff;white-space:nowrap;}
 .dest.ghost{background:#fff;color:var(--ink);}
 
+.moment{margin-top:8px;justify-content:flex-start;gap:14px;}
+.moment p:last-child{font-size:clamp(20px,2vw,24px);line-height:1.5;color:#fff;max-width:880px;}
+.review{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:12px;}
+.review-q,.review-a{border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:12px;}
+.review-q{background:#fff;border:1px solid var(--line);}
+.review-q .q{font-size:19px;line-height:1.5;color:var(--ink);}
+.review-a{background:var(--ink);color:#fff;}
+.review-a .small-label{color:#C9CFE0;}
+.review-a p:last-child{font-size:17px;line-height:1.6;color:#E3E6EF;}
 /* research */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 24px;}
 .chip{font-size:14px;font-weight:500;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;}
@@ -322,11 +315,12 @@ body.pw-locked .pw-gate{display:flex;}
   .hero-media{min-height:220px;max-height:420px;}
   .cs-main{padding:32px 24px 64px;}
   .cs-section{margin-bottom:96px;}
-  .stats,.case,.tiles,.pair,.opts,.principles,.nav-compare,.detail-grid,.thumbs,.cascade,.lesson{grid-template-columns:1fr;}
+  .review,.stats,.case,.tiles,.pair,.opts,.principles,.nav-compare,.detail-grid,.thumbs,.cascade,.lesson{grid-template-columns:1fr;}
   .meta{grid-template-columns:1fr 1fr;}
   .principle{aspect-ratio:auto;min-height:200px;}
   .step{grid-template-columns:1fr;gap:16px;}
   .buyin{grid-template-columns:1fr;gap:12px;}
+  .review .chev{transform:rotate(90deg);}
   .tracker{grid-template-columns:1fr 1fr;row-gap:28px;}
   .l2,.l3,.l4{margin-left:0;}
   .center-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
@@ -368,19 +362,7 @@ body.pw-locked .pw-gate{display:flex;}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 </style>
 </head>
-<body class="pw-locked">
-<div class="pw-gate" id="pwGate">
-  <div class="pw-card">
-    <div class="pw-kicker">Payactiv Core · Product Designer</div>
-    <div class="pw-title">This case study is password protected</div>
-    <p class="pw-sub">This work is unreleased. Enter the password to view it.</p>
-    <form id="pwForm" autocomplete="off">
-      <input type="password" id="pwInput" placeholder="Password" aria-label="Password">
-      <button type="submit">View case study</button>
-    </form>
-    <p class="pw-error" id="pwError">That password didn't work. Try again.</p>
-  </div>
-</div>
+<body>
 <div class="mobile-topbar">
   <a href="portfolio.html" class="mobile-brand">navyaa vemuri</a>
   <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" onclick="toggleMobileMenu()">
@@ -443,18 +425,18 @@ body.pw-locked .pw-gate{display:flex;}
 
         <div class="stats">
           <div class="stat"><b>6 → 1</b><span>clicks to reach user lookup</span></div>
-          <div class="stat"><b>4 / 4</b><span>stakeholder groups backed the new IA</span></div>
-          <div class="stat"><b>30h → 1–2h</b><span><strong>Projected</strong> onboarding time for new admins</span></div>
+          <div class="stat"><b>7 / 7</b><span>stakeholder groups backed the new IA</span></div>
+          <div class="stat"><b>30h → 1–2h</b><span><strong>Goal</strong> for new admin onboarding time</span></div>
         </div>
 
         <dl class="meta">
           <div><dt>Role</dt><dd>Product Designer, IA lead</dd></div>
           <div><dt>Team</dt><dd>My manager, Core’s PM, backend and frontend engineering</dd></div>
-          <div><dt>Timeline</dt><dd>[Start date] to present</dd></div>
+          <div><dt>Timeline</dt><dd>July 2026 to present</dd></div>
           <div><dt>Tools</dt><dd>Figma, FigJam, ChatGPT, Claude</dd></div>
         </dl>
 
-        <div class="shot"><img src="corehome.png" alt="The redesigned Core home, with user lookup and business lookup up front"></div>
+        <div class="shot"><img src="payactiv-assets/corehome.png" alt="The redesigned Core home, with user lookup and business lookup up front"></div>
         <p class="cap"><strong>The redesigned Core.</strong> Organized around what admins are trying to do, with support lookups up front.</p>
       </section>
 
@@ -482,20 +464,25 @@ body.pw-locked .pw-gate{display:flex;}
           <div class="mist-block">
             <p class="small-label">Old tool: about 6 clicks</p>
             <div class="dots" aria-label="Six clicks to reach user lookup"><span class="dot">1</span><span class="lnk"></span><span class="dot">2</span><span class="lnk"></span><span class="dot">3</span><span class="lnk"></span><span class="dot">4</span><span class="lnk"></span><span class="dot">5</span><span class="lnk"></span><span class="dot">6</span><span class="lnk"></span><span class="dest">User lookup</span></div>
-            <p>Instead, it was buried under names that never said “support.” If I couldn’t find it while studying the tool, a new admin wouldn’t either.</p>
+            <p>Instead, it lived under Administration → Memberships → Users, names that never said “support.” If I couldn’t find it while studying the tool, a new admin wouldn’t either.</p>
           </div>
         </div>
 
-        <div class="ph tall mt-24"><b>Old tool</b><span>Screenshot of the current Core, with the support area circled</span></div>
+        <div class="shot mt-24"><img src="payactiv-assets/tier1.png" alt="The current Core, where user lookup sits under Administration, then Memberships, then Users"></div>
+        <p class="cap"><strong>The current Core.</strong> Hard to use unless you already know exactly where a task lives.</p>
 
-        <h3 class="h3 mt-56">What I learned from 4 admins</h3>
+        <h3 class="h3 mt-56">What I learned from 4 admins across every group</h3>
         <div class="chips">
-          <span class="chip strong">4 admin conversations</span><span class="chip">Stakeholder meetings</span><span class="chip">Competitive research</span><span class="chip">Requirements analysis</span>
+          <span class="chip strong">4 admins: support, configuration, operations, administration</span><span class="chip">Stakeholder meetings</span><span class="chip">Competitive research</span><span class="chip">Requirements analysis</span>
         </div>
-        <div class="tiles">
+        <div class="ink-block moment">
+          <p class="k">A moment that stuck with me</p>
+          <p>Admins knew exactly how to get to what they needed. But when I asked a slight variation of a task, the kind that will come up with the new app product we’re launching, they hesitated and didn’t know what to do.</p>
+        </div>
+        <div class="tiles mt-24">
           <div class="tile"><p class="n">01</p><b>Trained past the friction</b><span>Thirty hours of training means admins work around problems instead of noticing them.</span></div>
           <div class="tile"><p class="n">02</p><b>Admins stay in their lane</b><span>Most stick to one area of work, like support or configurations.</span></div>
-          <div class="tile"><p class="n">03</p><b>Everything depends on product</b><span>Whatever the role, the product decides what an admin sees and changes.</span></div>
+          <div class="tile"><p class="n">03</p><b>Same data, different needs</b><span>Each persona looks at the same information but pulls out different things.</span></div>
         </div>
       </section>
 
@@ -527,8 +514,13 @@ body.pw-locked .pw-gate{display:flex;}
         </div>
 
         <div class="buyin">
-          <b>4 / 4</b>
-          <p>I got buy-in from every stakeholder group through design reviews. I explained my rationale and came with a clear point of view, but also invited them to poke holes, which made the navigation stronger.</p>
+          <b>7 / 7</b>
+          <p>I got buy-in from support, ops, compliance, finance, engineering, design, and product through design reviews. I came with a clear point of view and my rationale, and invited everyone to poke holes. One question changed the design.</p>
+        </div>
+        <div class="review">
+          <div class="review-q"><p class="small-label">The hole they poked</p><p class="q">“If a business inherits everything from its partner, why does setting up a product for it need a full setup process?”</p></div>
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M7 4l6 6-6 6"/></svg></span>
+          <div class="review-a"><p class="small-label">What I changed</p><p>Businesses can change anything their partner sets. So setup now starts in draft mode, shows which values are pre-filled from the partner, and makes clear which ones an admin can change for that business.</p></div>
         </div>
       </section>
 
@@ -543,8 +535,8 @@ body.pw-locked .pw-gate{display:flex;}
             <div>
               <p class="p">I used ChatGPT to get up to speed on fintech concepts, so I could bring better questions to my team. When I hit something unfamiliar, I had it break the concept down, then talked it through with my PM and team to make sure I had it right.</p>
               <div class="pair mt-24">
-                <div><div class="shot"><img src="ai-explanation.png" alt="ChatGPT explaining how Payactiv's configuration hierarchy works"></div><p class="cap">Breaking down the configuration hierarchy.</p></div>
-                <div><div class="shot"><img src="pressure-test.png" alt="ChatGPT critiquing the side panel versus detail page decision"></div><p class="cap">Pressure-testing side panel vs. full page.</p></div>
+                <div><div class="shot"><img src="payactiv-assets/ai-explanation.png" alt="ChatGPT explaining how Payactiv's configuration hierarchy works"></div><p class="cap">Breaking down the configuration hierarchy.</p></div>
+                <div><div class="shot"><img src="payactiv-assets/pressure-test.png" alt="ChatGPT critiquing the side panel versus detail page decision"></div><p class="cap">Pressure-testing side panel vs. full page.</p></div>
               </div>
             </div>
           </div>
@@ -554,10 +546,10 @@ body.pw-locked .pw-gate{display:flex;}
             <div>
               <p class="p">Claude created good UI patterns from my UX prompts, but it didn’t show how the sections depended on each other. <strong>That made me realize I didn’t understand that either.</strong></p>
               <div class="opts">
-                <div><div class="ph"><b>Claude IA option 1</b><span>Screenshot of a Claude-generated IA</span></div>
-                  <div class="took"><div class="yes"><small>What I took</small>[One idea you kept]</div><div class="no"><small>What I passed on</small>Treated sections as independent, ignoring product.</div></div></div>
-                <div><div class="ph"><b>Claude IA option 2</b><span>Screenshot of a Claude-generated IA</span></div>
-                  <div class="took"><div class="yes"><small>What I took</small>[One idea you kept]</div><div class="no"><small>What I passed on</small>[What didn’t work and why]</div></div></div>
+                <div><div class="shot"><img src="payactiv-assets/claude-core-1.png" alt="First Claude-generated IA for Core"></div>
+                  <div class="took"><div class="yes"><small>What I took</small>Pulling support and configuration out on their own, which is more intent-based.</div><div class="no"><small>What I passed on</small>The context bar and the idea of “lenses,” which felt confusing.</div></div></div>
+                <div><div class="shot"><img src="payactiv-assets/claude-core-2.png" alt="Second Claude-generated IA for Core"></div>
+                  <div class="took"><div class="yes"><small>What I took</small>Breadcrumb-style navigation, so admins can bounce back from deep tasks.</div><div class="no"><small>What I passed on</small>It showed every partner’s settings at once, ignoring how each partner configures a product.</div></div></div>
               </div>
             </div>
           </div>
@@ -566,16 +558,21 @@ body.pw-locked .pw-gate{display:flex;}
             <p class="when">So<span>Mapping it together</span></p>
             <div>
               <p class="p">I was brand new to Core, and the tool was so clunky there was no way I could have mapped it on my own. With guidance from my manager and Core’s PM, who’s close to a subject matter expert, we put our brains together to build an experience map of every dependency.</p>
-              <div class="ph tall mt-24"><b>Experience map</b><span>Cropped view of the FigJam map, with two or three callouts on the dependencies that mattered most</span></div>
-              <p class="p mt-40">Once we could see it all, two things stood out: everything depends on product, and settings cascade down.</p>
+              <div class="shot mt-24"><img src="payactiv-assets/experience-map.png" alt="Experience map of Core showing how products, personas, and settings depend on each other"></div>
+              <p class="p mt-40">Once we could see it all, three things stood out:</p>
+              <div class="tiles mt-24">
+                <div class="tile"><b>Everything depends on product</b><span>Whatever the role, the product decides what an admin sees and changes.</span></div>
+                <div class="tile"><b>Many factors shape a product</b><span>So Core has to flex to each persona, not show everyone the same view.</span></div>
+                <div class="tile"><b>Settings cascade</b><span>State always wins, and a business can override its partner.</span></div>
+              </div>
               <div class="cascade">
-                <div class="layers" role="img" aria-label="Settings cascade: State, then Partner, then Business, then Global or Default. Higher levels override lower ones.">
-                  <div class="layer l1"><b>State</b><span>State regulatory requirements</span></div>
-                  <div class="layer l2"><b>Partner</b><span>Partner configurations</span></div>
-                  <div class="layer l3"><b>Business</b><span>Business overrides</span></div>
-                  <div class="layer l4"><b>Global / Default</b><span>Payactiv defaults</span></div>
+                <div class="layers" role="img" aria-label="Settings cascade: State, then Business, then Partner, then Global or Default. Higher levels override lower ones.">
+                  <div class="layer l1"><b>State</b><span>Always wins</span></div>
+                  <div class="layer l2"><b>Business</b><span>Can override its partner</span></div>
+                  <div class="layer l3"><b>Partner</b><span>Partner configurations</span></div>
+                  <div class="layer l4"><b>Global / Default</b><span>General Payactiv defaults</span></div>
                 </div>
-                <div class="cascade-note"><p class="down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16"/><path d="M6 14l6 6 6-6"/></svg>Overrides flow down</p><p>A setting at a higher level overrides everything below it.</p></div>
+                <div class="cascade-note"><p class="down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16"/><path d="M6 14l6 6 6-6"/></svg>Overrides flow down</p><p>A setting at a higher level overrides everything below it. State requirements always win, and a business can change anything its partner sets.</p></div>
               </div>
             </div>
           </div>
@@ -623,7 +620,7 @@ body.pw-locked .pw-gate{display:flex;}
 
           <!-- Pins: nudge each --x / --y (percent of the image) to sit on the right part of framework.png -->
           <div class="shot pinned mt-24">
-            <img src="framework.png" alt="Partner configuration page built on the page framework, with breadcrumbs, title, tabs, table, status pills, filters, and side panel">
+            <img src="payactiv-assets/framework.png" alt="Partner configuration page built on the page framework, with breadcrumbs, title, tabs, table, status pills, filters, and side panel">
             <span class="pin" style="--x:12%;--y:5%" aria-hidden="true">1</span>
             <span class="pin" style="--x:12%;--y:12%" aria-hidden="true">2</span>
             <span class="pin" style="--x:40%;--y:32%" aria-hidden="true">3</span>
@@ -647,9 +644,9 @@ body.pw-locked .pw-gate{display:flex;}
           <div class="case-grid">
             <div>
               <div class="shot">
-                <video autoplay loop muted playsinline poster="Hero visual.png" aria-label="Screen recording of editing a state override in a side drawer, showing the new value next to the saved one">
-                  <source src="Hero visual.mp4" type="video/mp4">
-                  <img src="Hero visual.png" alt="Editing a state override in a side drawer">
+                <video autoplay loop muted playsinline poster="payactiv-assets/Hero visual.png" aria-label="Screen recording of editing a state override in a side drawer, showing the new value next to the saved one">
+                  <source src="payactiv-assets/Hero visual.mp4" type="video/mp4">
+                  <img src="payactiv-assets/Hero visual.png" alt="Editing a state override in a side drawer">
                 </video>
               </div>
               <p class="cap">Editing a state override in a side drawer, without losing your place. I prototyped the motion with ChatGPT from my specs.</p>
@@ -664,18 +661,18 @@ body.pw-locked .pw-gate{display:flex;}
         <p class="label">The details</p>
         <h2 class="h2">Small details, built for speed and trust.</h2>
         <div class="detail-grid">
-          <div class="detail"><div class="shot"><video autoplay loop muted playsinline poster="detail-status.png" aria-label="Status pills in the requirements table"><source src="detail-status.mp4" type="video/mp4"><img src="detail-status.png" alt="Status pills pairing icons with labels"></video></div><p class="cap"><strong>Status at a glance.</strong> Icon plus label on every pill.</p></div>
-          <div class="detail"><div class="shot"><video autoplay loop muted playsinline poster="detail-filters.png" aria-label="Search and filters in the requirements table"><source src="detail-filters.mp4" type="video/mp4"><img src="detail-filters.png" alt="Search with State and Status filters"></video></div><p class="cap"><strong>Finding things fast.</strong> Search plus State and Status filters.</p></div>
-          <div class="detail"><div class="shot"><img src="no-access.png" alt="Permission-specific empty state for an admin without access"></div><p class="cap"><strong>No access:</strong> restricted sections leave the nav, and direct links explain why.</p></div>
-          <div class="detail"><div class="shot"><img src="view-only.png" alt="View-only detail panel where Close replaces editing actions"></div><p class="cap"><strong>View-only:</strong> same structure, and Close replaces Save changes.</p></div>
+          <div class="detail"><div class="shot"><video autoplay loop muted playsinline poster="payactiv-assets/detail-status.png" aria-label="Status pills in the requirements table"><source src="payactiv-assets/detail-status.mp4" type="video/mp4"><img src="payactiv-assets/detail-status.png" alt="Status pills pairing icons with labels"></video></div><p class="cap"><strong>Status at a glance.</strong> Icon plus label on every pill.</p></div>
+          <div class="detail"><div class="shot"><video autoplay loop muted playsinline poster="payactiv-assets/detail-filters.png" aria-label="Search and filters in the requirements table"><source src="payactiv-assets/detail-filters.mp4" type="video/mp4"><img src="payactiv-assets/detail-filters.png" alt="Search with State and Status filters"></video></div><p class="cap"><strong>Finding things fast.</strong> Search plus State and Status filters.</p></div>
+          <div class="detail"><div class="shot"><img src="payactiv-assets/no-access.png" alt="Permission-specific empty state for an admin without access"></div><p class="cap"><strong>No access:</strong> restricted sections leave the nav, and direct links explain why.</p></div>
+          <div class="detail"><div class="shot"><img src="payactiv-assets/view-only.png" alt="View-only detail panel where Close replaces editing actions"></div><p class="cap"><strong>View-only:</strong> same structure, and Close replaces Save changes.</p></div>
         </div>
 
         <h3 class="h3 mt-56">No single layout fits every page, so the content decides.</h3>
         <p class="p">I explored three ways to show requirements, and realized they didn’t all have to fit into one box. The layout adapts: cards when there are only a couple of products, like EWA and Paycard, and tables when admins need to compare across many states.</p>
         <div class="thumbs mt-24">
-          <div><div class="shot"><img src="Card-based.png" alt="Card-based layout separating EWA and Paycard"></div><p class="cap">Cards: simple and easy to discover.</p></div>
-          <div><div class="shot"><img src="State-table.png" alt="State-level table comparing requirements across states"></div><p class="cap">State table: built for comparing.</p></div>
-          <div><div class="shot"><img src="Requirement-table.png" alt="Requirement-level table with direct access to requirements"></div><p class="cap">Requirement table: direct, but dense too early.</p></div>
+          <div><div class="shot"><img src="payactiv-assets/Card-based.png" alt="Card-based layout separating EWA and Paycard"></div><p class="cap">Cards: simple and easy to discover.</p></div>
+          <div><div class="shot"><img src="payactiv-assets/State-table.png" alt="State-level table comparing requirements across states"></div><p class="cap">State table: built for comparing.</p></div>
+          <div><div class="shot"><img src="payactiv-assets/Requirement-table.png" alt="Requirement-level table with direct access to requirements"></div><p class="cap">Requirement table: direct, but dense too early.</p></div>
         </div>
       </section>
 
@@ -683,18 +680,18 @@ body.pw-locked .pw-gate{display:flex;}
       <section id="next" class="cs-section">
         <p class="label">What’s next</p>
         <h2 class="h2">Next, I’ll learn from what actually gets built.</h2>
-        <p class="p">Once the new IA ships, we’ll measure onboarding time and clicks against the projection. It’s already absorbing existing Core concepts, like [example concepts], without needing to be rebuilt.</p>
+        <p class="p">Pages are moving through sprints, and some are almost built. Existing Core concepts have already been reflowed and retrofitted into the new IA. Once it ships, we’ll measure onboarding time and clicks against the goal.</p>
 
         <div class="tracker">
           <div class="done"><div class="trk-top"><span class="trk-dot"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></span><span class="trk-line"></span></div><p class="trk-state">Done</p><p class="trk-title">IA and framework designed</p></div>
-          <div class="now"><div class="trk-top"><span class="trk-dot"></span><span class="trk-line"></span></div><p class="trk-state">In progress</p><p class="trk-title">Grooming stories with the team</p></div>
+          <div class="now"><div class="trk-top"><span class="trk-dot"></span><span class="trk-line"></span></div><p class="trk-state">In progress</p><p class="trk-title">Pages moving through sprints, some almost built</p></div>
           <div><div class="trk-top"><span class="trk-dot"></span><span class="trk-line"></span></div><p class="trk-state">Next</p><p class="trk-title">QA review of the build</p></div>
           <div><div class="trk-top"><span class="trk-dot"></span><span class="trk-line"></span></div><p class="trk-state">Next</p><p class="trk-title">Usability testing with Core admins</p></div>
         </div>
 
         <div class="lesson">
-          <div><p class="k">What I learned</p><h3>Learn by doing.</h3></div>
-          <p>Everything here was time-sensitive. I spent time learning the domain, but I really learned it by getting my hands dirty, designing early, and letting people poke holes.</p>
+          <div><p class="k">What this process taught me</p><h3>Start with the system, and get the foundation right.</h3></div>
+          <p>I came in with a few configuration stories, but the real work was underneath them. Once the foundation was right, every page after it, from support lookups to partner configurations, had an obvious place to go.</p>
         </div>
 
         <p class="scope">Scope note: this case study is a snapshot of ongoing work through November 2026. Some product details have been generalized to protect confidential information.</p>
@@ -767,28 +764,6 @@ body.pw-locked .pw-gate{display:flex;}
 </footer>
 
 <script>
-/* password gate */
-(function(){
-  var PASS='WIP2026';
-  var body=document.body;
-  try{
-    if(sessionStorage.getItem('payactiv-unlocked')==='1'){body.classList.remove('pw-locked');return;}
-  }catch(e){}
-  var form=document.getElementById('pwForm');
-  var input=document.getElementById('pwInput');
-  var err=document.getElementById('pwError');
-  setTimeout(function(){input.focus();},300);
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    if(input.value===PASS){
-      try{sessionStorage.setItem('payactiv-unlocked','1');}catch(e2){}
-      body.classList.remove('pw-locked');
-    }else{
-      err.style.display='block';
-      input.select();
-    }
-  });
-})();
 function toggleMobileMenu(){
   const btn=document.getElementById('mobileMenuBtn');
   const menu=document.getElementById('mobileMenu');
