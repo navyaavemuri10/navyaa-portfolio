@@ -92,7 +92,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .meta dd{font-size:15px;line-height:1.55;color:var(--ink);}
 
 /* media */
-.shot{border-radius:16px;overflow:hidden;background:var(--mist);}
+.shot{border-radius:0;background:transparent;}
 .shot img,.shot video{width:100%;display:block;cursor:zoom-in;}
 .cap{font-size:14px;line-height:1.6;color:var(--slate);margin-top:12px;max-width:820px;}
 .cap strong{color:var(--ink);font-weight:500;}
@@ -236,7 +236,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .thumbs img{height:100%;object-fit:cover;object-position:top;}
 
 /* cropped screenshots: hides browser bar + sidebar. Tweak --zoom / --left / --top if needed */
-.crop{aspect-ratio:16/10;position:relative;}
+.crop{aspect-ratio:16/10;position:relative;border-radius:12px;overflow:hidden;background:#fff;}
 .crop img{position:absolute;width:var(--zoom,128%);max-width:none;left:var(--left,-23%);top:var(--top,-6%);height:auto;object-fit:initial;}
 .opt-pick .shot{outline:2px solid var(--ink);outline-offset:3px;}
 /* next */
@@ -630,23 +630,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
           </div>
           <p class="p mt-24">I went with cards. Each product, like EWA and Paycard, gets its own card, so admins can compare them at a glance and find what they need without digging.</p>
 
-          <!-- Pins: nudge each --x / --y (percent of the image) to sit on the right part of framework.png -->
-          <div class="shot pinned mt-24">
+          <div class="shot mt-24">
             <img src="framework.png" alt="Partner configuration page built on the page framework, with breadcrumbs, title, tabs, table, status pills, filters, and side panel">
-            <span class="pin" style="--x:12%;--y:5%" aria-hidden="true">1</span>
-            <span class="pin" style="--x:12%;--y:12%" aria-hidden="true">2</span>
-            <span class="pin" style="--x:40%;--y:32%" aria-hidden="true">3</span>
-            <span class="pin" style="--x:30%;--y:50%" aria-hidden="true">4</span>
-            <span class="pin" style="--x:52%;--y:58%" aria-hidden="true">5</span>
-            <span class="pin" style="--x:86%;--y:30%" aria-hidden="true">6</span>
-          </div>
-          <div class="key">
-            <div><b><i>1</i>Breadcrumbs</b>Where you are, with a path back up</div>
-            <div><b><i>2</i>Title</b>Whose configuration you’re in</div>
-            <div><b><i>3</i>Search and filters</b>By State and Status</div>
-            <div><b><i>4</i>Product cards</b>One card per product, easy to compare</div>
-            <div><b><i>5</i>Status pills</b>Icon plus label, never color alone</div>
-            <div><b><i>6</i>Side panel</b>Details without leaving the page</div>
           </div>
         </div>
 
