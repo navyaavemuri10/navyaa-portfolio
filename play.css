@@ -1,0 +1,36 @@
+/* PLAY CANVAS: a pannable, dotted board that fills the play tab */
+.play-section{padding-top:40px;padding-bottom:80px;}
+.pl-canvas{
+  position:relative;width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);
+  height:min(80vh,820px);min-height:520px;overflow:hidden;outline:none;
+  cursor:grab;touch-action:none;
+  background-color:#FAFAF8;
+  background-image:radial-gradient(#CDD1DB 1.1px,transparent 1.3px);
+  background-size:22px 22px;
+  border-top:1px solid #DCDFE6;border-bottom:1px solid #DCDFE6;
+}
+.pl-canvas.dragging{cursor:grabbing;}
+.pl-canvas:focus-visible{box-shadow:inset 0 0 0 2px #2E44C9;}
+.pl-world{position:absolute;top:0;left:0;will-change:transform;}
+.pl-item{position:absolute;display:block;text-decoration:none;color:#14182B;transform:rotate(var(--r,0deg));}
+.pl-media{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 12px 32px rgba(20,24,43,.10),0 1px 3px rgba(20,24,43,.06);}
+.pl-media img,.pl-media video{width:100%;display:block;pointer-events:none;user-select:none;-webkit-user-select:none;}
+.pl-cap{margin-top:14px;font-family:"DM Sans",sans-serif;}
+.pl-title{font-size:16px;font-weight:500;letter-spacing:-.01em;color:#14182B;}
+.pl-desc{font-size:14px;line-height:1.5;color:#5B6478;margin-top:3px;}
+a.pl-item:hover .pl-title{color:#2E44C9;}
+a.pl-item:focus-visible{outline:2px solid #2E44C9;outline-offset:6px;border-radius:12px;}
+.pl-note{background:#F8F1E4;padding:28px 30px 30px;box-shadow:0 12px 28px rgba(20,24,43,.10);
+  font-family:"Goudy Bookletter 1911",serif;font-style:italic;font-size:22px;line-height:1.45;color:#14182B;}
+.pl-note .sig{display:block;margin-top:16px;font-size:18px;color:#5B6478;}
+.pl-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  font-family:"DM Sans",sans-serif;font-size:13px;color:#5B6478;background:#fff;
+  border:1px solid #DCDFE6;border-radius:999px;padding:7px 14px;pointer-events:none;transition:opacity .3s ease;}
+/* phones: a simple vertical stack instead of a pannable board */
+@media(max-width:700px){
+  .pl-canvas{height:auto;min-height:0;cursor:auto;touch-action:auto;padding:28px 20px 40px;}
+  .pl-world{position:static;transform:none!important;width:auto!important;height:auto!important;display:flex;flex-direction:column;gap:36px;}
+  .pl-item{position:static;width:auto!important;transform:none;}
+  .pl-hint{display:none;}
+}
+@media(prefers-reduced-motion:reduce){.pl-hint{transition:none;}}
